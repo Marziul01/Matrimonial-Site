@@ -81,7 +81,7 @@
                     <div class="d-flex w-100 justify-content-center align-items-center p-5" style="height: 100%">
                         <div class="card p-3">
                             <div class="">
-                                <label class="form-label">Enter Password</label>
+                                <label class="form-label">Create Password</label>
                                 <input class="form-group form-control" type="password" name="password" placeholder="Enter Your Password">
                                 <button class="btn submitBtn mt-4" type="submit">Sign Up</button>
                                 <a class="btn btn-success close-popup mt-4" id="passGoBack">Go Back</a>
