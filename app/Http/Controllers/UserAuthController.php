@@ -6,7 +6,7 @@ use App\Mail\ResetPasswordMail;
 use App\Models\Category;
 use App\Models\SiteSetting;
 use App\Models\User;
-use App\Models\Userinfo;
+use App\Models\UserInfo;
 use App\Notifications\NewOrderNotification;
 use App\Notifications\NewUserNotification;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -51,7 +51,7 @@ class UserAuthController extends Controller
 
         $user = self::$auth->id;
 
-        $userInfo = new Userinfo();
+        $userInfo = new UserInfo();
         $userInfo->user_id = $user;
         $userInfo->looking_for = $request->looking_for;
         $userInfo->account_for = $request->account_for;
