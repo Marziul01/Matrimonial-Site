@@ -135,6 +135,18 @@ input[type="checkbox"]{
     z-index: 999999999;
     padding-top: 14%;
 }
+.passwordPopup{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: #f4366238;
+    top: 0%;
+    z-index: 999999999;
+    backdrop-filter: blur(2px);
+}
+.passwordPopup .card{
+    width: 50%;
+}
 @media (max-width: 767px){
     .headerMain .logo .logopic{
         width: 90%;
@@ -151,5 +163,8 @@ input[type="checkbox"]{
     }
     .popupModal{
         padding-top: 60%;
+    }
+    .passwordPopup .card{
+        width: 100%;
     }
 }

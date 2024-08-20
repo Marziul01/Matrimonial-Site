@@ -49,6 +49,7 @@ class UserAuthController extends Controller
         self::$auth->number = $request->number;
         self::$auth->save();
 
+        Auth::login(self::$auth);
         $user = self::$auth->id;
 
         $userInfo = new UserInfo();

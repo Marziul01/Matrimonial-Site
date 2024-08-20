@@ -69,14 +69,22 @@
                                 </label>
                             </div>
                         </div>
-                        <div class=" mt-3" style="display:none" id="pass">
-                            <p class="mb-3">Enter Password</p>
-                            <input class="form-group form-control" type="password" name="password" placeholder="Enter Your Password">
-                        </div>
                         <div id="submitBtndiv" style=" display:none">
                             <div class="d-flex justify-content-center align-items-center column-gap-2 mt-3">
                                 <p class="">Allow me to</p>
-                                <button class="btn submitBtn" type="submit">Sign Up</button>
+                                <a class="btn submitBtn" id="passPopup">Sign Up</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="passwordPopup" id="passPop">
+                    <div class="d-flex w-100 justify-content-center align-items-center p-5" style="height: 100%">
+                        <div class="card p-3">
+                            <div class="">
+                                <label class="form-label">Enter Password</label>
+                                <input class="form-group form-control" type="password" name="password" placeholder="Enter Your Password">
+                                <button class="btn submitBtn mt-4" type="submit">Sign Up</button>
+                                <a class="btn btn-success close-popup mt-4" id="passGoBack">Go Back</a>
                             </div>
                         </div>
                     </div>
@@ -88,11 +96,10 @@
         <div class="popupModalDiv d-flex align-items-center justify-content-center p-5">
             <div class="card d-flex flex-column row-gap-3 justify-content-between align-items-center p-5">
                 <h4 class="text-center">Your Registration is Successfully completed !</h4>
-                <a href="{{ route('login') }}" class="btn btn-danger">Login Now </a>
-                <a class="btn btn-sm btn-danger close-popup">x</a>
             </div>
         </div>
     </div>
+
 
 @endsection
 
@@ -154,6 +161,39 @@
 
     </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const passPopupButton = document.getElementById('passPopup');
+        const passPopSection = document.getElementById('passPop');
+        const passGoBackButton = document.getElementById('passGoBack');
+
+        // Initially hide the 'passPop' section
+        if (passPopSection) {
+            passPopSection.style.display = 'none';
+        }
+
+        // Show the section when the 'passPopup' button is clicked
+        if (passPopupButton) {
+            passPopupButton.addEventListener('click', function() {
+                if (passPopSection) {
+                    passPopSection.style.display = 'block'; // Show the section
+                }
+            });
+        }
+
+        // Hide the section when the 'passGoBack' button is clicked
+        if (passGoBackButton) {
+            passGoBackButton.addEventListener('click', function() {
+                if (passPopSection) {
+                    passPopSection.style.display = 'none'; // Hide the section
+                }
+            });
+        }
+    });
+</script>
+
+
+
     <script>
        $(document).ready(function () {
     $('#sign-up').on('submit', function (e) {
@@ -173,6 +213,9 @@
 
                     $('#popup').removeClass('d-none').fadeIn();
                     // Redirect to the dashboard after a short delay
+                    setTimeout(function () {
+                                window.location.href = response.redirect;
+                            }, 2000); // Redirect after 2 seconds
                 }
             },
             error: function (xhr) {
