@@ -579,3 +579,18 @@ span.popular-price {
   margin-top: 8px;
   margin-right: 8px;
 }
+@media (max-width: 767px){
+    .login-wrapper{
+       background-image: url(../../imgs/mobile-login.jpg) !important;
+       background-size: cover;
+       background-position: bottom center;
+       background-repeat: no-repeat;
+       padding-top: 50px;
+    }
+}
+.toast-success {
+    background-color: #28a745 !important; /* Green background */
+}
+.toast-error {
+    background-color: #dc3545 !important; /* Red background */
+}

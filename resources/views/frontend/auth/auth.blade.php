@@ -19,6 +19,8 @@
     <!-- Template Main CSS -->
     <link rel="stylesheet" href="{{ asset('frontend-assets') }}/assets/css/style.css" />
     <link rel="stylesheet" href="{{ asset('frontend-assets') }}/assets/css/responsive.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
 
     <!-- Fonts -->
     <style>
@@ -88,45 +90,51 @@
 
     <script>
         $(document).ready(function () {
-            $('#login').on('submit', function (e) {
-                e.preventDefault(); // Prevent default form submission
+    $('#login').on('submit', function (e) {
+        e.preventDefault(); // Prevent default form submission
 
-                // Serialize form data
-                let formData = $(this).serialize();
+        // Serialize form data
+        let formData = $(this).serialize();
 
-                // Perform AJAX request
-                $.ajax({
-                    url: '{{ route("user.login") }}',
-                    type: 'POST',
-                    data: formData,
-                    dataType: 'json',
-                    success: function (response) {
-                        if (response.success) {
-                            toastr.success('Login Successful! Redirecting...');
-                            setTimeout(function () {
-                                window.location.href = response.redirect;
-                            }, 2000); // Redirect after 2 seconds
-                        } else {
-                            toastr.error(response.message || 'Login failed. Please try again.');
-                        }
-                    },
-                    error: function (xhr) {
-                        if (xhr.status === 422) {
-                            let errors = xhr.responseJSON.errors;
-                            let errorMessage = '';
+        // Perform AJAX request
+        $.ajax({
+            url: '{{ route("user.login") }}',
+            type: 'POST',
+            data: formData,
+            dataType: 'json',
+            success: function (response) {
+                if (response.success) {
+                    toastr.success('Login Successful! Redirecting...');
+                    setTimeout(function () {
+                        window.location.href = response.redirect;
+                    }, 2000); // Redirect after 2 seconds
+                } else {
+                    toastr.error(response.message || 'Login failed. Please try again.');
+                }
+            },
+            error: function (xhr) {
+                if (xhr.status === 422) {
+                    // Handle validation errors
+                    let errors = xhr.responseJSON.errors;
+                    let errorMessage = '';
 
-                            $.each(errors, function (key, value) {
-                                errorMessage += value[0] + '<br>'; // Display errors
-                            });
+                    $.each(errors, function (key, value) {
+                        errorMessage += value[0] + '<br>'; // Display errors
+                    });
 
-                            toastr.error(errorMessage);
-                        } else {
-                            toastr.error('An error occurred. Please try again.');
-                        }
-                    }
-                });
-            });
+                    toastr.error(errorMessage);
+                } else if (xhr.status === 401) {
+                    // Handle authentication errors
+                    toastr.error(xhr.responseJSON.message || 'Invalid mobile number or password.');
+                } else {
+                    // Handle other errors
+                    toastr.error('An error occurred. Please try again.');
+                }
+            }
         });
+    });
+});
+
     </script>
 </body>
 

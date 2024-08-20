@@ -27,13 +27,14 @@ class UserAuthController extends Controller
     private static $auth;
 
     public static function userRegister(Request $request) {
+
         $validator = Validator::make($request->all(), [
             'looking_for' => 'required|in:bride,groom',
             'account_for' => 'required|in:myself,others',
-            'relation' => 'nullable|string',
-            'number' => 'required|numeric',
+            'relation' => 'nullable|string|required_if:account_for,others',
+            'number' => 'required|numeric|unique:users,number',
             'terms' => 'accepted',
-            'password' => 'required',
+            'password' => 'required|min:8',
         ]);
 
         if ($validator->fails()) {
@@ -60,9 +61,6 @@ class UserAuthController extends Controller
 
         $userInfo->save();
 
-        // Flash a message to the session
-        Session::flash('sweet-alert', 'Registration Successful! You have been registered and logged in.');
-
         return response()->json(['success' => true, 'redirect' => route('user.dashboard')]);
     }
 
@@ -73,24 +71,20 @@ class UserAuthController extends Controller
 
     public function signin(Request $request)
 {
-    // Validate the request data
     $validator = Validator::make($request->all(), [
         'number' => 'required',
         'password' => 'required',
     ]);
 
-    // If validation fails, return the validation errors as JSON
     if ($validator->fails()) {
         return response()->json([
             'success' => false,
             'errors' => $validator->errors()
-        ], 422); // HTTP status code 422 for validation errors
+        ], 422);
     }
 
-    // Attempt to log in the user
     if (Auth::attempt(['number' => $request->number, 'password' => $request->password], $request->get('remember'))) {
 
-        // If there's an intended URL, redirect to it
         if (session()->has('url.intended')) {
             return response()->json([
                 'success' => true,
@@ -98,17 +92,17 @@ class UserAuthController extends Controller
             ]);
         }
 
-        // Redirect to the user dashboard on successful login
         return response()->json([
             'success' => true,
             'redirect' => route('user.dashboard')
         ]);
+
     } else {
-        // Return error response for failed login
+
         return response()->json([
             'success' => false,
             'message' => 'Invalid mobile number or password.'
-        ], 401); // HTTP status code 401 for unauthorized access
+        ], 401);
     }
 }
 

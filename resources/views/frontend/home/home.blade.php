@@ -194,54 +194,70 @@
 
 
 
-    <script>
-       $(document).ready(function () {
-    $('#sign-up').on('submit', function (e) {
-        e.preventDefault();
+<script>
+    $(document).ready(function () {
+        $('#sign-up').on('submit', function (e) {
+            e.preventDefault();
 
-        // Prepare form data
-        let formData = $(this).serialize();
+            // Prepare form data
+            let formData = $(this).serialize();
 
-        $.ajax({
-            url: '{{ route("userRegister") }}', // Using the named route
-            type: 'POST',
-            data: formData,
-            success: function (response) {
-                if (response.success) {
-                    // Show success notification
-                    toastr.success('Registration Successful! Redirecting...');
+            $.ajax({
+                url: '{{ route("userRegister") }}', // Using the named route
+                type: 'POST',
+                data: formData,
+                dataType: 'json', // Expect JSON response
+                success: function (response) {
+                    if (response.success) {
+                        // Show success notification with a green background
+                        toastr.success('Registration Successful! Redirecting...', '', {
+                            "positionClass": "toast-top-right",
+                            "timeOut": "2000", // Auto-close after 2 seconds
+                            "progressBar": true,
+                            "backgroundClass": 'bg-success', // Green background
+                        });
 
-                    $('#popup').removeClass('d-none').fadeIn();
-                    // Redirect to the dashboard after a short delay
-                    setTimeout(function () {
-                                window.location.href = response.redirect;
-                            }, 2000); // Redirect after 2 seconds
-                }
-            },
-            error: function (xhr) {
-                // Handle error, e.g., show validation errors
-                if (xhr.status === 422) {
-                    let errors = xhr.responseJSON.errors;
-                    let errorMessage = '';
+                        $('#popup').removeClass('d-none').fadeIn();
 
-                    $.each(errors, function (key, value) {
-                        errorMessage += value + '\n';
+                        // Redirect to the dashboard after a short delay
+                        setTimeout(function () {
+                            window.location.href = response.redirect;
+                        }, 2000); // Redirect after 2 seconds
+                    } else {
+                        // Handle the case where success is false and show errors
+                        let errors = response.errors;
+                        let errorMessage = '';
+
+                        // Loop through errors and concatenate the messages
+                        $.each(errors, function (key, value) {
+                            errorMessage += value[0] + '<br>'; // value is an array, so take the first element
+                        });
+
+                        // Show error notification with a red background
+                        toastr.error(errorMessage, '', {
+                            "positionClass": "toast-top-right",
+                            "backgroundClass": 'bg-danger', // Red background
+                        });
+                    }
+                },
+                error: function (xhr) {
+                    toastr.error('An unexpected error occurred. Please try again.', '', {
+                        "positionClass": "toast-top-right",
+                        "backgroundClass": 'bg-danger', // Red background
                     });
-
-                    toastr.error(errorMessage);
-                } else {
-                    toastr.error('An error occurred. Please try again.');
                 }
-            }
+            });
+        });
+
+        // Close the popup when the close button is clicked
+        $('.close-popup').on('click', function () {
+            $('#popup').fadeOut();
         });
     });
-    $('.close-popup').on('click', function () {
-        $('#popup').fadeOut();
-    });
-});
+</script>
 
 
-    </script>
+
 
 
 @endsection
