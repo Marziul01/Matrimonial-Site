@@ -1,0 +1,581 @@
+*,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  width: 100%;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+
+a:hover {
+  color: #000;
+}
+
+input:focus {
+  outline: none !important;
+  border: none;
+}
+
+button:focus {
+  outline: none !important;
+  border: none !important;
+}
+
+select:focus {
+  outline: none !important;
+  border: none !important;
+}
+
+/* =============== Root Variables =========== */
+/* poppins font */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap");
+
+/* lato font */
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&amp;family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap");
+
+@font-face {
+  font-family: "ALBINO";
+  src: url("../webfonts/ALBINO.TTF");
+}
+
+body {
+  font-size: 18px;
+  /* font-family: ALBINO; */
+  font-family: "Poppins", sans-serif;
+}
+
+/* p {
+  text-align: justify;
+} */
+
+.nav-link:focus,
+.nav-link:hover {
+  color: #000;
+}
+
+/* =============== Common CSS =========== */
+.btn-common {
+  background: #f43662;
+  color: #fff;
+  border-radius: 30px;
+  padding: 10px 30px;
+  width: fit-content;
+}
+
+.btn-common:hover {
+  background: #f43662;
+  color: #fff;
+  border-radius: 30px;
+  padding: 10px 30px;
+  width: fit-content;
+}
+
+.bg-light-pink {
+  background-color: #f436621c;
+}
+
+.section-title {
+  font-weight: 400;
+  color: #000;
+  margin-bottom: 40px;
+  font-family: "Lato", sans-serif;
+}
+
+.section-title-secondary {
+  font-weight: 400;
+  color: #000;
+  margin-bottom: 15px;
+  font-family: "Lato", sans-serif;
+}
+
+.section-subtitle-secondary {
+  font-weight: normal;
+  font-size: 18px;
+  color: #000;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+}
+
+/* =============== Navbar =========== */
+.navbar-menu li,
+.navbar-btn li {
+  margin-right: 1rem;
+  float: right;
+}
+
+.navbar-menu li a,
+.navbar-btn li a {
+  color: #000;
+  text-decoration: none;
+}
+
+.navbar-menu li a:hover {
+  color: #f00;
+  transition: all 0.5s ease;
+}
+
+.navbar-btn li:nth-child(2) {
+  background: #f43662;
+  color: #fff;
+  border-radius: 30px;
+  padding: 0px 15px;
+}
+
+.navbar-btn li:nth-child(2) a {
+  color: #fff;
+}
+
+.nvbar-md .brand-logo {
+  max-width: 150px;
+}
+
+.vertical-menu {
+  background: #f43662;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 49px;
+  left: 0;
+  transform: translateX(-1000px);
+  transition: transform 0.5s ease;
+  z-index: 99;
+}
+
+.vertical-menu .menu {
+  list-style-type: none;
+  padding: 20px 0;
+  margin: 0;
+  overflow-y: auto;
+  height: 100%;
+  line-height: 40px;
+}
+
+/* .vertical-menu .menu li:last-child{
+  background: #fff;
+  color: #000;
+  border-radius: 30px;
+  padding: 0px 15px;
+  width: fit-content;
+} */
+
+/* .vertical-menu .menu li:last-child a{
+  color: #000;
+} */
+
+.vertical-menu .menu li a {
+  color: #fff;
+  display: block;
+  text-align: left;
+  text-decoration: none;
+}
+
+/* =============== Hero =========== */
+.hero-search-box {
+  background: #f43662;
+  color: #fff;
+  border-radius: 30px;
+  padding: 10px 15px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 42px;
+}
+
+.hero-search-box button {
+  color: #fff;
+  border: none;
+  background: transparent;
+  margin-left: 8px;
+}
+
+.hero-search .form-group select,
+.hero-search .form-group input {
+  border: 1px solid #f43662 !important;
+  box-shadow: none !important;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 5px;
+  width: 100%;
+}
+
+.hero-search .form-group select:focus,
+.hero-search .form-group input:focus {
+  outline: 1px solid #f43662 !important;
+  box-shadow: none !important;
+}
+
+.hero-search {
+  background: #fff;
+  padding: 15px 30px;
+  border-radius: 5px;
+  color: #000;
+  padding-bottom: 40px;
+}
+
+#hero-section {
+  position: relative;
+  background-image: url("../images/hero/hero.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 100px 0;
+  color: white;
+  margin-top: 20px;
+  height: 80vh;
+  display: grid;
+  align-content: center;
+  margin-right: 35px;
+  margin-left: 35px;
+  border-radius: 16px;
+}
+
+#hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f4366238; /* Adjust color and opacity */
+  z-index: 1;
+  border-radius: 16px;
+}
+
+#hero-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* =============== Counter =========== */
+.counter-counts {
+  font-size: 40px;
+  color: #000;
+  margin-bottom: 5px;
+}
+
+.counter-title {
+  font-size: 20px;
+  color: #000;
+}
+
+.key-feature-list li:before {
+  content: "\2705";
+  color: #f43662;
+  margin-right: 8px;
+}
+
+.counter-icon img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 8px;
+}
+
+/* =============== How it works =========== */
+.work-step {
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.step-number {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-color: #f43662; /* Adjust this color to match your theme */
+  color: white;
+  text-align: center;
+  border-radius: 50%;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.section-cover img {
+  max-width: 100%;
+  height: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+/* =============== Newsletter =========== */
+.newsletter-box form {
+  width: 70%;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+
+.newsletter-box input {
+  width: 50%;
+  height: 45px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 1px solid #f43662 !important;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+.newsletter-box input:focus {
+  outline: 1px solid #f43662 !important;
+  box-shadow: none !important;
+}
+
+.newsletter-box button {
+  position: absolute;
+  right: -23px;
+  top: 0;
+  border: none !important;
+  height: 45px;
+}
+
+/* =============== Footer =========== */
+.footer {
+  color: #000;
+}
+
+.footer .brand-logo {
+  width: 50%;
+}
+
+.footer-social li a {
+  color: #000;
+  margin-right: 14px;
+}
+.footer-social {
+  display: flex;
+  margin: 10px 0;
+  font-size: 18px;
+  color: #000;
+}
+
+.footer ul li a {
+  color: #000;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+/* =============== Login =========== */
+
+/* .login-wrapper {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+
+.login-form {
+  max-width: 600px;
+  width: 100%;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+
+.signup-form {
+  width: 100%;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+
+.signup-form .form-group select,
+.signup-form .form-group input,
+.login-form .form-group select,
+.login-form .form-group input {
+  outline: 1px solid #f43662 !important;
+  box-shadow: none !important;
+}
+
+.signup-form .form-group select,
+.signup-form .form-group input:focus,
+.login-form .form-group select,
+.login-form .form-group input:focus {
+  outline: 1px solid #f43662 !important;
+  box-shadow: none !important;
+}
+
+.welcome-section {
+  position: relative;
+  background-color: #f5faff;
+  text-align: center;
+  background-image: url("../images/hero/hero.jpg");
+  background-size: cover;
+  background-position: center;
+  color: white; /* Adjust text color for better readability */
+  height: 100vh;
+}
+
+.welcome-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f4366238;
+  z-index: 1;
+}
+
+/* .signup-bg {
+  position: relative;
+  background-color: #f5faff;
+  text-align: center;
+  background-image: url("../images/hero/hero.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+.signup-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f4366238;
+  z-index: 1;
+  border-radius: 16px;
+} */
+
+.signup-form {
+  z-index: 2;
+}
+
+.login-welcome {
+  z-index: 2;
+  color: #fff;
+}
+
+/* .welcome-section h1 {
+  color: #2b50ed;
+  z-index: 4;
+} */
+
+.welcome-section p.lead {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  z-index: 2;
+}
+
+@media (max-width: 992px) {
+  .welcome-section {
+    margin-top: 30px;
+  }
+
+  .charts img {
+    max-width: 80%;
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-form,
+  .welcome-section {
+    padding: 20px;
+  }
+}
+
+/* =============== Pricing =========== */
+.pricing {
+  color: #ffffff;
+}
+
+.pricing .card {
+  border-radius: 15px;
+  background: #f43662;
+  border: none;
+}
+
+.pricing h2 {
+  font-weight: 700;
+  color: #000 !important;
+  font-family: lato, sans-serif;
+}
+
+.pricing .text-highlight {
+  color: #ff6ec7;
+}
+
+.pricing .card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.pricing .pricing-price {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.pricing .card-text {
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+
+.pricing .btn-primary {
+  background-color: #e54e71;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 30px;
+}
+
+.pricing .btn-outline-primary {
+  color: #fff;
+  border: 2px solid #e54e71;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 30px;
+}
+
+.pricing .btn-primary:hover,
+.pricing .btn-outline-primary:hover {
+  background-color: #e54e71;
+  color: #fff;
+}
+
+@media (max-width: 992px) {
+  .pricing .card {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.list-unstyled li:before {
+  content: "\2705";
+  color: #f43662;
+  margin-right: 8px;
+}
+
+span.popular-price {
+  color: #fff;
+  border: 2px solid #e15173;
+  padding: 2px 25px;
+  font-size: 1rem;
+  border-radius: 30px;
+  background: #e15173;
+  margin-left: auto;
+  display: block;
+  width: fit-content;
+  margin-top: 8px;
+  margin-right: 8px;
+}

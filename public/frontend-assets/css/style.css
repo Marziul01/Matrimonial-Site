@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Pacifico&display=swap');
+
+h1,h2,h3,h4,h5,h6,p,span,a,button,input,label{
+    font-family: "Figtree", sans-serif;
+
+}
+p{
+    margin-bottom: 0px;
+}
+.section{
+    width:100% !important;
+    padding: 0 3%;
+}
+.homebg{
+    background-image: url('../imgs/hero.jpg');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    min-height: 88vh;
+}
+.homebg::before{
+    content: '';
+    opacity: 1;
+    left: 0;
+    background-color: #f4366238;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
+.headerMain{
+    padding: 20px 0;
+}
+.home-section{
+    position: relative;
+    z-index: 3;
+    height: 100%;
+}
+.w-60{
+    width: 60%;
+}
+.w-30{
+    width: 30%;
+}
+.w-70{
+    width: 70%;
+}
+.w-40{
+    width: 40%;
+}
+.homeMain-heading{
+    font-size: 70px;
+    font-family: "Pacifico", cursive;
+}
+.homeMain-subheading{
+    margin-top: 20px;
+    font-size: 22px;
+}
+.homeMain-heading2{
+    font-size: 40px;
+    font-family: "Pacifico", cursive;
+    padding-bottom: 25px;
+    border-bottom: 1px solid white;
+}
+.form-group{
+    padding: 10px;
+    border: 1px solid #f43662;
+    border-radius: 20px;
+}
+
+/* .form-check{
+    padding-left: 10px;
+} */
+input[type="radio"]{
+    box-shadow: none;
+}
+input[type="checkbox"]{
+    box-shadow: none;
+}
+/* .form-check label{
+    padding: 3px 10px;
+    border: 1px solid white;
+    color: white;
+    border-radius: 10px;
+}
+.form-check input[type="radio"]:checked + label{
+    background: hotpink;
+    border-color: hotpink;
+} */
+.submitBtn{
+    color: white;
+    border: 1px solid white;
+    border-radius: 10px;
+    background-color: #f43662;
+}
+.submitBtn:hover
+{
+    background-color: #f43662;
+    border-color: #f43662;
+    color: white;
+}
+.menu_item{
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    padding: 10px;
+    transition: all 0.3s ease-in;
+}
+.menu_item:hover{
+    color: #f43662;
+    border-bottom: 1px solid #f43662;
+}
+.loginBtn{
+    font-size: 18px;
+    color: white;
+    background-color: #f43662;
+    border-radius: 10px;
+    padding: 5px 15px;
+}
+.loginBtn:hover{
+    background-color: transparent;
+    color: #f43662;
+    border-color: #f43662;
+}
+.popupModal{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: #f4366238;
+    top: 0%;
+    z-index: 999999999;
+    padding-top: 14%;
+}
+@media (max-width: 767px){
+    .headerMain .logo .logopic{
+        width: 90%;
+        height: 30px;
+    }
+    .headerMain .logo .icon{
+        width: 17%;
+    }
+    .headerMain .w-30{
+        width: 50% !important;
+    }
+    .homeMain-heading{
+        font-size: 40px;
+    }
+    .popupModal{
+        padding-top: 60%;
+    }
+}

@@ -1,0 +1,73 @@
+/* =========================== 
+    Responsive styles 
+============================ */
+
+/* Large Devices, Wide Screens */
+@media (min-width: 1200px) {
+}
+
+/* Medium Devices, Desktops */
+@media (min-width: 992px) {
+}
+
+/* Small Devices, Tablets */
+@media (min-width: 768px) and (max-width: 991px) {
+}
+
+/* Extra Small Devices, Phones */
+@media (min-width: 480px) and (max-width: 767px) {
+  #hero-section {
+    height: 100vh;
+  }
+
+  .hero-search {
+    margin-top: 1rem !important;
+  }
+
+  .section-content.create-profile {
+    margin-top: 50px;
+  }
+
+  .newsletter-box form {
+    width: 100%;
+  }
+
+  .newsletter-box input {
+    width: 100%;
+  }
+
+  .key-feature-section {
+    margin: 0 !important;
+    padding-top: 0 !important;
+  }
+}
+
+/* Extra Small Devices, Phones */
+@media (min-width: 320px) and (max-width: 478px) {
+  #hero-section {
+    height: 100vh;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .hero-search {
+    margin-top: 1rem !important;
+  }
+
+  .section-content.create-profile {
+    margin-top: 50px;
+  }
+
+  .newsletter-box form {
+    width: 100%;
+  }
+
+  .newsletter-box input {
+    width: 100%;
+  }
+
+  .key-feature-section {
+    margin: 0 !important;
+    padding-top: 0 !important;
+  }
+}
