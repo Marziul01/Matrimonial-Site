@@ -28,7 +28,7 @@
     </div>
 </header>
 @else
-<header class="container">
+<header class="section border-bottom-1" style="border: 1px solid rgb(0 0 0 / 18%)">
     <div class=" headerMain d-flex justify-content-between align-items-center w-100">
         <div class="w-30">
             <div class="logo d-flex align-items-center column-gap-2">
