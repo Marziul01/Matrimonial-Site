@@ -45,6 +45,8 @@
                       <span>Welcome {{ Auth::user()->name }} ,</span>  <img src="{{ asset('frontend-assets') }}/imgs/man.png">
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href=""> View Profile</a></li>
+                        <li><a class="dropdown-item" href=""> Change Password</a></li>
                       <li><a class="dropdown-item" href="{{ route('user.logout') }}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
                     </ul>
                 </div>
