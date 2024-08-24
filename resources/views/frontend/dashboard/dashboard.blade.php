@@ -555,7 +555,7 @@
                                 <div class="row p-0">
                                     <div class="col-md-4 mt-0">
                                         <div class="imageDrop">
-                                            {{-- <img src="{{ asset($profileDetails->image) }}" class="w-60"> --}}
+                                            <img src="{{ asset($profileDetails->image) }}" class="w-60">
                                         </div>
                                     </div>
                                     <div class="col-md-8">
