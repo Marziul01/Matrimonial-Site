@@ -476,13 +476,17 @@ input[type="checkbox"]{
     border-radius: 10px;
 
 }
-.profile-next-step, .profile-submit-form, .profile-next-step:hover, .profile-submit-form:hover{
+.profile-next-step, .profile-submit-form, .profile-next-step:hover, .profile-submit-form:hover, .profile-next-step:active, .profile-submit-form:active{
     background-color: #F43662;
     color: white;
     padding: 8px 16px;
     border: none;
     border-radius: 10px;
     float: right;
+}
+:not(.btn-check)+.btn:active{
+    background-color: #F43662;
+    color: white;
 }
 .partner-next-step, .partner-submit-form{
     background-color: #F43662;
@@ -600,7 +604,7 @@ input:focus, textarea:focus, select:focus-visible {
     position: relative;
   }
 
-  .profileInput::before {
+  .yourProfileCreate .profileInput::before {
     content: attr(placeholder);
     position: absolute;
     left: 10px;
@@ -610,32 +614,38 @@ input:focus, textarea:focus, select:focus-visible {
     pointer-events: none;
   }
 
-  .date-picked :not(:placeholder-shown)::before {
-    display: none !important; /* Hides the placeholder when a date is picked*/
+  .yourProfileCreate .date-picked :not(:placeholder-shown)::before {
+    display: none !important;
   }
-  .date-picked::before {
+  .yourProfileCreate .date-picked::before {
     display: none !important;
   }
 
-  .profileInput::-webkit-datetime-edit-text,
-  .profileInput::-webkit-datetime-edit-month-field,
-  .profileInput::-webkit-datetime-edit-day-field,
-  .profileInput::-webkit-datetime-edit-year-field {
-    color: transparent !important; /* Hides the 'dd/mm/yy' text initially */
+  .yourProfileCreate .profileInput::-webkit-datetime-edit-text,
+  .yourProfileCreate .profileInput::-webkit-datetime-edit-month-field,
+  .yourProfileCreate .profileInput::-webkit-datetime-edit-day-field,
+  .yourProfileCreate .profileInput::-webkit-datetime-edit-year-field {
+    color: transparent !important;
   }
- input, select {
+.dashboardMain input, select {
     background-color: transparent !important;
-    -webkit-appearance: none; /* Removes default styling on WebKit browsers */
-    -moz-appearance: none; /* Removes default styling on Mozilla browsers */
-    appearance: none; /* Removes default styling on other browsers */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
-.date-picked::-webkit-datetime-edit-text,
-  .date-picked::-webkit-datetime-edit-month-field,
-  .date-picked::-webkit-datetime-edit-day-field,
-  .date-picked::-webkit-datetime-edit-year-field {
-    color: black !important; /* Hides the 'dd/mm/yy' text initially */
+.yourProfileCreate .date-picked::-webkit-datetime-edit-text,
+.yourProfileCreate .date-picked::-webkit-datetime-edit-month-field,
+.yourProfileCreate .date-picked::-webkit-datetime-edit-day-field,
+.yourProfileCreate .date-picked::-webkit-datetime-edit-year-field {
+    color: black !important;
   }
+a{
+    text-decoration: none !important;
+}
 
+.dashboardNav .collapse .nav-link{
+    font-size: 15px;
+  }
 
 @media (max-width: 767px){
     .headerMain .logo .logopic{
@@ -663,26 +673,30 @@ input:focus, textarea:focus, select:focus-visible {
     .mobile-navbar{
         padding: 30px 12px 0 0px;
         border-right: 1px solid rgb(0 0 0 / 18%);
-        width: 50%;
+        width: 40%;
         height: 100vh;
         position: absolute;
         background: white;
         z-index: 99999999;
         left: -55%;
+        opacity: 0;
+        transition: all 0.4s ease-in;
     }
     .mobile-navbar.active {
         display: block;
-        left: 0; /* or left: 50% to adjust as needed */
+        left: 0;
+        opacity: 1;
+        transition: all 0.4s ease-out;
     }
     .tab-content .row {
         padding: 10px 0px 20px 0px;
     }
    .mobileNavtoggle {
-        padding: 10px 10px;
+        padding: 6px 10px;
     background: transparent;
     color: #f43662;
     border-radius: 5px;
-    display: flex;
+    display: block;
     justify-content: center;
     align-items: center;
     border: 1px solid #F43662;
@@ -729,5 +743,15 @@ input:focus, textarea:focus, select:focus-visible {
       }
       .dashboardLogOut{
         margin-bottom: 160px !important;
+      }
+      .mobile-navbar .nav-link{
+        border-width: 1px;
+        font-size: 14px;
+        padding: 5px;
+        margin-bottom: 8px;
+      }
+
+      .mobile-navbar .collapse .nav-link{
+        font-size: 12px;
       }
 }

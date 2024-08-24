@@ -10,7 +10,7 @@
 
 @section('content')
 
-<div class="section d-flex align-items-center position-fixed">
+<div class="section d-flex align-items-center position-fixed dashboardMain">
     <div class="card w-100 border-0">
         <div class="card-body w-100  pb-0 pt-0">
             <div class="d-flex align-items-start column-gap-3">
@@ -18,18 +18,28 @@
                     <div class="nav flex-column justify-content-between nav-pills me-3 dashboardNav mobile-navbar d-md-none " id="mobileNavbar">
                         <div class="">
                             <button class="nav-link dashboardButton active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Dashboard</button>
+                            <div id="accordionExample1">
                             <a class="nav-link dropdown-toggle text-center" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                                 Profile
                             </a>
-                            <div class="collapse mb-3" id="collapseExample">
+                            <div class="collapse mb-3" id="collapseExample" data-bs-parent="#accordionExample1">
                                 <div class="card card-body">
                                     <button class="nav-link" id="v-pills-your-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-your-profile" type="button" role="tab" aria-controls="v-pills-your-profile" aria-selected="true">Create Your Profile</button>
                                     <button class="nav-link mb-0" id="v-pills-your-partner-tab" data-bs-toggle="pill" data-bs-target="#v-pills-your-partner-profile" type="button" role="tab" aria-controls="v-pills-your-partner-profile" aria-selected="true">Create Your Partner Profile</button>
                                 </div>
                             </div>
-                            <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</button>
+                            <a class="nav-link dropdown-toggle text-center" data-bs-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1">
+                                Settings
+                            </a>
+                            <div class="collapse mb-3" id="collapseExample1" data-bs-parent="#accordionExample1">
+                                <div class="card card-body">
+                                    <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Change Password</button>
+                                    <button class="nav-link" id="v-pills-editProfile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-editProfile" type="button" role="tab" aria-controls="v-pills-editProfile" aria-selected="false">Edit Profile</button>
+                                </div>
+                            </div>
+                            </div>
                             <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Buy Credit</button>
-
+                            <button class="nav-link d-none" id="v-pills-messages1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages1" type="button" role="tab" aria-controls="v-pills-messages1" aria-selected="false"></button>
                         </div>
                         <a class="nav-link text-center dashboardLogOut" href="{{ route('user.logout') }}">Logout</a>
                     </div>
@@ -37,18 +47,28 @@
                 <div class="nav flex-column justify-content-between nav-pills me-3 dashboardNav d-none d-md-block" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <div class="">
                         <button class="nav-link dashboardButton active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Dashboard</button>
+                        <div id="accordionExample">
                         <a class="nav-link dropdown-toggle text-center" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                             Profile
                         </a>
-                        <div class="collapse mb-3" id="collapseExample">
+                        <div class="collapse mb-3" id="collapseExample" data-bs-parent="#accordionExample">
                             <div class="card card-body">
                                 <button class="nav-link" id="v-pills-your-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-your-profile" type="button" role="tab" aria-controls="v-pills-your-profile" aria-selected="true">Create Your Profile</button>
                                 <button class="nav-link mb-0" id="v-pills-your-partner-tab" data-bs-toggle="pill" data-bs-target="#v-pills-your-partner-profile" type="button" role="tab" aria-controls="v-pills-your-partner-profile" aria-selected="true">Create Your Partner Profile</button>
                             </div>
                         </div>
-                        <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</button>
+                        <a class="nav-link dropdown-toggle text-center" data-bs-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1">
+                            Settings
+                        </a>
+                        <div class="collapse mb-3" id="collapseExample1" data-bs-parent="#accordionExample">
+                            <div class="card card-body">
+                                <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Change Password</button>
+                                <button class="nav-link" id="v-pills-editProfile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-editProfile" type="button" role="tab" aria-controls="v-pills-editProfile" aria-selected="false">Edit Profile</button>
+                            </div>
+                        </div>
+                        </div>
                         <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Buy Credit</button>
-                        <button class="nav-link d-none" id="v-pills-messages1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages1" type="button" role="tab" aria-controls="v-pills-messages1" aria-selected="false">Buy Credit</button>
+                        <button class="nav-link d-none" id="v-pills-messages1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages1" type="button" role="tab" aria-controls="v-pills-messages1" aria-selected="false"></button>
                     </div>
                     <a class="nav-link text-center dashboardLogOut" href="{{ route('user.logout') }}">Logout</a>
                 </div>
@@ -64,9 +84,10 @@
                                         <div class="profileCard  @if(!$profileComplete) blur @endif">
                                             <img src="{{ asset($profile->image) }}" width="100%">
                                             <div class="profileCardDiv">
-                                                <p>Name : <span> {{ $profile->first_name ?? 'N/A' }} </span></p>
+                                                <p>Name : <span> {{ $profile->first_name}} {{  $profile->last_name }} </span></p>
                                                 <p>Address : <span> {{ $profile->present_address ?? 'N/A' }} </span></p>
-                                                <p>Age : <span> {{ $profile->age ?? 'N/A' }} </span></p>
+                                                @php $age = \Carbon\Carbon::parse($profile->date_of_birth)->age; @endphp
+                                                <p>Age : <span> {{ $age ?? 'N/A' }} yr</span></p>
                                                 <p>Contact : <span style="font-style: italic; color: #F43662"> {{ $profile->contact_numbe ?? 'Please Upgrade Plan' }} </span></p>
                                                 <a class="profileDetailsBtn text-center mt-4" href="">View Details</a>
                                             </div>
@@ -85,7 +106,7 @@
                     <h2 class="p-2 mt-3 mb-0 px-4 tabForms" style="font-weight: 800; margin-left: 10px">Hey! Create Your Profile</h2>
                     <div class="row sticky-div p-0">
                         <div class="form-container pb-3">
-                            <form id="your--Profile" class="px-4 tabForms">
+                            <form id="your--Profile" class="px-4 tabForms yourProfileCreate">
                                 @csrf
                                 <ul class="nav nav-tabs profile-form-steps" id="myTab" role="tablist">
                                     <li class="nav-item border-0" role="presentation">
@@ -186,7 +207,19 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-4 pl-0 pt-2 mt-0">
-                                                <input type="text" name="hobby" placeholder="Hobby" class="profileInput">
+
+                                                    <select name="hobby" class="profileInput">
+                                                        <option value="">Select Hobby</option>
+                                                        <option value="Reading">Reading</option>
+                                                        <option value="Writing">Writing</option>
+                                                        <option value="Gaming">Gaming</option>
+                                                        <option value="Travelling">Travelling</option>
+                                                        <option value="Singing">Singing</option>
+                                                        <option value="Dancing">Dancing</option>
+                                                        <option value="Art">Art</option>
+                                                        <option value="Eating">Eating</option>
+                                                    </select>
+
                                             </div>
                                             <div class="col-md-4 pl-0 pt-2 mt-0">
 
@@ -304,7 +337,7 @@
                     <h2 class="p-2 mt-3 mb-0 px-4 tabForms" style="font-weight: 800; margin-left: 10px">Hey! Create Your Partner Profile</h2>
                     <div class="row sticky-div p-0">
                         <div class="form-container pb-3">
-                            <form id="your-partner-Profile" class="px-4 tabForms">
+                            <form id="your-partner-Profile" class="px-4 tabForms yourProfileCreate">
                                 @csrf
                                 <ul class="nav nav-tabs profile-form-steps" id="myTab" role="tablist">
                                     <li class="nav-item border-0" role="presentation">
@@ -379,19 +412,6 @@
                                                     <option value="single">Single</option>
                                                     <option value="divorced">Divorced</option>
                                                 </select>
-                                                {{-- <div class="profileInput">
-                                                    <p class="">Submitting For</p>
-                                                    <div class="d-flex align-items-center column-gap-5">
-                                                        <div class="">
-                                                            <input class="form-check-input" type="radio" value="myself" name="account_for" id="myself">
-                                                            <label class="form-check-label" for="myself">Myself</label>
-                                                        </div>
-                                                        <div class="">
-                                                            <input class="form-check-input" type="radio" value="others" name="account_for" id="others">
-                                                            <label class="form-check-label" for="others">Others</label>
-                                                        </div>
-                                                    </div>
-                                                </div> --}}
                                             </div>
                                             <div class="col-md-4 pl-0 pt-2 mt-0">
                                                 <select name="blood_group" class="profileInput">
@@ -486,7 +506,7 @@
                                             </div>
                                         </div>
                                         <button type="button" class="btn btn-secondary mt-3 profile-prev-step" id="prevToHome1">Previous</button>
-                                        <button type="button" class="btn btn-primary mt-3 profile-next-step" id="nextToContact1">Next</button>
+                                        <button type="button" class="btn btn-primary mt-3 profile-next-step" id="openFamilyInfoTab">Next</button>
                                     </div>
                                     <div class="tab-pane fade" id="contact1" role="tabpanel" aria-labelledby="contact1-tab">
                                         <div class="row p-0">
@@ -521,7 +541,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <button type="button" class="btn btn-secondary mt-3 profile-prev-step" id="prevToProfile1">Previous</button>
+                                        <button type="button" class="btn btn-secondary mt-3 profile-prev-step" id="openProfileTab">Previous</button>
                                         <button type="submit" class="btn btn-secondary mt-3 profile-submit-form">Submit</button>
                                     </div>
                                 </div>
@@ -625,7 +645,7 @@
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Marital Status </label>
-                                            <input type="text" value="{{ $profileDetails->maritial_status }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->marital_status }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
@@ -677,7 +697,7 @@
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Employee Name </label>
-                                            <input type="text" value="{{ $profileDetails->employee_name }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->employer_name }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
@@ -752,7 +772,25 @@
                         </div>
                     </div>
                   </div>
-
+                  <div class="tab-pane fade" id="v-pills-editProfile" role="tabpanel" aria-labelledby="v-pills-editProfile-tab">
+                    <h2 class="p-2 mt-3 mb-0 px-4 tabForms" style="font-weight: 800; margin-left: 10px">Edit Profile</h2>
+                    <div class="row p-0 ">
+                        <div class="form-container card border-0">
+                            <form id="edit-profile-details" class="px-4 settings">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-12 pl-0 pt-2 mt-0">
+                                        <input type="password" name="password" placeholder="New Password" class="profileInput">
+                                    </div>
+                                    <div class="col-md-12 pl-0 pt-2 mt-0">
+                                        <input type="password" name="password_confirmation" placeholder="Confirm Password" class="profileInput">
+                                    </div>
+                                    <button type="submit" class="btn btn-secondary mt-3 w-30 profile-submit-form">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                  </div>
                 </div>
               </div>
         </div>
@@ -786,18 +824,33 @@
             profileTab.show();
         });
 
-        document.getElementById('nextToContact1').addEventListener('click', function () {
-            var profileTab = new bootstrap.Tab(document.getElementById('v-pills-messages1-tab'));
-            profileTab.show();
-        });
-
         document.getElementById('nextToContact2').addEventListener('click', function () {
             var profileTab = new bootstrap.Tab(document.getElementById('v-pills-messages1-tab'));
             profileTab.show();
         });
+
+        document.getElementById('nextToContact5').addEventListener('click', function () {
+            var profile5Tab = new bootstrap.Tab(document.getElementById('v-pills-messages1-tab'));
+            profile5Tab.show();
+        });
     </script>
 
+<script>
+    document.getElementById('openFamilyInfoTab').addEventListener('click', function() {
+        var contactTab = new bootstrap.Tab(document.getElementById('contact1-tab'));
+        contactTab.show();
+    });
+    document.getElementById('openProfileTab').addEventListener('click', function() {
+    var profileTab = new bootstrap.Tab(document.getElementById('profile1-tab'));
+    profileTab.show();
+});
 
+document.getElementById('opensMessagesTab').addEventListener('click', function() {
+    var messagesTab = new bootstrap.Tab(document.getElementById('v-pills-messages1-tab'));
+    messagesTab.show();
+});
+
+</script>
 <script>
     // JavaScript to handle tab switching
     document.getElementById('nextToProfile1').addEventListener('click', function () {
@@ -811,11 +864,11 @@
     });
 
     document.getElementById('nextToContact1').addEventListener('click', function () {
-        var contactTab = new bootstrap.Tab(document.getElementById('contact1-tab'));
-        contactTab.show();
+        var contact1Tab = new bootstrap.Tab(document.getElementById('contact1-tab'));
+        contact1Tab.show();
     });
 
-    document.getElementById('prevToProfile1').addEventListener('click', function () {
+    document.getElementById('prevToPartnerProfile1').addEventListener('click', function () {
         var profileTab = new bootstrap.Tab(document.getElementById('profile1-tab'));
         profileTab.show();
     });
@@ -1153,91 +1206,93 @@
 </script>
 
 <script>
-   document.addEventListener('DOMContentLoaded', function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const parentTabToOpen = urlParams.get('tab');
-    const childTabToOpen = urlParams.get('childTab');
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const parentTabToOpen = urlParams.get('tab');
+        const childTabToOpen = urlParams.get('childTab');
 
-    let tabActivated = false;
+        let tabActivated = false;
 
-    // Function to activate a tab
-    function activateTab(tabId, contentId) {
-        document.querySelectorAll('.nav-link').forEach(function(tab) {
-            tab.classList.remove('active');
-        });
-        document.querySelectorAll('.tab-pane').forEach(function(content) {
-            content.classList.remove('show', 'active');
-        });
+        // Function to activate a tab
+        function activateTab(tabId, contentId) {
+            document.querySelectorAll('.nav-link').forEach(function(tab) {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-pane').forEach(function(content) {
+                content.classList.remove('show', 'active');
+            });
 
-        const tab = document.querySelector(tabId);
-        const content = document.querySelector(contentId);
+            const tab = document.querySelector(tabId);
+            const content = document.querySelector(contentId);
 
-        if (tab && content) {
-            tab.classList.add('active');
-            content.classList.add('show', 'active');
+            if (tab && content) {
+                tab.classList.add('active');
+                content.classList.add('show', 'active');
+            }
         }
-    }
 
-    // Activate the parent tab
-    if (parentTabToOpen) {
-        activateTab(`#v-pills-${parentTabToOpen}-tab`, `#v-pills-${parentTabToOpen}`);
-        tabActivated = true;
-    }
-
-    // Activate the child tab if present
-    if (childTabToOpen && parentTabToOpen) {
-        activateTab(`#${childTabToOpen}-tab`, `#${childTabToOpen}`);
-    } else if (parentTabToOpen) {
-        // If no child tab is specified, activate the first child tab by default
-        const firstChildTab = document.querySelector(`#v-pills-${parentTabToOpen} .nav-link`);
-        const firstChildContent = firstChildTab ? document.querySelector(firstChildTab.getAttribute('href')) : null;
-
-        if (firstChildTab && firstChildContent) {
-            firstChildTab.classList.add('active');
-            firstChildContent.classList.add('show', 'active');
+        // Activate the parent tab
+        if (parentTabToOpen) {
+            activateTab(`#v-pills-${parentTabToOpen}-tab`, `#v-pills-${parentTabToOpen}`);
+            tabActivated = true;
         }
-    }
 
-    // Clean up the URL by removing query parameters
-    if (tabActivated) {
-        const cleanUrl = window.location.origin + window.location.pathname;
-        window.history.replaceState(null, null, cleanUrl);
-    }
-
-    // Ensure that switching tabs always shows the first child tab by default
-    document.querySelectorAll('.nav-link').forEach(function(tab) {
-        tab.addEventListener('click', function() {
-            const parentTabId = tab.getAttribute('data-bs-target');
-            const firstChildTab = document.querySelector(`${parentTabId} .nav-link`);
+        // Activate the child tab if present
+        if (childTabToOpen && parentTabToOpen) {
+            activateTab(`#${childTabToOpen}-tab`, `#${childTabToOpen}`);
+        } else if (parentTabToOpen) {
+            // If no child tab is specified, activate the first child tab by default
+            const firstChildTab = document.querySelector(`#v-pills-${parentTabToOpen} .nav-link`);
             const firstChildContent = firstChildTab ? document.querySelector(firstChildTab.getAttribute('href')) : null;
 
             if (firstChildTab && firstChildContent) {
                 firstChildTab.classList.add('active');
                 firstChildContent.classList.add('show', 'active');
             }
+        }
+
+        // Clean up the URL by removing query parameters
+        if (tabActivated) {
+            const cleanUrl = window.location.origin + window.location.pathname;
+            window.history.replaceState(null, null, cleanUrl);
+        }
+
+        // Ensure that switching tabs always shows the first child tab by default
+        document.querySelectorAll('.nav-link').forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                const parentTabId = tab.getAttribute('data-bs-target');
+                const firstChildTab = document.querySelector(`${parentTabId} .nav-link`);
+                const firstChildContent = firstChildTab ? document.querySelector(firstChildTab.getAttribute('href')) : null;
+
+                if (firstChildTab && firstChildContent) {
+                    firstChildTab.classList.add('active');
+                    firstChildContent.classList.add('show', 'active');
+                }
+            });
         });
     });
-});
 
 
-  </script>
+</script>
 
 <script>
     // JavaScript
-document.getElementById('dateOfBirth').addEventListener('change', function() {
-  this.classList.add('date-picked');
+        document.getElementById('dateOfBirth').addEventListener('change', function() {
+        this.classList.add('date-picked');
 
-  // Remove the CSS hiding the date
-  this.style.color = "#000";
-});
+        // Remove the CSS hiding the date
+        this.style.color = "#000";
+        });
 
-document.getElementById('dateOfBirth2').addEventListener('change', function() {
-  this.classList.add('date-picked');
+        document.getElementById('dateOfBirth2').addEventListener('change', function() {
+        this.classList.add('date-picked');
 
-  // Remove the CSS hiding the date
-  this.style.color = "#000";
-});
+        // Remove the CSS hiding the date
+        this.style.color = "#000";
+        });
 
-    </script>
+</script>
+
+
 
 @endsection

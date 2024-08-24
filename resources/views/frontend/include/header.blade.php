@@ -43,7 +43,7 @@
             <div class="menu d-flex justify-content-end align-items-center column-gap-2">
                 <div class="dropdown">
                     <button class="profileImg" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                      <span>Welcome {{ isset(Auth::user()->profile->first_name ) ? Auth::user()->profile->first_name : '' }} ,</span>  <img src="{{ asset('frontend-assets') }}/imgs/man.png">
+                      <span>Welcome {{ isset(Auth::user()->profile->first_name ) ? Auth::user()->profile->first_name : '' }} ,</span>  <img src="@if(isset(Auth::user()->profile->first_name )) {{ asset(Auth::user()->profile->image) }} @else  {{ asset('frontend-assets') }}/imgs/man.png @endif ">
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="dropdownMenuButton1">
                         <li>
@@ -55,9 +55,14 @@
         </div>
         <div class="w-50 d-md-none pr-1">
             <div class="dropdown d-flex justify-content-end">
-                <button type="button" class="profileImg" id="nextToContact1">
-                  <img src="{{ asset('frontend-assets') }}/imgs/man.png"> </a>
-                </button>
+                <button class="profileImg" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="@if(isset(Auth::user()->profile->first_name )) {{ asset(Auth::user()->profile->image) }} @else  {{ asset('frontend-assets') }}/imgs/man.png @endif ">
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="dropdownMenuButton1">
+                      <li>
+                          <button type="button" class="dropdown-item" id="opensMessagesTab">View Profile</button>
+                      </li>
+                  </ul>
             </div>
         </div>
     </div>

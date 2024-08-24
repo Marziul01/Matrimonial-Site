@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 
 class UserProfileController extends Controller
@@ -23,27 +24,27 @@ class UserProfileController extends Controller
 
     public static function dashboard(){
 
-        $user = auth()->user();
-        $profile = $user->profile;
-        $profileComplete = $profile !== null;
+    $user = auth()->user();
+    $profile = $user->profile;
+    $profileComplete = $profile !== null;
 
-        $userProfile = $user->userInfo;
+    $userProfile = $user->userInfo;
+    $lookingFor = $userProfile->looking_for;
 
-        $lookingFor = $userProfile->looking_for;
-
-        $eligibleUserIds = UserInfo::where('looking_for', '<>', $lookingFor)
+    $eligibleUserIds = UserInfo::where('looking_for', '<>', $lookingFor)
         ->pluck('user_id');
 
-        $profiles = Profile::whereIn('user_id', $eligibleUserIds)
-            ->whereNotNull('user_id')
-            ->paginate(20);
+    $profiles = Profile::whereIn('user_id', $eligibleUserIds)
+        ->whereNotNull('user_id')
+        ->paginate(20);
 
-        return view('frontend.dashboard.dashboard',[
-            'profileComplete' => $profileComplete,
-            'profiles' => $profiles,
-            'profileDetails' => $profile,
-        ]);
-    }
+    return view('frontend.dashboard.dashboard', [
+        'profileComplete' => $profileComplete,
+        'profiles' => $profiles,
+        'profileDetails' => $profile,
+    ]);
+}
+
 
     public static function submitProfile(Request $request){
 
