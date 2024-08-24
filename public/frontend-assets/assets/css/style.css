@@ -594,3 +594,10 @@ span.popular-price {
 .toast-error {
     background-color: #dc3545 !important; /* Red background */
 }
+.form-check-input:checked {
+    background-color: #F43662 !important;
+    border-color: #F43662 !important;
+}
+.form-check-input:focus{
+    box-shadow: none !important;
+}

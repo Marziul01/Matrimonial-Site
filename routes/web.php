@@ -57,12 +57,11 @@ Route::group(['prefix' => 'account'],function(){
 
     Route::group(['middleware' => 'auth'],function(){
         Route::get('/user/logout',[UserAuthController::class,'logout'])->name('user.logout');
-        Route::get('/user/profile',[UserProfileController::class,'index'])->name('user.profile');
-        Route::get('/user/order/detail/{id}',[UserProfileController::class,'orderDetail'])->name('orderDetail');
-        Route::post('/user/update/address/{id}',[UserProfileController::class,'updateAddress'])->name('updateBillingAddress');
-        Route::post('/user/update/shippingAddress/{id}',[UserProfileController::class,'updateShippingAddress'])->name('updateShippingAddress');
-        Route::post('/user/update/Info/{id}',[UserProfileController::class,'updateUserInfo'])->name('updateUserInfo');
         Route::get('/user/dashboard',[UserProfileController::class,'dashboard'])->name('user.dashboard');
+        Route::get('/user/profile',[UserProfileController::class,'viewProfile'])->name('user.profile');
+        Route::post('/user/profile/submit', [UserProfileController::class,'submitProfile'])->name('profile.store');
+        Route::post('/user/partner/profile/submit', [UserProfileController::class,'submitPartnerProfile'])->name('partner.profile.store');
+        Route::post('/user/change/password', [UserProfileController::class,'updatePassword'])->name('user.pass.change');
     });
 });
 

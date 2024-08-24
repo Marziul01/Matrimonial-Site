@@ -43,12 +43,14 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function wishlist(){
-        return $this->hasMany(Wishlist::class);
-    }
+    public function profile()
+{
+    return $this->hasOne(Profile::class, 'user_id');
+}
 
-    public function userInfo(){
-        return $this->belongsTo(Userinfo::class);
-    }
+public function userInfo()
+{
+    return $this->hasOne(UserInfo::class, 'user_id');
+}
 
 }

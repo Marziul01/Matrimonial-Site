@@ -1,233 +1,202 @@
 @extends('frontend.master')
 
 @section('title')
-    {{ $siteSettings->title }} | My Account
+   | My Profile
+@endsection
+
+@section('modals')
+
 @endsection
 
 @section('content')
 
-    <div class="page-header breadcrumb-wrap">
-        <div class="container">
-            <div class="breadcrumb">
-                <a href="{{ route('home') }}" rel="nofollow">Home</a>
-                <span></span>My Account
-            </div>
-        </div>
-    </div>
-    <section class="pt-100 pb-100">
-        <div class="container">
-            @include('frontend.auth.frontMessage')
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul class="alert-ul">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <div class="row">
-                <div class="col-lg-10 m-auto">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="dashboard-menu">
-                                <ul class="nav flex-column" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" href="{{ route('user.profile') }}" role="tab" aria-controls="dashboard" aria-selected="false"><i class="fi-rs-settings-sliders mr-10"></i>Dashboard</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="orders-tab" data-bs-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false"><i class="fi-rs-shopping-bag mr-10"></i>Orders</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="track-orders-tab" data-bs-toggle="tab" href="#track-orders" role="tab" aria-controls="track-orders" aria-selected="false"><i class="fi-rs-shopping-cart-check mr-10"></i>Track Your Order</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="address-tab" data-bs-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true"><i class="fi-rs-marker mr-10"></i>My Address</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="fi-rs-user mr-10"></i>Account details</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('user.logout') }}"><i class="fi-rs-sign-out mr-10"></i>Logout</a>
-                                    </li>
-                                </ul>
+<div class="section d-flex align-items-center position-fixed">
+    <div class="card w-100 border-0">
+        <div class="card-body w-100  pb-0 pt-0">
+            <div class="d-flex align-items-start column-gap-3">
+                <div class="nav flex-column justify-content-between nav-pills me-3 dashboardNav mobile-navbar d-md-none " id="mobileNavbar">
+                    <div class="">
+                        <a href="{{ route('user.dashboard', ['tab' => 'home']) }}" class="nav-link btn btn-primary profileNav">Dashboard</a>
+                        <a class="nav-link dropdown-toggle text-center" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Profile
+                        </a>
+                        <div class="collapse mb-3" id="collapseExample">
+                            <div class="card card-body">
+                                <a href="{{ route('user.dashboard',  ['tab' => 'your-profile', 'childTab' => 'home']) }}" class="nav-link btn btn-primary profileNav">Create Your Profile</a>
+                                <a href="{{ route('user.dashboard',  ['tab' => 'your-partner-profile', 'childTab' => 'home1']) }}" class="nav-link btn btn-primary profileNav">Create Your Partner Profile</a>
                             </div>
                         </div>
-                        <div class="col-md-8">
-                            <div class="tab-content dashboard-content">
-                                <div class="tab-pane fade active show" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="mb-0">Hello {{ Auth::user()->name }}! </h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p>From your account dashboard. you can easily check &amp; view your <a href="#">recent orders</a>, manage your <a href="#">shipping and billing addresses</a> and <a href="#">edit your password and account details.</a></p>
-                                        </div>
+                        <a href="{{ route('user.dashboard',  ['tab' => 'settings']) }}" class="nav-link btn btn-primary profileNav">Settings</a>
+                        <a href="{{ route('user.dashboard',  ['tab' => 'messages']) }}" class="nav-link btn btn-primary profileNav">Buy Credit</a>
+                    </div>
+                    <a class="nav-link text-center dashboardLogOut" href="{{ route('user.logout') }}">Logout</a>
+                </div>
+                <div class="nav flex-column justify-content-between nav-pills me-3 dashboardNav d-none d-md-block" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <div class="">
+                        <a href="{{ route('user.dashboard', ['tab' => 'home']) }}" class="nav-link btn btn-primary profileNav">Dashboard</a>
+                        <a class="nav-link dropdown-toggle text-center" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Profile
+                        </a>
+                        <div class="collapse mb-3" id="collapseExample">
+                            <div class="card card-body">
+                                <a href="{{ route('user.dashboard',  ['tab' => 'your-profile', 'childTab' => 'home']) }}" class="nav-link btn btn-primary profileNav">Create Your Profile</a>
+                                <a href="{{ route('user.dashboard',  ['tab' => 'your-partner-profile', 'childTab' => 'home1']) }}" class="nav-link btn btn-primary profileNav">Create Your Partner Profile</a>
+                            </div>
+                        </div>
+                        <a href="{{ route('user.dashboard',  ['tab' => 'settings']) }}" class="nav-link btn btn-primary profileNav">Settings</a>
+                        <a href="{{ route('user.dashboard',  ['tab' => 'messages']) }}" class="nav-link btn btn-primary profileNav">Buy Credit</a>
+                    </div>
+                    <a class="nav-link text-center dashboardLogOut" href="{{ route('user.logout') }}">Logout</a>
+                </div>
+                <div class="tab-content w-100" id="v-pills-tabContent">
+                    <ul class="nav nav-tabs profile-form-steps mt-4" id="myTab" role="tablist">
+                        <li class="nav-item border-0" role="presentation">
+                          <button class="nav-link profile-step active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Basic Information</button>
+                        </li>
+                        <li class="nav-item border-0" role="presentation">
+                          <button class="nav-link profile-step" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Educational & Career Info.</button>
+                        </li>
+                        <li class="nav-item border-0" role="presentation">
+                          <button class="nav-link profile-step" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Family Info.</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content sticky-div" id="myTabContent">
+                        <div class="tab-pane fade show active mobileProfilePad" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="row p-0">
+                                <div class="col-md-4 mt-0">
+                                    <div class="imageDrop">
+                                        <img src="{{ asset($profile->image) }}" class="w-60">
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="mb-0">Your Orders</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="table-responsive">
-                                                <table class="table">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Order</th>
-                                                        <th>Date</th>
-                                                        <th>Status</th>
-                                                        <th>Payment Status</th>
-                                                        <th>Total</th>
-                                                        <th>Actions</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @if($orders->isNotEmpty())
-                                                    @foreach($orders as $order)
-                                                    <tr>
-                                                        <td>{{ $order->order_number }}</td>
-                                                        <td>{{ $order->created_at->format('Y-m-d') }}</td>
-                                                        <td>
-                                                            @if($order->status == 1)
-                                                                Processing
-                                                            @elseif($order->status == 2)
-                                                                Cancelled
-                                                            @elseif($order->status == 3)
-                                                                Out for Delivery
-                                                            @elseif($order->status == 4)
-                                                                Delivered
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            <p class="font-sm"> @if($order->payment_status == 1)
-                                                                Pending
-                                                            @else
-                                                                Paid
-                                                            @endif
-                                                                <br>
-                                                                <span class="text-uppercase">( {{ $order->payment_option }} )</span>
-                                                            </p>
-                                                        </td>
-                                                        <td>{{ number_format($order->grand_total,2) }} Tk for {{ $order->orderItems->count() }} item</td>
-                                                        <td><a href="{{ route('orderDetail', $order->id) }}" class="btn-small d-block">View</a></td>
-                                                    </tr>
-                                                    @endforeach
-                                                    @endif
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div class="card-footer">
-                                            {{ $orders->links() }}
-                                        </div>
-                                    </div>
+                                <div class="col-md-8">
+                                    <textarea name="desc" class="profileDesc">Write something about yourself</textarea>
                                 </div>
-                                <div class="tab-pane fade" id="track-orders" role="tabpanel" aria-labelledby="track-orders-tab">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="mb-0">Orders tracking</h5>
-                                        </div>
-                                        <div class="card-body contact-from-area">
-                                            <p>To track your order please enter your OrderID in the box below and press "Track" button. This was given to you on your receipt and in the confirmation email you should have received.</p>
-                                            <div class="row">
-                                                <div class="col-lg-8">
-                                                    <form class="contact-form-style mt-30 mb-50" action="#" method="post">
-                                                        <div class="input-style mb-20">
-                                                            <label>Order ID</label>
-                                                            <input name="order-id" placeholder="Found in your order confirmation email" type="text" class="square">
-                                                        </div>
-                                                        <div class="input-style mb-20">
-                                                            <label>Billing email</label>
-                                                            <input name="billing-email" placeholder="Email you used during checkout" type="email" class="square">
-                                                        </div>
-                                                        <button class="submit submit-auto-width" type="submit">Track</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="first_name" placeholder="First Name" class="profileInput">
                                 </div>
-                                <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="card mb-3 mb-lg-0">
-                                                <div class="card-header">
-                                                    <h5 class="mb-0">Billing Address</h5>
-                                                </div>
-                                                <div class="card-body">
-                                                    <address>{{ $userInfo->billing_address }}</address>
-                                                    <p>{{ $userInfo->state }} ,</p>
-                                                    <p>{{ $userInfo->country->name }}</p>
-                                                    <a data-bs-toggle="modal" data-bs-target="#EditAddressModal" class="btn btn-small">Edit</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="card">
-                                                <div class="card-header">
-                                                    <h5 class="mb-0">Shipping Address</h5>
-                                                </div>
-                                                <div class="card-body">
-                                                    <address>{{ $userInfo->shipping_address }}</address>
-                                                    <p>{{ $userInfo->shipping_state }} ,</p>
-                                                    <p>{{ $userInfo->country->name }}</p>
-                                                    <a data-bs-toggle="modal" data-bs-target="#EditShippingAddressModal" class="btn btn-small">Edit</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="last_name" placeholder="Last Name" class="profileInput">
                                 </div>
-                                <div class="tab-pane fade" id="account-detail" role="tabpanel" aria-labelledby="account-detail-tab">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5>Account Details</h5>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="gender" placeholder="Gender" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="religion" placeholder="Religion" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="date" name="date_of_birth" placeholder="Date Of Birth" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="birth_place" placeholder="Birth Place" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="nationality" placeholder="Nationality" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="present_address" placeholder="Present Address" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="email" name="email" placeholder="Mail ID" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="contact_number" placeholder="Contact Number" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <select name="maritial_status" class="profileInput">
+                                        <option value="">Select Marital Status</option>
+                                        <option value="single">Single</option>
+                                        <option value="divorced">Divorced</option>
+                                    </select>
+                                    {{-- <div class="profileInput">
+                                        <p class="">Submitting For</p>
+                                        <div class="d-flex align-items-center column-gap-5">
+                                            <div class="">
+                                                <input class="form-check-input" type="radio" value="myself" name="account_for" id="myself">
+                                                <label class="form-check-label" for="myself">Myself</label>
+                                            </div>
+                                            <div class="">
+                                                <input class="form-check-input" type="radio" value="others" name="account_for" id="others">
+                                                <label class="form-check-label" for="others">Others</label>
+                                            </div>
                                         </div>
-                                        <div class="card-body">
-
-                                            <form method="post" action="{{ route('updateUserInfo', $user->id) }}">
-                                                @csrf
-                                                <div class="row">
-                                                    <div class="form-group col-md-6">
-                                                        <label>First Name</label>
-                                                        <input required="" class="form-control square" name="first_name" type="text" value="{{ $userInfo->first_name }}">
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>Last Name</label>
-                                                        <input class="form-control square" name="last_name" value="{{ $userInfo->last_name }}">
-                                                    </div>
-                                                    <div class="form-group col-md-12">
-                                                        <label>Display Name</label>
-                                                        <input class="form-control square" name="name" type="text" value="{{ $user->name }}">
-                                                    </div>
-                                                    <div class="form-group col-md-12">
-                                                        <label>Phone</label>
-                                                        <input class="form-control square" name="phone" type="text" value="{{ $userInfo->phone }}">
-                                                    </div>
-                                                    <div class="form-group col-md-12">
-                                                        <label>Email Address</label>
-                                                        <input class="form-control square" name="email" type="email" value="{{ $user->email }}">
-                                                    </div>
-                                                    <div class="form-group col-md-12">
-                                                        <label>Current Password</label>
-                                                        <input class="form-control square" name="old_password" type="password">
-                                                    </div>
-                                                    <div class="form-group col-md-12">
-                                                        <label>New Password</label>
-                                                        <input class="form-control square" id="password" name="password" type="password">
-                                                    </div>
-                                                    <div class="form-group col-md-12">
-                                                        <label>Confirm Password <span class="required">*</span></label>
-                                                        <input class="form-control square" id="confirm-pass" name="confirm_password" type="password">
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <button type="submit" class="btn btn-fill-out submit" name="submit" value="Submit">Save</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
+                                    </div> --}}
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="blood_group" placeholder="Blood Group" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="hobby" placeholder="Hobby" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="height" placeholder="Height" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="weight" placeholder="Weight" class="profileInput">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade mobileProfilePad" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="row p-0">
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="education_level" placeholder="Highest Level of Education" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="institute_name" placeholder="Institute Name" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <select name="working_with" class="profileInput">
+                                        <option value="">Select Working With</option>
+                                        <option value="Private Company">Private Company</option>
+                                        <option value="Govt. Service">Govt. Service</option>
+                                        <option value="Business">Business</option>
+                                        <option value="Not Working">Not Working</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="employer_name" placeholder="Employer Name" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="designation" placeholder="Designation" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="duration" placeholder="Duration" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="number" name="monthly_income" placeholder="Monthly Income" class="profileInput">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade mobileProfilePad" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                            <div class="row p-0">
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <select name="father_status" class="profileInput">
+                                        <option value="">Select Father Status</option>
+                                        <option value="Employed">Employed</option>
+                                        <option value="Business">Business</option>
+                                        <option value="Retired">Retired</option>
+                                        <option value="Not Working">Not Working</option>
+                                        <option value="Passedaway">Passedaway</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <select name="mother_status" class="profileInput">
+                                        <option value="">Select Mother Status</option>
+                                        <option value="Home Maker">Home Maker</option>
+                                        <option value="Employed">Employed</option>
+                                        <option value="Business">Business</option>
+                                        <option value="Retired">Retired</option>
+                                        <option value="Passedaway">Passedaway</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="number" name="number_of_sibling" placeholder="Number of Sibling" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <select name="family_type" class="profileInput">
+                                        <option value="">Select Family Type</option>
+                                        <option value="Joint">Joint</option>
+                                        <option value="Nuclear">Nuclear</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -235,99 +204,12 @@
                 </div>
             </div>
         </div>
-    </section>
-
-    <div class="modal fade" id="EditAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <!-- Modal content goes here, make sure to customize it for each category -->
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    Edit Billing Address
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('updateBillingAddress', $user->id) }}" method="POST">
-                        @csrf
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="exampleInputEmail1">Country</label>
-                                <select class="form-control" name="country">
-                                    <option value="{{ $country->id }}"> {{ $country->name }} </option>
-                                </select>
-                            </div>
-
-                            <div class="form-group col-md-6">
-                                <label for="exampleInputEmail1">District</label>
-                                <select class="form-control" name="billing_state">
-                                    @foreach($states as $state)
-                                    <option value="{{ $state }}"> {{ $state }} </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Address</label>
-                            <input type="text" class="form-control" name="billing_address" value="{{ $userInfo->billing_address }}">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Update</button>
-                    </form>
-                </div>
-            </div>
-        </div>
     </div>
-
-    <div class="modal fade" id="EditShippingAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <!-- Modal content goes here, make sure to customize it for each category -->
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    Edit Shipping Address
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('updateShippingAddress', $user->id) }}" method="POST">
-                        @csrf
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="exampleInputEmail1">Country</label>
-                                <select class="form-control" name="country">
-                                    <option value="{{ $country->id }}"> {{ $country->name }} </option>
-                                </select>
-                            </div>
-
-                            <div class="form-group col-md-6">
-                                <label for="exampleInputEmail1">District</label>
-                                <select class="form-control" name="shipping_state">
-                                    @foreach($states as $state)
-                                        <option value="{{ $state }}"> {{ $state }} </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Address</label>
-                            <input type="text" class="form-control" name="shipping_address" value="{{ $userInfo->shipping_address }}">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Update</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
 
 @endsection
 
 @section('customJs')
 
-    <script>
-        document.getElementById('confirm-pass').addEventListener('input', function () {
-            var password = document.getElementById('password').value;
-            var confirmPassword = this.value;
-
-            if (password !== confirmPassword) {
-                this.setCustomValidity("Passwords do not match");
-            } else {
-                this.setCustomValidity("");
-            }
-        });
-    </script>
 
 @endsection
