@@ -1,7 +1,7 @@
 @if (!Auth::check())
 <header class="container">
     <div class=" headerMain d-flex justify-content-between align-items-center w-100 notSignupHead">
-        <div class="w-30">
+        <div class="w-30" style="z-index: 99999999; background: white;">
             <div class="logo d-flex align-items-center column-gap-2">
                 <a href="{{ route('home') }}" class="d-flex align-items-center column-gap-2">
                     <img class="icon" src="{{ asset('frontend-assets/imgs/favicon2.png') }}" width="10%">
@@ -18,12 +18,19 @@
                 <a href="{{ route('login') }}" class="btn loginBtn">Login</a>
             </div>
         </div>
-        <div class="w-50 d-md-none pr-1">
+        <div class="w-50 d-md-none pr-1" style="z-index: 99999999; background: white;">
             <div class="menu d-flex justify-content-end align-items-center column-gap-4">
                 <a href="{{ route('login') }}" class="btn loginBtn" >Login</a>
-                <a class="mobileNavtoggle"> <i class="fa-solid fa-bars"></i> </a>
+                <a class="mobileNavtoggle" id="homeMenuNavToogle"> <i class="fa-solid fa-bars"></i> </a>
             </div>
-
+        </div>
+        <div class="homeMObileMenu d-md-none" id="homeMobileNav">
+            <div class="menu d-flex flex-column justify-content-center align-items-start row-gap-2">
+                <a href="" class="menu_item"> Home </a>
+                <a href="" class="menu_item"> Price </a>
+                <a href="" class="menu_item"> Faq </a>
+                <a href="" class="menu_item border-0"> Contact </a>
+            </div>
         </div>
     </div>
 </header>
@@ -47,7 +54,7 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="dropdownMenuButton1">
                         <li>
-                            <button type="button" class="dropdown-item" id="nextToContact2">View Profile</button>
+                            <button type="button" class="dropdown-item" id="externalButton">View Profile</button>
                         </li>
                     </ul>
                 </div>
@@ -79,3 +86,4 @@
     navbar.classList.toggle('active');
 });
 </script>
+

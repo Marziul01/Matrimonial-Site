@@ -68,7 +68,7 @@
                         </div>
                         </div>
                         <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Buy Credit</button>
-                        <button class="nav-link d-none" id="v-pills-messages1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages1" type="button" role="tab" aria-controls="v-pills-messages1" aria-selected="false"></button>
+                        <button class="nav-link d-none" id="v-pills-messages2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages1" type="button" role="tab" aria-controls="v-pills-messages1" aria-selected="false"></button>
                     </div>
                     <a class="nav-link text-center dashboardLogOut" href="{{ route('user.logout') }}">Logout</a>
                 </div>
@@ -79,27 +79,29 @@
                         @if ($profiles->isEmpty())
                                 <h4 class="text-center">Sorry ! No Profiles to show !</h4>
                             @else
+                            <div class="profileGrid mt-3 pb-4">
                                 @foreach ($profiles as $profile)
-                                    <div class="col-md-4">
-                                        <div class="profileCard  @if(!$profileComplete) blur @endif">
+
+                                        <div class="profileCard @if(!$profileComplete) blur @endif">
                                             <img src="{{ asset($profile->image) }}" width="100%">
                                             <div class="profileCardDiv">
-                                                <p>Name : <span> {{ $profile->first_name}} {{  $profile->last_name }} </span></p>
-                                                <p>Address : <span> {{ $profile->present_address ?? 'N/A' }} </span></p>
-                                                @php $age = \Carbon\Carbon::parse($profile->date_of_birth)->age; @endphp
-                                                <p>Age : <span> {{ $age ?? 'N/A' }} yr</span></p>
-                                                <p>Contact : <span style="font-style: italic; color: #F43662"> {{ $profile->contact_numbe ?? 'Please Upgrade Plan' }} </span></p>
+                                                <div>
+                                                    <p>Name : <span> {{ $profile->first_name}} {{  $profile->last_name }} </span></p>
+                                                    <p>Address : <span> {{ $profile->present_address ?? 'N/A' }} </span></p>
+                                                    @php $age = \Carbon\Carbon::parse($profile->date_of_birth)->age; @endphp
+                                                    <p>Age : <span> {{ $age ?? 'N/A' }} yr</span></p>
+                                                    <p>Contact : <span style="font-style: italic; color: #F43662"> {{ $profile->contact_numbe ?? 'Please Upgrade Plan' }} </span></p>
+                                                </div>
                                                 <a class="profileDetailsBtn text-center mt-4" href="">View Details</a>
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach
 
+                                @endforeach
+                            </div>
                                 <div class="pagination">
                                     {{ $profiles->links() }}
                                 </div>
                             @endif
-
                     </div>
                   </div>
                   <div class="tab-pane fade" id="v-pills-your-profile" role="tabpanel" aria-labelledby="v-pills-your-profile-tab">
@@ -473,7 +475,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <button type="button" class="btn btn-primary mt-3 profile-next-step" id="nextToProfile1">Next</button>
+                                        <button type="button" class="btn btn-primary mt-3 mb-4 profile-next-step" id="nextToProfile1">Next</button>
                                     </div>
                                     <div class="tab-pane fade" id="profile1" role="tabpanel" aria-labelledby="profile1-tab">
                                         <div class="row p-0">
@@ -773,21 +775,207 @@
                     </div>
                   </div>
                   <div class="tab-pane fade" id="v-pills-editProfile" role="tabpanel" aria-labelledby="v-pills-editProfile-tab">
-                    <h2 class="p-2 mt-3 mb-0 px-4 tabForms" style="font-weight: 800; margin-left: 10px">Edit Profile</h2>
-                    <div class="row p-0 ">
+                    <h2 class="p-2 mt-3 mb-0 tabForms" style="font-weight: 800;">Edit Profile</h2>
+                    <div class="row editingYourProfile p-0 ">
                         <div class="form-container card border-0">
-                            <form id="edit-profile-details" class="px-4 settings">
-                                @csrf
-                                <div class="row">
-                                    <div class="col-md-12 pl-0 pt-2 mt-0">
-                                        <input type="password" name="password" placeholder="New Password" class="profileInput">
+                            @if (is_null($profileDetails))
+                            <p> You didn't create your profile yet ! </p>
+                        @else
+                        <div class="">
+                            <form id="edit-yur-profile-form">
+                                <ul class="nav nav-tabs profile-form-steps mt-4" id="myTab" role="tablist">
+                                    <li class="nav-item border-0" role="presentation">
+                                      <button class="nav-link profile-step active" id="home13-tab" data-bs-toggle="tab" data-bs-target="#home13" type="button" role="tab" aria-controls="home13" aria-selected="true">Basic Information</button>
+                                    </li>
+                                    <li class="nav-item border-0" role="presentation">
+                                      <button class="nav-link profile-step" id="profile13-tab" data-bs-toggle="tab" data-bs-target="#profile13" type="button" role="tab" aria-controls="profile13" aria-selected="false">Educational & Career Info.</button>
+                                    </li>
+                                    <li class="nav-item border-0" role="presentation">
+                                      <button class="nav-link profile-step" id="contact13-tab" data-bs-toggle="tab" data-bs-target="#contact13" type="button" role="tab" aria-controls="contact13" aria-selected="false">Family Info.</button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content sticky-div" id="myTabContent">
+                                    <div class="tab-pane fade show active mobileProfilePad" id="home13" role="tabpanel" aria-labelledby="home13-tab">
+                                        <div class="row p-0">
+                                            <div class="col-md-4 mt-0">
+                                                <div class="imageDrop">
+                                                    <img src="{{ asset($profileDetails->image) }}" class="w-60">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <label> About Yourself </label>
+                                                <textarea class="profileDesc" readonly>{{ $profileDetails->desc }}</textarea>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> First Name </label>
+                                                    <input type="text" value="{{ $profileDetails->first_name }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Last Name </label>
+                                                    <input type="text" value="{{ $profileDetails->last_name }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Gender </label>
+                                                    <input type="text" value="{{ $profileDetails->gender }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Religion </label>
+                                                    <input type="text" value="{{ $profileDetails->religion }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Date of Birth </label>
+                                                    <input type="date" value="{{ $profileDetails->date_of_birth }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Birth Place </label>
+                                                    <input type="text" value="{{ $profileDetails->birth_place }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Nationality </label>
+                                                    <input type="text" value="{{ $profileDetails->nationality }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Present Address </label>
+                                                    <input type="text" value="{{ $profileDetails->present_address }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Mail ID </label>
+                                                    <input type="text" value="{{ $profileDetails->email }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Contact Number </label>
+                                                    <input type="text" value="{{ $profileDetails->contact_number }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Marital Status </label>
+                                                    <input type="text" value="{{ $profileDetails->marital_status }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Blood Group </label>
+                                                    <input type="text" value="{{ $profileDetails->blood_group }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Hobby </label>
+                                                    <input type="text" value="{{ $profileDetails->hobby }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Height </label>
+                                                    <input type="text" value="{{ $profileDetails->height }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Weight </label>
+                                                    <input type="text" value="{{ $profileDetails->weight }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-12 pl-0 pt-2 mt-0">
-                                        <input type="password" name="password_confirmation" placeholder="Confirm Password" class="profileInput">
+                                    <div class="tab-pane fade mobileProfilePad" id="profile13" role="tabpanel" aria-labelledby="profile13-tab">
+                                        <div class="row p-0">
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Education Level </label>
+                                                    <input type="text" value="{{ $profileDetails->education_level }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Institute Name </label>
+                                                    <input type="text" value="{{ $profileDetails->institute_name }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Working With </label>
+                                                    <input type="text" value="{{ $profileDetails->working_with }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Employee Name </label>
+                                                    <input type="text" value="{{ $profileDetails->employer_name }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Designation </label>
+                                                    <input type="text" value="{{ $profileDetails->designation }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Duration </label>
+                                                    <input type="text" value="{{ $profileDetails->duration }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Monthly Income </label>
+                                                    <input type="text" value="{{ $profileDetails->monthly_income }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <button type="submit" class="btn btn-secondary mt-3 w-30 profile-submit-form">Submit</button>
+                                    <div class="tab-pane fade mobileProfilePad" id="contact13" role="tabpanel" aria-labelledby="contact13-tab">
+                                        <div class="row p-0">
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Father Status </label>
+                                                    <input type="text" value="{{ $profileDetails->father_status }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Mother Status </label>
+                                                    <input type="text" value="{{ $profileDetails->mother_status }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Number of Sibling </label>
+                                                    <input type="text" value="{{ $profileDetails->number_of_sibling }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pl-0 pt-2 mt-0">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <label> Family Type </label>
+                                                    <input type="text" value="{{ $profileDetails->family_type }}" class="profileInput" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
+                        </div>
+                        @endif
                         </div>
                     </div>
                   </div>
@@ -1094,6 +1282,10 @@ document.getElementById('opensMessagesTab').addEventListener('click', function()
 
                 // Optionally, you can reset the form or redirect
                 $('#your--Profile')[0].reset();
+
+                setTimeout(function () {
+                    location.reload();
+                }, 2000);
             },
             error: function (response) {
                 let errors = response.responseJSON.errors;
@@ -1138,6 +1330,10 @@ document.getElementById('opensMessagesTab').addEventListener('click', function()
 
                 // Optionally, you can reset the form or redirect
                 $('#your-partner-Profile')[0].reset();
+
+                setTimeout(function () {
+                    location.reload();
+                }, 2000);
             },
             error: function (response) {
                 let errors = response.responseJSON.errors;
@@ -1293,6 +1489,12 @@ document.getElementById('opensMessagesTab').addEventListener('click', function()
 
 </script>
 
+<script>
+    document.getElementById('externalButton').addEventListener('click', function() {
+    // Programmatically click the hidden tab button
+    document.getElementById('v-pills-messages2-tab').click();
+});
+</script>
 
 
 @endsection

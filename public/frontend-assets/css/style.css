@@ -203,11 +203,20 @@ input[type="checkbox"]{
     background-color: #F43662 !important;
     color: white;
 }
+.profileGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 items per row */
+    gap: 15px; /* Space between grid items */
+    height: fit-content;
+}
 .profileCard{
     border: 2px solid #F43662;
     border-radius: 10px;
     overflow: hidden;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
 }
 .blur{
     filter: blur(5px);
@@ -219,6 +228,10 @@ input[type="checkbox"]{
 }
 .profileCard .profileCardDiv{
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Make the div flexible to fill available space */
+    justify-content: space-between;
 }
 .profileCard .profileDetailsBtn{
     display: block;
@@ -565,7 +578,16 @@ input:focus, textarea:focus, select:focus-visible {
     overflow: hidden;
     position: relative;
 }
+.editingYourProfile .imageDrop{
+    align-items: start;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
 .viewProfileTab .imageDrop img{
+    border-radius: 10px;
+}
+.editingYourProfile .imageDrop img{
     border-radius: 10px;
 }
 .viewProfileTab .profileDesc{
@@ -574,28 +596,58 @@ input:focus, textarea:focus, select:focus-visible {
     height: 100px;
     margin-top: 10px;
 }
+.editingYourProfile .profileDesc{
+    border-color: #f4366238;
+    color: black;
+    height: 100px;
+    margin-top: 10px;
+}
 .viewProfileTab .profileInput{
     border-color: #00000029;
     color: #525252;
+}
+.editingYourProfile .profileInput{
+    border-color: #F43662;
+    color: black;
 }
 .viewProfileTab label{
     width: 50%;
     font-size: 18px;
     font-weight: 600;
 }
+.editingYourProfile label{
+    width: 50%;
+    font-size: 18px;
+    font-weight: 600;
+    color: #F43662;
+}
 .viewProfileTab .profile-form-steps .profile-step{
     color: black !important;
 }
+.editingYourProfile .profile-form-steps .profile-step{
+    color: #F43662 !important;
+}
 .viewProfileTab .profile-form-steps .active::before{
     background-color: black;
+    z-index: 999;
+}
+.editingYourProfile .profile-form-steps .active::before{
+    background-color: #F43662;
     z-index: 999;
 }
 .viewProfileTab .profile-form-steps::before{
     background-color: #929292;
     z-index: 997;
 }
+.editingYourProfile .profile-form-steps::before{
+    background-color: #f4366238;
+    z-index: 997;
+}
 .viewProfileTab .sticky-div{
     padding-bottom: 180px;
+}
+.editingYourProfile .sticky-div{
+    padding-bottom: 220px;
 }
 .settings{
     width: 50%;
@@ -643,9 +695,6 @@ a{
     text-decoration: none !important;
 }
 
-.dashboardNav .collapse .nav-link{
-    font-size: 15px;
-  }
 
 @media (max-width: 767px){
     .headerMain .logo .logopic{
@@ -742,7 +791,7 @@ a{
         background-color: white !important;
       }
       .dashboardLogOut{
-        margin-bottom: 160px !important;
+        margin-bottom: 180px !important;
       }
       .mobile-navbar .nav-link{
         border-width: 1px;
@@ -750,8 +799,35 @@ a{
         padding: 5px;
         margin-bottom: 8px;
       }
-
-      .mobile-navbar .collapse .nav-link{
-        font-size: 12px;
+      .notSignupHead .homeMObileMenu{
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: -185px;
+        padding: 20px;
+        background-color: white;
+        z-index: 9999;
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0 5px 5px #F43662;
+        border-top: 1px solid #929292;
+        font-size: 16px;
+        opacity: 0;
+        transition: all 0.4s ease-in;
       }
+      .notSignupHead .homeMObileMenu .menu_item{
+        width: 100%;
+        padding-left: 0px;
+        border-bottom: 1px solid #929292;
+      }
+      .notSignupHead .show{
+        opacity: 1;
+        top: 75px;
+        transition: all 0.4s ease-out;
+      }
+      .profileGrid {
+        grid-template-columns: 1fr; /* 1 item per row on mobile */
+    }
+    .editingYourProfile .form-container{
+        margin: 0 0 10px 0;
+    }
 }
