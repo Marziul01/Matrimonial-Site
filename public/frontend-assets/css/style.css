@@ -636,6 +636,7 @@ input:focus, textarea:focus, select:focus-visible {
     color: black !important; /* Hides the 'dd/mm/yy' text initially */
   }
 
+
 @media (max-width: 767px){
     .headerMain .logo .logopic{
         width: 90%;
@@ -712,7 +713,7 @@ input:focus, textarea:focus, select:focus-visible {
     width: 93% !important;
     }
     .sticky-div {
-        height: calc(100vh - 180px);
+        height: calc(100vh - 200px);
     }
     .dropdown-item:active{
         background-color: #F43662;
@@ -725,5 +726,8 @@ input:focus, textarea:focus, select:focus-visible {
     }
     .date-input-wrapper .profileInput {
         background-color: white !important;
+      }
+      .dashboardLogOut{
+        margin-bottom: 160px !important;
       }
 }
