@@ -41,7 +41,7 @@ class UserProfileController extends Controller
         return view('frontend.dashboard.dashboard',[
             'profileComplete' => $profileComplete,
             'profiles' => $profiles,
-            'profileDetails' => Auth::user()->profile,
+            'profileDetails' => $profile,
         ]);
     }
 
@@ -155,29 +155,6 @@ class UserProfileController extends Controller
         $user->save();
 
         return response()->json(['success' => true]);
-    }
-
-    public static function viewProfile(){
-        $user = auth()->user();
-        $profile = $user->profile;
-        $profileComplete = $profile !== null;
-
-        $userProfile = $user->userInfo;
-
-        $lookingFor = $userProfile->looking_for;
-
-        $eligibleUserIds = UserInfo::where('looking_for', '<>', $lookingFor)
-        ->pluck('user_id');
-
-        $profiles = Profile::whereIn('user_id', $eligibleUserIds)
-            ->whereNotNull('user_id')
-            ->paginate(20);
-
-        return view('frontend.profile.profile',[
-            'profileComplete' => $profileComplete,
-            'profiles' => $profiles,
-            'profile' => Auth::user()->profile,
-        ]);
     }
 
 }

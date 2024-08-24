@@ -536,7 +536,7 @@
                   <div class="tab-pane fade viewProfileTab" id="v-pills-messages1" role="tabpanel" aria-labelledby="v-pills-messages1-tab">
                     <div class="">
                         <h2 class="p-2 mt-3 mb-0 px-0 tabForms" style="font-weight: 800;">My Profile </h2>
-                        @if (isset($profileDetails))
+                        @if (is_null($profileDetails))
                             <p> You didn't create your profile yet ! </p>
                         @else
                         <ul class="nav nav-tabs profile-form-steps mt-4" id="myTab" role="tablist">
@@ -555,7 +555,7 @@
                                 <div class="row p-0">
                                     <div class="col-md-4 mt-0">
                                         <div class="imageDrop">
-                                            <img src="{{ asset($profileDetails->image) }}" class="w-60">
+                                            {{-- <img src="{{ asset($profileDetails->image) }}" class="w-60"> --}}
                                         </div>
                                     </div>
                                     <div class="col-md-8">
