@@ -623,7 +623,7 @@ input:focus, textarea:focus, select:focus-visible {
   .profileInput::-webkit-datetime-edit-year-field {
     color: transparent !important; /* Hides the 'dd/mm/yy' text initially */
   }
-  select {
+ input, select {
     background-color: transparent !important;
     -webkit-appearance: none; /* Removes default styling on WebKit browsers */
     -moz-appearance: none; /* Removes default styling on Mozilla browsers */
