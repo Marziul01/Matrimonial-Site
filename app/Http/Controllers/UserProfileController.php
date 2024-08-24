@@ -41,6 +41,7 @@ class UserProfileController extends Controller
         return view('frontend.dashboard.dashboard',[
             'profileComplete' => $profileComplete,
             'profiles' => $profiles,
+            'profileDetails' => Auth::user()->profile,
         ]);
     }
 

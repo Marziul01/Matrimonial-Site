@@ -557,7 +557,9 @@ input:focus, textarea:focus, select:focus-visible {
 }
 .viewProfileTab .imageDrop{
     align-items: start;
-    height: 150px;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
 }
 .viewProfileTab .imageDrop img{
     border-radius: 10px;
@@ -589,11 +591,50 @@ input:focus, textarea:focus, select:focus-visible {
     z-index: 997;
 }
 .viewProfileTab .sticky-div{
-    padding-bottom: 140px;
+    padding-bottom: 180px;
 }
 .settings{
     width: 50%;
 }
+.profileInput {
+    position: relative;
+  }
+
+  .profileInput::before {
+    content: attr(placeholder);
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    pointer-events: none;
+  }
+
+  .date-picked :not(:placeholder-shown)::before {
+    display: none !important; /* Hides the placeholder when a date is picked*/
+  }
+  .date-picked::before {
+    display: none !important;
+  }
+
+  .profileInput::-webkit-datetime-edit-text,
+  .profileInput::-webkit-datetime-edit-month-field,
+  .profileInput::-webkit-datetime-edit-day-field,
+  .profileInput::-webkit-datetime-edit-year-field {
+    color: transparent !important; /* Hides the 'dd/mm/yy' text initially */
+  }
+  select {
+    background-color: transparent !important;
+    -webkit-appearance: none; /* Removes default styling on WebKit browsers */
+    -moz-appearance: none; /* Removes default styling on Mozilla browsers */
+    appearance: none; /* Removes default styling on other browsers */
+}
+.date-picked::-webkit-datetime-edit-text,
+  .date-picked::-webkit-datetime-edit-month-field,
+  .date-picked::-webkit-datetime-edit-day-field,
+  .date-picked::-webkit-datetime-edit-year-field {
+    color: black !important; /* Hides the 'dd/mm/yy' text initially */
+  }
 
 @media (max-width: 767px){
     .headerMain .logo .logopic{
@@ -682,4 +723,7 @@ input:focus, textarea:focus, select:focus-visible {
     .settings{
         width: 100%;
     }
+    .date-input-wrapper .profileInput {
+        background-color: white !important;
+      }
 }

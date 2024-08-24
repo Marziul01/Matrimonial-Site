@@ -114,7 +114,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <textarea name="desc" class="profileDesc">Write something about yourself</textarea>
+                                                <textarea name="desc" class="profileDesc" placeholder="Write something about yourself"></textarea>
                                             </div>
                                             <div class="col-md-4 pl-0 pt-2 mt-0">
                                                 <input type="text" name="first_name" placeholder="First Name" class="profileInput">
@@ -134,7 +134,7 @@
                                                 <input type="text" name="religion" placeholder="Religion" class="profileInput">
                                             </div>
                                             <div class="col-md-4 pl-0 pt-2 mt-0">
-                                                <input type="date" name="date_of_birth" placeholder="Date Of Birth" class="profileInput">
+                                                <input type="date" name="date_of_birth" placeholder="Date Of Birth" class="profileInput" id="dateOfBirth">
                                             </div>
                                             <div class="col-md-4 pl-0 pt-2 mt-0">
                                                 <input type="text" name="birth_place" placeholder="Birth Place" class="profileInput">
@@ -333,7 +333,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <textarea name="desc" class="profileDesc">Write something about your partner</textarea>
+                                                <textarea name="desc" class="profileDesc" placeholder="Write something about your partner"></textarea>
                                             </div>
                                             <div class="col-md-4 pl-0 pt-2 mt-0">
                                                 <input type="text" name="relation_with_partner" placeholder="Relation With Your Partner" class="profileInput">
@@ -356,7 +356,7 @@
                                                 <input type="text" name="religion" placeholder="Religion" class="profileInput">
                                             </div>
                                             <div class="col-md-4 pl-0 pt-2 mt-0">
-                                                <input type="date" name="date_of_birth" placeholder="Date Of Birth" class="profileInput">
+                                                <input type="date" name="date_of_birth" placeholder="Date Of Birth" class="profileInput" id="dateOfBirth2">
                                             </div>
                                             <div class="col-md-4 pl-0 pt-2 mt-0">
                                                 <input type="text" name="birth_place" placeholder="Birth Place" class="profileInput">
@@ -407,7 +407,17 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-4 pl-0 pt-2 mt-0">
-                                                <input type="text" name="hobby" placeholder="Hobby" class="profileInput">
+                                                <select name="hobby" class="profileInput">
+                                                    <option value="">Select Hobby</option>
+                                                    <option value="Reading">Reading</option>
+                                                    <option value="Writing">Writing</option>
+                                                    <option value="Gaming">Gaming</option>
+                                                    <option value="Travelling">Travelling</option>
+                                                    <option value="Singing">Singing</option>
+                                                    <option value="Dancing">Dancing</option>
+                                                    <option value="Art">Art</option>
+                                                    <option value="Eating">Eating</option>
+                                                </select>
                                             </div>
                                             <div class="col-md-4 pl-0 pt-2 mt-0">
                                                 <select name="height" class="profileInput">
@@ -542,101 +552,101 @@
                                 <div class="row p-0">
                                     <div class="col-md-4 mt-0">
                                         <div class="imageDrop">
-                                            <img src="{{ asset($profile->image) }}" class="w-60">
+                                            <img src="{{ asset($profileDetails->image) }}" class="w-60">
                                         </div>
                                     </div>
                                     <div class="col-md-8">
                                         <label> About Yourself </label>
-                                        <textarea class="profileDesc" readonly>{{ $profile->desc }}</textarea>
+                                        <textarea class="profileDesc" readonly>{{ $profileDetails->desc }}</textarea>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> First Name </label>
-                                            <input type="text" value="{{ $profile->first_name }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->first_name }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Last Name </label>
-                                            <input type="text" value="{{ $profile->last_name }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->last_name }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Gender </label>
-                                            <input type="text" value="{{ $profile->gender }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->gender }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Religion </label>
-                                            <input type="text" value="{{ $profile->religion }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->religion }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Date of Birth </label>
-                                            <input type="date" value="{{ $profile->date_of_birth }}" class="profileInput" readonly>
+                                            <input type="date" value="{{ $profileDetails->date_of_birth }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Birth Place </label>
-                                            <input type="text" value="{{ $profile->birth_place }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->birth_place }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Nationality </label>
-                                            <input type="text" value="{{ $profile->nationality }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->nationality }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Present Address </label>
-                                            <input type="text" value="{{ $profile->present_address }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->present_address }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Mail ID </label>
-                                            <input type="text" value="{{ $profile->email }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->email }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Contact Number </label>
-                                            <input type="text" value="{{ $profile->contact_number }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->contact_number }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Marital Status </label>
-                                            <input type="text" value="{{ $profile->maritial_status }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->maritial_status }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Blood Group </label>
-                                            <input type="text" value="{{ $profile->blood_group }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->blood_group }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Hobby </label>
-                                            <input type="text" value="{{ $profile->hobby }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->hobby }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Height </label>
-                                            <input type="text" value="{{ $profile->height }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->height }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Weight </label>
-                                            <input type="text" value="{{ $profile->weight }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->weight }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -646,43 +656,43 @@
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Education Level </label>
-                                            <input type="text" value="{{ $profile->education_level }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->education_level }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Institute Name </label>
-                                            <input type="text" value="{{ $profile->institute_name }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->institute_name }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Working With </label>
-                                            <input type="text" value="{{ $profile->working_with }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->working_with }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Employee Name </label>
-                                            <input type="text" value="{{ $profile->employee_name }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->employee_name }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Designation </label>
-                                            <input type="text" value="{{ $profile->designation }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->designation }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Duration </label>
-                                            <input type="text" value="{{ $profile->duration }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->duration }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Monthly Income </label>
-                                            <input type="text" value="{{ $profile->monthly_income }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->monthly_income }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -692,25 +702,25 @@
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Father Status </label>
-                                            <input type="text" value="{{ $profile->father_status }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->father_status }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Mother Status </label>
-                                            <input type="text" value="{{ $profile->mother_status }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->mother_status }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Number of Sibling </label>
-                                            <input type="text" value="{{ $profile->number_of_sibling }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->number_of_sibling }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-0 pt-2 mt-0">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label> Family Type </label>
-                                            <input type="text" value="{{ $profile->family_type }}" class="profileInput" readonly>
+                                            <input type="text" value="{{ $profileDetails->family_type }}" class="profileInput" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -1206,5 +1216,23 @@
 
 
   </script>
+
+<script>
+    // JavaScript
+document.getElementById('dateOfBirth').addEventListener('change', function() {
+  this.classList.add('date-picked');
+
+  // Remove the CSS hiding the date
+  this.style.color = "#000";
+});
+
+document.getElementById('dateOfBirth2').addEventListener('change', function() {
+  this.classList.add('date-picked');
+
+  // Remove the CSS hiding the date
+  this.style.color = "#000";
+});
+
+    </script>
 
 @endsection

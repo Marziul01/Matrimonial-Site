@@ -39,7 +39,7 @@
                 <div class="col-lg-6 col-md-12 d-flex align-items-center justify-content-center">
                     <div class="login-form">
                         <div class="text-center">
-                            <a href="index.html" class="d-flex" style="text-align: center; margin: auto; width: fit-content">
+                            <a href="{{ route('home') }}" class="d-flex" style="text-align: center; margin: auto; width: fit-content">
                                 <img src="{{ asset('frontend-assets') }}/assets/images/logo/short2.png" alt="Logo" style="width: 50px; margin-right: -7px; margin-top: -12px; height: 50px;" />
                                 <img src="{{ asset('frontend-assets') }}/assets/images/logo/logo.png" alt="Logo" class="img-fluid mb-4" style="width: 165px" />
                             </a>
@@ -90,52 +90,57 @@
 
     <script>
         $(document).ready(function () {
-    $('#login').on('submit', function (e) {
-        e.preventDefault(); // Prevent default form submission
+            $('#login').on('submit', function (e) {
+                e.preventDefault(); // Prevent default form submission
 
-        // Serialize form data
-        let formData = $(this).serialize();
+                // Serialize form data
+                let formData = $(this).serialize();
 
-        // Perform AJAX request
-        $.ajax({
-            url: '{{ route("user.login") }}',
-            type: 'POST',
-            data: formData,
-            dataType: 'json',
-            success: function (response) {
-                if (response.success) {
-                    toastr.success('Login Successful! Redirecting...');
-                    setTimeout(function () {
-                        window.location.href = response.redirect;
-                    }, 2000); // Redirect after 2 seconds
-                } else {
-                    toastr.error(response.message || 'Login failed. Please try again.');
-                }
-            },
-            error: function (xhr) {
-                if (xhr.status === 422) {
-                    // Handle validation errors
-                    let errors = xhr.responseJSON.errors;
-                    let errorMessage = '';
+                // Perform AJAX request
+                $.ajax({
+                    url: '{{ route("user.login") }}',
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.success) {
+                            // Show success message
+                            toastr.success(response.message || 'Login Successful! Redirecting...');
 
-                    $.each(errors, function (key, value) {
-                        errorMessage += value[0] + '<br>'; // Display errors
-                    });
+                            // Redirect after showing the message
+                            setTimeout(function () {
+                                window.location.href = response.redirect;
+                            }, 2000); // Redirect after 2 seconds
+                        } else {
+                            // Show error message
+                            toastr.error(response.message || 'Login failed. Please try again.');
+                        }
+                    },
+                    error: function (xhr) {
+                        if (xhr.status === 422) {
+                            // Handle validation errors
+                            let errors = xhr.responseJSON.errors;
+                            let errorMessage = '';
 
-                    toastr.error(errorMessage);
-                } else if (xhr.status === 401) {
-                    // Handle authentication errors
-                    toastr.error(xhr.responseJSON.message || 'Invalid mobile number or password.');
-                } else {
-                    // Handle other errors
-                    toastr.error('An error occurred. Please try again.');
-                }
-            }
+                            $.each(errors, function (key, value) {
+                                errorMessage += value[0] + '<br>'; // Display errors
+                            });
+
+                            toastr.error(errorMessage);
+                        } else if (xhr.status === 401) {
+                            // Handle authentication errors
+                            toastr.error(xhr.responseJSON.message || 'Invalid mobile number or password.');
+                        } else {
+                            // Handle other errors
+                            toastr.error('An error occurred. Please try again.');
+                        }
+                    }
+                });
+            });
         });
-    });
-});
+        </script>
 
-    </script>
+
 </body>
 
 </html>

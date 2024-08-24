@@ -71,6 +71,14 @@ class UserAuthController extends Controller
 
     public function signin(Request $request)
 {
+    if (Auth::check()) {
+        // Redirect to the user dashboard if logged in
+        return response()->json([
+            'success' => true,
+            'redirect' => route('user.dashboard')
+        ]);
+    }
+
     $validator = Validator::make($request->all(), [
         'number' => 'required',
         'password' => 'required',
@@ -84,7 +92,6 @@ class UserAuthController extends Controller
     }
 
     if (Auth::attempt(['number' => $request->number, 'password' => $request->password], $request->get('remember'))) {
-
         if (session()->has('url.intended')) {
             return response()->json([
                 'success' => true,
@@ -96,9 +103,7 @@ class UserAuthController extends Controller
             'success' => true,
             'redirect' => route('user.dashboard')
         ]);
-
     } else {
-
         return response()->json([
             'success' => false,
             'message' => 'Invalid mobile number or password.'
@@ -107,81 +112,15 @@ class UserAuthController extends Controller
 }
 
 
+
     public static function login(){
+
+        if (auth()->check()) {
+            return redirect()->route('user.dashboard');
+        }
+
         return view('frontend.auth.auth', [
-
         ]);
-    }
-
-    public static function forgetResetLink(Request $request){
-       $validator =  Validator::make($request->all(),[
-           'email' => 'required|email|exists:users,email',
-        ]);
-
-       if ($validator->passes()){
-           $token =  Str::random(60);
-
-           DB::table('password_reset_tokens')->where('email', $request->email)->delete();
-
-           DB::table('password_reset_tokens')->insert([
-              'email' => $request->email,
-              'token' => $token,
-              'created_at' => now(),
-           ]);
-
-           $user = User::where('email', $request->email)->first();
-
-           $mailData = [
-             'token' => $token,
-             'user' => $user,
-           ];
-           return redirect(route('forgetPassword'));
-
-       }else{
-           return back()->withInput()->withErrors($validator);
-       }
-    }
-
-    public static function resetPassword($token){
-        $user = DB::table('password_reset_tokens')->where('token', $token)->first();
-        if ($user !== null){
-            return view('frontend.auth.resetPassword', [
-            ]);
-        }else{
-            return redirect(route('forgetPassword'))->withErrors('Your password reset link is expired . Please try again !');
-        }
-
-    }
-
-    public static function ResetPasswordForm(Request $request){
-        $token = DB::table('password_reset_tokens')->where('token', $request->token)->first();
-        $email = $token->email;
-
-        if ($token !== null){
-            $rules = [
-                'password' => 'required|min:6',
-                'confirm_password' => 'required|same:password',
-            ];
-
-            // Validation for other fields
-            $validator = Validator::make($request->all(), $rules);
-
-            if ($validator->passes()) {
-                // Update user information
-                $user = User::where('email', $email)->first();
-                $user->password = Hash::make($request->password);
-                $user->save();
-
-                DB::table('password_reset_tokens')->where('email', $email)->delete();
-
-                return redirect(route('userAuth'));
-            }else{
-                return back()->withErrors($validator);
-            }
-        }else{
-            return redirect(route('forgetPassword'))->withErrors('Your password reset link is expired . Please try again !');
-        }
-
     }
 
 
