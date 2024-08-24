@@ -536,6 +536,9 @@
                   <div class="tab-pane fade viewProfileTab" id="v-pills-messages1" role="tabpanel" aria-labelledby="v-pills-messages1-tab">
                     <div class="">
                         <h2 class="p-2 mt-3 mb-0 px-0 tabForms" style="font-weight: 800;">My Profile </h2>
+                        @if (isset($profileDetails))
+                            <p> You didn't create your profile yet ! </p>
+                        @else
                         <ul class="nav nav-tabs profile-form-steps mt-4" id="myTab" role="tablist">
                             <li class="nav-item border-0" role="presentation">
                               <button class="nav-link profile-step active" id="home3-tab" data-bs-toggle="tab" data-bs-target="#home3" type="button" role="tab" aria-controls="home3" aria-selected="true">Basic Information</button>
@@ -726,6 +729,8 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
+
                     </div>
                   </div>
                   <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
