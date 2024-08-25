@@ -1,7 +1,7 @@
 @if (!Auth::check())
 <header class="container">
     <div class=" headerMain d-flex justify-content-between align-items-center w-100 notSignupHead">
-        <div class="w-30" style="z-index: 99999999; background: white;">
+        <div class="w-30">
             <div class="logo d-flex align-items-center column-gap-2">
                 <a href="{{ route('home') }}" class="d-flex align-items-center column-gap-2">
                     <img class="icon" src="{{ asset('frontend-assets/imgs/favicon2.png') }}" width="10%">
@@ -18,7 +18,7 @@
                 <a href="{{ route('login') }}" class="btn loginBtn">Login</a>
             </div>
         </div>
-        <div class="w-50 d-md-none pr-1" style="z-index: 99999999; background: white;">
+        <div class="w-50 d-md-none pr-1">
             <div class="menu d-flex justify-content-end align-items-center column-gap-4">
                 <a href="{{ route('login') }}" class="btn loginBtn" >Login</a>
                 <a class="mobileNavtoggle" id="homeMenuNavToogle"> <i class="fa-solid fa-bars"></i> </a>

@@ -40,9 +40,25 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
-    $('#homeMenuNavToogle').on('click', function() {
-    $('#homeMobileNav').toggleClass('show');
-});
+    $(document).ready(function() {
+        // Toggle the menu when the toggle button is clicked
+        $('#homeMenuNavToogle').on('click', function(e) {
+            e.stopPropagation(); // Prevent click from bubbling to the document
+            $('#homeMobileNav').toggleClass('show');
+        });
+
+        // Hide the menu when clicking outside of it
+        $(document).on('click', function(e) {
+            if ($('#homeMobileNav').hasClass('show') && !$(e.target).closest('#homeMobileNav, #homeMenuNavToogle').length) {
+                $('#homeMobileNav').removeClass('show');
+            }
+        });
+
+        // Prevent menu from closing when clicking inside it
+        $('#homeMobileNav').on('click', function(e) {
+            e.stopPropagation(); // Prevent click from bubbling to the document
+        });
+    });
 </script>
 
 @yield('customJs')

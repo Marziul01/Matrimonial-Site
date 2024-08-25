@@ -37,7 +37,7 @@ p{
 }
 .home-section{
     position: relative;
-    z-index: 3;
+    z-index: 2;
     height: 100%;
 }
 .w-60{
@@ -803,10 +803,10 @@ a{
         position: absolute;
         width: 100%;
         left: 0;
-        top: -185px;
+        top: -250px;
         padding: 20px;
         background-color: white;
-        z-index: 9999;
+        z-index: 5;
         border-radius: 0 0 10px 10px;
         box-shadow: 0 5px 5px #F43662;
         border-top: 1px solid #929292;
