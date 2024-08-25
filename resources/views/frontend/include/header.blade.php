@@ -84,6 +84,28 @@
     document.getElementById('menuToggle').addEventListener('click', function() {
     const navbar = document.getElementById('mobileNavbar');
     navbar.classList.toggle('active');
+
+    // Check if the navbar is now active
+    if (navbar.classList.contains('active')) {
+        // Add event listener to close the navbar when clicking outside
+        document.addEventListener('click', closeNavbarOnClickOutside);
+    } else {
+        // Remove the event listener if navbar is not active
+        document.removeEventListener('click', closeNavbarOnClickOutside);
+    }
 });
+
+function closeNavbarOnClickOutside(event) {
+    const navbar = document.getElementById('mobileNavbar');
+    const menuToggle = document.getElementById('menuToggle');
+
+    // Check if the clicked element is outside the navbar and not the menu toggle button
+    if (!navbar.contains(event.target) && !menuToggle.contains(event.target)) {
+        navbar.classList.remove('active');
+        // Remove the event listener after closing the navbar
+        document.removeEventListener('click', closeNavbarOnClickOutside);
+    }
+}
+
 </script>
 

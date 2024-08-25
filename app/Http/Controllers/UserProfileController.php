@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
-
+use PhpParser\Node\Expr\FuncCall;
+use Illuminate\Validation\Rule;
 
 class UserProfileController extends Controller
 {
@@ -64,7 +65,7 @@ class UserProfileController extends Controller
             'hobby' => 'nullable|string|max:255',
             'height' => 'nullable|string|max:10',
             'weight' => 'nullable|string|max:10',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'desc' => 'required|string|max:1000',
             'education_level' => 'required|string|max:255',
             'institute_name' => 'required|string|max:255',
@@ -110,7 +111,7 @@ class UserProfileController extends Controller
             'hobby' => 'nullable|string|max:255',
             'height' => 'nullable|string|max:10',
             'weight' => 'nullable|string|max:10',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'desc' => 'required|string|max:1000',
             'education_level' => 'required|string|max:255',
             'institute_name' => 'required|string|max:255',
@@ -156,6 +157,54 @@ class UserProfileController extends Controller
         $user->save();
 
         return response()->json(['success' => true]);
+    }
+
+    public static function updateProfile(Request $request){
+
+        $user = Auth::user();
+        $profile = $user->profile;
+
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'gender' => 'required|string|max:50',
+            'religion' => 'required|string|max:100',
+            'date_of_birth' => 'required|date',
+            'birth_place' => 'required|string|max:255',
+            'nationality' => 'required|string|max:100',
+            'present_address' => 'required|string|max:255',
+            'email' => ['required','email',Rule::unique('profiles', 'email')->ignore($profile->id),],
+            'contact_number' => 'required|string|max:20',
+            'maritial_status' => 'required|string|max:50',
+            'blood_group' => 'required|string|max:10',
+            'hobby' => 'nullable|string|max:255',
+            'height' => 'nullable|string|max:10',
+            'weight' => 'nullable|string|max:10',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'desc' => 'required|string|max:1000',
+            'education_level' => 'required|string|max:255',
+            'institute_name' => 'required|string|max:255',
+            'working_with' => 'required|string|max:100',
+            'employer_name' => 'required|string|max:255',
+            'designation' => 'required|string|max:255',
+            'duration' => 'required|string|max:255',
+            'monthly_income' => 'required|numeric|min:0',
+            'father_status' => 'required|string|max:50',
+            'mother_status' => 'required|string|max:50',
+            'number_of_sibling' => 'required|integer|min:0',
+            'family_type' => 'required|string|max:50',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $userupdateProfile = Profile::saveInfo($request);
+
+        return response()->json(['success' => true,]);
     }
 
 }

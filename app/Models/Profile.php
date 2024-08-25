@@ -12,7 +12,14 @@ class Profile extends Model
 
     public static function saveInfo($request) {
 
-        $profile = new Profile();
+        $user = Auth::user();
+        $profile = $user->profile;  // Retrieve the user's profile
+
+        if (is_null($profile)) {
+            // If the profile does not exist, create a new one
+            $profile = new Profile();
+            $profile->user_id = $user->id;  // Set the user_id to associate with the current user
+        }
 
         $profile->user_id = Auth::user()->id;
         $profile->first_name = $request->first_name;

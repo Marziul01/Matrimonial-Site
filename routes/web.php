@@ -62,6 +62,7 @@ Route::group(['prefix' => 'account'],function(){
         Route::post('/user/profile/submit', [UserProfileController::class,'submitProfile'])->name('profile.store');
         Route::post('/user/partner/profile/submit', [UserProfileController::class,'submitPartnerProfile'])->name('partner.profile.store');
         Route::post('/user/change/password', [UserProfileController::class,'updatePassword'])->name('user.pass.change');
+        Route::post('/user/profile/update', [UserProfileController::class,'updateProfile'])->name('profile.update');
     });
 });
 

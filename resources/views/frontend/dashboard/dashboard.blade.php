@@ -180,19 +180,7 @@
                                                     <option value="single">Single</option>
                                                     <option value="divorced">Divorced</option>
                                                 </select>
-                                                {{-- <div class="profileInput">
-                                                    <p class="">Submitting For</p>
-                                                    <div class="d-flex align-items-center column-gap-5">
-                                                        <div class="">
-                                                            <input class="form-check-input" type="radio" value="myself" name="account_for" id="myself">
-                                                            <label class="form-check-label" for="myself">Myself</label>
-                                                        </div>
-                                                        <div class="">
-                                                            <input class="form-check-input" type="radio" value="others" name="account_for" id="others">
-                                                            <label class="form-check-label" for="others">Others</label>
-                                                        </div>
-                                                    </div>
-                                                </div> --}}
+
                                             </div>
                                             <div class="col-md-4 pl-0 pt-2 mt-0">
 
@@ -782,7 +770,8 @@
                             <p> You didn't create your profile yet ! </p>
                         @else
                         <div class="">
-                            <form id="edit-yur-profile-form">
+                            <form id="edit-your-profile-form">
+                                @csrf
                                 <ul class="nav nav-tabs profile-form-steps mt-4" id="myTab" role="tablist">
                                     <li class="nav-item border-0" role="presentation">
                                       <button class="nav-link profile-step active" id="home13-tab" data-bs-toggle="tab" data-bs-target="#home13" type="button" role="tab" aria-controls="home13" aria-selected="true">Basic Information</button>
@@ -799,178 +788,277 @@
                                         <div class="row p-0">
                                             <div class="col-md-4 mt-0">
                                                 <div class="imageDrop">
-                                                    <img src="{{ asset($profileDetails->image) }}" class="w-60">
+                                                    <img src="{{ asset($profileDetails->image) }}" class="w-60 savedImagePre">
+                                                    <div id="imagePreviewContainer" class="newImagePre" style="display: none;">
+                                                        <img id="imagePreview" src="" alt="Uploaded Image" style="max-width: 100%; max-height: 100%;">
+                                                    </div>
                                                 </div>
+                                                <div class="d-flex justify-content-start align-items-center column-gap-2 my-2">
+                                                    <label class="UploadnewImageLabel" for="photoInput"> <i class="fa-solid fa-upload"></i> Upload New Image </label>
+                                                    <input type="file" name="image" id="photoInput" accept="image/*" class="d-none">
+                                                    <button type="button" class="UploadnewImageremove" id="removeImageButton"><i class="fa-solid fa-trash"></i> Remove</button>
+                                                </div>
+
                                             </div>
-                                            <div class="col-md-8">
+                                            <div class="col-md-8 mt-2">
                                                 <label> About Yourself </label>
-                                                <textarea class="profileDesc" readonly>{{ $profileDetails->desc }}</textarea>
+                                                <textarea class="profileDesc" name="desc">{{ $profileDetails->desc }}</textarea>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> First Name </label>
-                                                    <input type="text" value="{{ $profileDetails->first_name }}" class="profileInput" readonly>
+                                                    <input type="text" name="first_name" value="{{ $profileDetails->first_name }}" class="profileInput">
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Last Name </label>
-                                                    <input type="text" value="{{ $profileDetails->last_name }}" class="profileInput" readonly>
+                                                    <input type="text" name="last_name" value="{{ $profileDetails->last_name }}" class="profileInput" >
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Gender </label>
-                                                    <input type="text" value="{{ $profileDetails->gender }}" class="profileInput" readonly>
+                                                    <select name="gender" class="profileInput">
+                                                        <option value="Male" {{ $profileDetails->gender == 'Male' ? 'selected' : '' }}>Male</option>
+                                                        <option value="Female" {{ $profileDetails->gender == 'Female' ? 'selected' : '' }}>Female</option>
+                                                    </select>
+
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Religion </label>
-                                                    <input type="text" value="{{ $profileDetails->religion }}" class="profileInput" readonly>
+                                                    <input type="text" name="religion" value="{{ $profileDetails->religion }}" class="profileInput" >
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Date of Birth </label>
-                                                    <input type="date" value="{{ $profileDetails->date_of_birth }}" class="profileInput" readonly>
+                                                    <input type="date" name="date_of_birth" value="{{ $profileDetails->date_of_birth }}" class="profileInput">
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Birth Place </label>
-                                                    <input type="text" value="{{ $profileDetails->birth_place }}" class="profileInput" readonly>
+                                                    <input type="text" name="birth_place" value="{{ $profileDetails->birth_place }}" class="profileInput">
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Nationality </label>
-                                                    <input type="text" value="{{ $profileDetails->nationality }}" class="profileInput" readonly>
+                                                    <input type="text" name="nationality" value="{{ $profileDetails->nationality }}" class="profileInput">
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Present Address </label>
-                                                    <input type="text" value="{{ $profileDetails->present_address }}" class="profileInput" readonly>
+                                                    <input type="text" name="present_address" value="{{ $profileDetails->present_address }}" class="profileInput">
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Mail ID </label>
-                                                    <input type="text" value="{{ $profileDetails->email }}" class="profileInput" readonly>
+                                                    <input type="email" name="email" value="{{ $profileDetails->email }}" class="profileInput">
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Contact Number </label>
-                                                    <input type="text" value="{{ $profileDetails->contact_number }}" class="profileInput" readonly>
+                                                    <input type="text" name="contact_number" value="{{ $profileDetails->contact_number }}" class="profileInput">
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Marital Status </label>
-                                                    <input type="text" value="{{ $profileDetails->marital_status }}" class="profileInput" readonly>
+                                                    <select name="maritial_status" class="profileInput">
+                                                        <option value="single" {{ $profileDetails->marital_status == 'single' ? 'selected' : '' }}>Single</option>
+                                                        <option value="divorced" {{ $profileDetails->marital_status == 'divorced' ? 'selected' : '' }}>Divorced</option>
+                                                    </select>
+
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Blood Group </label>
-                                                    <input type="text" value="{{ $profileDetails->blood_group }}" class="profileInput" readonly>
+                                                    <select name="blood_group" class="profileInput">
+                                                        <option value="A+" {{ $profileDetails->blood_group == 'A+' ? 'selected' : '' }}>A+</option>
+                                                        <option value="A-" {{ $profileDetails->blood_group == 'A-' ? 'selected' : '' }}>A-</option>
+                                                        <option value="B+" {{ $profileDetails->blood_group == 'B+' ? 'selected' : '' }}>B+</option>
+                                                        <option value="B-" {{ $profileDetails->blood_group == 'B-' ? 'selected' : '' }}>B-</option>
+                                                        <option value="AB+" {{ $profileDetails->blood_group == 'AB+' ? 'selected' : '' }}>AB+</option>
+                                                        <option value="AB-" {{ $profileDetails->blood_group == 'AB-' ? 'selected' : '' }}>AB-</option>
+                                                        <option value="O+" {{ $profileDetails->blood_group == 'O+' ? 'selected' : '' }}>O+</option>
+                                                        <option value="O-" {{ $profileDetails->blood_group == 'O-' ? 'selected' : '' }}>O-</option>
+                                                    </select>
+
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Hobby </label>
-                                                    <input type="text" value="{{ $profileDetails->hobby }}" class="profileInput" readonly>
+                                                    <select name="hobby" class="profileInput">
+
+                                                        <option value="Reading" {{ $profileDetails->hobby == 'Reading' ? 'selected' : '' }}>Reading</option>
+                                                        <option value="Writing" {{ $profileDetails->hobby == 'Writing' ? 'selected' : '' }}>Writing</option>
+                                                        <option value="Gaming" {{ $profileDetails->hobby == 'Gaming' ? 'selected' : '' }}>Gaming</option>
+                                                        <option value="Travelling" {{ $profileDetails->hobby == 'Travelling' ? 'selected' : '' }}>Travelling</option>
+                                                        <option value="Singing" {{ $profileDetails->hobby == 'Singing' ? 'selected' : '' }}>Singing</option>
+                                                        <option value="Dancing" {{ $profileDetails->hobby == 'Dancing' ? 'selected' : '' }}>Dancing</option>
+                                                        <option value="Art" {{ $profileDetails->hobby == 'Art' ? 'selected' : '' }}>Art</option>
+                                                        <option value="Eating" {{ $profileDetails->hobby == 'Eating' ? 'selected' : '' }}>Eating</option>
+                                                    </select>
+
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Height </label>
-                                                    <input type="text" value="{{ $profileDetails->height }}" class="profileInput" readonly>
+                                                    <select name="height" class="profileInput">
+
+                                                        <option value="5'" {{ $profileDetails->height == "5'" ? 'selected' : '' }}>5'</option>
+                                                        <option value="5.1'" {{ $profileDetails->height == "5.1'" ? 'selected' : '' }}>5.1'</option>
+                                                        <option value="5.2'" {{ $profileDetails->height == "5.2'" ? 'selected' : '' }}>5.2'</option>
+                                                        <option value="5.3'" {{ $profileDetails->height == "5.3'" ? 'selected' : '' }}>5.3'</option>
+                                                        <option value="5.4'" {{ $profileDetails->height == "5.4'" ? 'selected' : '' }}>5.4'</option>
+                                                        <option value="5.5'" {{ $profileDetails->height == "5.5'" ? 'selected' : '' }}>5.5'</option>
+                                                        <option value="5.6'" {{ $profileDetails->height == "5.6'" ? 'selected' : '' }}>5.6'</option>
+                                                        <option value="5.7'" {{ $profileDetails->height == "5.7'" ? 'selected' : '' }}>5.7'</option>
+                                                        <option value="5.8'" {{ $profileDetails->height == "5.8'" ? 'selected' : '' }}>5.8'</option>
+                                                        <option value="5.9'" {{ $profileDetails->height == "5.9'" ? 'selected' : '' }}>5.9'</option>
+                                                        <option value="5.10'" {{ $profileDetails->height == "5.10'" ? 'selected' : '' }}>5.10'</option>
+                                                        <option value="5.11'" {{ $profileDetails->height == "5.11'" ? 'selected' : '' }}>5.11'</option>
+                                                        <option value="6'" {{ $profileDetails->height == "6'" ? 'selected' : '' }}>6'</option>
+                                                        <option value="6.1'" {{ $profileDetails->height == "6.1'" ? 'selected' : '' }}>6.1'</option>
+                                                        <option value="6.2'" {{ $profileDetails->height == "6.2'" ? 'selected' : '' }}>6.2'</option>
+                                                        <option value="6.3'" {{ $profileDetails->height == "6.3'" ? 'selected' : '' }}>6.3'</option>
+                                                    </select>
+
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Weight </label>
-                                                    <input type="text" value="{{ $profileDetails->weight }}" class="profileInput" readonly>
+                                                    <select name="weight" class="profileInput">
+
+                                                        <option value="50-60 Kg" {{ $profileDetails->weight == "50-60 Kg" ? 'selected' : '' }}>50-60 Kg</option>
+                                                        <option value="60-70 Kg" {{ $profileDetails->weight == "60-70 Kg" ? 'selected' : '' }}>60-70 Kg</option>
+                                                        <option value="70-80 Kg" {{ $profileDetails->weight == "70-80 Kg" ? 'selected' : '' }}>70-80 Kg</option>
+                                                        <option value="80-90 Kg" {{ $profileDetails->weight == "80-90 Kg" ? 'selected' : '' }}>80-90 Kg</option>
+                                                        <option value="90-100 Kg" {{ $profileDetails->weight == "90-100 Kg" ? 'selected' : '' }}>90-100 Kg</option>
+                                                        <option value="100-110 Kg" {{ $profileDetails->weight == "100-110 Kg" ? 'selected' : '' }}>100-110 Kg</option>
+                                                        <option value="110-120 Kg" {{ $profileDetails->weight == "110-120 Kg" ? 'selected' : '' }}>110-120 Kg</option>
+                                                    </select>
+
                                                 </div>
                                             </div>
                                         </div>
+                                        <button type="button" class="btn btn-primary mt-3 profile-next-step" id="updateProfileEduNext">Next</button>
                                     </div>
                                     <div class="tab-pane fade mobileProfilePad" id="profile13" role="tabpanel" aria-labelledby="profile13-tab">
                                         <div class="row p-0">
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Education Level </label>
-                                                    <input type="text" value="{{ $profileDetails->education_level }}" class="profileInput" readonly>
+                                                    <input type="text" name="education_level" value="{{ $profileDetails->education_level }}" class="profileInput">
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Institute Name </label>
-                                                    <input type="text" value="{{ $profileDetails->institute_name }}" class="profileInput" readonly>
+                                                    <input type="text" name="institute_name" value="{{ $profileDetails->institute_name }}" class="profileInput" >
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Working With </label>
-                                                    <input type="text" value="{{ $profileDetails->working_with }}" class="profileInput" readonly>
+                                                    <select name="working_with" class="profileInput">
+
+                                                        <option value="Private Company" {{ $profileDetails->working_with == "Private Company" ? 'selected' : '' }}>Private Company</option>
+                                                        <option value="Govt. Service" {{ $profileDetails->working_with == "Govt. Service" ? 'selected' : '' }}>Govt. Service</option>
+                                                        <option value="Business" {{ $profileDetails->working_with == "Business" ? 'selected' : '' }}>Business</option>
+                                                        <option value="Not Working" {{ $profileDetails->working_with == "Not Working" ? 'selected' : '' }}>Not Working</option>
+                                                    </select>
+
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Employee Name </label>
-                                                    <input type="text" value="{{ $profileDetails->employer_name }}" class="profileInput" readonly>
+                                                    <input type="text" name="employer_name" value="{{ $profileDetails->employer_name }}" class="profileInput" >
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Designation </label>
-                                                    <input type="text" value="{{ $profileDetails->designation }}" class="profileInput" readonly>
+                                                    <input type="text" name="designation" value="{{ $profileDetails->designation }}" class="profileInput" >
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Duration </label>
-                                                    <input type="text" value="{{ $profileDetails->duration }}" class="profileInput" readonly>
+                                                    <input type="text" name="duration" value="{{ $profileDetails->duration }}" class="profileInput" >
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Monthly Income </label>
-                                                    <input type="text" value="{{ $profileDetails->monthly_income }}" class="profileInput" readonly>
+                                                    <input type="number" name="monthly_income" value="{{ $profileDetails->monthly_income }}" class="profileInput">
                                                 </div>
                                             </div>
                                         </div>
+                                        <button type="button" class="btn btn-secondary mt-3 profile-prev-step" id="updateProdilInfopre">Previous</button>
+                                        <button type="button" class="btn btn-primary mt-3 profile-next-step" id="updateProfileFamilyNext">Next</button>
                                     </div>
                                     <div class="tab-pane fade mobileProfilePad" id="contact13" role="tabpanel" aria-labelledby="contact13-tab">
                                         <div class="row p-0">
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Father Status </label>
-                                                    <input type="text" value="{{ $profileDetails->father_status }}" class="profileInput" readonly>
+                                                    <select name="father_status" class="profileInput">
+
+                                                        <option value="Employed" {{ $profileDetails->father_status == "Employed" ? 'selected' : '' }}>Employed</option>
+                                                        <option value="Business" {{ $profileDetails->father_status == "Business" ? 'selected' : '' }}>Business</option>
+                                                        <option value="Retired" {{ $profileDetails->father_status == "Retired" ? 'selected' : '' }}>Retired</option>
+                                                        <option value="Not Working" {{ $profileDetails->father_status == "Not Working" ? 'selected' : '' }}>Not Working</option>
+                                                        <option value="Passedaway" {{ $profileDetails->father_status == "Passedaway" ? 'selected' : '' }}>Passedaway</option>
+                                                    </select>
+
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Mother Status </label>
-                                                    <input type="text" value="{{ $profileDetails->mother_status }}" class="profileInput" readonly>
+                                                    <select name="mother_status" class="profileInput">
+
+                                                        <option value="Home Maker" {{ $profileDetails->mother_status == "Home Maker" ? 'selected' : '' }}>Home Maker</option>
+                                                        <option value="Employed" {{ $profileDetails->mother_status == "Employed" ? 'selected' : '' }}>Employed</option>
+                                                        <option value="Business" {{ $profileDetails->mother_status == "Business" ? 'selected' : '' }}>Business</option>
+                                                        <option value="Retired" {{ $profileDetails->mother_status == "Retired" ? 'selected' : '' }}>Retired</option>
+                                                        <option value="Passedaway" {{ $profileDetails->mother_status == "Passedaway" ? 'selected' : '' }}>Passedaway</option>
+                                                    </select>
+
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Number of Sibling </label>
-                                                    <input type="text" value="{{ $profileDetails->number_of_sibling }}" class="profileInput" readonly>
+                                                    <input type="number" name="number_of_sibling" value="{{ $profileDetails->number_of_sibling }}" class="profileInput" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 pl-0 pt-2 mt-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label> Family Type </label>
-                                                    <input type="text" value="{{ $profileDetails->family_type }}" class="profileInput" readonly>
+                                                    <select name="family_type" class="profileInput">
+
+                                                        <option value="Joint" {{ $profileDetails->family_type == "Joint" ? 'selected' : '' }}>Joint</option>
+                                                        <option value="Nuclear" {{ $profileDetails->family_type == "Nuclear" ? 'selected' : '' }}>Nuclear</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
+                                        <button type="button" class="btn btn-secondary mt-3 profile-prev-step" id="updateProfileEdupre">Previous</button>
+                                        <button type="submit" class="btn btn-primary mt-3 profile-next-step" id="">Update</button>
                                     </div>
                                 </div>
                             </form>
@@ -1490,11 +1578,111 @@ document.getElementById('opensMessagesTab').addEventListener('click', function()
 </script>
 
 <script>
-    document.getElementById('externalButton').addEventListener('click', function() {
-    // Programmatically click the hidden tab button
-    document.getElementById('v-pills-messages2-tab').click();
-});
+        document.getElementById('externalButton').addEventListener('click', function() {
+        // Programmatically click the hidden tab button
+        document.getElementById('v-pills-messages2-tab').click();
+    });
+
+    document.getElementById('updateProfileEduNext').addEventListener('click', function() {
+        // Programmatically click the hidden tab button
+        document.getElementById('profile13-tab').click();
+    });
+    document.getElementById('updateProdilInfopre').addEventListener('click', function() {
+        // Programmatically click the hidden tab button
+        document.getElementById('home13-tab').click();
+    });
+    document.getElementById('updateProfileFamilyNext').addEventListener('click', function() {
+        // Programmatically click the hidden tab button
+        document.getElementById('contact13-tab').click();
+    });
+    document.getElementById('updateProfileEdupre').addEventListener('click', function() {
+        // Programmatically click the hidden tab button
+        document.getElementById('profile13-tab').click();
+    });
 </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const photoInput = document.getElementById('photoInput');
+    const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+    const imagePreview = document.getElementById('imagePreview');
+    const removeImageButton = document.getElementById('removeImageButton');
+
+    // Show the image preview when a file is selected
+    photoInput.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+                imagePreviewContainer.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Remove the image preview
+    removeImageButton.addEventListener('click', function() {
+        imagePreview.src = '';
+        imagePreviewContainer.style.display = 'none';
+        photoInput.value = ''; // Clear the file input
+    });
+
+    // Form submission can proceed without an image
+    document.getElementById('photoForm').addEventListener('submit', function(event) {
+        // The form can submit even if there's no image selected
+        // No additional handling is needed here
+    });
+});
+
+</script>
+
+<script>
+    $(document).ready(function () {
+    $('#edit-your-profile-form').on('submit', function (e) {
+        e.preventDefault();
+
+        let formData = new FormData(this);
+
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("profile.update") }}', // Change this to your route
+            data: formData,
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                // Optional: Show a loader or disable the submit button
+            },
+            success: function (response) {
+                toastr.success('Your Profile Details Updated Successful!', '', {
+                            "positionClass": "toast-top-right",
+                            "timeOut": "2000", // Auto-close after 2 seconds
+                            "progressBar": true,
+                            "backgroundClass": 'bg-success', // Green background
+                        });
+
+                // Optionally, you can reset the form or redirect
+                $('#edit-your-profile-form')[0].reset();
+
+                setTimeout(function () {
+                    location.reload();
+                }, 2000);
+            },
+            error: function (response) {
+                let errors = response.responseJSON.errors;
+
+                $.each(errors, function (key, value) {
+                    toastr.error(value[0]);
+                });
+            },
+            complete: function () {
+                // Optional: Hide the loader or enable the submit button
+            }
+        });
+    });
+});
+
+</script>
 
 @endsection
