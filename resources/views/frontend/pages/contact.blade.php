@@ -11,7 +11,7 @@
             <div>
                 <div class="">
                     <h1 class="text-center contactTitle">Contact our team</h1>
-                    <p class="text-center contactSubTitle">Got any question about our platform ? We're here to help.<br> Chat to our friendly team 24/7 and get onboard in less then 5 minutes</p>
+                    <p class="text-center contactSubTitle">Got any question about our platform ? We're here to help.</p>
                 </div>
                 <div class="row">
                     <div class="col-md-8">
@@ -44,18 +44,13 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label class="form-label">Message</label>
-                                    <textarea class="form-control" name="message" placeholder="Leave us a Message...."></textarea>
+                                    <textarea class="form-control" name="message" placeholder="Write your massage...."></textarea>
                                 </div>
                                 <button type="submit" class="btn w-100">Submit</button>
                             </div>
                         </form>
                     </div>
                     <div class="col-md-4 contactInfo">
-                        <h5 class="mt-4">Chat with us</h5>
-                        <p>  Speack to our friendly team via live chat</p>
-                        <a href=""><i class="fa-regular fa-comments"></i> Start a live chat </a>
-                        <a href=""> <i class="fa-solid fa-envelope"></i> Shoot us an email </a>
-                        <a href=""> <i class="fa-brands fa-x-twitter"></i> Message us on X </a>
                         <h5 class="mt-4">Call us</h5>
                         <p>Speack to our friendly team via live chat</p>
                         <a href=""> <i class="fa-solid fa-phone"></i> +123 456 7890 </a>

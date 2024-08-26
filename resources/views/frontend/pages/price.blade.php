@@ -27,10 +27,10 @@
                             <div class="p-4 d-flex justify-content-center align-items-center w-100 mobilePriceTabCard">
                                 <div class="pricePlanCard1">
                                     <div class="border-bottom-1 pb-3">
-                                        <h2 class="priceTitle">Standard</h2>
+                                        <h2 class="priceTitle">Free</h2>
                                         <p class="priceSubTitle"> Basic Chat Functionality </p>
-                                        <h1 class="priceAmount">BDT 99 <span>/ mo</span></h1>
-                                        <p class="priceAmountText">Per month renew</p>
+                                        <h1 class="priceAmount">BDT 0</h1>
+
                                     </div>
                                     <div class="py-3">
                                         <p class="planServices"><i class="fa-solid fa-circle-check"></i> 30 days history</p>
@@ -60,7 +60,7 @@
                                 <div class="pricePlanCard3">
                                     <div class="border-bottom-1 pb-3">
                                         <div class="d-flex align-items-center justify-content-between column-gap-4">
-                                            <h2 class="priceTitle">Enterprise</h2>
+                                            <h2 class="priceTitle">Pro Plus</h2>
                                             <p class="pricePopularTag">Popular</p>
                                         </div>
                                         <p class="priceSubTitle"> Basic Chat Functionality </p>
@@ -82,10 +82,10 @@
                             <div class="p-4 d-flex justify-content-center align-items-center w-100 mobilePriceTabCard">
                                 <div class="pricePlanCard1">
                                     <div class="border-bottom-1 pb-3">
-                                        <h2 class="priceTitle">Standard</h2>
+                                        <h2 class="priceTitle">Free</h2>
                                         <p class="priceSubTitle"> Basic Chat Functionality </p>
-                                        <h1 class="priceAmount">BDT 99 <span>/ mo</span></h1>
-                                        <p class="priceAmountText">Per month renew</p>
+                                        <h1 class="priceAmount">BDT 0 </h1>
+                                        {{-- <p class="priceAmountText">Per month renew</p> --}}
                                     </div>
                                     <div class="py-3">
                                         <p class="planServices"><i class="fa-solid fa-circle-check"></i> 30 days history</p>
@@ -115,7 +115,7 @@
                                 <div class="pricePlanCard3">
                                     <div class="border-bottom-1 pb-3">
                                         <div class="d-flex align-items-center justify-content-between column-gap-4">
-                                            <h2 class="priceTitle">Enterprise</h2>
+                                            <h2 class="priceTitle">Pro Plus</h2>
                                             <p class="pricePopularTag">Popular</p>
                                         </div>
                                         <p class="priceSubTitle"> Basic Chat Functionality </p>

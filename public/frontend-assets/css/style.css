@@ -770,10 +770,10 @@ a{
     margin-bottom: 5px;
 }
 .pricePlanCard3 .priceTitle{
-    color: #24ff1d;
+    color: #f43662;
 }
 .pricePlanCard2 .priceTitle{
-    color: #194eff;
+    color: #f43662;
 }
 .priceSubTitle{
     font-weight: 500;
@@ -818,8 +818,8 @@ a{
 }
 .pricePlanCard3 .price1Btn{
     color: white;
-    border: 1px solid #194eff;
-    background-color: #194eff;
+    border: 1px solid #f43662;
+    background-color: #f43662;
 }
 .pricePopularTag{
     background-color: #F43662;
@@ -834,7 +834,7 @@ a{
     font-weight: 600;
 }
 .bg-price .nav-pills .nav-link.active i{
-    color: #0647f9;
+    color: #F43662;
     margin-right: 10px;
 }
 .bg-price .nav-pills .nav-link{
@@ -1028,6 +1028,10 @@ a{
     border-radius: 8px;
     right: 5px;
     top: 5px;
+}
+.contact-bg .form-control:focus{
+    box-shadow: none !important;
+    border-color: #dee2e6 !important;
 }
 
 @media (max-width: 767px){
