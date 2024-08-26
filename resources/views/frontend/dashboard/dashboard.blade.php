@@ -38,7 +38,7 @@
                                 </div>
                             </div>
                             </div>
-                            <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Buy Credit</button>
+                            <button class="nav-link" id="v-pills-buymessages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Buy Credit</button>
                             <button class="nav-link d-none" id="v-pills-messages1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages1" type="button" role="tab" aria-controls="v-pills-messages1" aria-selected="false"></button>
                         </div>
                         <a class="nav-link text-center dashboardLogOut" href="{{ route('user.logout') }}">Logout</a>
@@ -90,7 +90,7 @@
                                                     <p>Address : <span> {{ $profile->present_address ?? 'N/A' }} </span></p>
                                                     @php $age = \Carbon\Carbon::parse($profile->date_of_birth)->age; @endphp
                                                     <p>Age : <span> {{ $age ?? 'N/A' }} yr</span></p>
-                                                    <p>Contact : <span style="font-style: italic; color: #F43662"> {{ $profile->contact_numbe ?? 'Please Upgrade Plan' }} </span></p>
+                                                    <p>Contact : <a href="" class="profileDetailsBtn2"><span style="font-style: italic; color: #F43662"> {{ $profile->contact_numbe ?? 'Please Upgrade Plan' }} </span></a></p>
                                                 </div>
                                                 <a class="profileDetailsBtn text-center mt-4" href="">View Details</a>
                                             </div>
@@ -257,7 +257,7 @@
                                                 <input type="text" name="institute_name" placeholder="Institute Name" class="profileInput">
                                             </div>
                                             <div class="col-md-4 pl-0 pt-2 mt-0">
-                                                <select name="working_with" class="profileInput">
+                                                <select name="working_with" class="profileInput" id="working_with">
                                                     <option value="">Select Working With</option>
                                                     <option value="Private Company">Private Company</option>
                                                     <option value="Govt. Service">Govt. Service</option>
@@ -265,16 +265,16 @@
                                                     <option value="Not Working">Not Working</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-4 pl-0 pt-2 mt-0">
+                                            <div class="col-md-4 pl-0 pt-2 mt-0"  id="employer_name">
                                                 <input type="text" name="employer_name" placeholder="Employer Name" class="profileInput">
                                             </div>
-                                            <div class="col-md-4 pl-0 pt-2 mt-0">
-                                                <input type="text" name="designation" placeholder="Designation" class="profileInput">
+                                            <div class="col-md-4 pl-0 pt-2 mt-0" id="designation">
+                                                <input type="text" name="designation"  placeholder="Designation" class="profileInput">
                                             </div>
-                                            <div class="col-md-4 pl-0 pt-2 mt-0">
-                                                <input type="text" name="duration" placeholder="Duration" class="profileInput">
+                                            <div class="col-md-4 pl-0 pt-2 mt-0" id="duration">
+                                                <input type="text" name="duration"  placeholder="Duration" class="profileInput">
                                             </div>
-                                            <div class="col-md-4 pl-0 pt-2 mt-0">
+                                            <div class="col-md-4 pl-0 pt-2 mt-0" id="monthly_income">
                                                 <input type="number" name="monthly_income" placeholder="Monthly Income" class="profileInput">
                                             </div>
                                         </div>
@@ -474,7 +474,7 @@
                                                 <input type="text" name="institute_name" placeholder="Institute Name" class="profileInput">
                                             </div>
                                             <div class="col-md-4 pl-0 pt-2 mt-0">
-                                                <select name="working_with" class="profileInput">
+                                                <select name="working_with" class="profileInput" id="working_with1">
                                                     <option value="">Select Working With</option>
                                                     <option value="Private Company">Private Company</option>
                                                     <option value="Govt. Service">Govt. Service</option>
@@ -482,16 +482,16 @@
                                                     <option value="Not Working">Not Working</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-4 pl-0 pt-2 mt-0">
+                                            <div class="col-md-4 pl-0 pt-2 mt-0"  id="employer_name1">
                                                 <input type="text" name="employer_name" placeholder="Employer Name" class="profileInput">
                                             </div>
-                                            <div class="col-md-4 pl-0 pt-2 mt-0">
-                                                <input type="text" name="designation" placeholder="Designation" class="profileInput">
+                                            <div class="col-md-4 pl-0 pt-2 mt-0" id="designation1">
+                                                <input type="text" name="designation"  placeholder="Designation" class="profileInput">
                                             </div>
-                                            <div class="col-md-4 pl-0 pt-2 mt-0">
-                                                <input type="text" name="duration" placeholder="Duration" class="profileInput">
+                                            <div class="col-md-4 pl-0 pt-2 mt-0" id="duration1">
+                                                <input type="text" name="duration"  placeholder="Duration" class="profileInput">
                                             </div>
-                                            <div class="col-md-4 pl-0 pt-2 mt-0">
+                                            <div class="col-md-4 pl-0 pt-2 mt-0" id="monthly_income1">
                                                 <input type="number" name="monthly_income" placeholder="Monthly Income" class="profileInput">
                                             </div>
                                         </div>
@@ -540,8 +540,138 @@
                         </div>
                     </div>
                   </div>
-                  <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                    ......
+                  <div class="tab-pane sticky-div fade BuyCredit" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                    <div class="bg-price p-5 my-3">
+                        <div>
+                            <div>
+                                <h1 class="text-center mainHeading">Pay only for what you need</h1>
+                                <p class="text-center subHeading">Pricing Plans for every budget</p>
+                            </div>
+                            <div>
+                                <div class="d-flex align-items-start w-100 priceMobileTab">
+                                    <div class="nav flex-column nav-pills me-3 w-25 pt-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                      <div><h4 class="text-center text-bold mt-5 mb-2">Choose Plan</h4></div>
+                                      <div class="priceMobileBtnDiv">
+                                        <button class="nav-link " id="v-pills-homePlan-tab" data-bs-toggle="pill" data-bs-target="#v-pills-homePlan" type="button" role="tab" aria-controls="v-pills-homePlan" aria-selected="false"><i class="fa-solid fa-circle-dot"></i> Yearly Billing</button>
+                                        <button class="nav-link active" id="v-pills-profilePlan-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profilePlan" type="button" role="tab" aria-controls="v-pills-profilePlan" aria-selected="true"><i class="fa-solid fa-circle-dot"></i> Monthly Billing</button>
+                                      </div>
+                                    </div>
+                                    <div class="tab-content w-75" id="v-pills-tabContent">
+                                      <div class="tab-pane fade" id="v-pills-homePlan" role="tabpanel" aria-labelledby="v-pills-homePlan-tab">
+                                        <div class="p-4 d-flex justify-content-center align-items-center w-100 mobilePriceTabCard">
+                                            <div class="pricePlanCard1">
+                                                <div class="border-bottom-1 pb-3">
+                                                    <h2 class="priceTitle">Standard</h2>
+                                                    <p class="priceSubTitle"> Basic Chat Functionality </p>
+                                                    <h1 class="priceAmount">BDT 99 <span>/ mo</span></h1>
+                                                    <p class="priceAmountText">Per month renew</p>
+                                                </div>
+                                                <div class="py-3">
+                                                    <p class="planServices"><i class="fa-solid fa-circle-check"></i> 30 days history</p>
+                                                    <p class="planServices"><i class="fa-solid fa-circle-check"></i> Up to 1000 messages/mo</p>
+                                                    <p class="planServices"><i class="fa-solid fa-circle-check"></i> Unlimited AI Capabilities</p>
+                                                </div>
+                                                <div>
+                                                    <a href="" class="price1Btn"> Choose Plan </a>
+                                                </div>
+                                            </div>
+                                            <div class="pricePlanCard2">
+                                                <div class="border-bottom-1 pb-3">
+                                                    <h2 class="priceTitle">Pro</h2>
+                                                    <p class="priceSubTitle"> Basic Chat Functionality </p>
+                                                    <h1 class="priceAmount">BDT 299 <span>/ mo</span></h1>
+                                                    <p class="priceAmountText">Per month renew</p>
+                                                </div>
+                                                <div class="py-3">
+                                                    <p class="planServices"><i class="fa-solid fa-circle-check"></i> 30 days history</p>
+                                                    <p class="planServices"><i class="fa-solid fa-circle-check"></i> Up to 1000 messages/mo</p>
+                                                    <p class="planServices"><i class="fa-solid fa-circle-check"></i> Unlimited AI Capabilities</p>
+                                                </div>
+                                                <div>
+                                                    <a href="" class="price1Btn"> Choose Plan </a>
+                                                </div>
+                                            </div>
+                                            <div class="pricePlanCard3">
+                                                <div class="border-bottom-1 pb-3">
+                                                    <div class="d-flex align-items-center justify-content-between column-gap-4">
+                                                        <h2 class="priceTitle">Enterprise</h2>
+                                                        <p class="pricePopularTag">Popular</p>
+                                                    </div>
+                                                    <p class="priceSubTitle"> Basic Chat Functionality </p>
+                                                    <h1 class="priceAmount">BDT 499 <span>/ mo</span></h1>
+                                                    <p class="priceAmountText">Per month renew</p>
+                                                </div>
+                                                <div class="py-3">
+                                                    <p class="planServices"><i class="fa-solid fa-circle-check"></i> 30 days history</p>
+                                                    <p class="planServices"><i class="fa-solid fa-circle-check"></i> Up to 1000 messages/mo</p>
+                                                    <p class="planServices"><i class="fa-solid fa-circle-check"></i> Unlimited AI Capabilities</p>
+                                                </div>
+                                                <div>
+                                                    <a href="" class="price1Btn"> Choose Plan </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div class="tab-pane fade  show active" id="v-pills-profilePlan" role="tabpanel" aria-labelledby="v-pills-profilePlan-tab">
+                                        <div class="p-4 d-flex justify-content-center align-items-center w-100 mobilePriceTabCard">
+                                            <div class="pricePlanCard1">
+                                                <div class="border-bottom-1 pb-3">
+                                                    <h2 class="priceTitle">Standard</h2>
+                                                    <p class="priceSubTitle"> Basic Chat Functionality </p>
+                                                    <h1 class="priceAmount">BDT 99 <span>/ mo</span></h1>
+                                                    <p class="priceAmountText">Per month renew</p>
+                                                </div>
+                                                <div class="py-3">
+                                                    <p class="planServices"><i class="fa-solid fa-circle-check"></i> 30 days history</p>
+                                                    <p class="planServices"><i class="fa-solid fa-circle-check"></i> Up to 1000 messages/mo</p>
+                                                    <p class="planServices"><i class="fa-solid fa-circle-check"></i> Unlimited AI Capabilities</p>
+                                                </div>
+                                                <div>
+                                                    <a href="" class="price1Btn"> Choose Plan </a>
+                                                </div>
+                                            </div>
+                                            <div class="pricePlanCard2">
+                                                <div class="border-bottom-1 pb-3">
+                                                    <h2 class="priceTitle">Pro</h2>
+                                                    <p class="priceSubTitle"> Basic Chat Functionality </p>
+                                                    <h1 class="priceAmount">BDT 299 <span>/ mo</span></h1>
+                                                    <p class="priceAmountText">Per month renew</p>
+                                                </div>
+                                                <div class="py-3">
+                                                    <p class="planServices"><i class="fa-solid fa-circle-check"></i> 30 days history</p>
+                                                    <p class="planServices"><i class="fa-solid fa-circle-check"></i> Up to 1000 messages/mo</p>
+                                                    <p class="planServices"><i class="fa-solid fa-circle-check"></i> Unlimited AI Capabilities</p>
+                                                </div>
+                                                <div>
+                                                    <a href="" class="price1Btn"> Choose Plan </a>
+                                                </div>
+                                            </div>
+                                            <div class="pricePlanCard3">
+                                                <div class="border-bottom-1 pb-3">
+                                                    <div class="d-flex align-items-center justify-content-between column-gap-4">
+                                                        <h2 class="priceTitle">Enterprise</h2>
+                                                        <p class="pricePopularTag">Popular</p>
+                                                    </div>
+                                                    <p class="priceSubTitle"> Basic Chat Functionality </p>
+                                                    <h1 class="priceAmount">BDT 499 <span>/ mo</span></h1>
+                                                    <p class="priceAmountText">Per month renew</p>
+                                                </div>
+                                                <div class="py-3">
+                                                    <p class="planServices"><i class="fa-solid fa-circle-check"></i> 30 days history</p>
+                                                    <p class="planServices"><i class="fa-solid fa-circle-check"></i> Up to 1000 messages/mo</p>
+                                                    <p class="planServices"><i class="fa-solid fa-circle-check"></i> Unlimited AI Capabilities</p>
+                                                </div>
+                                                <div>
+                                                    <a href="" class="price1Btn"> Choose Plan </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
                   </div>
                   <div class="tab-pane fade viewProfileTab" id="v-pills-messages1" role="tabpanel" aria-labelledby="v-pills-messages1-tab">
                     <div class="">
@@ -1072,7 +1202,20 @@
         </div>
     </div>
 </div>
-
+<div id="planPopup" class="d-none">
+    <div class="planPopup">
+        <div>
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="text-center">Buy one of our plans to see Profile Details!</h3>
+                    <button type="button" class="popUpPlanBtn d-none d-md-block" id="popUpPlanBtn">Buy Credit</button>
+                    <button type="button" class="popUpPlanBtn d-md-none" id="popUpPlanBtn1">Buy Credit</button>
+                    <button type="button" id="planPopupClose" class="close">X</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('customJs')
@@ -1599,6 +1742,15 @@ document.getElementById('opensMessagesTab').addEventListener('click', function()
         // Programmatically click the hidden tab button
         document.getElementById('profile13-tab').click();
     });
+    document.getElementById('popUpPlanBtn').addEventListener('click', function() {
+        // Programmatically click the hidden tab button
+        document.getElementById('v-pills-messages-tab').click();
+    });
+    document.getElementById('popUpPlanBtn1').addEventListener('click', function() {
+        // Programmatically click the hidden tab button
+        document.getElementById('v-pills-buymessages-tab').click();
+    });
+
 </script>
 
 <script>
@@ -1680,6 +1832,91 @@ document.getElementById('opensMessagesTab').addEventListener('click', function()
                 // Optional: Hide the loader or enable the submit button
             }
         });
+    });
+});
+
+</script>
+
+<script>
+    document.getElementById('working_with').addEventListener('change', function() {
+    const workingWith = this.value;
+    const employerNameDiv = document.getElementById('employer_name');
+    const designationDiv = document.getElementById('designation');
+    const durationDiv = document.getElementById('duration');
+    const monthlyIncomeDiv = document.getElementById('monthly_income');
+
+    // Reset visibility of all fields
+    employerNameDiv.style.display = 'block';
+    designationDiv.style.display = 'block';
+    durationDiv.style.display = 'block';
+    monthlyIncomeDiv.style.display = 'block';
+
+    if (workingWith === 'Not Working') {
+        // Hide all fields if "Not Working" is selected
+        employerNameDiv.style.display = 'none';
+        designationDiv.style.display = 'none';
+        durationDiv.style.display = 'none';
+        monthlyIncomeDiv.style.display = 'none';
+    }
+});
+
+
+document.getElementById('working_with1').addEventListener('change', function() {
+    const workingWith1 = this.value;
+    const employerNameDiv1 = document.getElementById('employer_name1');
+    const designationDiv1 = document.getElementById('designation1');
+    const durationDiv1 = document.getElementById('duration1');
+    const monthlyIncomeDiv1 = document.getElementById('monthly_income1');
+
+    // Reset visibility of all fields
+    employerNameDiv1.style.display = 'block';
+    designationDiv1.style.display = 'block';
+    durationDiv1.style.display = 'block';
+    monthlyIncomeDiv1.style.display = 'block';
+
+    if (workingWith1 === 'Not Working') {
+        // Hide all fields if "Not Working" is selected
+        employerNameDiv1.style.display = 'none';
+        designationDiv1.style.display = 'none';
+        durationDiv1.style.display = 'none';
+        monthlyIncomeDiv1.style.display = 'none';
+    }
+});
+
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const planPopup = document.getElementById('planPopup');
+    const profileDetailsBtn = document.querySelector('.profileDetailsBtn');
+    const profileDetailsBtn2 = document.querySelector('.profileDetailsBtn2');
+    const planPopupClose = document.getElementById('planPopupClose');
+    const popUpPlanBtn = document.getElementById('popUpPlanBtn');
+    const popUpPlanBtn1 = document.getElementById('popUpPlanBtn1');
+
+    // Show the popup when "View Details" is clicked
+    profileDetailsBtn.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default link behavior
+        planPopup.classList.remove('d-none');
+    });
+
+    profileDetailsBtn2.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default link behavior
+        planPopup.classList.remove('d-none');
+    });
+
+    // Close the popup when "Close" button is clicked
+    planPopupClose.addEventListener('click', function() {
+        planPopup.classList.add('d-none');
+    });
+
+    // Close the popup and trigger the Bootstrap tab navigation button when "Buy Credit" is clicked
+    popUpPlanBtn.addEventListener('click', function() {
+        planPopup.classList.add('d-none');
+    });
+
+    popUpPlanBtn1.addEventListener('click', function() {
+        planPopup.classList.add('d-none');
     });
 });
 

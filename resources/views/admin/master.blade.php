@@ -9,16 +9,18 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="_token" content="{{ csrf_token() }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset($siteSettings->favicon) }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend-assets') }}/imgs/favicon2.png">
     <title>@yield('title')</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('admin-assets') }}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
+    <link href="{{ asset('admin-assets') }}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!-- Custom styles for this template-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="{{ asset('admin-assets') }}/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="{{ asset('admin-assets') }}/dropzone/css/dropzone.min.css" rel="stylesheet">
 
@@ -28,16 +30,6 @@
 </head>
 
 <body id="page-top">
-@php
-    $notifications = \Illuminate\Support\Facades\DB::table('notifications')->where('read_at', NULL)
-    ->where('type', '<>', 'App\Notifications\NewContactNotification')
-    ->get();
-    $messages = \Illuminate\Support\Facades\DB::table('notifications')->where('read_at', NULL)
-    ->where('type','App\Notifications\NewContactNotification')
-    ->get();
-    $totalNotification = $notifications->count();
-    $totalMessages = $messages->count();
-@endphp
 <!-- Page Wrapper -->
 <div id="wrapper">
 
@@ -52,12 +44,7 @@
         <div id="content">
 
             <!-- Topbar -->
-            @include('admin.include.header',[
-                'notifications' => $notifications,
-                'totalNotification' => $totalNotification,
-                'messages' => $messages,
-                'totalMessages' => $totalMessages,
-                ])
+            @include('admin.include.header')
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
@@ -124,31 +111,10 @@
 <script src="{{ asset('admin-assets') }}/dropzone/jquery-3.6.4.min.js"></script>
 <script src="{{ asset('admin-assets') }}/dropzone/js/dropzone.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#envelopeIcon').click(function(event) {
-            event.preventDefault(); // Prevent default link behavior
+<script src="{{ asset('admin-assets') }}/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="{{ asset('admin-assets') }}/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="{{ asset('admin-assets') }}/js/demo/datatables-demo.js"></script>
 
-            // Send AJAX request to mark all messages as read
-            $.ajax({
-                url: '{{ route('messages.markAllAsRead') }}',
-                type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    // Update UI if necessary
-                    console.log('All messages marked as read');
-                    $('.badge-counter').text('0'); // Assuming you want to update the badge counter to 0
-                },
-                error: function(xhr, status, error) {
-                    // Handle error
-                    console.error(error);
-                }
-            });
-        });
-    });
-</script>
 
 @yield('customjs')
 </body>

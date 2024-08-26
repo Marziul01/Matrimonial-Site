@@ -11,10 +11,10 @@
         </div>
         <div class="w-70 d-none d-md-block">
             <div class="menu d-flex justify-content-end align-items-center column-gap-2">
-                <a href="" class="menu_item"> Home </a>
-                <a href="" class="menu_item"> Price </a>
-                <a href="" class="menu_item"> Faq </a>
-                <a href="" class="menu_item"> Contact </a>
+                <a href="{{ route('home') }}" class="menu_item"> Home </a>
+                <a href="{{ route('price') }}" class="menu_item"> Price </a>
+                <a href="{{ route('faq') }}" class="menu_item"> Faq </a>
+                <a href="{{ route('contact') }}" class="menu_item"> Contact </a>
                 <a href="{{ route('login') }}" class="btn loginBtn">Login</a>
             </div>
         </div>
@@ -26,10 +26,10 @@
         </div>
         <div class="homeMObileMenu d-md-none" id="homeMobileNav">
             <div class="menu d-flex flex-column justify-content-center align-items-start row-gap-2">
-                <a href="" class="menu_item"> Home </a>
-                <a href="" class="menu_item"> Price </a>
-                <a href="" class="menu_item"> Faq </a>
-                <a href="" class="menu_item border-0"> Contact </a>
+                <a href="{{ route('home') }}" class="menu_item"> Home </a>
+                <a href="{{ route('price') }}" class="menu_item"> Price </a>
+                <a href="{{ route('faq') }}" class="menu_item"> Faq </a>
+                <a href="{{ route('contact') }}" class="menu_item border-0"> Contact </a>
             </div>
         </div>
     </div>

@@ -3,36 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\AdminLoginController;
 use App\Http\Controllers\admin\DashboardController;
-use App\Http\Controllers\admin\CategoryController;
-use App\Http\Controllers\admin\SubCategoryController;
-use App\Http\Controllers\admin\BrandController;
-use App\Http\Controllers\admin\ProductController;
-use App\Http\Controllers\admin\CkEditorController;
-use App\Http\Controllers\admin\ProductSubCategoryController;
-use App\Http\Controllers\admin\TempImageController;
-use App\Http\Controllers\admin\ProductImageController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\SiteSettingsController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\admin\PagesController;
-use App\Http\Controllers\OfferController;
-use App\Http\Controllers\ShopController;
-use App\Http\Controllers\ProductDetailsController;
-use App\Http\Controllers\admin\VariationController;
-use App\Http\Controllers\admin\SizeController;
-use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\UserProfileController;
-use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\admin\ShippingController;
-use App\Http\Controllers\CouponController;
-use App\Http\Controllers\admin\OrderController;
-use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\RatingController;
-use App\Http\Controllers\CategoryProductController;
-use App\Http\Controllers\SslCommerzPaymentController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FaqController;
+use App\Http\Controllers\PriceController;
 
 
 /*
@@ -47,6 +24,9 @@ use App\Http\Controllers\SslCommerzPaymentController;
 */
 
 Route::get('/',[HomeController::class,'index'])->name('home');
+Route::get('/price',[PriceController::class,'index'])->name('price');
+Route::get('/faq',[FaqController::class,'index'])->name('faq');
+Route::get('/contact',[ContactController::class,'index'])->name('contact');
 
 Route::group(['prefix' => 'account'],function(){
     Route::group(['middleware' => 'guest'],function(){
@@ -76,6 +56,7 @@ Route::group(['prefix' => 'admin'],function(){
     Route::group(['middleware' => 'admin.auth'],function(){
         Route::get('/dashboard',[DashboardController::class,'index'])->name('admin.dashboard');
         Route::get('/logout',[DashboardController::class,'logout'])->name('admin.logout');
+        Route::get('/users',[UserController::class,'index'])->name('admin.users');
     });
 
 });

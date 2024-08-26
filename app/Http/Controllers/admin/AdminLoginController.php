@@ -29,7 +29,7 @@ class AdminLoginController extends Controller
 
                 self::$admin = Auth::guard('admin')->user();
 
-                if (self::$admin->role == 0){
+                if (self::$admin->role == 1){
                     return redirect(route('admin.dashboard'));
                 }else{
                     Auth::guard('admin')->logout();

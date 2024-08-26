@@ -148,10 +148,14 @@ input[type="checkbox"]{
     width: 50%;
 }
 .toast-success {
-    background-color: #f43662 !important; /* Green background */
+    background-color: green !important; /* Green background */
+    z-index: 9999999 !important;
+    opacity: 1 !important;
 }
 .toast-error {
     background-color: #ff0019 !important; /* Red background */
+    z-index: 999999 !important;
+    opacity: 1 !important;
 }
 .profileImg{
     background: transparent;
@@ -727,8 +731,304 @@ a{
     color: #F43662;
     background-color: transparent;
 }
+.bg-price{
+    background: #fc36610d;
+    border-radius: 20px;
+}
+.bg-price .mainHeading{
+    font-size: 45px;
+    font-weight: 800;
+}
+.bg-price .subHeading{
+    font-size: 20px;
+    font-weight: 500;
+    color: #484848;
+    margin-top: 20px;
+}
+.pricePlanCard1, .pricePlanCard2{
+    background: white;
+    padding: 35px;
+    border-radius: 10px 0 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.pricePlanCard3{
+    background: rgb(34, 34, 34);
+    padding: 45px 35px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.pricePlanCard2{
+    border-radius: 0px;
+    margin-left: 1px;
+}
+.priceTitle{
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+.pricePlanCard3 .priceTitle{
+    color: #24ff1d;
+}
+.pricePlanCard2 .priceTitle{
+    color: #194eff;
+}
+.priceSubTitle{
+    font-weight: 500;
+    color: #3c3c3c;
+    margin-bottom: 15px;
+}
+.pricePlanCard3 .priceSubTitle{
+    color: white;
+}
+.priceAmount{
+    font-weight: 800;
+    margin-bottom: 0px;
+}
+.pricePlanCard3 .priceAmount{
+    color: white;
+}
+.priceAmount span{
+    font-size: 20px;
+    color: #b5b5b5;
+}
+.priceAmountText{
+    color: #919191;
+    font-weight: 500;
+}
 
-
+.planServices i{
+    color: #919191;
+    margin-right: 5px;
+}
+.pricePlanCard3 .planServices{
+    color: #919191;
+}
+.price1Btn{
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: black;
+    border: 1px solid #b9b9b9;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+.pricePlanCard3 .price1Btn{
+    color: white;
+    border: 1px solid #194eff;
+    background-color: #194eff;
+}
+.pricePopularTag{
+    background-color: #F43662;
+    color: white;
+    font-size: 10px;
+    padding: 3px 7px;
+    border-radius: 5px;
+}
+.bg-price .nav-pills .nav-link.active{
+    background: transparent;
+    color: black;
+    font-weight: 600;
+}
+.bg-price .nav-pills .nav-link.active i{
+    color: #0647f9;
+    margin-right: 10px;
+}
+.bg-price .nav-pills .nav-link{
+    color: rgb(92, 92, 92);
+}
+.bg-price .nav-pills .nav-link i{
+    color: white;
+    margin-right: 10px;
+}
+.priceMobileBtnDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.faq-bg{
+    padding: 3% 15%;
+}
+.contact-bg{
+    padding: 3% 15%;
+}
+.faqTitle, .contactTitle{
+    font-size: 80px;
+    font-weight: 900;
+}
+.faqSubTitle, .contactSubTitle{
+    font-weight: 500;
+    color: #5a5a5a;
+    margin-top: 15px;
+    margin-bottom: 50px;
+}
+.faqBottomDiv{
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.faqbotTitle{
+    font-weight: 700;
+}
+.faqbotSubTitle{
+    font-weight: 500;
+    color: #5e5e5e;
+}
+.faqBotInnerDiv{
+    padding: 10px 20px;
+    background: #e1e1e1;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+.faqBotInnerDiv .copy{
+    border: none;
+    padding: 3px 10px;
+    border-radius: 10px;
+}
+.faq-bg .accordion{
+    background-color: bisque;
+    padding: 20px;
+    border-radius: 10px;
+}
+.faq-bg .accordion-item{
+    background: transparent;
+    border: none;
+}
+.faq-bg .accordion-button:focus {
+    border-color: transparent;
+    outline: 0;
+    box-shadow: none;
+    border-bottom: 1px solid #f7f7f7;
+}
+.faq-bg .accordion-button{
+    background: transparent;
+    border-bottom: 1px solid #f7f7f7;
+}
+.faq-bg .accordion-button:not(.collapsed){
+    color: black;
+    font-weight: bold;
+}
+.faq-bg .accordion-button:not(.collapsed)::after{
+    background-image: none !important;
+    content: '\f068' !important;
+    color: black !important;
+}
+.faq-bg .accordion-button::after {
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    content: '\f067'; /* Unicode for plus icon */
+    color: black;
+    transition: transform 0.3s ease;
+    background-image: none !important;
+}
+.faq-bg .faqTitle span{
+    background-image: url(../imgs/hero.jpg);
+    background-size: cover;
+    background-clip: text;
+    background-position: bottom right;
+    -webkit-background-clip: text;
+    color: #fc36615e !important;
+}
+.contact-bg form{
+    padding: 25px;
+}
+.contact-bg form label{
+    font-weight: 600;
+    margin-top: 25px;
+}
+.contact-bg form button{
+    width: 100%;
+    margin-top: 20px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-weight: 500;
+    font-size: 17px;
+}
+.contact-bg .contactInfo{
+    padding: 20px;
+}
+.contact-bg .contactInfo a{
+    text-decoration: underline !important;
+    color: black;
+    font-weight: 600;
+    display: block;
+}
+.contact-bg .contactInfo a i{
+    text-decoration: none !important;
+    margin-right: 8px;
+}
+.contact-bg .contactInfo h5{
+    color: black;
+    font-weight: 600;
+}
+.contact-bg .contactInfo p{
+    color: gray;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+.BuyCredit .bg-price .priceMobileTab{
+    flex-direction: column;
+    align-items: center !important;
+}
+.BuyCredit .bg-price .nav-pills{
+    width: 100% !important;
+}
+.BuyCredit .bg-price .tab-content{
+    width: 100% !important;
+}
+.BuyCredit .bg-price .priceMobileBtnDiv{
+    flex-direction: row;
+}
+.planPopup{
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.288);
+    backdrop-filter: blur(4px);
+    display: flex;
+    width: 100%;
+    height: 100%;
+    z-index: 9999999999;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+.planPopup .card-body{
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+.planPopup .card-body h3{
+    font-size: 18px;
+}
+.planPopup .card-body .popUpPlanBtn{
+    background: #f43662;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 15px;
+}
+.planPopup .card-body .close{
+    position: absolute;
+    border: none;
+    background-color: black;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 8px;
+    right: 5px;
+    top: 5px;
+}
 
 @media (max-width: 767px){
     .headerMain .logo .logopic{
@@ -863,5 +1163,48 @@ a{
     }
     .editingYourProfile .form-container{
         margin: 0 0 10px 0;
+    }
+    .priceMobileTab{
+        flex-direction: column;
+    }
+    .priceMobileTab .nav-pills{
+        width: 100% !important;
+    }
+    .priceMobileBtnDiv{
+        display: flex;
+        align-items: center;
+        column-gap: 10px;
+        justify-content: center;
+        flex-direction: row-reverse;
+    }
+    .priceMobileTab .tab-content{
+        width: 100% !important;
+    }
+    .mobilePriceTabCard{
+        flex-direction: column;
+        row-gap: 20px;
+        padding: 20px 0 !important;
+    }
+    .bg-price{
+        padding: 3rem 10px !important;
+    }
+    .faq-bg, .contact-bg {
+        padding: 40px 10px;
+    }
+    .faqTitle {
+        font-size: 60px;
+        font-weight: 900;
+    }
+    .faqBottomDiv{
+        padding: 50px 20px;
+    }
+    .contactTitle{
+        font-size: 65px;
+    }
+    .contactSubTitle{
+        margin-bottom: 10px;
+    }
+    .contact-bg .contactInfo {
+        padding: 30px;
     }
 }

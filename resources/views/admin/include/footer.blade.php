@@ -1,7 +1,7 @@
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span>Copyright &copy; E-commerce Website 2023</span>
+            <span>Copyright &copy; Link Your Heart 2024</span>
         </div>
     </div>
 </footer>
