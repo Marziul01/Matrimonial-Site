@@ -70,10 +70,26 @@ class UserProfileController extends Controller
             'education_level' => 'required|string|max:255',
             'institute_name' => 'required|string|max:255',
             'working_with' => 'required|string|max:100',
-            'employer_name' => 'required|string|max:255',
-            'designation' => 'required|string|max:255',
-            'duration' => 'required|string|max:255',
-            'monthly_income' => 'required|numeric|min:0',
+            'employer_name' => [
+                'string',
+                'max:255',
+                Rule::requiredIf($request->working_with !== 'Not Working')
+            ],
+            'designation' => [
+                'string',
+                'max:255',
+                Rule::requiredIf($request->working_with !== 'Not Working')
+            ],
+            'duration' => [
+                'string',
+                'max:255',
+                Rule::requiredIf($request->working_with !== 'Not Working')
+            ],
+            'monthly_income' => [
+                'numeric',
+                'min:0',
+                Rule::requiredIf($request->working_with !== 'Not Working')
+            ],
             'father_status' => 'required|string|max:50',
             'mother_status' => 'required|string|max:50',
             'number_of_sibling' => 'required|integer|min:0',
