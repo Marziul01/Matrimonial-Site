@@ -16,9 +16,9 @@
                 <h2 class="text-white text-center homeMain-heading">Find Your Perfect Partner 💕</h2>
                 <p class="text-white text-center homeMain-subheading">We made it easy for You to get your loving soulmate in your Location</p>
             </div>
-            <form id="sign-up" class="home-section d-flex justify-content-center w-100 mx-5 px-5 mb-5">
+            <form  class="home-section d-flex justify-content-center w-100 mx-5 px-5 mb-5">
                 @csrf
-                <div class="card d-flex row-gap-3 align-items-center p-4">
+                {{-- <div class="card d-flex row-gap-3 align-items-center p-4">
                     <div class="d-flex w-100 flex-column flex-md-row row-gap-3 justify-content-between align-items-center column-gap-5">
                         <div class="w-100">
                             <p class="mb-3">I'm Looking for a </p>
@@ -76,19 +76,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="passwordPopup" id="passPop">
-                    <div class="d-flex w-100 justify-content-center align-items-center p-5" style="height: 100%">
-                        <div class="card p-3">
-                            <div class="">
-                                <label class="form-label">Create Password</label>
-                                <input class="form-group form-control" type="password" name="password" placeholder="Enter Your Password">
-                                <button class="btn submitBtn mt-4" type="submit">Sign Up</button>
-                                <a class="btn btn-success close-popup mt-4" id="passGoBack">Go Back</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </div> --}}
+
             </form>
         </div>
     </div>
@@ -100,6 +89,115 @@
         </div>
     </div>
 
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Sign Up Now!</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="sign-up">
+                    @csrf
+                    <div class="w-100">
+                        <p class="mb-3">I'm Looking for a </p>
+                        <div class="form-group d-flex align-items-center column-gap-5">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" value="bride" name="looking_for" id="bride">
+                                <label class="form-check-label" for="bride">Bride</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" value="groom" name="looking_for" id="groom">
+                                <label class="form-check-label" for="groom">Groom</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-100">
+                            <p class="mb-3">Submitting For</p>
+                            <div class="form-group d-flex align-items-center column-gap-5">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" value="myself" name="account_for" id="myself">
+                                    <label class="form-check-label" for="myself">Myself</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" value="others" name="account_for" id="others">
+                                    <label class="form-check-label" for="others">Others</label>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="w-100" id="relation">
+                            <p class="mb-3">Type Your Relation?</p>
+                            <div class="mt-3">
+                                <input class="form-group form-control" type="text" name="relation" placeholder=" What's Your Relation with the person !">
+                            </div>
+                    </div>
+                    <div class="w-100" style="display: none;" id="number">
+                        <p class="mb-3">Your Mobile Number</p>
+                        <input class="form-group form-control" type="number" name="number" placeholder="Your Number">
+                        <div class="">
+                            <label class="form-label">Create Password</label>
+                            <input class="form-group form-control" type="password" name="password" placeholder="Enter Your Password">
+                            <input type="checkbox" id="terms" name="terms">
+                            <label for="terms"> I agree with all Terms & Conditions </label>
+
+
+                            <button class="btn submitBtn mt-4" type="submit" style="float: right">Sign Up</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Login Now!</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="w-100 d-flex align-items-center justify-content-center">
+                    <div class="login-form">
+                        <div class="text-center">
+                            <a href="{{ route('home') }}" class="d-flex" style="text-align: center; margin: auto; width: fit-content">
+                                <img src="{{ asset('frontend-assets') }}/assets/images/logo/short2.png" alt="Logo" style="width: 50px; margin-right: -7px; margin-top: -12px; height: 50px;" />
+                                <img src="{{ asset('frontend-assets') }}/assets/images/logo/logo.png" alt="Logo" class="img-fluid mb-4" style="width: 165px" />
+                            </a>
+                            <h2>Sign In</h2>
+                            <p>Welcome back! Please enter your details</p>
+                        </div>
+                        <form id="login">
+                            @csrf
+                            <div class="form-group">
+                                <label for="phone">Mobile number</label>
+                                <input type="text" class="form-control" id="phone" name="number" placeholder="Enter your registered mobile number" />
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Password" />
+                            </div>
+                            <div class="form-check mt-2">
+                                <input type="checkbox" class="form-check-input" id="remember" />
+                                <label class="form-check-label" for="remember">Remember</label>
+                            </div>
+                            <button type="submit" class="btn btn-common btn-block mt-4">Sign in</button>
+                            <a href="#" class="d-block text-center mt-3">Forgot password?</a>
+                        </form>
+                        <p class="text-center mt-2">Don't have an account? <a href="{{ route('home') }}">Sign up</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 @endsection
 
@@ -256,7 +354,57 @@
     });
 </script>
 
+<script>
+    $(document).ready(function () {
+        $('#login').on('submit', function (e) {
+            e.preventDefault(); // Prevent default form submission
 
+            // Serialize form data
+            let formData = $(this).serialize();
+
+            // Perform AJAX request
+            $.ajax({
+                url: '{{ route("user.login") }}',
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                success: function (response) {
+                    if (response.success) {
+                        // Show success message
+                        toastr.success(response.message || 'Login Successful! Redirecting...');
+
+                        // Redirect after showing the message
+                        setTimeout(function () {
+                            window.location.href = response.redirect;
+                        }, 2000); // Redirect after 2 seconds
+                    } else {
+                        // Show error message
+                        toastr.error(response.message || 'Login failed. Please try again.');
+                    }
+                },
+                error: function (xhr) {
+                    if (xhr.status === 422) {
+                        // Handle validation errors
+                        let errors = xhr.responseJSON.errors;
+                        let errorMessage = '';
+
+                        $.each(errors, function (key, value) {
+                            errorMessage += value[0] + '<br>'; // Display errors
+                        });
+
+                        toastr.error(errorMessage);
+                    } else if (xhr.status === 401) {
+                        // Handle authentication errors
+                        toastr.error(xhr.responseJSON.message || 'Invalid mobile number or password.');
+                    } else {
+                        // Handle other errors
+                        toastr.error('An error occurred. Please try again.');
+                    }
+                }
+            });
+        });
+    });
+    </script>
 
 
 

@@ -1033,6 +1033,39 @@ a{
     box-shadow: none !important;
     border-color: #dee2e6 !important;
 }
+.messageCount{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border: 3px solid #f8d3db;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    background: #fc3661;
+}
+.messageCountIcon{
+    color: white;
+    font-size: 25px;
+}
+.messageCounter{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    min-height: 12px;
+    padding: 0px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    color: #fc3661;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
 
 @media (max-width: 767px){
     .headerMain .logo .logopic{

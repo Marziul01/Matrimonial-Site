@@ -32,6 +32,7 @@
                                 <th>Name</th>
                                 <th>Looking For</th>
                                 <th>Number</th>
+                                <th>Plan</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -44,17 +45,30 @@
                                 <td>{{ $user->profile->first_name }} {{ $user->profile->last_name }}</td>
                                 <td>{{ $user->userInfo->looking_for }}</td>
                                 <td>{{ $user->profile->contact_number }}</td>
+                                <td> @if (isset($user->plans->plan->name ))
+                                        {{ $user->plans->plan->name }}
+                                @else
+                                        No Plan
+                                @endif
+                                </td>
                                 <td>
                                     <div class="d-flex justify-content-start align-items-center" style="column-gap: 10px">
-                                        <a class="btn btn-sm btn-primary"> View Profile </a>
-                                        <a class="btn btn-sm btn-primary"> View Partner Profile </a>
+                                        <a class="btn btn-sm btn-primary" href="{{ route('admin.userProfile', $user->id) }}"> View Profile </a>
+                                        @if (isset($user->partnerProfile))
+                                            <a class="btn btn-sm btn-warning" href="{{ route('admin.userPartner', $user->id) }}"> View Partner Profile </a>
+                                        @endif
+                                        @if ($user->profile->status == 1)
+                                            <a class="btn btn-sm btn-danger" href="{{ route('profileStatus', [ 'id' => $user->profile->id, 'status' => 2]) }}" onclick="return confirm('Are you sure you want to block this profile?');"> Block </a>
+                                        @else
+                                        <a class="btn btn-sm btn-success" href="{{ route('profileStatus', [ 'id' => $user->profile->id, 'status' => 1]) }}" onclick="return confirm('Are you sure you want to unblock this profile?');"> Unblock </a>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
                             @endforeach
 
                             @else
-                                <td colspan="6"> No Users Found !</td>
+                                <td colspan="7"> No Users Found !</td>
                             @endif
 
                         </tbody>

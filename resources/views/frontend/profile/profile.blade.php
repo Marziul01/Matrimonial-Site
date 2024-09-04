@@ -28,7 +28,9 @@
                         </div>
                         <a href="{{ route('user.dashboard',  ['tab' => 'settings']) }}" class="nav-link btn btn-primary profileNav">Settings</a>
                         <a href="{{ route('user.dashboard',  ['tab' => 'messages']) }}" class="nav-link btn btn-primary profileNav">Buy Credit</a>
+
                     </div>
+
                     <a class="nav-link text-center dashboardLogOut" href="{{ route('user.logout') }}">Logout</a>
                 </div>
                 <div class="nav flex-column justify-content-between nav-pills me-3 dashboardNav d-none d-md-block" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -46,6 +48,8 @@
                         <a href="{{ route('user.dashboard',  ['tab' => 'settings']) }}" class="nav-link btn btn-primary profileNav">Settings</a>
                         <a href="{{ route('user.dashboard',  ['tab' => 'messages']) }}" class="nav-link btn btn-primary profileNav">Buy Credit</a>
                     </div>
+                    <a class="nav-link text-center" href="{{ route('user', $profile->user_id) }}">Chat Now !</a>
+
                     <a class="nav-link text-center dashboardLogOut" href="{{ route('user.logout') }}">Logout</a>
                 </div>
                 <div class="tab-content w-100" id="v-pills-tabContent">

@@ -7,6 +7,7 @@ use App\Models\Country;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\PartnerProfile;
+use App\Models\Plans;
 use App\Models\Profile;
 use App\Models\SiteSetting;
 use App\Models\User;
@@ -19,32 +20,59 @@ use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use PhpParser\Node\Expr\FuncCall;
 use Illuminate\Validation\Rule;
+use App\Models\UserPlan;
 
 class UserProfileController extends Controller
 {
 
     public static function dashboard(){
 
-    $user = auth()->user();
-    $profile = $user->profile;
-    $profileComplete = $profile !== null;
+        $userPlanActive = null;
 
-    $userProfile = $user->userInfo;
-    $lookingFor = $userProfile->looking_for;
+        $user = auth()->user();
+        $profile = $user->profile;
+        $userPlan = $user->plans;
+        $profileComplete = $profile !== null;
+        $userPlanActive = $userPlan->end_date;
 
-    $eligibleUserIds = UserInfo::where('looking_for', '<>', $lookingFor)
-        ->pluck('user_id');
+        $planWarning = null;
 
-    $profiles = Profile::whereIn('user_id', $eligibleUserIds)
-        ->whereNotNull('user_id')
-        ->paginate(20);
+        $userProfile = $user->userInfo;
+        $lookingFor = $userProfile->looking_for;
+        $plans = Plans::all();
 
-    return view('frontend.dashboard.dashboard', [
-        'profileComplete' => $profileComplete,
-        'profiles' => $profiles,
-        'profileDetails' => $profile,
-    ]);
-}
+        $currentPlan = $user->plans; // Assuming you have a relationship set up
+        $now = now();
+
+        // Check if the user's plan has expired
+        if ($currentPlan && $currentPlan->end_date && $now->greaterThan($currentPlan->end_date)) {
+            // Demote user to free plan
+            $plan = new UserPlan();
+            $plan->user_id = $user->id;
+            $plan->plan_id = 1;
+            $plan->star_date = now();
+            $plan->save();
+
+            $planWarning = 1;
+        }
+
+        $eligibleUserIds = UserInfo::where('looking_for', '<>', $lookingFor)
+            ->pluck('user_id');
+
+        $profiles = Profile::whereIn('user_id', $eligibleUserIds)
+            ->whereNotNull('user_id')->where('status',1)
+            ->paginate(20);
+
+        return view('frontend.dashboard.dashboard', [
+            'profileComplete' => $profileComplete,
+            'profiles' => $profiles,
+            'profileDetails' => $profile,
+            'UserPlanActive' => $userPlanActive,
+            'UserPlanDetails' => $userPlan,
+            'plans' => $plans,
+            'planWarning' => $planWarning,
+        ]);
+    }
 
 
     public static function submitProfile(Request $request){
@@ -71,23 +99,15 @@ class UserProfileController extends Controller
             'institute_name' => 'required|string|max:255',
             'working_with' => 'required|string|max:100',
             'employer_name' => [
-                'string',
-                'max:255',
                 Rule::requiredIf($request->working_with !== 'Not Working')
             ],
             'designation' => [
-                'string',
-                'max:255',
                 Rule::requiredIf($request->working_with !== 'Not Working')
             ],
             'duration' => [
-                'string',
-                'max:255',
                 Rule::requiredIf($request->working_with !== 'Not Working')
             ],
             'monthly_income' => [
-                'numeric',
-                'min:0',
                 Rule::requiredIf($request->working_with !== 'Not Working')
             ],
             'father_status' => 'required|string|max:50',
@@ -218,23 +238,18 @@ class UserProfileController extends Controller
             'institute_name' => 'required|string|max:255',
             'working_with' => 'required|string|max:100',
             'employer_name' => [
-                'string',
-                'max:255',
                 Rule::requiredIf($request->working_with !== 'Not Working')
             ],
             'designation' => [
-                'string',
-                'max:255',
+
                 Rule::requiredIf($request->working_with !== 'Not Working')
             ],
             'duration' => [
-                'string',
-                'max:255',
+
                 Rule::requiredIf($request->working_with !== 'Not Working')
             ],
             'monthly_income' => [
-                'numeric',
-                'min:0',
+
                 Rule::requiredIf($request->working_with !== 'Not Working')
             ],
             'father_status' => 'required|string|max:50',
@@ -253,6 +268,27 @@ class UserProfileController extends Controller
         $userupdateProfile = Profile::saveInfo($request);
 
         return response()->json(['success' => true,]);
+    }
+
+
+    public static function profiles($slug){
+        $user = auth()->user();
+        $currentPlan = $user->plans; // Assuming you have a relationship set up
+        $now = now();
+
+        if ($currentPlan->end_date == null || $now->greaterThan($currentPlan->end_date)) {
+            return back();
+        }
+
+
+        list($firstName, $id) = explode('-', $slug);
+        $user = Profile::where('user_id', $id)->first();
+
+        $profile = $user;
+
+        return view('frontend.profile.profile',[
+            'profile' => $profile,
+        ]);
     }
 
 }

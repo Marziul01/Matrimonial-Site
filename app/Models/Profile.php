@@ -50,26 +50,92 @@ class Profile extends Model
         $profile->number_of_sibling = $request->number_of_sibling;
         $profile->family_type = $request->family_type;
 
-        if ($request->file('image')){
-            if ($profile->image){
-                if (file_exists($profile->image)){
-                    unlink($profile->image);
+        if ($request->file('image')) {
+            if ($profile->image) {
+                // Check if the existing image file exists and delete it
+                $imagePath = public_path($profile->image);
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
                 }
             }
+            // Save the new image and update the profile's image field
             $profile->image = self::saveImage($request);
         }
 
+
         $profile->save();
+
+        $user->name = $profile->first_name . ' ' . $profile->last_name;  // Concatenate first and last name with a space
+        $user->email = $profile->email;
+        if ($request->file('image')) {
+            if ($user->avatar) {
+                // Check if the existing avatar file exists and delete it
+                $avatarPath = public_path('storage/users-avatar/' . $user->avatar);
+                if (file_exists($avatarPath)) {
+                    unlink($avatarPath);
+                }
+            }
+            $avatarUrl = $profile->image;
+            $avatarimageName = basename($avatarUrl);
+
+            $user->avatar = $avatarimageName;
+        }
+
+        $user->save();
     }
 
-    public static function saveImage($request){
-        $image = $request->file('image');
-        $imageNewName = $request->name.rand().'.'.$image->extension();
-        $dir = "frontend-assets/imgs/profiles/";
-        $imageUrl = $dir.$imageNewName;
-        $image->move($dir,$imageUrl);
-        return $imageUrl;
+    public static function saveImage($request) {
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+
+            // Check if the file is valid
+            if (!$image->isValid()) {
+                throw new \Exception("The file upload failed: " . $image->getErrorMessage());
+            }
+
+            $imageNewName = $request->first_name . rand() . '.' . $image->extension();
+
+            // Define directories
+            $dir1 = "frontend-assets/imgs/profiles/";
+            $dir2 = "storage/users-avatar/";
+
+            // Ensure the directories exist
+            if (!file_exists(public_path($dir1))) {
+                mkdir(public_path($dir1), 0777, true);
+            }
+
+            if (!file_exists(public_path($dir2))) {
+                mkdir(public_path($dir2), 0777, true);
+            }
+
+            // Move image to the first directory
+            $image->move(public_path($dir1), $imageNewName);
+
+            // Copy image to the second directory
+            $sourcePath = public_path($dir1 . $imageNewName);
+            $destinationPath = public_path($dir2 . $imageNewName);
+
+            // Ensure the source file exists before copying
+            if (!file_exists($sourcePath)) {
+                throw new \Exception("The source image does not exist.");
+            }
+
+            // Copy the file
+            if (!copy($sourcePath, $destinationPath)) {
+                throw new \Exception("Failed to copy the image to the second directory.");
+            }
+
+            // Return the URL of the image in the first directory
+            return $dir1 . $imageNewName;
+        }
+        throw new \Exception("No file was uploaded.");
     }
+
+
+
+
+
+
 
     public function user()
     {

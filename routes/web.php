@@ -10,7 +10,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\PriceController;
-
+use App\Http\Controllers\UserPlanController;
+use Chatify\Http\Controllers\MessagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,9 @@ Route::group(['prefix' => 'account'],function(){
         Route::post('/user/partner/profile/submit', [UserProfileController::class,'submitPartnerProfile'])->name('partner.profile.store');
         Route::post('/user/change/password', [UserProfileController::class,'updatePassword'])->name('user.pass.change');
         Route::post('/user/profile/update', [UserProfileController::class,'updateProfile'])->name('profile.update');
+        Route::get('/check-current-plan', [UserPlanController::class,'CurrentPlan'])->name('check-current-plan');
+        Route::post('/subscribe-plan', [UserPlanController::class,'subscribePlan'])->name('subscribe-plan');
+        Route::get('/profiles/{slug}', [UserProfileController::class, 'profiles'])->name('profiles');
     });
 });
 
@@ -57,6 +61,9 @@ Route::group(['prefix' => 'admin'],function(){
         Route::get('/dashboard',[DashboardController::class,'index'])->name('admin.dashboard');
         Route::get('/logout',[DashboardController::class,'logout'])->name('admin.logout');
         Route::get('/users',[UserController::class,'index'])->name('admin.users');
+        Route::get('/users/profiles/{id}',[UserController::class,'profiles'])->name('admin.userProfile');
+        Route::get('/users/partner/{id}',[UserController::class,'partners'])->name('admin.userPartner');
+        Route::get('/users/profile/status/{id}/{status}',[UserController::class,'profileStatus'])->name('profileStatus');
     });
 
 });

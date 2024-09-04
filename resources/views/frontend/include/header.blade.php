@@ -15,7 +15,8 @@
                 <a href="{{ route('price') }}" class="menu_item"> Price </a>
                 <a href="{{ route('faq') }}" class="menu_item"> Faq </a>
                 <a href="{{ route('contact') }}" class="menu_item"> Contact </a>
-                <a href="{{ route('login') }}" class="btn loginBtn">Login</a>
+                <a data-bs-toggle="modal" data-bs-target="#loginModal" class="btn loginBtn">Login</a>
+                <a class="btn loginBtn" data-bs-toggle="modal" data-bs-target="#registerModal">SignUp</a>
             </div>
         </div>
         <div class="w-50 d-md-none pr-1">
@@ -48,7 +49,7 @@
         </div>
         <div class="w-70 d-none d-md-block">
             <div class="menu d-flex justify-content-end align-items-center column-gap-2">
-                <div class="dropdown">
+                <div class="dropdown" style="display: flex; align-items-center">
                     <button class="profileImg" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                       <span>Welcome {{ isset(Auth::user()->profile->first_name ) ? Auth::user()->profile->first_name : '' }} ,</span>  <img src="@if(isset(Auth::user()->profile->first_name )) {{ asset(Auth::user()->profile->image) }} @else  {{ asset('frontend-assets') }}/imgs/man.png @endif ">
                     </button>
@@ -57,11 +58,12 @@
                             <button type="button" class="dropdown-item" id="externalButton">View Profile</button>
                         </li>
                     </ul>
+                    <a href="{{ route(config('chatify.routes.prefix')) }}" class="messageCount"><i class="fa-regular fa-message messageCountIcon"></i> <span class="messageCounter"> {{ DB::table('ch_messages')->where('to_id', Auth::user()->id)->where('seen', 0)->count() }} </span> </a>
                 </div>
             </div>
         </div>
         <div class="w-50 d-md-none pr-1">
-            <div class="dropdown d-flex justify-content-end">
+            <div class="dropdown d-flex justify-content-end align-item-center">
                 <button class="profileImg" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="@if(isset(Auth::user()->profile->first_name )) {{ asset(Auth::user()->profile->image) }} @else  {{ asset('frontend-assets') }}/imgs/man.png @endif ">
                   </button>
@@ -70,6 +72,7 @@
                           <button type="button" class="dropdown-item" id="opensMessagesTab">View Profile</button>
                       </li>
                   </ul>
+                  <a href="{{ route(config('chatify.routes.prefix')) }}" class="messageCount"><i class="fa-regular fa-message messageCountIcon"></i> <span class="messageCounter"> {{ DB::table('ch_messages')->where('to_id', Auth::user()->id)->where('seen', 0)->count() }} </span> </a>
             </div>
         </div>
     </div>

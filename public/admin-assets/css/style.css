@@ -7,3 +7,41 @@
 .userProfiles tr td{
     text-transform: capitalize;
 }
+.viewProfileTab .imageDrop{
+    align-items: start;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+.viewProfileTab .imageDrop img{
+    border-radius: 10px;
+}
+.viewProfileTab .profileDesc{
+    border-color: #00000029;
+    color: #525252;
+    height: 100px;
+    margin-top: 10px;
+}
+.viewProfileTab .profileInput{
+    border-color: #00000029;
+    color: #525252;
+}
+.viewProfileTab label{
+    width: 50%;
+    font-size: 18px;
+    font-weight: 600;
+}
+.viewProfileTab .profile-form-steps .profile-step{
+    color: black !important;
+}
+.viewProfileTab .profile-form-steps .active::before{
+    background-color: black;
+    z-index: 999;
+}
+.viewProfileTab .profile-form-steps::before{
+    background-color: #929292;
+    z-index: 997;
+}
+.viewProfileTab .sticky-div{
+    padding-bottom: 180px;
+}

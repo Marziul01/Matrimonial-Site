@@ -90,9 +90,19 @@
                                                     <p>Address : <span> {{ $profile->present_address ?? 'N/A' }} </span></p>
                                                     @php $age = \Carbon\Carbon::parse($profile->date_of_birth)->age; @endphp
                                                     <p>Age : <span> {{ $age ?? 'N/A' }} yr</span></p>
-                                                    <p>Contact : <a href="" class="profileDetailsBtn2"><span style="font-style: italic; color: #F43662"> {{ $profile->contact_numbe ?? 'Please Upgrade Plan' }} </span></a></p>
+                                                    @if ( !($UserPlanActive) )
+                                                    <p>Contact : <a href="" class="profileDetailsBtn2"><span style="font-style: italic; color: #F43662"> Please Upgrade Plan </span></a></p>
+                                                    @else
+                                                    <p>Contact : <a href=""><span style="font-style: italic; color: #F43662"> {{ $profile->contact_number }} </span></a></p>
+                                                    @endif
+
                                                 </div>
-                                                <a class="profileDetailsBtn text-center mt-4" href="">View Details</a>
+                                                @if ( is_null($UserPlanActive) )
+                                                    <a class="profileDetailsBtn text-center mt-4" href="">View Details</a>
+                                                @else
+                                                <a class="profileDetails text-center mt-4" href="{{ route('profiles', $profile->first_name . '-' . $profile->user_id) }}">View Details</a>
+                                                @endif
+
                                             </div>
                                         </div>
 
@@ -108,7 +118,7 @@
                     <h2 class="p-2 mt-3 mb-0 px-4 tabForms" style="font-weight: 800; margin-left: 10px">Hey! Create Your Profile</h2>
                     <div class="row sticky-div p-0">
                         <div class="form-container pb-3">
-                            <form id="your--Profile" class="px-4 tabForms yourProfileCreate">
+                            {{-- <form id="your--Profile" class="px-4 tabForms yourProfileCreate">
                                 @csrf
                                 <ul class="nav nav-tabs profile-form-steps" id="myTab" role="tablist">
                                     <li class="nav-item border-0" role="presentation">
@@ -318,7 +328,7 @@
                                         <button type="submit" class="btn btn-secondary mt-3 profile-submit-form">Submit</button>
                                     </div>
                                 </div>
-                            </form>
+                            </form> --}}
 
                         </div>
                     </div>
@@ -560,22 +570,42 @@
                                       <div class="tab-pane fade" id="v-pills-homePlan" role="tabpanel" aria-labelledby="v-pills-homePlan-tab">
                                         <div class="p-4 d-flex justify-content-center align-items-center w-100 mobilePriceTabCard">
                                             <div class="pricePlanCard1">
-                                                <div class="border-bottom-1 pb-3">
-                                                    <h2 class="priceTitle">Free</h2>
-                                                    <p class="priceSubTitle"> Basic Chat Functionality </p>
-                                                    <h1 class="priceAmount">BDT 0</h1>
-                                                    {{-- <p class="priceAmountText">Per month renew</p> --}}
-                                                </div>
-                                                <div class="py-3">
-                                                    <p class="planServices"><i class="fa-solid fa-circle-check"></i> 30 days history</p>
-                                                    <p class="planServices"><i class="fa-solid fa-circle-check"></i> Up to 1000 messages/mo</p>
-                                                    <p class="planServices"><i class="fa-solid fa-circle-check"></i> Unlimited AI Capabilities</p>
-                                                </div>
-                                                <div>
-                                                    <a href="" class="price1Btn"> Choose Plan </a>
-                                                </div>
+                                                @php
+                                                    $freePlan = $plans->where('id', 1)->first();
+                                                @endphp
+
+                                                @if($freePlan)
+                                                    <div class="border-bottom-1 pb-3">
+                                                        <h2 class="priceTitle">{{ $freePlan->name }}</h2>
+                                                        <p class="priceSubTitle">Basic Chat Functionality</p>
+                                                        <h1 class="priceAmount">BDT 0</h1>
+                                                        {{-- <p class="priceAmountText">Per month renew</p> --}}
+                                                    </div>
+                                                    <div class="py-3">
+                                                        <p class="planServices"><i class="fa-solid fa-circle-check"></i> 30 days history</p>
+                                                        <p class="planServices"><i class="fa-solid fa-circle-check"></i> Up to 1000 messages/mo</p>
+                                                        <p class="planServices"><i class="fa-solid fa-circle-check"></i> Unlimited AI Capabilities</p>
+                                                    </div>
+                                                    <div>
+                                                        @if (isset(Auth::user()->plans))
+                                                        @if ( Auth::user()->plans->plan_id == $freePlan->id )
+                                                        <a class="price1tn disabled"> Current Plan </a>
+                                                        @else
+                                                        <a href="javascript:void(0);" class="price1Btn" id="choose-plan-free" data-plan-id="{{ $freePlan->id }}"> Choose Plan </a>
+                                                        @endif
+                                                    @else
+                                                        <a href="javascript:void(0);" class="price1Btn" id="choose-plan-free" data-plan-id="{{ $freePlan->id }}"> Choose Plans </a>
+                                                    @endif
+                                                    </div>
+                                                @endif
+
                                             </div>
                                             <div class="pricePlanCard2">
+                                                @php
+                                                    $freePlan = $plans->where('id', 2)->first();
+                                                @endphp
+
+                                                @if($freePlan)
                                                 <div class="border-bottom-1 pb-3">
                                                     <h2 class="priceTitle">Pro</h2>
                                                     <p class="priceSubTitle"> Basic Chat Functionality </p>
@@ -588,8 +618,18 @@
                                                     <p class="planServices"><i class="fa-solid fa-circle-check"></i> Unlimited AI Capabilities</p>
                                                 </div>
                                                 <div>
-                                                    <a href="" class="price1Btn"> Choose Plan </a>
+                                                    @if (isset(Auth::user()->plans))
+                                                        @if ( Auth::user()->plans->plan_id == $freePlan->id )
+                                                        <a class="price1tn disabled"> Current Plan </a>
+                                                        @else
+                                                        <a href="javascript:void(0);" class="price1Btn" id="choose-plan-free" data-plan-id="{{ $freePlan->id }}"> Choose Plan </a>
+                                                        @endif
+                                                    @else
+                                                        <a href="javascript:void(0);" class="price1Btn" id="choose-plan-free" data-plan-id="{{ $freePlan->id }}"> Choose Plans </a>
+                                                    @endif
+
                                                 </div>
+                                                @endif
                                             </div>
                                             <div class="pricePlanCard3">
                                                 <div class="border-bottom-1 pb-3">
@@ -607,7 +647,7 @@
                                                     <p class="planServices"><i class="fa-solid fa-circle-check"></i> Unlimited AI Capabilities</p>
                                                 </div>
                                                 <div>
-                                                    <a href="" class="price1Btn"> Choose Plan </a>
+                                                    <a href="javascript:void(0);" class="price1Btn" id="choose-plan-pro-plus" data-plan-id="3"> Choose Plan </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -1216,6 +1256,261 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 80% !important">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="profileModalLabel">Let's Complete Your Profile First!</h5>
+            </div>
+            <div class="modal-body">
+                <form id="your--Profile" class="px-4 tabForms yourProfileCreate">
+                    @csrf
+                    <ul class="nav nav-tabs profile-form-steps" id="myTab" role="tablist">
+                        <li class="nav-item border-0" role="presentation">
+                          <button class="nav-link profile-step active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Basic Information</button>
+                        </li>
+                        <li class="nav-item border-0" role="presentation">
+                          <button class="nav-link profile-step" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Educational & Career Info.</button>
+                        </li>
+                        <li class="nav-item border-0" role="presentation">
+                          <button class="nav-link profile-step" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Family Info.</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="row p-0">
+                                <div class="col-md-4 mt-0">
+                                    <div class="imageDrop">
+                                        <div id="image-display">
+                                            <label for="upload-button" class="imageReUploadInput">Upload Your Photo</label>
+                                        </div>
+                                        <input type="file" name="image" id="upload-button" accept="image/*" />
+                                        <label for="upload-button" id="imageUploadInput" class="imageUploadInput">
+                                            <i class="fa-solid fa-upload" style="font-size: 60px"></i>&nbsp; Upload Your Photo
+                                        </label>
+                                        <div id="error"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea name="desc" class="profileDesc" placeholder="Write something about yourself"></textarea>
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="first_name" placeholder="First Name" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="last_name" placeholder="Last Name" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <select name="gender" class="profileInput">
+                                        <option value="">Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+
+                                    </select>
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="religion" placeholder="Religion" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="date" name="date_of_birth" placeholder="Date Of Birth" class="profileInput" id="dateOfBirth">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="birth_place" placeholder="Birth Place" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="nationality" placeholder="Nationality" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="present_address" placeholder="Present Address" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="email" name="email" placeholder="Mail ID" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="contact_number" placeholder="Contact Number" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <select name="maritial_status" class="profileInput">
+                                        <option value="">Select Marital Status</option>
+                                        <option value="single">Single</option>
+                                        <option value="divorced">Divorced</option>
+                                    </select>
+
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+
+                                    <select name="blood_group" class="profileInput">
+                                        <option value="">Select Blood Group</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+
+                                        <select name="hobby" class="profileInput">
+                                            <option value="">Select Hobby</option>
+                                            <option value="Reading">Reading</option>
+                                            <option value="Writing">Writing</option>
+                                            <option value="Gaming">Gaming</option>
+                                            <option value="Travelling">Travelling</option>
+                                            <option value="Singing">Singing</option>
+                                            <option value="Dancing">Dancing</option>
+                                            <option value="Art">Art</option>
+                                            <option value="Eating">Eating</option>
+                                        </select>
+
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+
+                                    <select name="height" class="profileInput">
+                                        <option value="">Select Height</option>
+                                        <option value="5'">5'</option>
+                                        <option value="5.1'">5.1'</option>
+                                        <option value="5.2'">5.2'</option>
+                                        <option value="5.3'">5.3'</option>
+                                        <option value="5.4'">5.4'</option>
+                                        <option value="5.5'">5.5'</option>
+                                        <option value="5.6'">5.6'</option>
+                                        <option value="5.7'">5.7'</option>
+                                        <option value="5.8'">5.8'</option>
+                                        <option value="5.9'">5.9'</option>
+                                        <option value="5.10'">5.10'</option>
+                                        <option value="5.11'">5.11'</option>
+                                        <option value="6'">6'</option>
+                                        <option value="6.1'">6.1'</option>
+                                        <option value="6.2'">6.2'</option>
+                                        <option value="6.3'">6.3'</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <select name="weight" class="profileInput">
+                                        <option value="">Select Weight</option>
+                                        <option value="50-60 Kg">50-60 Kg</option>
+                                        <option value="60-70 Kg">60-70 Kg</option>
+                                        <option value="70-80 Kg">70-80 Kg</option>
+                                        <option value="80-90 Kg">80-90 Kg</option>
+                                        <option value="90-100 Kg">90-100 Kg</option>
+                                        <option value="100-110 Kg">100-110 Kg</option>
+                                        <option value="110-120 Kg">110-120 Kg</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary mt-3 profile-next-step" id="nextToProfile">Next</button>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="row p-0">
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="education_level" placeholder="Highest Level of Education" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="text" name="institute_name" placeholder="Institute Name" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <select name="working_with" class="profileInput" id="working_with">
+                                        <option value="">Select Working With</option>
+                                        <option value="Private Company">Private Company</option>
+                                        <option value="Govt. Service">Govt. Service</option>
+                                        <option value="Business">Business</option>
+                                        <option value="Not Working">Not Working</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0"  id="employer_name">
+                                    <input type="text" name="employer_name" placeholder="Employer Name" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0" id="designation">
+                                    <input type="text" name="designation"  placeholder="Designation" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0" id="duration">
+                                    <input type="text" name="duration"  placeholder="Duration" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0" id="monthly_income">
+                                    <input type="number" name="monthly_income" placeholder="Monthly Income" class="profileInput">
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-secondary mt-3 profile-prev-step" id="prevToHome">Previous</button>
+                            <button type="button" class="btn btn-primary mt-3 profile-next-step" id="nextToContact">Next</button>
+                        </div>
+                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                            <div class="row p-0">
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <select name="father_status" class="profileInput">
+                                        <option value="">Select Father Status</option>
+                                        <option value="Employed">Employed</option>
+                                        <option value="Business">Business</option>
+                                        <option value="Retired">Retired</option>
+                                        <option value="Not Working">Not Working</option>
+                                        <option value="Passedaway">Passedaway</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <select name="mother_status" class="profileInput">
+                                        <option value="">Select Mother Status</option>
+                                        <option value="Home Maker">Home Maker</option>
+                                        <option value="Employed">Employed</option>
+                                        <option value="Business">Business</option>
+                                        <option value="Retired">Retired</option>
+                                        <option value="Passedaway">Passedaway</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <input type="number" name="number_of_sibling" placeholder="Number of Sibling" class="profileInput">
+                                </div>
+                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    <select name="family_type" class="profileInput">
+                                        <option value="">Select Family Type</option>
+                                        <option value="Joint">Joint</option>
+                                        <option value="Nuclear">Nuclear</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-secondary mt-3 profile-prev-step" id="prevToProfile">Previous</button>
+                            <button type="submit" class="btn btn-secondary mt-3 profile-submit-form">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if($planWarning)
+    <!-- Bootstrap Modal -->
+    <div class="modal fade" id="planExpiredModal" tabindex="-1" role="dialog" aria-labelledby="planExpiredModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="planExpiredModalLabel">Plan Expired</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Your previous plan has expired. You have been switched to the Free plan.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script to automatically show the modal on page load -->
+    <script>
+        $(document).ready(function() {
+            $('#planExpiredModal').modal('show');
+        });
+    </script>
+@endif
+
+
 @endsection
 
 @section('customJs')
@@ -1887,39 +2182,107 @@ document.getElementById('working_with1').addEventListener('change', function() {
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-    const planPopup = document.getElementById('planPopup');
-    const profileDetailsBtn = document.querySelector('.profileDetailsBtn');
-    const profileDetailsBtn2 = document.querySelector('.profileDetailsBtn2');
-    const planPopupClose = document.getElementById('planPopupClose');
-    const popUpPlanBtn = document.getElementById('popUpPlanBtn');
-    const popUpPlanBtn1 = document.getElementById('popUpPlanBtn1');
+        const planPopup = document.getElementById('planPopup');
+        const profileDetailsBtns = document.querySelectorAll('.profileDetailsBtn');
+        const profileDetailsBtns2 = document.querySelectorAll('.profileDetailsBtn2');
+        const planPopupClose = document.getElementById('planPopupClose');
+        const popUpPlanBtn = document.getElementById('popUpPlanBtn');
+        const popUpPlanBtn1 = document.getElementById('popUpPlanBtn1');
 
-    // Show the popup when "View Details" is clicked
-    profileDetailsBtn.addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent the default link behavior
-        planPopup.classList.remove('d-none');
+        // Loop through each "View Details" button (profileDetailsBtn) and attach event listeners
+        profileDetailsBtns.forEach(function(btn) {
+            btn.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent the default link behavior
+                planPopup.classList.remove('d-none');
+            });
+        });
+
+        // Loop through each "Please Upgrade Plan" button (profileDetailsBtn2) and attach event listeners
+        profileDetailsBtns2.forEach(function(btn) {
+            btn.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent the default link behavior
+                planPopup.classList.remove('d-none');
+            });
+        });
+
+        // Close the popup when "Close" button is clicked
+        planPopupClose.addEventListener('click', function() {
+            planPopup.classList.add('d-none');
+        });
+
+        // Close the popup when "Buy Credit" buttons are clicked
+        popUpPlanBtn.addEventListener('click', function() {
+            planPopup.classList.add('d-none');
+        });
+
+        popUpPlanBtn1.addEventListener('click', function() {
+            planPopup.classList.add('d-none');
+        });
     });
+</script>
 
-    profileDetailsBtn2.addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent the default link behavior
-        planPopup.classList.remove('d-none');
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if profile details are null
+        @if(is_null($profileDetails))
+            var profileModal = new bootstrap.Modal(document.getElementById('profileModal'), {
+                backdrop: 'static', // Prevent closing the modal by clicking outside
+                keyboard: false // Prevent closing the modal by pressing Esc
+            });
+            profileModal.show();
+        @endif
+
+        // Handle form submission
+        document.getElementById('saveProfile').addEventListener('click', function() {
+            var form = document.getElementById('profileForm');
+            if (form.checkValidity()) {
+                // Submit the form via AJAX or standard form submission
+                form.submit();
+            } else {
+                form.reportValidity();
+            }
+        });
     });
+</script>
 
-    // Close the popup when "Close" button is clicked
-    planPopupClose.addEventListener('click', function() {
-        planPopup.classList.add('d-none');
+<script>
+    $(document).ready(function () {
+        $('.price1Btn').click(function (e) {
+            e.preventDefault();
+
+            var planId = $(this).data('plan-id');
+
+            // Show a confirmation dialog
+            var confirmPurchase = confirm("Are you sure you want to purchase or upgrade to this plan?");
+
+            if (confirmPurchase) {
+                $.ajax({
+                    url: '{{ route('subscribe-plan') }}',
+                    type: 'POST',
+                    data: {
+                        plan_id: planId,
+                        _token: '{{ csrf_token() }}' // Include CSRF token
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            toastr.success('Plan upgraded successfully!');
+                            // Optionally reload the page or update the UI
+
+                            setTimeout(function () {
+                        location.reload();
+                    }, 2000);
+                        } else {
+                            toastr.error('Failed to upgrade plan!');
+                        }
+                    },
+                    error: function () {
+                        toastr.error('An error occurred while processing your request.');
+                    }
+                });
+            }
+        });
     });
-
-    // Close the popup and trigger the Bootstrap tab navigation button when "Buy Credit" is clicked
-    popUpPlanBtn.addEventListener('click', function() {
-        planPopup.classList.add('d-none');
-    });
-
-    popUpPlanBtn1.addEventListener('click', function() {
-        planPopup.classList.add('d-none');
-    });
-});
-
 </script>
 
 @endsection

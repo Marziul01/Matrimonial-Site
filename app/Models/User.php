@@ -53,4 +53,15 @@ public function userInfo()
     return $this->hasOne(UserInfo::class, 'user_id');
 }
 
+public function plans()
+    {
+        return $this->hasOne(UserPlan::class);
+    }
+
+    public function partnerProfile(){
+        return $this->hasOne(PartnerProfile::class, 'user_id');
+    }
+
 }
+
+

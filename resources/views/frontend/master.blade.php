@@ -61,6 +61,18 @@
     });
 </script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('id');
+    if (userId) {
+        // Assuming you have a function like `loadChat(userId)` that triggers the chat
+        loadChat(userId);
+    }
+});
+
+</script>
+
 @yield('customJs')
 
 </body>

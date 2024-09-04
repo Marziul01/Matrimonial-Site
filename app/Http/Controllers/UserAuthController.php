@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\SiteSetting;
 use App\Models\User;
 use App\Models\UserInfo;
+use App\Models\UserPlan;
 use App\Notifications\NewOrderNotification;
 use App\Notifications\NewUserNotification;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -61,12 +62,19 @@ class UserAuthController extends Controller
 
         $userInfo->save();
 
+        $plan = new UserPlan();
+        $plan->user_id = $user;
+        $plan->plan_id = 1;
+        $plan->start_date = now();
+        $plan->end_date = null;
+        $plan->save();
+
         return response()->json(['success' => true, 'redirect' => route('user.dashboard')]);
     }
 
     public static function logout(){
         Auth::logout();
-        return redirect(route('login'));
+        return redirect(route('home'));
     }
 
     public function signin(Request $request)
@@ -91,7 +99,24 @@ class UserAuthController extends Controller
         ], 422);
     }
 
+    // Attempt to login using number and password
     if (Auth::attempt(['number' => $request->number, 'password' => $request->password], $request->get('remember'))) {
+
+        // Check if the user has a profile
+        $profile = Auth::user()->profile;  // Assuming `profile` is a hasOne/belongsTo relation
+
+        if ($profile) {
+            // Check if the profile is blocked (status == 2)
+            if ($profile->status == 2) {
+                Auth::logout();  // Log out the user if the profile is blocked
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Your profile has been blocked.'
+                ], 401);
+            }
+        }
+
+        // Redirect the user based on session URL or default to the dashboard
         if (session()->has('url.intended')) {
             return response()->json([
                 'success' => true,
@@ -104,6 +129,7 @@ class UserAuthController extends Controller
             'redirect' => route('user.dashboard')
         ]);
     } else {
+        // Invalid credentials
         return response()->json([
             'success' => false,
             'message' => 'Invalid mobile number or password.'
