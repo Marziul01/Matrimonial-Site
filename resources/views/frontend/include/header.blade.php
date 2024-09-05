@@ -21,7 +21,8 @@
         </div>
         <div class="w-50 d-md-none pr-1">
             <div class="menu d-flex justify-content-end align-items-center column-gap-4">
-                <a href="{{ route('login') }}" class="btn loginBtn" >Login</a>
+                <a data-bs-toggle="modal" data-bs-target="#loginModal" class="btn loginBtn" >Login</a>
+                <a class="btn loginBtn" data-bs-toggle="modal" data-bs-target="#registerModal">SignUp</a>
                 <a class="mobileNavtoggle" id="homeMenuNavToogle"> <i class="fa-solid fa-bars"></i> </a>
             </div>
         </div>
