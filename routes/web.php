@@ -12,6 +12,7 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\UserPlanController;
 use Chatify\Http\Controllers\MessagesController;
+use App\Http\Controllers\PlansController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +65,10 @@ Route::group(['prefix' => 'admin'],function(){
         Route::get('/users/profiles/{id}',[UserController::class,'profiles'])->name('admin.userProfile');
         Route::get('/users/partner/{id}',[UserController::class,'partners'])->name('admin.userPartner');
         Route::get('/users/profile/status/{id}/{status}',[UserController::class,'profileStatus'])->name('profileStatus');
+        Route::get('/plans',[PlansController::class,'index'])->name('admin.plans');
+        Route::post('/add/CreditPlan',[PlansController::class,'addCreditPlan'])->name('addCreditPlan');
+        Route::post('/edit/CreditPlan/{id}',[PlansController::class,'editCreditPlan'])->name('editCreditPlan');
+        Route::get('/delete/Plan/{id}',[PlansController::class,'deletePlan'])->name('deletePlan');
     });
 
 });

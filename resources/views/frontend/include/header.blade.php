@@ -1,23 +1,24 @@
 @if (!Auth::check())
-<header class="container">
-    <div class=" headerMain d-flex justify-content-between align-items-center w-100 notSignupHead">
+<header class="section headerContainer">
+    <div class=" headerMain d-flex justify-content-center align-items-center w-100 notSignupHead">
         <div class="w-30">
             <div class="logo d-flex align-items-center column-gap-2">
                 <a href="{{ route('home') }}" class="d-flex align-items-center column-gap-2">
                     <img class="icon" src="{{ asset('frontend-assets/imgs/favicon2.png') }}" width="10%">
-                    <img class="logopic" src="{{ asset('frontend-assets/imgs/logo.png') }}" width="50%" height="50px">
+                    <img class="logopic" src="{{ asset('frontend-assets/imgs/logo.png') }}" width="50%" height="100%">
                 </a>
             </div>
         </div>
-        <div class="w-70 d-none d-md-block">
-            <div class="menu d-flex justify-content-end align-items-center column-gap-2">
-                <a href="{{ route('home') }}" class="menu_item"> Home </a>
-                <a href="{{ route('price') }}" class="menu_item"> Price </a>
-                <a href="{{ route('faq') }}" class="menu_item"> Faq </a>
-                <a href="{{ route('contact') }}" class="menu_item"> Contact </a>
-                <a data-bs-toggle="modal" data-bs-target="#loginModal" class="btn loginBtn">Login</a>
-                <a class="btn loginBtn" data-bs-toggle="modal" data-bs-target="#registerModal">SignUp</a>
-            </div>
+        <div class="w-50 d-flex justify-content-center align-items-center">
+            <a href="{{ route('home') }}" class="menu_item {{ Route::currentRouteName() == 'home' ? 'active' : '' }}"> Home </a>
+            <a href="" class="menu_item"> About Us </a>
+            {{-- <a href="{{ route('price') }}" class="menu_item {{ Route::currentRouteName() == 'price' ? 'active' : '' }}"> Price </a> --}}
+            <a href="{{ route('faq') }}" class="menu_item {{ Route::currentRouteName() == 'faq' ? 'active' : '' }}"> FAQ </a>
+            <a href="{{ route('contact') }}" class="menu_item {{ Route::currentRouteName() == 'contact' ? 'active' : '' }}"> Contact Us </a>
+        </div>
+        <div class="w-30 d-flex justify-content-end align-items-center column-gap-2">
+            <a data-bs-toggle="modal" data-bs-target="#loginModal" class="btn loginBtn">Sign In</a>
+            <a class="btn registerbtn" data-bs-toggle="modal" data-bs-target="#registerModal">Join Now</a>
         </div>
         <div class="w-50 d-md-none pr-1">
             <div class="menu d-flex justify-content-end align-items-center column-gap-4">

@@ -114,7 +114,7 @@
 <script src="{{ asset('admin-assets') }}/vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="{{ asset('admin-assets') }}/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="{{ asset('admin-assets') }}/js/demo/datatables-demo.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 @yield('customjs')
 </body>

@@ -29,6 +29,12 @@
             <span>Users</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.plans') }}">
+            <i class="fa-solid fa-user"></i>
+            <span>Credit Plans</span>
+        </a>
+    </li>
 
     {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"

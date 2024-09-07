@@ -574,33 +574,44 @@
                                                     $freePlan = $plans->where('id', 1)->first();
                                                 @endphp
 
-                                                @if($freePlan)
-                                                    <div class="border-bottom-1 pb-3">
-                                                        <h2 class="priceTitle">{{ $freePlan->name }}</h2>
-                                                        <p class="priceSubTitle">Basic Chat Functionality</p>
-                                                        <h1 class="priceAmount">BDT 0</h1>
-                                                        {{-- <p class="priceAmountText">Per month renew</p> --}}
-                                                    </div>
-                                                    <div class="py-3">
-                                                        <p class="planServices"><i class="fa-solid fa-circle-check"></i> 30 days history</p>
-                                                        <p class="planServices"><i class="fa-solid fa-circle-check"></i> Up to 1000 messages/mo</p>
-                                                        <p class="planServices"><i class="fa-solid fa-circle-check"></i> Unlimited AI Capabilities</p>
-                                                    </div>
-                                                    <div>
-                                                        @if (isset(Auth::user()->plans))
-                                                        @if ( Auth::user()->plans->plan_id == $freePlan->id )
-                                                        <a class="price1tn disabled"> Current Plan </a>
-                                                        @else
-                                                        <a href="javascript:void(0);" class="price1Btn" id="choose-plan-free" data-plan-id="{{ $freePlan->id }}"> Choose Plan </a>
-                                                        @endif
-                                                    @else
-                                                        <a href="javascript:void(0);" class="price1Btn" id="choose-plan-free" data-plan-id="{{ $freePlan->id }}"> Choose Plans </a>
-                                                    @endif
-                                                    </div>
+                                                @if ($plans->isNotEmpty())
+                                                    @foreach ($plans as $plan )
+                                                        <div class="pricePlanCards" style="background: {{ $plan->background_color }} ;">
+                                                            <div class="border-bottom-1 pb-3">
+                                                                <div class="d-flex align-items-center justify-content-between column-gap-4">
+                                                                    <h2 class="planTitle" style="color: {{ $plan->title_color }} ;">{{ $plan->name }}</h2>
+                                                                    {!! isset($plan->badge) ? '<p class="planBadge">'. $plan->badge .'</p>' : '' !!}
+                                                                </div>
+                                                                <p class="planSubTitle" style="color: {{ $plan->text_color }} ;"> {{ $plan->susTitle }} </p>
+                                                                <h1 class="planAmount" style="color: {{ $plan->text_color }} ;">BDT {{ $plan->price }} {!! isset($plan->time) ? '<span style="color:' . $plan->plantimes_color . ';">/ ' . $plan->time . '</span>' : '' !!}
+                                                                </h1>
+                                                                {!! isset($plan->subdesc) ? '<p class="planAmountText" style="color:' . $plan->plantimes_color . ';">' . $plan->subdesc . '</p>' : '' !!}
+                                                            </div>
+                                                            @php
+                                                                $services = explode(',', $plan->services);
+                                                            @endphp
+                                                            <div class="py-3">
+                                                                @foreach($services as $service)
+                                                                    <p class="planServices" style="color: {{ $plan->text_color }} ;"><i class="fa-solid fa-circle-check"></i> {{ $service }}</p>
+                                                                @endforeach
+                                                            </div>
+                                                            <div>
+                                                                @if (isset(Auth::user()->plans))
+                                                                    @if ( Auth::user()->plans->plan_id == $plan->id )
+                                                                        <a class="plansBtn disabled" style="color: {{ $plan->buttons_color }} ; background: {{ $plan->buttons_background }} ; border-color: {{ $plan->buttons_background == $plan->background_color ? '#b9b9b9' : 'transparent' }}"> Current Plan </a>
+                                                                    @else
+                                                                        <a href="javascript:void(0);" class="price1Btn plansBtn" id="choose-plan-free" data-plan-id="{{ $plan->id }}" style="color: {{ $plan->buttons_color }} ; background: {{ $plan->buttons_background }} ; border-color: {{ $plan->buttons_background == $plan->background_color ? '#b9b9b9' : 'transparent' }}"> Choose Plan </a>
+                                                                    @endif
+                                                                @else
+                                                                    <a href="javascript:void(0);" class="price1Btn plansBtn" id="choose-plan-free" data-plan-id="{{ $plan->id }}" style="color: {{ $plan->buttons_color }} ; background: {{ $plan->buttons_background }} ; border-color: {{ $plan->buttons_background == $plan->background_color ? '#b9b9b9' : 'transparent' }}"> Choose Plans </a>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
                                                 @endif
 
                                             </div>
-                                            <div class="pricePlanCard2">
+                                            {{-- <div class="pricePlanCard2">
                                                 @php
                                                     $freePlan = $plans->where('id', 2)->first();
                                                 @endphp
@@ -649,7 +660,7 @@
                                                 <div>
                                                     <a href="javascript:void(0);" class="price1Btn" id="choose-plan-pro-plus" data-plan-id="3"> Choose Plan </a>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                       </div>
                                       <div class="tab-pane fade  show active" id="v-pills-profilePlan" role="tabpanel" aria-labelledby="v-pills-profilePlan-tab">
