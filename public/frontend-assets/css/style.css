@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Pacifico&display=swap');
 
-@font-face {
-    font-family: 'MyCustomFont';
-    src: url('../../fonts/MyCustomFont.ttf') format('truetype'); /* Make sure the path is correct */
-}
 
 h1,h2,h3,h4,h5,h6,p,span,a,button,input,label,div{
     font-family: "Figtree", sans-serif;
@@ -209,6 +205,7 @@ p{
 .stepsTexts span{
     font-style: italic;
     color: #f43662;
+    font-weight: 900;
 }
 .bgSectionColor{
     background-color: #f43662;
@@ -218,7 +215,6 @@ p{
 .bgSectionColor .mainHeading{
     font-size: 70px;
     color: white;
-    font-weight: 900;
     margin-bottom: 50px;
 }
 .bgSectionColor .mainHeading span{
@@ -275,8 +271,8 @@ p{
     color: #f43662;
 }
 .bgBrands .subTitle{
-    font-size: 35px;
-    font-weight: 900;
+    font-size: 45px;
+    font-weight: 600;
     color: #f43662;
     padding: 10px 0 20px;
 }
@@ -518,6 +514,7 @@ p{
     font-size: 17px;
     padding: 20px 30px;
     border-radius: 10px;
+    font-weight: 600;
 }
 .siteContact{
     padding: 100px 0;
@@ -618,7 +615,7 @@ p{
 .adSection .title{
     font-size: 70px;
     color: white;
-    font-weight: 900;
+    font-weight: 600;
     margin-bottom: 20px;
 }
 .adSection .joinBtn{
@@ -627,6 +624,7 @@ p{
     color: #f43662;
     margin-top: 30px;
     border-radius: 10px;
+    font-weight: 600;
 }
 .adSection .img{
     width: 25%;

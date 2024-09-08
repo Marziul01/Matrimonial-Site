@@ -44,18 +44,23 @@ class User extends Authenticatable
     ];
 
     public function profile()
-{
+    {
     return $this->hasOne(Profile::class, 'user_id');
-}
+    }
 
-public function userInfo()
-{
+    public function userInfo()
+    {
     return $this->hasOne(UserInfo::class, 'user_id');
-}
+    }
 
-public function plans()
+    public function plans()
     {
         return $this->hasOne(UserPlan::class);
+    }
+
+    public function match()
+    {
+        return $this->hasOne(MatchProfile::class);
     }
 
     public function partnerProfile(){

@@ -1492,6 +1492,49 @@
     </div>
 </div>
 
+<!-- Match Details Modal -->
+<div class="modal fade" id="matchDetailsModal" tabindex="-1" role="dialog" aria-labelledby="matchDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="matchDetailsModalLabel">Give us some Information to Find Perfect <span style="text-transform:capitalize; color: #f43662">{{ Auth::user()->userInfo->looking_for }}</span> For You! </h5>
+            </div>
+            <div class="modal-body">
+                <form id="matchDetailsForm">
+                    @csrf
+                    <div>
+                        <label for="preference" class="mb-2">Aged</label>
+                        <div class="d-flex justify-content-center align-items-center column-gap-2">
+                            <input type="number" name="from_age" class="form-control"> <span> to </span> <input type="number" name="to_age" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <label for="" class="mb-2">Religion</label>
+                        <select name="religion" id="" class="form-control">
+                            <option value="Muslim">Muslim</option>
+                            <option value="Hindu">Hindu</option>
+                            <option value="Christian">Christian</option>
+                            <option value="Buddhists">Buddhists</option>
+                            <option value="Others">Others</option>
+                            <option value="Atheist">Atheist</option>
+                        </select>
+                    </div>
+                    <div class="mt-3">
+                        <label for="" class="mb-2">Marital Status</label>
+                        <select name="marital_status" id="" class="form-control">
+                            <option value="single">Single</option>
+                            <option value="divorced">Divorced</option>
+                            <option value="Widowed">Widowed</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Let's Begin</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @if($planWarning)
     <!-- Bootstrap Modal -->
     <div class="modal fade" id="planExpiredModal" tabindex="-1" role="dialog" aria-labelledby="planExpiredModalLabel" aria-hidden="true">
@@ -2295,5 +2338,55 @@ document.getElementById('working_with1').addEventListener('change', function() {
         });
     });
 </script>
+
+
+@if($fillMatchDetails == 'Yes')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#matchDetailsModal').modal({
+                backdrop: 'static',  // Prevent closing by clicking outside the modal
+                keyboard: false      // Disable closing the modal with the keyboard
+            });
+            $('#matchDetailsModal').modal('show'); // Show the modal
+        });
+    </script>
+@endif
+
+<script>
+    $(document).ready(function(){
+        $('#matchDetailsForm').on('submit', function(e) {
+            e.preventDefault();  // Prevent default form submission
+            let formData = $(this).serialize();  // Serialize form data
+
+            $.ajax({
+                url: '{{ route('match.details.submit') }}',
+                type: 'POST',
+                data: formData,
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                success: function (response) {
+                toastr.success('Match Profile Details Submitted Successfully!', '', {
+                            "positionClass": "toast-top-right",
+                            "timeOut": "2000", // Auto-close after 2 seconds
+                            "progressBar": true,
+                            "backgroundClass": 'bg-success', // Green background
+                        });
+
+
+                setTimeout(function () {
+                    location.reload();
+                }, 2000);
+            },
+            error: function (response) {
+                let errors = response.responseJSON.errors;
+
+                $.each(errors, function (key, value) {
+                    toastr.error(value[0]);
+                });
+            }
+            });
+        });
+    });
+</script>
+
 
 @endsection

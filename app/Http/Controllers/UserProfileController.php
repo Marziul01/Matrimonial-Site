@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Country;
+use App\Models\MatchProfile;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\PartnerProfile;
@@ -21,58 +22,63 @@ use Carbon\Carbon;
 use PhpParser\Node\Expr\FuncCall;
 use Illuminate\Validation\Rule;
 use App\Models\UserPlan;
+use Illuminate\Support\Facades\DB;
+
 
 class UserProfileController extends Controller
 {
 
-    public static function dashboard(){
-
-        $userPlanActive = null;
+    public static function dashboard() {
 
         $user = auth()->user();
-        $profile = $user->profile;
-        $userPlan = $user->plans;
-        $profileComplete = $profile !== null;
-        $userPlanActive = $userPlan->end_date;
+        $profile = $user->profile; // Current user's profile
+        $userMatchProfile = $user->match; // Current user's MatchProfile
 
-        $planWarning = null;
-
-        $userProfile = $user->userInfo;
-        $lookingFor = $userProfile->looking_for;
         $plans = Plans::all();
-
-        $currentPlan = $user->plans; // Assuming you have a relationship set up
         $now = now();
 
-        // Check if the user's plan has expired
+        // Checking if the user's plan is active
+        $currentPlan = $user->plans;
+        $userPlanActive = $currentPlan ? $currentPlan->end_date : null;
+        $planWarning = null;
+
         if ($currentPlan && $currentPlan->end_date && $now->greaterThan($currentPlan->end_date)) {
-            // Demote user to free plan
+            // Demote user to free plan if plan has expired
             $plan = new UserPlan();
             $plan->user_id = $user->id;
             $plan->plan_id = 1;
-            $plan->star_date = now();
+            $plan->start_date = now();
             $plan->save();
 
             $planWarning = 1;
         }
 
-        $eligibleUserIds = UserInfo::where('looking_for', '<>', $lookingFor)
-            ->pluck('user_id');
+        // Fill Match Details check
+        $fillMatchDetails = ($profile !== null && $userMatchProfile === null) ? 'Yes' : 'No';
 
-        $profiles = Profile::whereIn('user_id', $eligibleUserIds)
-            ->whereNotNull('user_id')->where('status',1)
-            ->paginate(20);
+        // Fetch users whose 'looking_for' is different and other matching conditions
+        $profiles = Profile::whereHas('matchProfile', function($query) use ($userMatchProfile) {
+            $query->where('looking_for', '<>', $userMatchProfile->looking_for) // Looking for different than user
+                  ->whereBetween(DB::raw('YEAR(CURDATE()) - YEAR(profiles.date_of_birth)'), [$userMatchProfile->from_age, $userMatchProfile->to_age]) // Match age range
+                  ->where('religion', $userMatchProfile->religion) // Match religion
+                  ->where('marital_status', $userMatchProfile->marital_status); // Match marital status
+        })
+        ->where('status', 1) // Only active profiles
+        ->where('user_id', '<>', $user->id) // Exclude the current user
+        ->paginate(20);
 
         return view('frontend.dashboard.dashboard', [
-            'profileComplete' => $profileComplete,
+            'profileComplete' => $profile !== null,
             'profiles' => $profiles,
             'profileDetails' => $profile,
             'UserPlanActive' => $userPlanActive,
-            'UserPlanDetails' => $userPlan,
+            'UserPlanDetails' => $currentPlan,
             'plans' => $plans,
             'planWarning' => $planWarning,
+            'fillMatchDetails' => $fillMatchDetails,
         ]);
     }
+
 
 
     public static function submitProfile(Request $request){
@@ -289,6 +295,38 @@ class UserProfileController extends Controller
         return view('frontend.profile.profile',[
             'profile' => $profile,
         ]);
+    }
+
+    public static function submitMatchProfile(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'from_age' => 'required |integer|min:18',
+            'to_age' => 'required',
+            'location' => 'nullable',
+            'religion' => 'required',
+            'marital_status' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $user = Auth::user();
+        $match = new MatchProfile();
+        $match->user_id = $user->id;
+        $match->looking_for = $user->userInfo->looking_for;
+        $match->from_age = $request->from_age;
+        $match->to_age = $request->to_age;
+        $match->religion = $request->religion;
+        $match->marital_status = $request->marital_status;
+        $match->location = $request->location;
+        $match->save();
+
+        return response()->json(['success' => true,]);
+
     }
 
 }

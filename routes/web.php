@@ -48,6 +48,7 @@ Route::group(['prefix' => 'account'],function(){
         Route::get('/check-current-plan', [UserPlanController::class,'CurrentPlan'])->name('check-current-plan');
         Route::post('/subscribe-plan', [UserPlanController::class,'subscribePlan'])->name('subscribe-plan');
         Route::get('/profiles/{slug}', [UserProfileController::class, 'profiles'])->name('profiles');
+        Route::post('/user/profile/match', [UserProfileController::class,'submitMatchProfile'])->name('match.details.submit');
     });
 });
 
