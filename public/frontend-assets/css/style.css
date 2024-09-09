@@ -26,7 +26,7 @@ p{
     background-repeat: no-repeat;
     position: relative;
     overflow: hidden;
-    height: 88vh;
+    padding: 70px 5%;
 }
 
 .headerMain{
@@ -119,6 +119,7 @@ p{
     align-items: center;
     column-gap: 20px;
     position: relative;
+    flex-direction: row-reverse;
 }
 .step-one::after{
     content: "\f111"; /* Unicode for Font Awesome's filled circle */
@@ -213,7 +214,7 @@ p{
     padding-bottom: 100px;
 }
 .bgSectionColor .mainHeading{
-    font-size: 70px;
+    font-size: 60px;
     color: white;
     margin-bottom: 50px;
 }
@@ -251,8 +252,15 @@ p{
     font-size: 20px;
     text-align: center;
 }
+.searchBy .searchOptions a:hover{
+    color: #f43662;
+}
 .searchBy .searchOptions .lastOption{
     background-color: black;
+    color: white;
+    cursor: pointer;
+}
+.searchBy .searchOptions .lastOption:hover{
     color: white;
 }
 .bgBrands{
@@ -319,6 +327,7 @@ p{
     transform: translateY(-50%);
     color: #f43662;
     z-index: 9999;
+    background: white;
 }
 
 .Testimonialwrapper i:first-child {
@@ -443,14 +452,11 @@ p{
     padding-bottom: 200px;
     z-index: -1;
 }
-.pointerDiv{
-    position: absolute;
-    top: -205px;
-    width: 100%;
-    left: 0;
-}
+
 .pointerImage{
-    width: 30%;
+    width: 500px;
+    position: absolute;
+    top: -216px;
 }
 .trustedOne{
     font-size: 25px;
@@ -458,7 +464,7 @@ p{
     margin-top: 20px;
 }
 .trustedTitle{
-    font-size: 75px;
+    font-size: 60px;
     font-weight: 900;
     color: white;
 }
@@ -653,11 +659,17 @@ footer{
     font-weight: 500;
     margin-bottom: 5px;
 }
-.foterWidgets .innerDiv .footerMenu, .foterWidgets2 .footerMenu{
+.foterWidgets .innerDiv .footerMenu{
     color: white;
     text-decoration: none;
     font-size: 16px;
     font-weight: 500;
+}
+.foterWidgets2 .footerMenu{
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
 }
 .footerSocial i, .copywrteText{
     color: #ffbbca;
@@ -675,15 +687,106 @@ footer{
     border: 1px solid #f43662;
     border-radius: 20px;
 }
-
-/* .form-check{
-    padding-left: 10px;
-} */
+.Loginhomebg{
+    background-image: url('../imgs/hero_bg.png');
+    background-position: right;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+    width: 62%;
+    margin-left: -5px;
+}
+.leftImage{
+    background-image: url(../imgs/image.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 40%;
+}
+.signInForm{
+    padding: 100px;
+    background-color: #f43662b7;
+}
+.signInForm .title{
+    color: white;
+    font-weight: 900;
+    font-size: 70px;
+    margin-bottom: 30px;
+}
+.signInForm .form-group{
+    border: none;
+}
+.signInForm .form-group label{
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+}
+.signInForm .form-group input{
+    background: transparent !important;
+    color: white;
+    border-color: white;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+.signInForm .form-group input::placeholder{
+    color: white;
+}
+.signInForm  .login-form{
+    padding: 0 150px;
+}
+.form-control:focus{
+    box-shadow: none !important;
+}
 input[type="radio"]{
     box-shadow: none;
 }
 input[type="checkbox"]{
     box-shadow: none;
+}
+.signConfBtn , .signConfBtn:hover{
+    width: 100%;
+    border: 1px solid white;
+    background-color: #f43662;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+}
+.googleSignin{
+    width: 100%;
+    border: 1px solid white;
+    color: white;
+    background-color: transparent;
+    font-size: 16px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+}
+.googleSignin img{
+    width: 25px;
+}
+.input-group-appends{
+    position: absolute;
+    top: 13%;
+    right: 10px;
+    background-color: transparent;
+    z-index: 9999999999999;
+}
+.signInForm .input-group-text {
+    display: flex;
+    align-items: center;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #ffffff;
+    text-align: center;
+    white-space: nowrap;
+    background-color: transparent;
+    border: none;
+    border-radius: var(--bs-border-radius);
 }
 /* .form-check label{
     padding: 3px 10px;
@@ -731,14 +834,14 @@ input[type="checkbox"]{
     padding: 8px 30px;
 }
 .registerbtn:hover{
-    background-color: transparent;
-    color: #f43662;
-    border-color: #f43662;
-}
-.loginBtn:hover{
     background-color: #f43662;
     color: white;
     border-color: #f43662;
+}
+.loginBtn:hover{
+    background-color: transparent;
+    color: #f43662;
+    border-color: transparent;
 }
 .popupModal{
     position: absolute;

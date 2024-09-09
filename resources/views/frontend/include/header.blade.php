@@ -17,12 +17,12 @@
             <a href="{{ route('contact') }}" class="menu_item {{ Route::currentRouteName() == 'contact' ? 'active' : '' }}"> Contact Us </a>
         </div>
         <div class="w-30 d-flex justify-content-end align-items-center column-gap-2">
-            <a data-bs-toggle="modal" data-bs-target="#loginModal" class="btn loginBtn">Sign In</a>
+            <a href="{{ route('login') }}" class="btn loginBtn">Sign In</a>
             <a class="btn registerbtn" data-bs-toggle="modal" data-bs-target="#registerModal">Join Now</a>
         </div>
         <div class="w-50 d-md-none pr-1">
             <div class="menu d-flex justify-content-end align-items-center column-gap-4">
-                <a data-bs-toggle="modal" data-bs-target="#loginModal" class="btn loginBtn" >Login</a>
+                <a href="{{ route('login') }}" class="btn loginBtn" >Login</a>
                 <a class="btn loginBtn" data-bs-toggle="modal" data-bs-target="#registerModal">SignUp</a>
                 <a class="mobileNavtoggle" id="homeMenuNavToogle"> <i class="fa-solid fa-bars"></i> </a>
             </div>

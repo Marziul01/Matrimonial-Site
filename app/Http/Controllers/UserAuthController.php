@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use function Symfony\Component\String\b;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Socialite\Facades\Socialite;
 
 
 class UserAuthController extends Controller
@@ -88,7 +89,7 @@ class UserAuthController extends Controller
     }
 
     $validator = Validator::make($request->all(), [
-        'number' => 'required',
+        'email' => 'required',
         'password' => 'required',
     ]);
 
@@ -100,7 +101,7 @@ class UserAuthController extends Controller
     }
 
     // Attempt to login using number and password
-    if (Auth::attempt(['number' => $request->number, 'password' => $request->password], $request->get('remember'))) {
+    if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
 
         // Check if the user has a profile
         $profile = Auth::user()->profile;  // Assuming `profile` is a hasOne/belongsTo relation
@@ -132,7 +133,7 @@ class UserAuthController extends Controller
         // Invalid credentials
         return response()->json([
             'success' => false,
-            'message' => 'Invalid mobile number or password.'
+            'message' => 'Invalid email or password.'
         ], 401);
     }
 }
@@ -147,6 +148,10 @@ class UserAuthController extends Controller
 
         return view('frontend.auth.auth', [
         ]);
+    }
+
+    public function googleLogin(){
+        return Socialite::driver('google')->redirect();
     }
 
 

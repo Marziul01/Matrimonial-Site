@@ -58,7 +58,7 @@
                 <div>
                     <img src="{{ asset('frontend-assets') }}/imgs/2_step.png">
                 </div>
-                <div>
+                <div class="d-flex align-items-end flex-column">
                     <h4 class="stepTitle">Connect</h4>
                     <p class="stepSubTitle">Select & Connect with matches you like</p>
                 </div>
@@ -83,17 +83,7 @@
         <div class="">
             <h1 class="text-center mainHeading"> Search by <span>Popular</span> <br> Matrimony Sites</h1>
         </div>
-        <div class="searchBy">
-            <div class="searchTitle">
-                <h1>By Mother Tongue</h1>
-            </div>
-            <div class="searchOptions">
-                <a>Bengali</a>
-                <a>Hindi</a>
-                <a>English</a>
-                <a class="lastOption">More Matrimonials</a>
-            </div>
-        </div>
+
         <div class="searchBy">
             <div class="searchTitle">
                 <h1>By Religion</h1>
@@ -102,6 +92,15 @@
                 <a>Muslim</a>
                 <a>Hindu</a>
                 <a>Christian</a>
+                <a class="lastOption">More Matrimonials</a>
+            </div>
+        </div>
+        <div class="searchBy">
+            <div class="searchTitle">
+                <h1>By Mother Tongue</h1>
+            </div>
+            <div class="searchOptions">
+                <a>Bengali</a>
                 <a class="lastOption">More Matrimonials</a>
             </div>
         </div>
@@ -135,16 +134,11 @@
                         <div class="TestimonialcardInner h-100">
                             <div class="testimonial-item w-100">
                                 <div class="img">
-                                    <img src="{{ asset('frontend-assets/imgs/6d521601-4919-4e0a-9113-aab3f9fa8769.jpg') }}" class="d-block" alt="Testimonial Image">
+                                    <img src="{{ asset('frontend-assets/imgs/Centre-Parted-Bob-Haircut-For-Square-Face.png') }}" class="d-block" alt="Testimonial Image">
 
                                 </div>
                                 <div class="w-100 text-left mainTestiText">
-                                    <p class="mb-0">Lorem ipsum dolor sit amet
-                                        consectetur adipisicing elit. Rerum
-                                        soluta, veritatis vero deserunt aut
-                                        error qui enim labore nihil
-                                        harum.Lorem ipsum dolor sit amet
-                                        consectetur adipisicing elit.</p>
+                                    <p class="mb-0">I was initially skeptical about online matchmaking, but this platform exceeded my expectations. I met my soulmate here, and within months, we were planning our future together. A heartfelt thank you for making this possible!</p>
                                     <p class="textDesc">mst. sadia akter</p>
                                     <p class="lcation">dhaka</p>
                                 </div>
@@ -159,14 +153,9 @@
                                     <img src="{{ asset('frontend-assets/imgs/7cedefe4-c3ab-4fa1-a292-bd4ccf7eeb9d.jpg') }}" class="d-block" alt="Testimonial Image">
                                 </div>
                                 <div class="w-100 text-left mainTestiText">
-                                    <p class="mb-0">Lorem ipsum dolor sit amet
-                                        consectetur adipisicing elit. Rerum
-                                        soluta, veritatis vero deserunt aut
-                                        error qui enim labore nihil
-                                        harum.Lorem ipsum dolor sit amet
-                                        consectetur adipisicing elit.</p>
-                                    <p class="textDesc">mst. sadia akter</p>
-                                    <p class="lcation">dhaka</p>
+                                    <p class="mb-0">This matrimonial website gave us the opportunity to connect with someone who shared the same values and dreams. The process was smooth, and within no time, we knew we were meant for each other. We’re now happily married and grateful!</p>
+                                    <p class="textDesc">Mizanur islam</p>
+                                    <p class="lcation">khulna</p>
                                 </div>
                             </div>
                         </div>
@@ -179,14 +168,9 @@
                                     <img src="{{ asset('frontend-assets/imgs/5265bf38-31b9-47c1-84c0-8e4b4ddc7a1d.jpg') }}" class="d-block" alt="Testimonial Image">
                                 </div>
                                 <div class="w-100 text-left mainTestiText">
-                                    <p class="mb-0">Lorem ipsum dolor sit amet
-                                        consectetur adipisicing elit. Rerum
-                                        soluta, veritatis vero deserunt aut
-                                        error qui enim labore nihil
-                                        harum.Lorem ipsum dolor sit amet
-                                        consectetur adipisicing elit.</p>
-                                    <p class="textDesc">mst. sadia akter</p>
-                                    <p class="lcation">dhaka</p>
+                                    <p class="mb-0">Finding the right person felt overwhelming until I joined this matrimonial site. The profiles were authentic, and the matches were meaningful. I met Ahmed, and the rest is history. We are now building a wonderful life together.</p>
+                                    <p class="textDesc">md. mahim miya</p>
+                                    <p class="lcation">Chittagong</p>
                                 </div>
                             </div>
                         </div>
@@ -196,16 +180,11 @@
                         <div class="TestimonialcardInner h-100">
                             <div class="testimonial-item w-100">
                                 <div class="img">
-                                    <img src="{{ asset('frontend-assets/imgs/5265bf38-31b9-47c1-84c0-8e4b4ddc7a1d.jpg') }}" class="d-block" alt="Testimonial Image">
+                                    <img src="{{ asset('frontend-assets/imgs/6d521601-4919-4e0a-9113-aab3f9fa8769.jpg') }}" class="d-block" alt="Testimonial Image">
                                 </div>
                                 <div class="w-100 text-left mainTestiText">
-                                    <p class="mb-0">Lorem ipsum dolor sit amet
-                                        consectetur adipisicing elit. Rerum
-                                        soluta, veritatis vero deserunt aut
-                                        error qui enim labore nihil
-                                        harum.Lorem ipsum dolor sit amet
-                                        consectetur adipisicing elit.</p>
-                                    <p class="textDesc">mst. sadia akter</p>
+                                    <p class="mb-0">I never thought finding my life partner would be this easy! Thanks to this platform, I met Rohan, and within a few conversations, we knew we were perfect for each other. We’re now happily married and couldn't be more thankful.</p>
+                                    <p class="textDesc">Rifatul Islam</p>
                                     <p class="lcation">dhaka</p>
                                 </div>
                             </div>
@@ -217,7 +196,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-center">
-            <a class="moreTestimonials"> more customer revews </a>
+            <a href="#" class="moreTestimonials"> more customer revews </a>
         </div>
     </div>
 

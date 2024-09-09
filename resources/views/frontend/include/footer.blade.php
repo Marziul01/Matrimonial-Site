@@ -50,6 +50,6 @@
         <a class="footerMenu">Site Map</a>
     </div>
     <div>
-        <p class="copywrteText"><i class="fa-solid fa-copyright"></i> 2021-2024 Link My Heart </p>
+        <p class="copywrteText"><i class="fa-solid fa-copyright"></i> 2024-2025 Link My Heart </p>
     </div>
 </div>
