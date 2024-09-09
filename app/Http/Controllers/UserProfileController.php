@@ -22,63 +22,82 @@ use Carbon\Carbon;
 use PhpParser\Node\Expr\FuncCall;
 use Illuminate\Validation\Rule;
 use App\Models\UserPlan;
-use Illuminate\Support\Facades\DB;
-
 
 class UserProfileController extends Controller
 {
 
-    public static function dashboard() {
+    public static function dashboard(){
+
+        $userPlanActive = null;
+        $userMatchDetails = null;
 
         $user = auth()->user();
-        $profile = $user->profile; // Current user's profile
-        $userMatchProfile = $user->match; // Current user's MatchProfile
+        $profile = $user->profile;
+        $userPlan = $user->plans;
+        $userMatchDetails = $user->match;
+        $profileComplete = $profile !== null;
+        $userPlanActive = $userPlan->end_date;
 
-        $plans = Plans::all();
-        $now = now();
-
-        // Checking if the user's plan is active
-        $currentPlan = $user->plans;
-        $userPlanActive = $currentPlan ? $currentPlan->end_date : null;
         $planWarning = null;
 
+        $userProfile = $user->userInfo;
+        $lookingFor = $userProfile->looking_for;
+        $plans = Plans::all();
+
+        $currentPlan = $user->plans; // Assuming you have a relationship set up
+        $now = now();
+
+        // Check if the user's plan has expired
         if ($currentPlan && $currentPlan->end_date && $now->greaterThan($currentPlan->end_date)) {
-            // Demote user to free plan if plan has expired
+            // Demote user to free plan
             $plan = new UserPlan();
             $plan->user_id = $user->id;
             $plan->plan_id = 1;
-            $plan->start_date = now();
+            $plan->star_date = now();
             $plan->save();
 
             $planWarning = 1;
         }
 
-        // Fill Match Details check
-        $fillMatchDetails = ($profile !== null && $userMatchProfile === null) ? 'Yes' : 'No';
+        if($profile !== null && $userMatchDetails == null){
+            $fillMatchDetails = 'Yes';
+        }else{
+            $fillMatchDetails = 'No';
+        }
 
-        // Fetch users whose 'looking_for' is different and other matching conditions
-        $profiles = Profile::whereHas('matchProfile', function($query) use ($userMatchProfile) {
-            $query->where('looking_for', '<>', $userMatchProfile->looking_for) // Looking for different than user
-                  ->whereBetween(DB::raw('YEAR(CURDATE()) - YEAR(profiles.date_of_birth)'), [$userMatchProfile->from_age, $userMatchProfile->to_age]) // Match age range
-                  ->where('religion', $userMatchProfile->religion) // Match religion
-                  ->where('marital_status', $userMatchProfile->marital_status); // Match marital status
-        })
-        ->where('status', 1) // Only active profiles
-        ->where('user_id', '<>', $user->id) // Exclude the current user
-        ->paginate(20);
+        // User's match preferences
+        $lookingFor = $userMatchDetails->looking_for;
+        $matchReligion = $userMatchDetails->religion;
+        $matchMaritalStatus = $userMatchDetails->marital_status;
+        $matchFromAge = $userMatchDetails->from_age;
+        $matchToAge = $userMatchDetails->to_age;
+
+        // Get users who are not looking for the same thing
+        $eligibleUserIds = UserInfo::where('looking_for', '<>', $lookingFor)
+            ->pluck('user_id');
+
+        // Query profiles based on match criteria
+        $profiles = Profile::whereIn('user_id', $eligibleUserIds)
+            ->whereNotNull('user_id')
+            ->where('status', 1) // Active profiles only
+            ->where(function($query) use ($matchFromAge, $matchToAge) {
+                $query->whereRaw("TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE()) BETWEEN ? AND ?", [$matchFromAge, $matchToAge]);
+            })
+            ->where('religion', $matchReligion)
+            ->where('marital_status', $matchMaritalStatus)
+            ->paginate(20);
 
         return view('frontend.dashboard.dashboard', [
-            'profileComplete' => $profile !== null,
+            'profileComplete' => $profileComplete,
             'profiles' => $profiles,
             'profileDetails' => $profile,
             'UserPlanActive' => $userPlanActive,
-            'UserPlanDetails' => $currentPlan,
+            'UserPlanDetails' => $userPlan,
             'plans' => $plans,
             'planWarning' => $planWarning,
             'fillMatchDetails' => $fillMatchDetails,
         ]);
     }
-
 
 
     public static function submitProfile(Request $request){
