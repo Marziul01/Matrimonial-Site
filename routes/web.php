@@ -29,13 +29,14 @@ Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/price',[PriceController::class,'index'])->name('price');
 Route::get('/faq',[FaqController::class,'index'])->name('faq');
 Route::get('/contact',[ContactController::class,'index'])->name('contact');
+Route::get('/googleLogin', [UserAuthController::class, 'googleLogin'])->name('googleLogin');
 
 Route::group(['prefix' => 'account'],function(){
     Route::group(['middleware' => 'guest'],function(){
         Route::post('/user/register', [UserAuthController::class ,'userRegister'])->name('userRegister');
         Route::post('/user/login', [UserAuthController::class,'signin'])->name('user.login');
         Route::get('/login',[UserAuthController::class,'login'])->name('login');
-        Route::get('/googleLogin', [UserAuthController::class, 'googleLogin'])->name('googleLogin');
+
     });
 
     Route::group(['middleware' => 'auth'],function(){
