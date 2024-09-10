@@ -35,6 +35,7 @@ Route::group(['prefix' => 'account'],function(){
         Route::post('/user/register', [UserAuthController::class ,'userRegister'])->name('userRegister');
         Route::post('/user/login', [UserAuthController::class,'signin'])->name('user.login');
         Route::get('/login',[UserAuthController::class,'login'])->name('login');
+        Route::get('/googleLogin', [UserAuthController::class, 'googleLogin'])->name('googleLogin');
     });
 
     Route::group(['middleware' => 'auth'],function(){
@@ -49,7 +50,7 @@ Route::group(['prefix' => 'account'],function(){
         Route::post('/subscribe-plan', [UserPlanController::class,'subscribePlan'])->name('subscribe-plan');
         Route::get('/profiles/{slug}', [UserProfileController::class, 'profiles'])->name('profiles');
         Route::post('/user/profile/match', [UserProfileController::class,'submitMatchProfile'])->name('match.details.submit');
-        Route::get('/googleLogin', [UserAuthController::class, 'googleLogin'])->name('googleLogin');
+
     });
 });
 
