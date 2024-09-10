@@ -13,6 +13,7 @@
             <div class="Loginhomebg ">
                 <div class="signInForm ">
                     <div class="">
+                        @include('frontend.auth.frontMessage')
                         <div class="text-center">
                             <p class="title">Welcome back</p>
                         </div>

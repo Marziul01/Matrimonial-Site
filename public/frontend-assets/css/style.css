@@ -767,6 +767,12 @@ input[type="checkbox"]{
 .googleSignin img{
     width: 25px;
 }
+#CreatProfilesDiv{
+    display: none;
+}
+#prevToLookingFor{
+    display: none;
+}
 .input-group-appends{
     position: absolute;
     top: 13%;

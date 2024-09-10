@@ -30,6 +30,7 @@ class UserProfileController extends Controller
 
         $userPlanActive = null;
         $userMatchDetails = null;
+        $profiles = null;
 
         $user = auth()->user();
         $profile = $user->profile;
@@ -63,29 +64,34 @@ class UserProfileController extends Controller
             $fillMatchDetails = 'Yes';
         }else{
             $fillMatchDetails = 'No';
+
         }
 
-        // User's match preferences
-        $lookingFor = $userMatchDetails->looking_for;
-        $matchReligion = $userMatchDetails->religion;
-        $matchMaritalStatus = $userMatchDetails->marital_status;
-        $matchFromAge = $userMatchDetails->from_age;
-        $matchToAge = $userMatchDetails->to_age;
+        if($userMatchDetails !== null){
+            // User's match preferences
+            $lookingFor = $userMatchDetails->looking_for;
+            $matchReligion = $userMatchDetails->religion;
+            $matchMaritalStatus = $userMatchDetails->marital_status;
+            $matchFromAge = $userMatchDetails->from_age;
+            $matchToAge = $userMatchDetails->to_age;
 
-        // Get users who are not looking for the same thing
-        $eligibleUserIds = UserInfo::where('looking_for', '<>', $lookingFor)
+            // Get users who are not looking for the same thing
+            $eligibleUserIds = UserInfo::where('looking_for', '<>', $lookingFor)
             ->pluck('user_id');
 
-        // Query profiles based on match criteria
-        $profiles = Profile::whereIn('user_id', $eligibleUserIds)
-            ->whereNotNull('user_id')
-            ->where('status', 1) // Active profiles only
-            ->where(function($query) use ($matchFromAge, $matchToAge) {
-                $query->whereRaw("TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE()) BETWEEN ? AND ?", [$matchFromAge, $matchToAge]);
-            })
-            ->where('religion', $matchReligion)
-            ->where('marital_status', $matchMaritalStatus)
-            ->paginate(20);
+            // Query profiles based on match criteria
+            $profiles = Profile::whereIn('user_id', $eligibleUserIds)
+                ->whereNotNull('user_id')
+                ->where('status', 1) // Active profiles only
+                ->where(function($query) use ($matchFromAge, $matchToAge) {
+                    $query->whereRaw("TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE()) BETWEEN ? AND ?", [$matchFromAge, $matchToAge]);
+                })
+                ->where('religion', $matchReligion)
+                ->where('marital_status', $matchMaritalStatus)
+                ->paginate(20);
+        }
+
+
 
         return view('frontend.dashboard.dashboard', [
             'profileComplete' => $profileComplete,

@@ -30,6 +30,7 @@ Route::get('/price',[PriceController::class,'index'])->name('price');
 Route::get('/faq',[FaqController::class,'index'])->name('faq');
 Route::get('/contact',[ContactController::class,'index'])->name('contact');
 Route::get('/googleLogin', [UserAuthController::class, 'googleLogin'])->name('googleLogin');
+Route::get('/auth/google/callback', [UserAuthController::class, 'googleHandler'])->name('googleHandler');
 
 Route::group(['prefix' => 'account'],function(){
     Route::group(['middleware' => 'guest'],function(){

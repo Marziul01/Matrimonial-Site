@@ -76,7 +76,7 @@
                   <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                     <h2 class="text-center p-2 mt-3 mb-0 bestMatch">For Your Best Match</h2>
                     <div class="row sticky-div pb-5">
-                        @if ($profiles->isEmpty())
+                        @if (is_null($profiles))
                                 <h4 class="text-center">Sorry ! No Profiles to show !</h4>
                             @else
                             <div class="profileGrid mt-3 pb-4">
@@ -1278,214 +1278,260 @@
             <div class="modal-body">
                 <form id="your--Profile" class="px-4 tabForms yourProfileCreate">
                     @csrf
-                    <ul class="nav nav-tabs profile-form-steps" id="myTab" role="tablist">
-                        <li class="nav-item border-0" role="presentation">
-                          <button class="nav-link profile-step active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Basic Information</button>
-                        </li>
-                        <li class="nav-item border-0" role="presentation">
-                          <button class="nav-link profile-step" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Educational & Career Info.</button>
-                        </li>
-                        <li class="nav-item border-0" role="presentation">
-                          <button class="nav-link profile-step" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Family Info.</button>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <div class="row p-0">
-                                <div class="col-md-4 mt-0">
-                                    <div class="imageDrop">
-                                        <div id="image-display">
-                                            <label for="upload-button" class="imageReUploadInput">Upload Your Photo</label>
-                                        </div>
-                                        <input type="file" name="image" id="upload-button" accept="image/*" />
-                                        <label for="upload-button" id="imageUploadInput" class="imageUploadInput">
-                                            <i class="fa-solid fa-upload" style="font-size: 60px"></i>&nbsp; Upload Your Photo
-                                        </label>
-                                        <div id="error"></div>
+                    
+                    @if (Auth::user()->userInfo->looking_for == 'google')
+                        <div id="userInfoGoogle" class="">
+                            <div class="w-100">
+                                <p class="">I'm Looking for a </p>
+                                <div class="form-group d-flex align-items-center column-gap-5">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" value="bride" name="looking_for" id="bride">
+                                        <label class="form-check-label" for="bride">Bride</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" value="groom" name="looking_for" id="groom">
+                                        <label class="form-check-label" for="groom">Groom</label>
                                     </div>
                                 </div>
-                                <div class="col-md-8">
-                                    <textarea name="desc" class="profileDesc" placeholder="Write something about yourself"></textarea>
-                                </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0">
-                                    <input type="text" name="first_name" placeholder="First Name" class="profileInput">
-                                </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0">
-                                    <input type="text" name="last_name" placeholder="Last Name" class="profileInput">
-                                </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0">
-                                    <select name="gender" class="profileInput">
-                                        <option value="">Select Gender</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
+                            </div>
 
-                                    </select>
-                                </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0">
-                                    <input type="text" name="religion" placeholder="Religion" class="profileInput">
-                                </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0">
-                                    <input type="date" name="date_of_birth" placeholder="Date Of Birth" class="profileInput" id="dateOfBirth">
-                                </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0">
-                                    <input type="text" name="birth_place" placeholder="Birth Place" class="profileInput">
-                                </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0">
-                                    <input type="text" name="nationality" placeholder="Nationality" class="profileInput">
-                                </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0">
-                                    <input type="text" name="present_address" placeholder="Present Address" class="profileInput">
-                                </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0">
-                                    <input type="email" name="email" placeholder="Mail ID" class="profileInput">
-                                </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0">
-                                    <input type="text" name="contact_number" placeholder="Contact Number" class="profileInput">
-                                </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0">
-                                    <select name="maritial_status" class="profileInput">
-                                        <option value="">Select Marital Status</option>
-                                        <option value="single">Single</option>
-                                        <option value="divorced">Divorced</option>
-                                    </select>
+                            <div class="w-100">
+                                    <p class="">Submitting For</p>
+                                    <div class="form-group d-flex align-items-center column-gap-5">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" value="myself" name="account_for" id="myself">
+                                            <label class="form-check-label" for="myself">Myself</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" value="others" name="account_for" id="others">
+                                            <label class="form-check-label" for="others">Others</label>
+                                        </div>
+                                    </div>
+                            </div>
 
-                                </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                            <div class="w-100" id="relation">
+                                    <p class="">Type Your Relation?</p>
+                                    <div class="">
+                                        <input class="form-group form-control" type="text" name="relation" placeholder=" What's Your Relation with the person !">
+                                    </div>
+                            </div>
+                            <button type="button" class="btn btn-primary mt-3 profile-next-step" id="nextCreatProfile">Next</button>
+                        </div>
+                    @endif
 
-                                    <select name="blood_group" class="profileInput">
-                                        <option value="">Select Blood Group</option>
-                                        <option value="A+">A+</option>
-                                        <option value="A-">A-</option>
-                                        <option value="B+">B+</option>
-                                        <option value="B-">B-</option>
-                                        <option value="AB+">AB+</option>
-                                        <option value="AB-">AB-</option>
-                                        <option value="O+">O+</option>
-                                        <option value="O-">O-</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0">
 
-                                        <select name="hobby" class="profileInput">
-                                            <option value="">Select Hobby</option>
-                                            <option value="Reading">Reading</option>
-                                            <option value="Writing">Writing</option>
-                                            <option value="Gaming">Gaming</option>
-                                            <option value="Travelling">Travelling</option>
-                                            <option value="Singing">Singing</option>
-                                            <option value="Dancing">Dancing</option>
-                                            <option value="Art">Art</option>
-                                            <option value="Eating">Eating</option>
+                    <div @if(Auth::user()->userInfo->looking_for == 'google') id="CreatProfilesDiv" @endif>
+                        <ul class="nav nav-tabs profile-form-steps" id="myTab" role="tablist">
+                            <li class="nav-item border-0" role="presentation">
+                              <button class="nav-link profile-step active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Basic Information</button>
+                            </li>
+                            <li class="nav-item border-0" role="presentation">
+                              <button class="nav-link profile-step" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Educational & Career Info.</button>
+                            </li>
+                            <li class="nav-item border-0" role="presentation">
+                              <button class="nav-link profile-step" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Family Info.</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="row p-0">
+                                    <div class="col-md-4 mt-0">
+                                        <div class="imageDrop">
+                                            <div id="image-display">
+                                                <label for="upload-button" class="imageReUploadInput">Upload Your Photo</label>
+                                            </div>
+                                            <input type="file" name="image" id="upload-button" accept="image/*" />
+                                            <label for="upload-button" id="imageUploadInput" class="imageUploadInput">
+                                                <i class="fa-solid fa-upload" style="font-size: 60px"></i>&nbsp; Upload Your Photo
+                                            </label>
+                                            <div id="error"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <textarea name="desc" class="profileDesc" placeholder="Write something about yourself"></textarea>
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0">
+                                        <input type="text" name="first_name" placeholder="First Name" class="profileInput">
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0">
+                                        <input type="text" name="last_name" placeholder="Last Name" class="profileInput">
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0">
+                                        <select name="gender" class="profileInput">
+                                            <option value="">Select Gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0">
+                                        <input type="text" name="religion" placeholder="Religion" class="profileInput">
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0">
+                                        <input type="date" name="date_of_birth" placeholder="Date Of Birth" class="profileInput" id="dateOfBirth">
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0">
+                                        <input type="text" name="birth_place" placeholder="Birth Place" class="profileInput">
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0">
+                                        <input type="text" name="nationality" placeholder="Nationality" class="profileInput">
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0">
+                                        <input type="text" name="present_address" placeholder="Present Address" class="profileInput">
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0">
+                                        <input type="email" name="email" placeholder="Mail ID" class="profileInput">
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0">
+                                        <input type="text" name="contact_number" placeholder="Contact Number" class="profileInput">
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0">
+                                        <select name="maritial_status" class="profileInput">
+                                            <option value="">Select Marital Status</option>
+                                            <option value="single">Single</option>
+                                            <option value="divorced">Divorced</option>
                                         </select>
 
-                                </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0">
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0">
 
-                                    <select name="height" class="profileInput">
-                                        <option value="">Select Height</option>
-                                        <option value="5'">5'</option>
-                                        <option value="5.1'">5.1'</option>
-                                        <option value="5.2'">5.2'</option>
-                                        <option value="5.3'">5.3'</option>
-                                        <option value="5.4'">5.4'</option>
-                                        <option value="5.5'">5.5'</option>
-                                        <option value="5.6'">5.6'</option>
-                                        <option value="5.7'">5.7'</option>
-                                        <option value="5.8'">5.8'</option>
-                                        <option value="5.9'">5.9'</option>
-                                        <option value="5.10'">5.10'</option>
-                                        <option value="5.11'">5.11'</option>
-                                        <option value="6'">6'</option>
-                                        <option value="6.1'">6.1'</option>
-                                        <option value="6.2'">6.2'</option>
-                                        <option value="6.3'">6.3'</option>
-                                    </select>
+                                        <select name="blood_group" class="profileInput">
+                                            <option value="">Select Blood Group</option>
+                                            <option value="A+">A+</option>
+                                            <option value="A-">A-</option>
+                                            <option value="B+">B+</option>
+                                            <option value="B-">B-</option>
+                                            <option value="AB+">AB+</option>
+                                            <option value="AB-">AB-</option>
+                                            <option value="O+">O+</option>
+                                            <option value="O-">O-</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0">
+
+                                            <select name="hobby" class="profileInput">
+                                                <option value="">Select Hobby</option>
+                                                <option value="Reading">Reading</option>
+                                                <option value="Writing">Writing</option>
+                                                <option value="Gaming">Gaming</option>
+                                                <option value="Travelling">Travelling</option>
+                                                <option value="Singing">Singing</option>
+                                                <option value="Dancing">Dancing</option>
+                                                <option value="Art">Art</option>
+                                                <option value="Eating">Eating</option>
+                                            </select>
+
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0">
+
+                                        <select name="height" class="profileInput">
+                                            <option value="">Select Height</option>
+                                            <option value="5'">5'</option>
+                                            <option value="5.1'">5.1'</option>
+                                            <option value="5.2'">5.2'</option>
+                                            <option value="5.3'">5.3'</option>
+                                            <option value="5.4'">5.4'</option>
+                                            <option value="5.5'">5.5'</option>
+                                            <option value="5.6'">5.6'</option>
+                                            <option value="5.7'">5.7'</option>
+                                            <option value="5.8'">5.8'</option>
+                                            <option value="5.9'">5.9'</option>
+                                            <option value="5.10'">5.10'</option>
+                                            <option value="5.11'">5.11'</option>
+                                            <option value="6'">6'</option>
+                                            <option value="6.1'">6.1'</option>
+                                            <option value="6.2'">6.2'</option>
+                                            <option value="6.3'">6.3'</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0">
+                                        <select name="weight" class="profileInput">
+                                            <option value="">Select Weight</option>
+                                            <option value="50-60 Kg">50-60 Kg</option>
+                                            <option value="60-70 Kg">60-70 Kg</option>
+                                            <option value="70-80 Kg">70-80 Kg</option>
+                                            <option value="80-90 Kg">80-90 Kg</option>
+                                            <option value="90-100 Kg">90-100 Kg</option>
+                                            <option value="100-110 Kg">100-110 Kg</option>
+                                            <option value="110-120 Kg">110-120 Kg</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0">
-                                    <select name="weight" class="profileInput">
-                                        <option value="">Select Weight</option>
-                                        <option value="50-60 Kg">50-60 Kg</option>
-                                        <option value="60-70 Kg">60-70 Kg</option>
-                                        <option value="70-80 Kg">70-80 Kg</option>
-                                        <option value="80-90 Kg">80-90 Kg</option>
-                                        <option value="90-100 Kg">90-100 Kg</option>
-                                        <option value="100-110 Kg">100-110 Kg</option>
-                                        <option value="110-120 Kg">110-120 Kg</option>
-                                    </select>
-                                </div>
+                                <button type="button" class="btn btn-secondary mt-3 profile-prev-step" id="prevToLookingFor">Previous</button>
+                                <button type="button" class="btn btn-primary mt-3 profile-next-step" id="nextToProfile">Next</button>
                             </div>
-                            <button type="button" class="btn btn-primary mt-3 profile-next-step" id="nextToProfile">Next</button>
-                        </div>
-                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                            <div class="row p-0">
-                                <div class="col-md-4 pl-0 pt-2 mt-0">
-                                    <input type="text" name="education_level" placeholder="Highest Level of Education" class="profileInput">
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <div class="row p-0">
+                                    <div class="col-md-4 pl-0 pt-2 mt-0">
+                                        <input type="text" name="education_level" placeholder="Highest Level of Education" class="profileInput">
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0">
+                                        <input type="text" name="institute_name" placeholder="Institute Name" class="profileInput">
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0">
+                                        <select name="working_with" class="profileInput" id="working_with">
+                                            <option value="">Select Working With</option>
+                                            <option value="Private Company">Private Company</option>
+                                            <option value="Govt. Service">Govt. Service</option>
+                                            <option value="Business">Business</option>
+                                            <option value="Not Working">Not Working</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0"  id="employer_name">
+                                        <input type="text" name="employer_name" placeholder="Employer Name" class="profileInput">
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0" id="designation">
+                                        <input type="text" name="designation"  placeholder="Designation" class="profileInput">
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0" id="duration">
+                                        <input type="text" name="duration"  placeholder="Duration" class="profileInput">
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0" id="monthly_income">
+                                        <input type="number" name="monthly_income" placeholder="Monthly Income" class="profileInput">
+                                    </div>
                                 </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0">
-                                    <input type="text" name="institute_name" placeholder="Institute Name" class="profileInput">
-                                </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0">
-                                    <select name="working_with" class="profileInput" id="working_with">
-                                        <option value="">Select Working With</option>
-                                        <option value="Private Company">Private Company</option>
-                                        <option value="Govt. Service">Govt. Service</option>
-                                        <option value="Business">Business</option>
-                                        <option value="Not Working">Not Working</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0"  id="employer_name">
-                                    <input type="text" name="employer_name" placeholder="Employer Name" class="profileInput">
-                                </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0" id="designation">
-                                    <input type="text" name="designation"  placeholder="Designation" class="profileInput">
-                                </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0" id="duration">
-                                    <input type="text" name="duration"  placeholder="Duration" class="profileInput">
-                                </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0" id="monthly_income">
-                                    <input type="number" name="monthly_income" placeholder="Monthly Income" class="profileInput">
-                                </div>
+                                <button type="button" class="btn btn-secondary mt-3 profile-prev-step" id="prevToHome">Previous</button>
+                                <button type="button" class="btn btn-primary mt-3 profile-next-step" id="nextToContact">Next</button>
                             </div>
-                            <button type="button" class="btn btn-secondary mt-3 profile-prev-step" id="prevToHome">Previous</button>
-                            <button type="button" class="btn btn-primary mt-3 profile-next-step" id="nextToContact">Next</button>
-                        </div>
-                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                            <div class="row p-0">
-                                <div class="col-md-4 pl-0 pt-2 mt-0">
-                                    <select name="father_status" class="profileInput">
-                                        <option value="">Select Father Status</option>
-                                        <option value="Employed">Employed</option>
-                                        <option value="Business">Business</option>
-                                        <option value="Retired">Retired</option>
-                                        <option value="Not Working">Not Working</option>
-                                        <option value="Passedaway">Passedaway</option>
-                                    </select>
+                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                <div class="row p-0">
+                                    <div class="col-md-4 pl-0 pt-2 mt-0">
+                                        <select name="father_status" class="profileInput">
+                                            <option value="">Select Father Status</option>
+                                            <option value="Employed">Employed</option>
+                                            <option value="Business">Business</option>
+                                            <option value="Retired">Retired</option>
+                                            <option value="Not Working">Not Working</option>
+                                            <option value="Passedaway">Passedaway</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0">
+                                        <select name="mother_status" class="profileInput">
+                                            <option value="">Select Mother Status</option>
+                                            <option value="Home Maker">Home Maker</option>
+                                            <option value="Employed">Employed</option>
+                                            <option value="Business">Business</option>
+                                            <option value="Retired">Retired</option>
+                                            <option value="Passedaway">Passedaway</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0">
+                                        <input type="number" name="number_of_sibling" placeholder="Number of Sibling" class="profileInput">
+                                    </div>
+                                    <div class="col-md-4 pl-0 pt-2 mt-0">
+                                        <select name="family_type" class="profileInput">
+                                            <option value="">Select Family Type</option>
+                                            <option value="Joint">Joint</option>
+                                            <option value="Nuclear">Nuclear</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0">
-                                    <select name="mother_status" class="profileInput">
-                                        <option value="">Select Mother Status</option>
-                                        <option value="Home Maker">Home Maker</option>
-                                        <option value="Employed">Employed</option>
-                                        <option value="Business">Business</option>
-                                        <option value="Retired">Retired</option>
-                                        <option value="Passedaway">Passedaway</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0">
-                                    <input type="number" name="number_of_sibling" placeholder="Number of Sibling" class="profileInput">
-                                </div>
-                                <div class="col-md-4 pl-0 pt-2 mt-0">
-                                    <select name="family_type" class="profileInput">
-                                        <option value="">Select Family Type</option>
-                                        <option value="Joint">Joint</option>
-                                        <option value="Nuclear">Nuclear</option>
-                                    </select>
-                                </div>
+                                <button type="button" class="btn btn-secondary mt-3 profile-prev-step" id="prevToProfile">Previous</button>
+                                <button type="submit" class="btn btn-secondary mt-3 profile-submit-form">Submit</button>
                             </div>
-                            <button type="button" class="btn btn-secondary mt-3 profile-prev-step" id="prevToProfile">Previous</button>
-                            <button type="submit" class="btn btn-secondary mt-3 profile-submit-form">Submit</button>
                         </div>
                     </div>
+
                 </form>
             </div>
         </div>
@@ -2388,5 +2434,26 @@ document.getElementById('working_with1').addEventListener('change', function() {
     });
 </script>
 
+<script>
+
+document.getElementById('nextCreatProfile').addEventListener('click', function() {
+    // Hide the Google info div and show the profile creation div
+    document.getElementById('userInfoGoogle').style.display = 'none';
+    document.getElementById('CreatProfilesDiv').style.display = 'block';
+
+    // Show the "Previous" button
+    document.getElementById('prevToLookingFor').style.display = 'inline-block';
+});
+
+document.getElementById('prevToLookingFor').addEventListener('click', function() {
+    // Show the Google info div and hide the profile creation div
+    document.getElementById('userInfoGoogle').style.display = 'block';
+    document.getElementById('CreatProfilesDiv').style.display = 'none';
+
+    // Optionally hide the "Previous" button again if needed
+    document.getElementById('prevToLookingFor').style.display = 'none';
+});
+
+</script>
 
 @endsection

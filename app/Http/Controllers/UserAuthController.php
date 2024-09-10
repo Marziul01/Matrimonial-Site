@@ -10,6 +10,7 @@ use App\Models\UserInfo;
 use App\Models\UserPlan;
 use App\Notifications\NewOrderNotification;
 use App\Notifications\NewUserNotification;
+use Exception;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,6 +23,7 @@ use Illuminate\Support\Str;
 use function Symfony\Component\String\b;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Log;
 
 
 class UserAuthController extends Controller
@@ -152,6 +154,56 @@ class UserAuthController extends Controller
 
     public function googleLogin(){
         return Socialite::driver('google')->redirect();
+    }
+
+    public function googleHandler(){
+        try{
+
+            $user = Socialite::driver('google')->user();
+            $findUser = User::where('email', $user->email)->first();
+
+            if(!$findUser){
+                $newuser = new User();
+
+                $newuser->password = bcrypt(Str::random(8));
+                $newuser->role = 0;
+                $newuser->name = $user->name;
+                $newuser->email = $user->email;
+                $newuser->save();
+
+                Auth::login($newuser);
+                $userID = $newuser->id;
+
+                $userInfo = new UserInfo();
+                $userInfo->user_id = $userID;
+                $userInfo->looking_for = 'google';
+                $userInfo->account_for = 'google';
+                $userInfo->relation = 'google';
+
+                $userInfo->save();
+
+                $plan = new UserPlan();
+                $plan->user_id = $userID;
+                $plan->plan_id = 1;
+                $plan->start_date = now();
+                $plan->end_date = null;
+                $plan->save();
+
+                return redirect(route('user.dashboard'));
+            }
+
+            if ($findUser->profile && $findUser->profile->status == 2) {
+                return redirect(route('login'))->with('error', 'Your account is deactivated.');
+            }
+
+            Auth::login($findUser);
+            return redirect(route('user.dashboard'));
+
+        }catch (Exception $e) {
+            // Log the error and provide feedback
+            Log::error('Google login error: '.$e->getMessage());
+            return redirect(route('login'))->with('error', 'Failed to log in using Google.');
+        }
     }
 
 
