@@ -44,7 +44,7 @@
                                 <button type="submit" class="btn btn-common btn-block mt-4 signConfBtn">Sign in</button>
                             </div>
                             <div class="form-group">
-                                <a type="button" href="{{ route('googleLogin') }}" class="googleSignin"> <img src="{{ asset('frontend-assets/imgs/Google_Icons-09-512.webp') }}">  Sign in with Google </a>
+                                <a type="button" href="{{ URL::to('googleLogin') }}" class="googleSignin"> <img src="{{ asset('frontend-assets/imgs/Google_Icons-09-512.webp') }}">  Sign in with Google </a>
                             </div>
                         </form>
 
