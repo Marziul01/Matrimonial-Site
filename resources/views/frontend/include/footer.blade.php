@@ -2,9 +2,9 @@
     <div class="foterWidgets">
         <div class="innerDiv">
             <h3 class="title">GET IN TOUCH</h3>
-            <p class="infos">Address: 4321 road xxxxxxx</p>
-            <p class="infos">Phone: +880 017 344 8732</p>
-            <p class="infos">Email: info@example.com</p>
+            <p class="infos">Address: Mirpur DOHS, Mirpur Dhaka 1216</p>
+            <p class="infos">Phone: +880 1947-782635</p>
+            <p class="infos">Email: info@linkmyheart.com</p>
             <div class="d-flex justify-content-start align-content-center column-gap-2 footerapps">
                 <img src="{{ asset('frontend-assets/imgs/apps.png') }}" width="70%" class="mt-4">
             </div>

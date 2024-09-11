@@ -225,17 +225,20 @@
             <div class="trustOptionsDiv">
                 <div>
                     <img src="{{ asset('frontend-assets/imgs/image24.png') }}">
-                    <h2>Genuine profiles</h2>
-                    <p>Contact genuine profiles
-                        with 100% verified mobile</p>
+                    <h2>Most trusted</h2>
+                    <p>The most trusted wedding
+                        matrimony brand.</p>
                 </div>
             </div>
             <div class="trustOptionsDiv">
                 <div>
-                    <img src="{{ asset('frontend-assets/imgs/Subtract.png') }}">
-                    <h2>Genuine profiles</h2>
-                    <p>Contact genuine profiles
-                        with 100% verified mobile</p>
+                    <div class="position-relative border-0 p-0" style="height: 130px">
+                        <img class="ring-1" src="{{ asset('frontend-assets/imgs/Subtract.png') }}">
+                        <img class="ring-2" src="{{ asset('frontend-assets/imgs/Subtract1.png') }}">
+                    </div>
+                    <h2>1600+ weddings</h2>
+                    <p>Lakhs of peoples have
+                        found their life partner</p>
                 </div>
             </div>
         </div>
@@ -267,14 +270,14 @@
                         <i class="fa-solid fa-phone"></i>
                         <div>
                             <h4>Enquiry</h4>
-                            <p>+880 179 765 0987<p>
+                            <p>+880 1947-782635<p>
                         </div>
                     </div>
                     <div class="d-flex w-50 align-items-start column-gap-3 enquiry">
                         <i class="fa-regular fa-envelope"></i>
                         <div>
                             <h4>Get Support</h4>
-                            <p>info@example.com<p>
+                            <p>info@linkmyheart.com<p>
                         </div>
                     </div>
                 </div>
@@ -286,7 +289,7 @@
         <div class="bgSectionColor adSection">
             <div class="w-50">
                 <h1 class="title">Let’s not Wait To Meet</h1>
-                <a class="joinBtn">Join Now</a>
+                <a class="btn joinBtn" data-bs-toggle="modal" data-bs-target="#registerModal">Join Now</a>
             </div>
             <img class="img" src="{{ asset('frontend-assets/imgs/Home-Couple-Optimized-1.png') }}">
         </div>

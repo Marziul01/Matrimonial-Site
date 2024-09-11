@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\ResetPasswordMail;
 use App\Models\Category;
+use App\Models\Profile;
 use App\Models\SiteSetting;
 use App\Models\User;
 use App\Models\UserInfo;
@@ -24,6 +25,7 @@ use function Symfony\Component\String\b;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Carbon;
 
 
 class UserAuthController extends Controller
@@ -33,12 +35,17 @@ class UserAuthController extends Controller
     public static function userRegister(Request $request) {
 
         $validator = Validator::make($request->all(), [
+            'first_name' => 'required|string|max:255',
+            'last_name'  => 'required|string|max:255',
+            'gender'     => 'required|in:female,male',
             'looking_for' => 'required|in:bride,groom',
-            'account_for' => 'required|in:myself,others',
-            'relation' => 'nullable|string|required_if:account_for,others',
-            'number' => 'required|numeric|unique:users,number',
-            'terms' => 'accepted',
-            'password' => 'required|min:8',
+            'month'      => 'required',
+            'day'        => 'required',
+            'year'       => 'required',
+            'religion'   => 'required',
+            'education'  => 'required',
+            'email'      => 'required|email|unique:users,email', // Unique email
+            'password'   => 'required|min:8',
         ]);
 
         if ($validator->fails()) {
@@ -51,7 +58,8 @@ class UserAuthController extends Controller
         self::$auth = new User();
         self::$auth->password = bcrypt($request->password);
         self::$auth->role = 0;
-        self::$auth->number = $request->number;
+        self::$auth->email = $request->email;
+        self::$auth->name = $request->first_name. '' . $request->last_name;
         self::$auth->save();
 
         Auth::login(self::$auth);
@@ -60,9 +68,14 @@ class UserAuthController extends Controller
         $userInfo = new UserInfo();
         $userInfo->user_id = $user;
         $userInfo->looking_for = $request->looking_for;
-        $userInfo->account_for = $request->account_for;
-        $userInfo->relation = $request->relation;
-
+        $userInfo->gender = $request->gender;
+        $userInfo->relation = null;
+        $userInfo->first_name = $request->first_name;
+        $userInfo->last_name = $request->last_name;
+        $userInfo->religion = $request->religion;
+        $userInfo->email = $request->email;
+        $userInfo->education_level = $request->education;
+        $userInfo->date_of_birth = Carbon::create($request->year, $request->month, $request->day);
         $userInfo->save();
 
         $plan = new UserPlan();
@@ -152,6 +165,16 @@ class UserAuthController extends Controller
         ]);
     }
 
+    public static function register(){
+
+        if (auth()->check()) {
+            return redirect()->route('user.dashboard');
+        }
+
+        return view('frontend.auth.register', [
+        ]);
+    }
+
     public function googleLogin(){
         return Socialite::driver('google')->redirect();
     }
@@ -177,7 +200,7 @@ class UserAuthController extends Controller
                 $userInfo = new UserInfo();
                 $userInfo->user_id = $userID;
                 $userInfo->looking_for = 'google';
-                $userInfo->account_for = 'google';
+                $userInfo->gender = 'google';
                 $userInfo->relation = 'google';
 
                 $userInfo->save();

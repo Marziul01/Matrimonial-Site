@@ -1278,7 +1278,7 @@
             <div class="modal-body">
                 <form id="your--Profile" class="px-4 tabForms yourProfileCreate">
                     @csrf
-                    
+
                     @if (Auth::user()->userInfo->looking_for == 'google')
                         <div id="userInfoGoogle" class="">
                             <div class="w-100">
@@ -1299,22 +1299,16 @@
                                     <p class="">Submitting For</p>
                                     <div class="form-group d-flex align-items-center column-gap-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" value="myself" name="account_for" id="myself">
-                                            <label class="form-check-label" for="myself">Myself</label>
+                                            <input class="form-check-input" type="radio" value="female" name="gender" id="myself">
+                                            <label class="form-check-label" for="myself">Female</label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" value="others" name="account_for" id="others">
-                                            <label class="form-check-label" for="others">Others</label>
+                                            <input class="form-check-input" type="radio" value="male" name="gender" id="others">
+                                            <label class="form-check-label" for="others">Male</label>
                                         </div>
                                     </div>
                             </div>
 
-                            <div class="w-100" id="relation">
-                                    <p class="">Type Your Relation?</p>
-                                    <div class="">
-                                        <input class="form-group form-control" type="text" name="relation" placeholder=" What's Your Relation with the person !">
-                                    </div>
-                            </div>
                             <button type="button" class="btn btn-primary mt-3 profile-next-step" id="nextCreatProfile">Next</button>
                         </div>
                     @endif
@@ -1351,24 +1345,32 @@
                                         <textarea name="desc" class="profileDesc" placeholder="Write something about yourself"></textarea>
                                     </div>
                                     <div class="col-md-4 pl-0 pt-2 mt-0">
-                                        <input type="text" name="first_name" placeholder="First Name" class="profileInput">
+                                        <input type="text" name="first_name" placeholder="First Name" class="profileInput" value="{{ is_null(Auth::user()->userInfo->first_name) ? '' : Auth::user()->userInfo->first_name }}" >
                                     </div>
                                     <div class="col-md-4 pl-0 pt-2 mt-0">
-                                        <input type="text" name="last_name" placeholder="Last Name" class="profileInput">
+                                        <input type="text" name="last_name" placeholder="Last Name" class="profileInput" value="{{ is_null(Auth::user()->userInfo->last_name) ? '' : Auth::user()->userInfo->last_name }}">
                                     </div>
                                     <div class="col-md-4 pl-0 pt-2 mt-0">
                                         <select name="gender" class="profileInput">
                                             <option value="">Select Gender</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
+                                            <option value="Male" {{ Auth::user()->userInfo->gender == 'male' ? '' : 'selected' }}>Male</option>
+                                            <option value="Female" {{ Auth::user()->userInfo->gender == 'female' ? '' : 'selected' }}>Female</option>
 
                                         </select>
                                     </div>
                                     <div class="col-md-4 pl-0 pt-2 mt-0">
-                                        <input type="text" name="religion" placeholder="Religion" class="profileInput">
+                                        <select name="religion" id="" class="profileInput">
+                                            <option value="">Religion</option>
+                                            <option value="Islam" {{ Auth::user()->userInfo->religion == 'Islam' ? '' : 'selected' }}>Islam</option>
+                                            <option value="Hindu" {{ Auth::user()->userInfo->religion == 'Hindu' ? '' : 'selected' }}>Hindu</option>
+                                            <option value="Buddhism" {{ Auth::user()->userInfo->religion == 'Buddhism' ? '' : 'selected' }}>Buddhism</option>
+                                            <option value="Christianity" {{ Auth::user()->userInfo->religion == 'Christianity' ? '' : 'selected' }}>Christianity</option>
+                                            <option value="Atheist" {{ Auth::user()->userInfo->religion == 'Atheist' ? '' : 'selected' }}>Atheist</option>
+                                            <option value="Others" {{ Auth::user()->userInfo->religion == 'Others' ? '' : 'selected' }}>Others</option>
+                                        </select>
                                     </div>
                                     <div class="col-md-4 pl-0 pt-2 mt-0">
-                                        <input type="date" name="date_of_birth" placeholder="Date Of Birth" class="profileInput" id="dateOfBirth">
+                                        <input type="date" name="date_of_birth" @if(is_null(Auth::user()->userInfo->date_of_birth)) placeholder="Date Of Birth" @endif @if(is_null(Auth::user()->userInfo->date_of_birth)) class="profileInput" @endif @if(is_null(Auth::user()->userInfo->date_of_birth)) id="dateOfBirth" @endif value="{{ is_null(Auth::user()->userInfo->date_of_birth) ? '' : Auth::user()->userInfo->date_of_birth }}">
                                     </div>
                                     <div class="col-md-4 pl-0 pt-2 mt-0">
                                         <input type="text" name="birth_place" placeholder="Birth Place" class="profileInput">
@@ -1379,9 +1381,11 @@
                                     <div class="col-md-4 pl-0 pt-2 mt-0">
                                         <input type="text" name="present_address" placeholder="Present Address" class="profileInput">
                                     </div>
+
                                     <div class="col-md-4 pl-0 pt-2 mt-0">
-                                        <input type="email" name="email" placeholder="Mail ID" class="profileInput">
+                                        <input type="email" name="email" placeholder="Mail ID" class="profileInput" value="{{ is_null(Auth::user()->userInfo->email) ? '' : Auth::user()->userInfo->email }}">
                                     </div>
+
                                     <div class="col-md-4 pl-0 pt-2 mt-0">
                                         <input type="text" name="contact_number" placeholder="Contact Number" class="profileInput">
                                     </div>
@@ -1463,7 +1467,16 @@
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 <div class="row p-0">
                                     <div class="col-md-4 pl-0 pt-2 mt-0">
-                                        <input type="text" name="education_level" placeholder="Highest Level of Education" class="profileInput">
+                                        <select name="education_level" id="" class="profileInput">
+                                            <option value="">Education</option>
+                                            <option value="Secondary Education" {{ Auth::user()->userInfo->education == 'Secondary Education' ? '' : 'selected' }}>Secondary Education</option>
+                                            <option value="Higher Secondary" {{ Auth::user()->userInfo->education == 'Higher Secondary' ? '' : 'selected' }}>Higher Secondary</option>
+                                            <option value="Diploma in Engineering" {{ Auth::user()->userInfo->education == 'Diploma in Engineering' ? '' : 'selected' }}>Diploma in Engineering</option>
+                                            <option value="Fazil" {{ Auth::user()->userInfo->education == 'Fazil' ? '' : 'selected' }}>Fazil</option>
+                                            <option value="Bachelor's" {{ Auth::user()->userInfo->education == "Bachelor's" ? '' : 'selected' }}>Bachelor's</option>
+                                            <option value="Master's" {{ Auth::user()->userInfo->education == "Master's" ? '' : 'selected' }}>Master's</option>
+                                            <option value="Doctorate" {{ Auth::user()->userInfo->education == 'Doctorate' ? '' : 'selected' }}>Doctorate</option>
+                                        </select>
                                     </div>
                                     <div class="col-md-4 pl-0 pt-2 mt-0">
                                         <input type="text" name="institute_name" placeholder="Institute Name" class="profileInput">

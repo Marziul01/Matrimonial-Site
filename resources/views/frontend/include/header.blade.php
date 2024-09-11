@@ -12,7 +12,7 @@
         <div class="w-50 d-flex justify-content-center align-items-center">
             <a href="{{ route('home') }}" class="menu_item {{ Route::currentRouteName() == 'home' ? 'active' : '' }}"> Home </a>
             <a href="" class="menu_item"> About Us </a>
-            {{-- <a href="{{ route('price') }}" class="menu_item {{ Route::currentRouteName() == 'price' ? 'active' : '' }}"> Price </a> --}}
+            <a href="{{ route('price') }}" class="menu_item {{ Route::currentRouteName() == 'price' ? 'active' : '' }}"> Pricing  </a>
             <a href="{{ route('faq') }}" class="menu_item {{ Route::currentRouteName() == 'faq' ? 'active' : '' }}"> FAQ </a>
             <a href="{{ route('contact') }}" class="menu_item {{ Route::currentRouteName() == 'contact' ? 'active' : '' }}"> Contact Us </a>
         </div>

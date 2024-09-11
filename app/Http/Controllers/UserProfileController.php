@@ -36,7 +36,13 @@ class UserProfileController extends Controller
         $profile = $user->profile;
         $userPlan = $user->plans;
         $userMatchDetails = $user->match;
-        $profileComplete = $profile !== null;
+
+        if( is_null($profile) || $profile->image == null ){
+            $profileComplete = null;
+        }else{
+            $profileComplete = true;
+        }
+
         $userPlanActive = $userPlan->end_date;
 
         $planWarning = null;
@@ -155,6 +161,13 @@ class UserProfileController extends Controller
         }
 
         $userProfile = Profile::saveInfo($request);
+
+        if(Auth::user()->userInfo->looking_for == 'google'){
+            $userInfo = Userinfo::find($userProfile->user_id);
+            $userInfo->looking_for = $request->looking_for;
+            $userInfo->gender = $request->gender;
+            $userInfo->save();
+        }
 
         return response()->json(['success' => true,]);
     }
