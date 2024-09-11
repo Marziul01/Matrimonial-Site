@@ -10,7 +10,7 @@ class PlansController extends Controller
 {
     public static function index(){
         return view('admin.plan.plan',[
-            'plans' => Plans::orderBy('created_at' , 'desc')->get(),
+            'plans' => Plans::where('status', 1)->where('id', '!=', 1)->get(),
         ]);
     }
 

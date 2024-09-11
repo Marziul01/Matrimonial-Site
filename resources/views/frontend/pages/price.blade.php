@@ -1,108 +1,96 @@
 @extends('frontend.master')
 
 @section('title')
-    | Price
+    | Pricings
 @endsection
 
 @section('content')
 
-    <div class="section">
-        <div class="bg-price p-5">
-            <div>
-                <div>
-                    <h1 class="text-center mainHeading">Pay only for what you need</h1>
-                    <p class="text-center subHeading">Pricing Plans for every budget</p>
-                </div>
-                <div>
-                    <div class="d-flex align-items-start justify-content-center w-100 priceMobileTab">
-                        {{-- <div class="nav flex-column nav-pills me-3 w-25 pt-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                          <div><h4 class="text-center text-bold mt-5 mb-2">Choose Plan</h4></div>
-                          <div class="priceMobileBtnDiv">
-                            <button class="nav-link " id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="false"><i class="fa-solid fa-circle-dot"></i> Yearly Billing</button>
-                            <button class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="true"><i class="fa-solid fa-circle-dot"></i> Monthly Billing</button>
-                          </div>
-                        </div> --}}
-                        <div class="tab-content w-75" id="v-pills-tabContent">
-                          {{-- <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                            <div class="p-4 d-flex justify-content-center align-items-center w-100 mobilePriceTabCard">
-                                <div class="pricePlanCard1">
-                                    <div class="border-bottom-1 pb-3">
-                                        <h2 class="priceTitle">Free</h2>
-                                        <p class="priceSubTitle"> Basic Chat Functionality </p>
-                                        <h1 class="priceAmount">BDT 0</h1>
+    <div class="bg-price">
+        <div class="section membershipbg">
+            <div class="py-5">
+                <div class="d-flex justify-content-between align-items-end">
+                    <div>
+                        <h1 class="mainHeading">Membership Packages</h1>
+                        <p class="subHeading">4 Convenient Premium Packages to Choose From!</p>
+                    </div>
 
-                                    </div>
-                                    <div class="py-3">
-                                        <p class="planServices"><i class="fa-solid fa-circle-check"></i> 30 days history</p>
-                                        <p class="planServices"><i class="fa-solid fa-circle-check"></i> Up to 1000 messages/mo</p>
-                                        <p class="planServices"><i class="fa-solid fa-circle-check"></i> Unlimited AI Capabilities</p>
-                                    </div>
-                                    <div>
-                                        <a href="" class="price1Btn"> Choose Plan </a>
-                                    </div>
-                                </div>
-                                <div class="pricePlanCard2">
-                                    <div class="border-bottom-1 pb-3">
-                                        <h2 class="priceTitle">Pro</h2>
-                                        <p class="priceSubTitle"> Basic Chat Functionality </p>
-                                        <h1 class="priceAmount">BDT 299 <span>/ mo</span></h1>
-                                        <p class="priceAmountText">Per month renew</p>
-                                    </div>
-                                    <div class="py-3">
-                                        <p class="planServices"><i class="fa-solid fa-circle-check"></i> 30 days history</p>
-                                        <p class="planServices"><i class="fa-solid fa-circle-check"></i> Up to 1000 messages/mo</p>
-                                        <p class="planServices"><i class="fa-solid fa-circle-check"></i> Unlimited AI Capabilities</p>
-                                    </div>
-                                    <div>
-                                        <a href="" class="price1Btn"> Choose Plan </a>
-                                    </div>
-                                </div>
-                                <div class="pricePlanCard3">
-                                    <div class="border-bottom-1 pb-3">
-                                        <div class="d-flex align-items-center justify-content-between column-gap-4">
-                                            <h2 class="priceTitle">Pro Plus</h2>
-                                            <p class="pricePopularTag">Popular</p>
-                                        </div>
-                                        <p class="priceSubTitle"> Basic Chat Functionality </p>
-                                        <h1 class="priceAmount">BDT 499 <span>/ mo</span></h1>
-                                        <p class="priceAmountText">Per month renew</p>
-                                    </div>
-                                    <div class="py-3">
-                                        <p class="planServices"><i class="fa-solid fa-circle-check"></i> 30 days history</p>
-                                        <p class="planServices"><i class="fa-solid fa-circle-check"></i> Up to 1000 messages/mo</p>
-                                        <p class="planServices"><i class="fa-solid fa-circle-check"></i> Unlimited AI Capabilities</p>
-                                    </div>
-                                    <div>
-                                        <a href="" class="price1Btn"> Choose Plan </a>
-                                    </div>
-                                </div>
-                            </div>
-                          </div> --}}
-                          <div class="tab-pane fade  show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                            <div class="p-4 d-flex justify-content-center align-items-center w-100 mobilePriceTabCard">
+                    <div class="nav nav-pills me-3 w-25 pt-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <div class="priceMobileBtnDiv">
+                            <button class="nav-link active" id="v-pills-profile-tab" onclick="leftclick()" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="true"> Monthly</button>
+                            <button class="nav-link " id="v-pills-home-tab" onclick="rightclick()" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="false"> Yearly</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                <div class="section">
+                    <div class="d-flex align-items-start justify-content-center w-100 priceMobileTab">
+
+                        <div class="tab-content w-100 py-5 my-4" id="v-pills-tabContent">
+                          <div class="tab-pane fade plans" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                            <div class="p-4 d-flex justify-content-evenly align-items-strech w-100 mobilePriceTabCard">
                                 @if ($plans->isNotEmpty())
-                                @foreach ($plans as $plan )
-                                <div class="pricePlanCards" style="background: {{ $plan->background_color }} ;">
+                                @foreach ($plans->where('plan_type', 'Yearly') as $plan )
+                                <div class="pricePlanCards" style="background-color: {{ isset($plan->badge) ? '#f43662' : 'transparent' }} ; margin-top: {{ isset($plan->badge) ? '-55px' : '0' }}; box-shadow: {{ isset($plan->badge) ? '0 20px 20px #CCC2E8' : 'none' }}">
                                     <div class="border-bottom-1 pb-3">
-                                        <div class="d-flex align-items-center justify-content-between column-gap-4">
-                                            <h2 class="planTitle" style="color: {{ $plan->title_color }} ;">{{ $plan->name }}</h2>
-                                            {!! isset($plan->badge) ? '<p class="planBadge">'. $plan->badge .'</p>' : '' !!}
+                                        <div class="mb-2 d-flex justify-content-end">
+                                            <p class="{{ isset($plan->badge) ? 'planBadge' : 'planBadgeNull' }} " >{{ $plan->badge  }}</p>
                                         </div>
-                                        <p class="planSubTitle" style="color: {{ $plan->text_color }} ;"> {{ $plan->susTitle }} </p>
-                                        <h1 class="planAmount" style="color: {{ $plan->text_color }} ;">BDT {{ $plan->price }} {!! isset($plan->time) ? '<span style="color:' . $plan->plantimes_color . ';">/ ' . $plan->time . '</span>' : '' !!}
+                                        <h1 class="planAmount" style="color: {{ isset($plan->badge) ? 'white' : ' #f43662' }} ;">৳ {{ $plan->price }}
+                                            <span style="color: {{ isset($plan->badge) ? ' white' : 'black' }} ;">/ {{ $plan->time }}</span>
                                         </h1>
-                                        {!! isset($plan->subdesc) ? '<p class="planAmountText" style="color:' . $plan->plantimes_color . ';">' . $plan->subdesc . '</p>' : '' !!}
+                                        <div class="d-flex align-items-center justify-content-between column-gap-4">
+                                            <h2 class="planTitle" style="color: {{ isset($plan->badge) ? 'white' : ' #f43662' }} ;">{{ $plan->name }}</h2>
+
+                                        </div>
+                                        <p class="planSubTitle" style="color: {{ isset($plan->badge) ? ' white' : 'black' }} ;"> {{ $plan->subtitle }} </p>
                                     </div>
                                     @php
                                         $services = explode(',', $plan->services);
                                     @endphp
                                     <div class="py-3">
                                         @foreach($services as $service)
-                                            <p class="planServices" style="color: {{ $plan->text_color }} ;"><i class="fa-solid fa-circle-check"></i> {{ $service }}</p>
+                                            <p class="planServices" style="color: {{ isset($plan->badge) ? 'white' : ' black' }} ;"><i class="fa-solid fa-check" style="background-color: {{ isset($plan->badge) ? '#F54A72' : '#f43662' }} ;" ></i> {{ $service }}</p>
                                         @endforeach
                                     </div>
                                     <div>
-                                        <a class="btn plansBtn" style="color: {{ $plan->buttons_color }} ; background: {{ $plan->buttons_background }} ; border-color: {{ $plan->buttons_background == $plan->background_color ? '#b9b9b9' : 'transparent' }}"> Choose Plan </a>
+                                        <a class="btn plansBtn" style="color: {{ isset($plan->badge) ? '#f43662' : 'white' }} ; background: {{ isset($plan->badge) ? 'white' : '#F995AC' }} ;"> Choose Plan </a>
+                                    </div>
+                                </div>
+                                @endforeach
+                                @endif
+                            </div>
+                          </div>
+                          <div class="tab-pane fade  show active p-1 plans" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                            <div class="p-4 d-flex justify-content-evenly align-items-strech w-100 mobilePriceTabCard">
+                                @if ($plans->isNotEmpty())
+                                @foreach ($plans->where('plan_type', 'Monthly') as $plan )
+                                <div class="pricePlanCards" style="background-color: {{ isset($plan->badge) ? '#f43662' : 'transparent' }} ; margin-top: {{ isset($plan->badge) ? '-55px' : '0' }}; box-shadow: {{ isset($plan->badge) ? '0 20px 20px #CCC2E8' : 'none' }}">
+                                    <div class="border-bottom-1 pb-3">
+                                        <div class="mb-2 d-flex justify-content-end">
+                                            <p class="{{ isset($plan->badge) ? 'planBadge' : 'planBadgeNull' }} " >{{ $plan->badge  }}</p>
+                                        </div>
+                                        <h1 class="planAmount" style="color: {{ isset($plan->badge) ? 'white' : ' #f43662' }} ;">৳ {{ $plan->price }}
+                                            <span style="color: {{ isset($plan->badge) ? ' white' : 'black' }} ;">/ {{ $plan->time }}</span>
+                                        </h1>
+                                        <div class="d-flex align-items-center justify-content-between column-gap-4">
+                                            <h2 class="planTitle" style="color: {{ isset($plan->badge) ? 'white' : ' #f43662' }} ;">{{ $plan->name }}</h2>
+
+                                        </div>
+                                        <p class="planSubTitle" style="color: {{ isset($plan->badge) ? ' white' : 'black' }} ;"> {{ $plan->subtitle }} </p>
+                                    </div>
+                                    @php
+                                        $services = explode(',', $plan->services);
+                                    @endphp
+                                    <div class="py-3">
+                                        @foreach($services as $service)
+                                            <p class="planServices" style="color: {{ isset($plan->badge) ? 'white' : ' black' }} ;"><i class="fa-solid fa-check" style="background-color: {{ isset($plan->badge) ? '#F54A72' : '#f43662' }} ;" ></i> {{ $service }}</p>
+                                        @endforeach
+                                    </div>
+                                    <div>
+                                        <a class="btn plansBtn" style="color: {{ isset($plan->badge) ? '#f43662' : 'white' }} ; background: {{ isset($plan->badge) ? 'white' : '#F995AC' }} ;"> Choose Plan </a>
                                     </div>
                                 </div>
                                 @endforeach
@@ -112,14 +100,11 @@
                         </div>
                       </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
 
 @endsection
 
 
 @section('customJs')
+
 
 @endsection

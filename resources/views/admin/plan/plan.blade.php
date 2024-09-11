@@ -30,7 +30,7 @@
                 <div class="row">
                     @if ($plans->isNotEmpty())
                         @foreach ($plans as $plan )
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="card ">
                                     <div class="card-header d-flex justify-content-between align-items-center">
                                         @if ($plan->status == 1)
@@ -96,6 +96,13 @@
             @csrf
             <div class="row">
                 <div class="col-md-6 form-group">
+                    <label class="form-label">Plan Type</label>
+                    <select class="form-control" name="plan_type">
+                        <option value="Monthly"> Monthly </option>
+                        <option value="Yearly"> Yearly </option>
+                    </select>
+                </div>
+                <div class="col-md-6 form-group">
                     <label class="form-label">Plan Title</label>
                     <input class="form-control" type="text" name="title" placeholder="Plan Title">
                 </div>
@@ -114,18 +121,14 @@
                 <div class="col-md-6 form-group">
                     <label class="form-label">Plan Time</label>
                     <select class="form-control" name="time">
-                        <option value="15"> 15 Days </option>
-                        <option value="30"> 30 Days </option>
-                        <option value="45"> 45 Days </option>
-                        <option value="60"> 2 Month </option>
+                        <option value="30" > 1 Month </option>
                         <option value="90"> 3 Month </option>
                         <option value="180"> 6 Month </option>
                         <option value="365"> 1 Year </option>
+                        <option value="730"> 2 Year </option>
+                        <option value="1095"> 3 Year </option>
+                        <option value="1825"> 5 Year </option>
                     </select>
-                </div>
-                <div class="col-md-6 form-group">
-                    <label class="form-label">Plans some Description</label>
-                    <input class="form-control" type="text" name="subdesc" placeholder="Plan some Description">
                 </div>
                 <div class="col-md-12 form-group">
                     <label class="form-label">Plan Services</label>
@@ -136,36 +139,9 @@
                         </div>
                     </div>
                     <button type="button" class="btn btn-outline-primary w-100" id="addServiceBtn"> <i class="fa-solid fa-plus"></i> Add New Service</button>
-                    <button type="button" class="btn btn-outline-success w-100 mt-2" id="styleBtn">
-                        <i class="fa-solid fa-pen"></i> Custom Style This Plan ?
-                    </button>
+
                 </div>
-                <div id="styleInputs" class="col-md-12 row d-none px-0 mx-0">
-                    <div class="col-md-6 form-group">
-                        <label class="form-label">Plan Background Color</label>
-                        <input class="form-control" type="color" name="background_color" value="{{ old('background_color', '#ffffff') }}">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label class="form-label">Plan Title Color</label>
-                        <input class="form-control" type="color" name="title_color" value="{{ old('title_color', '#000000') }}">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label class="form-label">Plan Text, Services, Price Color</label>
-                        <input class="form-control" type="color" name="text_color" value="{{ old('title_color', '#000000') }}">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label class="form-label">Plan Times Color</label>
-                        <input class="form-control" type="color" name="times_color" value="{{ old('title_color', '#b5b5b5') }}">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label class="form-label">Plan Buttons Text Color</label>
-                        <input class="form-control" type="color" name="button_color" value="{{ old('title_color', '#000000') }}">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label class="form-label">Plan Buttons Background</label>
-                        <input class="form-control" type="color" name="button_background" value="{{ old('title_color', '#ffffff') }}">
-                    </div>
-                </div>
+
                 <div class="col-md-12 form-group">
                     <button type="submit" class="btn btn-success">Save Plan</button>
                 </div>
@@ -190,6 +166,13 @@
             @csrf
             <div class="row">
                 <div class="col-md-6 form-group">
+                    <label class="form-label">Plan Type</label>
+                    <select class="form-control" name="plan_type">
+                        <option value="Monthly" {{ $plan->plan_type == 'Monthly' ? 'selected' : '' }}> Monthly </option>
+                        <option value="Yearly" {{ $plan->plan_type == 'Yearly' ? 'selected' : '' }}> Yearly </option>
+                    </select>
+                </div>
+                <div class="col-md-6 form-group">
                     <label class="form-label">Plan Title</label>
                     <input class="form-control" type="text" name="title" value="{{ $plan->name }}">
                 </div>
@@ -208,22 +191,18 @@
                 <div class="col-md-6 form-group">
                     <label class="form-label">Plan Time</label>
                     <select class="form-control" name="time">
-                        <option value="15" {{ $plan->duration_in_days == 15 ? 'selected' : '' }}> 15 Days </option>
-                        <option value="30" {{ $plan->duration_in_days == 30 ? 'selected' : '' }}> 30 Days </option>
-                        <option value="45" {{ $plan->duration_in_days == 45 ? 'selected' : '' }}> 45 Days </option>
-                        <option value="60" {{ $plan->duration_in_days == 60 ? 'selected' : '' }}> 2 Month </option>
+                        <option value="30" {{ $plan->duration_in_days == 30 ? 'selected' : '' }}> 1 Month </option>
                         <option value="90" {{ $plan->duration_in_days == 90 ? 'selected' : '' }}> 3 Month </option>
                         <option value="180" {{ $plan->duration_in_days == 180 ? 'selected' : '' }}> 6 Month </option>
                         <option value="365" {{ $plan->duration_in_days == 365 ? 'selected' : '' }}> 1 Year </option>
+                        <option value="730" {{ $plan->duration_in_days == 730 ? 'selected' : '' }}> 2 Year </option>
+                        <option value="1095" {{ $plan->duration_in_days == 1095 ? 'selected' : '' }}> 3 Year </option>
+                        <option value="1825" {{ $plan->duration_in_days == 1825 ? 'selected' : '' }}> 5 Year </option>
                     </select>
-                </div>
-                <div class="col-md-6 form-group">
-                    <label class="form-label">Plans some Description</label>
-                    <input class="form-control" type="text" name="subdesc"  value="{{ $plan->subdesc }}">
                 </div>
                 <div class="col-md-12 form-group">
                     <label class="form-label">Plan Services</label>
-                    <div id="editservicesWrapper">
+                    <div id="editservicesWrapper{{ $plan->id }}">
                         @foreach(explode(',', $plan->services) as $service)
                         <div class="input-group mb-3">
                             <input class="form-control" type="text" name="services[]" value="{{ $service }}">
@@ -231,34 +210,9 @@
                         </div>
                         @endforeach
                     </div>
-                    <button type="button" class="btn btn-outline-primary w-100" id="editServiceBtn"> <i class="fa-solid fa-plus"></i> Add New Service</button>
+                    <button type="button" class="btn btn-outline-primary w-100" id="editServiceBtn{{ $plan->id }}"> <i class="fa-solid fa-plus"></i> Add New Service</button>
                 </div>
-                <div class="col-md-12 row px-0 mx-0">
-                    <div class="col-6 form-group">
-                        <label class="form-label">Plan Background Color</label>
-                        <input class="form-control" type="color" name="background_color" value="{{ $plan->background_color }}">
-                    </div>
-                    <div class="col-6 form-group">
-                        <label class="form-label">Plan Title Color</label>
-                        <input class="form-control" type="color" name="title_color" value="{{ $plan->title_color }}">
-                    </div>
-                    <div class="col-6 form-group">
-                        <label class="form-label">Plan Text, Services, Price Color</label>
-                        <input class="form-control" type="color" name="text_color" value="{{ $plan->text_color }}">
-                    </div>
-                    <div class="col-6 form-group">
-                        <label class="form-label">Plan Times Color</label>
-                        <input class="form-control" type="color" name="times_color" value="{{ $plan->plantimes_color }}">
-                    </div>
-                    <div class="col-6 form-group">
-                        <label class="form-label">Plan Buttons Text Color</label>
-                        <input class="form-control" type="color" name="button_color" value="{{ $plan->buttons_color }}">
-                    </div>
-                    <div class="col-6 form-group">
-                        <label class="form-label">Plan Buttons Background</label>
-                        <input class="form-control" type="color" name="button_background" value="{{ $plan->buttons_background }}">
-                    </div>
-                </div>
+
                 <div class="col-md-12 form-group">
                     <label class="form-label">Plan Status</label>
                     <select class="form-control" name="status">
@@ -275,6 +229,7 @@
       </div>
     </div>
   </div>
+
 @endforeach
 @endif
 
@@ -301,9 +256,11 @@
 
         // Event delegation for removing service input fields
         servicesWrapper.addEventListener('click', function(event) {
-            if (event.target.classList.contains('addremove-service')) {
+            if (event.target.classList.contains('addremove-service') || event.target.closest('.addremove-service')) {
                 const inputGroup = event.target.closest('.addinput-group');
-                inputGroup.remove();
+                if (inputGroup) {
+                    inputGroup.remove();
+                }
             }
         });
     });
@@ -311,37 +268,13 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const styleBtn = document.getElementById('styleBtn');
-        const styleInputs = document.getElementById('styleInputs');
+    // Get all edit modals by their unique IDs
+    document.querySelectorAll('[id^="editServiceBtn"]').forEach(function(btn) {
+        const planId = btn.id.replace('editServiceBtn', ''); // Extract plan ID from the button's ID
+        const wrapper = document.getElementById(`editservicesWrapper${planId}`);
 
-        styleBtn.addEventListener('click', function() {
-            if (styleInputs.classList.contains('d-none')) {
-                // Show the style inputs div and change button text
-                styleInputs.classList.remove('d-none');
-                styleBtn.innerHTML = '<i class="fa-solid fa-pen"></i> Keep Default Style again';
-                styleBtn.classList.remove('btn-outline-success');
-                styleBtn.classList.add('btn-danger');
-            } else {
-                // Hide the style inputs div, reset inputs, and change button text
-                styleInputs.classList.add('d-none');
-                styleBtn.innerHTML = '<i class="fa-solid fa-pen"></i> Custom Style This Plan ?';
-                styleBtn.classList.remove('btn-danger');
-                styleBtn.classList.add('btn-outline-success');
-
-                // // Reset input values
-                // styleInputs.querySelectorAll('input[type="color"]').forEach(input => {
-                //     input.value = ''; // Reset to default color
-                // });
-            }
-        });
-    });
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Add new service input
-        document.getElementById('editServiceBtn').addEventListener('click', function() {
-            const wrapper = document.getElementById('editservicesWrapper');
+        // Add new service input for this specific plan
+        btn.addEventListener('click', function() {
             const index = wrapper.children.length + 1;
             const newServiceHTML = `
                 <div class="input-group mb-3">
@@ -352,13 +285,15 @@
             wrapper.insertAdjacentHTML('beforeend', newServiceHTML);
         });
 
-        // Remove service input
-        document.getElementById('editservicesWrapper').addEventListener('click', function(event) {
+        // Remove service input for this specific plan
+        wrapper.addEventListener('click', function(event) {
             if (event.target.closest('.remove-service')) {
                 event.target.closest('.input-group').remove();
             }
         });
     });
+});
+
     </script>
 
 

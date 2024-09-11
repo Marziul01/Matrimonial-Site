@@ -711,7 +711,7 @@ footer{
     width: 62%;
     margin-left: -5px;
 }
-.registerBg{
+.registerBg, .bg-price{
     background-image: url('../imgs/hero_bg.png');
     background-position: right;
     background-size: cover;
@@ -963,6 +963,20 @@ input[type="checkbox"]{
     border: none;
     color: #f43662;
 }
+.membershipbg{
+    background: #f436628c;
+    backdrop-filter: blur(3px);
+}
+.plans{
+    background-color: #FEF5F7;
+    border-radius: 20px;
+}
+
+
+
+
+
+
 /* .form-check label{
     padding: 3px 10px;
     border: 1px solid white;
@@ -1623,19 +1637,18 @@ a{
     color: #F43662;
     background-color: transparent;
 }
-.bg-price{
-    background: #fc36610d;
-    border-radius: 20px;
-}
 .bg-price .mainHeading{
-    font-size: 45px;
+    font-size: 55px;
     font-weight: 800;
+    margin-bottom: 50px;
+    color: white;
 }
 .bg-price .subHeading{
     font-size: 20px;
     font-weight: 500;
-    color: #484848;
+    color: white;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 .pricePlanCard1, .pricePlanCard2{
     background: white;
@@ -1692,8 +1705,15 @@ a{
 }
 
 .planServices i{
-    color: #919191;
+    color: #ffffff;
     margin-right: 5px;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
 }
 .pricePlanCard3 .planServices{
     color: #919191;
@@ -1721,26 +1741,28 @@ a{
     border-radius: 5px;
 }
 .bg-price .nav-pills .nav-link.active{
-    background: transparent;
-    color: black;
-    font-weight: 600;
-}
-.bg-price .nav-pills .nav-link.active i{
-    color: #F43662;
-    margin-right: 10px;
-}
-.bg-price .nav-pills .nav-link{
-    color: rgb(92, 92, 92);
-}
-.bg-price .nav-pills .nav-link i{
+    background: #f43662;
     color: white;
-    margin-right: 10px;
+    border-radius: 20px;
 }
+
+.bg-price .nav-pills .nav-link{
+    color: black;
+    width: 115px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 13px;
+    text-transform: uppercase;
+    padding: 12px;
+}
+
 .priceMobileBtnDiv{
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: #EAABB1;
+    margin-bottom: 15px;
+    border-radius: 20px;
 }
 .faq-bg{
     padding: 3% 15%;
@@ -1959,11 +1981,12 @@ a{
 }
 .pricePlanCards{
     background: white;
-    padding: 35px;
-    border-radius: 10px;
+    padding: 20px 30px;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    width: 23%;
 }
 .planTitle{
     font-weight: 700;
@@ -1977,10 +2000,12 @@ a{
 .planAmount{
     font-weight: 800;
     margin-bottom: 0px;
+    font-size: 32px;
+    margin-bottom: 20px;
 }
 .planAmount span{
-    font-size: 20px;
-    color: #b5b5b5;
+    font-size: 16px;
+    font-weight: 500;
 }
 .planAmountText{
     color: #919191;
@@ -1989,23 +2014,29 @@ a{
 .planServices{
     color: #919191;
     margin-right: 5px;
+    display: flex;
+    margin-bottom: 8px;
 }
 .plansBtn{
     display: block;
     width: 100%;
     text-align: center;
     color: black;
-    border: 1px solid #b9b9b9;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 30px;
     margin-top: 20px;
 }
 .planBadge{
-    background-color: #F43662;
-    color: white;
-    font-size: 10px;
-    padding: 3px 7px;
-    border-radius: 5px;
+    background-color: #ffffff;
+    font-size: 13px;
+    border-radius: 20px;
+    width: fit-content;
+    padding: 5px 15px;
+    color: #f43662;
+    font-weight: 800;
+}
+.planBadgeNull{
+    height: 25px;
 }
 
 

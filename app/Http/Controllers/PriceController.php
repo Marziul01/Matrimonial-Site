@@ -9,7 +9,7 @@ class PriceController extends Controller
 {
     public static function index(){
         return view('frontend.pages.price',[
-            'plans' => Plans::where('status',1)->get(),
+            'plans' => Plans::where('status', 1)->where('id', '!=', 1)->get(),
         ]);
     }
 }
