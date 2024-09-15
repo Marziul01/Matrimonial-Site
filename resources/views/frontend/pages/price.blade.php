@@ -33,30 +33,30 @@
                             <div class="p-4 d-flex justify-content-evenly align-items-strech w-100 mobilePriceTabCard">
                                 @if ($plans->isNotEmpty())
                                 @foreach ($plans->where('plan_type', 'Yearly') as $plan )
-                                <div class="pricePlanCards" style="background-color: {{ isset($plan->badge) ? '#f43662' : 'transparent' }} ; margin-top: {{ isset($plan->badge) ? '-55px' : '0' }}; box-shadow: {{ isset($plan->badge) ? '0 20px 20px #CCC2E8' : 'none' }}">
+                                <div class="pricePlanCards">
                                     <div class="border-bottom-1 pb-3">
                                         <div class="mb-2 d-flex justify-content-end">
                                             <p class="{{ isset($plan->badge) ? 'planBadge' : 'planBadgeNull' }} " >{{ $plan->badge  }}</p>
                                         </div>
-                                        <h1 class="planAmount" style="color: {{ isset($plan->badge) ? 'white' : ' #f43662' }} ;">৳ {{ $plan->price }}
-                                            <span style="color: {{ isset($plan->badge) ? ' white' : 'black' }} ;">/ {{ $plan->time }}</span>
+                                        <h1 class="planAmount">৳ {{ $plan->price }}
+                                            <span>/ {{ $plan->time }}</span>
                                         </h1>
                                         <div class="d-flex align-items-center justify-content-between column-gap-4">
-                                            <h2 class="planTitle" style="color: {{ isset($plan->badge) ? 'white' : ' #f43662' }} ;">{{ $plan->name }}</h2>
+                                            <h2 class="planTitle">{{ $plan->name }}</h2>
 
                                         </div>
-                                        <p class="planSubTitle" style="color: {{ isset($plan->badge) ? ' white' : 'black' }} ;"> {{ $plan->subtitle }} </p>
+                                        <p class="planSubTitle" > {{ $plan->subtitle }} </p>
                                     </div>
                                     @php
                                         $services = explode(',', $plan->services);
                                     @endphp
                                     <div class="py-3">
                                         @foreach($services as $service)
-                                            <p class="planServices" style="color: {{ isset($plan->badge) ? 'white' : ' black' }} ;"><i class="fa-solid fa-check" style="background-color: {{ isset($plan->badge) ? '#F54A72' : '#f43662' }} ;" ></i> {{ $service }}</p>
+                                            <p class="planServices" ><i class="fa-solid fa-check" ></i> {{ $service }}</p>
                                         @endforeach
                                     </div>
                                     <div>
-                                        <a class="btn plansBtn" style="color: {{ isset($plan->badge) ? '#f43662' : 'white' }} ; background: {{ isset($plan->badge) ? 'white' : '#F995AC' }} ;"> Choose Plan </a>
+                                        <a href="{{ route('login') }}" class="btn plansBtn"> Choose Plan </a>
                                     </div>
                                 </div>
                                 @endforeach
@@ -67,30 +67,30 @@
                             <div class="p-4 d-flex justify-content-evenly align-items-strech w-100 mobilePriceTabCard">
                                 @if ($plans->isNotEmpty())
                                 @foreach ($plans->where('plan_type', 'Monthly') as $plan )
-                                <div class="pricePlanCards" style="background-color: {{ isset($plan->badge) ? '#f43662' : 'transparent' }} ; margin-top: {{ isset($plan->badge) ? '-55px' : '0' }}; box-shadow: {{ isset($plan->badge) ? '0 20px 20px #CCC2E8' : 'none' }}">
+                                <div class="pricePlanCards">
                                     <div class="border-bottom-1 pb-3">
                                         <div class="mb-2 d-flex justify-content-end">
                                             <p class="{{ isset($plan->badge) ? 'planBadge' : 'planBadgeNull' }} " >{{ $plan->badge  }}</p>
                                         </div>
-                                        <h1 class="planAmount" style="color: {{ isset($plan->badge) ? 'white' : ' #f43662' }} ;">৳ {{ $plan->price }}
-                                            <span style="color: {{ isset($plan->badge) ? ' white' : 'black' }} ;">/ {{ $plan->time }}</span>
+                                        <h1 class="planAmount">৳ {{ $plan->price }}
+                                            <span>/ {{ $plan->time }}</span>
                                         </h1>
                                         <div class="d-flex align-items-center justify-content-between column-gap-4">
-                                            <h2 class="planTitle" style="color: {{ isset($plan->badge) ? 'white' : ' #f43662' }} ;">{{ $plan->name }}</h2>
+                                            <h2 class="planTitle">{{ $plan->name }}</h2>
 
                                         </div>
-                                        <p class="planSubTitle" style="color: {{ isset($plan->badge) ? ' white' : 'black' }} ;"> {{ $plan->subtitle }} </p>
+                                        <p class="planSubTitle" > {{ $plan->subtitle }} </p>
                                     </div>
                                     @php
                                         $services = explode(',', $plan->services);
                                     @endphp
                                     <div class="py-3">
                                         @foreach($services as $service)
-                                            <p class="planServices" style="color: {{ isset($plan->badge) ? 'white' : ' black' }} ;"><i class="fa-solid fa-check" style="background-color: {{ isset($plan->badge) ? '#F54A72' : '#f43662' }} ;" ></i> {{ $service }}</p>
+                                            <p class="planServices" ><i class="fa-solid fa-check" ></i> {{ $service }}</p>
                                         @endforeach
                                     </div>
                                     <div>
-                                        <a class="btn plansBtn" style="color: {{ isset($plan->badge) ? '#f43662' : 'white' }} ; background: {{ isset($plan->badge) ? 'white' : '#F995AC' }} ;"> Choose Plan </a>
+                                        <a href="{{ route('login') }}" class="btn plansBtn"> Choose Plan </a>
                                     </div>
                                 </div>
                                 @endforeach

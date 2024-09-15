@@ -26,6 +26,7 @@ use App\Http\Controllers\PlansController;
 */
 
 Route::get('/',[HomeController::class,'index'])->name('home');
+Route::get('/about',[HomeController::class,'about'])->name('about');
 Route::get('/price',[PriceController::class,'index'])->name('price');
 Route::get('/faq',[FaqController::class,'index'])->name('faq');
 Route::get('/contact',[ContactController::class,'index'])->name('contact');
@@ -52,6 +53,7 @@ Route::group(['prefix' => 'account'],function(){
         Route::get('/check-current-plan', [UserPlanController::class,'CurrentPlan'])->name('check-current-plan');
         Route::post('/subscribe-plan', [UserPlanController::class,'subscribePlan'])->name('subscribe-plan');
         Route::get('/profiles/{slug}', [UserProfileController::class, 'profiles'])->name('profiles');
+        Route::get('/submit/profile/details', [UserAuthController::class, 'details'])->name('submitDetails');
         Route::post('/user/profile/match', [UserProfileController::class,'submitMatchProfile'])->name('match.details.submit');
 
     });

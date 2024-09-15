@@ -26,10 +26,10 @@
                             <div class="form-group">
                                 <label for="password">Password</label>
                                 <div class="input-group">
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter your Password" />
+                                    <input type="password" class="form-control" id="passwordlogin" name="password" placeholder="Enter your Password" />
                                     <div class="input-group-appends">
-                                        <span class="input-group-text" id="togglePassword" style="cursor: pointer;">
-                                            <i class="fas fa-eye-slash"></i> <!-- Initial crossed eye icon -->
+                                        <span class="input-group-text" id="togglePasswordlogin" style="cursor: pointer;">
+                                            <i id="eyelogin" class="fas fa-eye-slash"></i> <!-- Initial crossed eye icon -->
                                         </span>
                                     </div>
                                 </div>
@@ -122,18 +122,21 @@
         </script>
 
 <script>
-    const togglePassword = document.querySelector("#togglePassword");
-    const password = document.querySelector("#password");
 
-    togglePassword.addEventListener("click", function () {
+    const togglePassword1 = document.querySelector("#togglePasswordlogin");
+    const password1 = document.querySelector("#passwordlogin");
+
+    togglePassword1.addEventListener("click", function () {
         // Toggle the type attribute
-        const type = password.getAttribute("type") === "password" ? "text" : "password";
-        password.setAttribute("type", type);
+        const type1 = password1.getAttribute("type") === "password" ? "text" : "password";
+        password1.setAttribute("type", type1);
 
         // Toggle the eye slash icon
-        this.querySelector("i").classList.toggle("fa-eye-slash");
-        this.querySelector("i").classList.toggle("fa-eye");
+        this.querySelector("#eyelogin").classList.toggle("fa-eye-slash");
+        this.querySelector("#eyelogin").classList.toggle("fa-eye");
     });
+
+
 </script>
 
 <!-- Font Awesome (for the eye icon) -->

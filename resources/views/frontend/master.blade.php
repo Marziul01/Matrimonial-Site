@@ -33,14 +33,6 @@
 </main>
 
 
-<div class="popupModal d-none" id="popup">
-    <div class="popupModalDiv d-flex align-items-center justify-content-center p-5">
-        <div class="card d-flex flex-column row-gap-3 justify-content-between align-items-center p-5">
-            <h4 class="text-center">Your Registration is Successfully completed !</h4>
-        </div>
-    </div>
-</div>
-
 <div class="modal fade Registration_Modal" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -243,14 +235,14 @@
                     </select>
                     </div>
                 </div>
-                <div class="w-100 emailDiv" style="display: none;" id="email">
+                <div class="w-100 emailDiv" style="display: none;" id="emailDivs">
                     <input class="form-control" type="email" name="email" placeholder="Your Email">
                     <div class="mt-3">
                         <div class="input-group">
                             <input type="password" class="form-control" id="password" name="password" placeholder="Enter your Password" />
                             <div class="input-group-appends">
                                 <span class="input-group-text" id="togglePassword" style="cursor: pointer;">
-                                    <i class="fas fa-eye-slash"></i> <!-- Initial crossed eye icon -->
+                                    <i id="eyereg" class="fas fa-eye-slash"></i> <!-- Initial crossed eye icon -->
                                 </span>
                             </div>
                         </div>
@@ -358,7 +350,7 @@
                 success: function (response) {
                     if (response.success) {
                         // Show success notification with a green background
-                        toastr.success('Registration Successful! Redirecting...', '', {
+                        toastr.success('Registration Successful!', '', {
                             "positionClass": "toast-top-right",
                             "timeOut": "2000", // Auto-close after 2 seconds
                             "progressBar": true,
@@ -404,12 +396,12 @@
 
 <script>
     document.getElementById('with_email').addEventListener('click', function() {
-    document.getElementById('email').style.display = 'block';
+    document.getElementById('emailDivs').style.display = 'block';
     document.getElementById('signupOptions').style.display = 'none';
 });
 
 document.querySelector('.cancelBtn').addEventListener('click', function() {
-    document.getElementById('email').style.display = 'none';
+    document.getElementById('emailDivs').style.display = 'none';
     document.getElementById('signupOptions').style.display = 'block';
 });
 
@@ -426,8 +418,8 @@ document.querySelector('.cancelBtn').addEventListener('click', function() {
         password.setAttribute("type", type);
 
         // Toggle the eye slash icon
-        this.querySelector("i").classList.toggle("fa-eye-slash");
-        this.querySelector("i").classList.toggle("fa-eye");
+        this.querySelector("#eyereg").classList.toggle("fa-eye-slash");
+        this.querySelector("#eyereg").classList.toggle("fa-eye");
     });
 </script>
 

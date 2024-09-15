@@ -619,6 +619,27 @@ p{
     font-size: 19px;
     font-weight: 600;
 }
+.aboutTexts .enquiry i{
+    width: 50px;
+    height: 50px;
+    border: 5px solid #E2DBE4;
+    border-radius: 50%;
+    font-size: 18px;
+    background-color: #f43662;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.aboutTexts .enquiry h4{
+    color: #898989;
+    font-size: 15px;
+}
+.aboutTexts .enquiry p{
+    color: black;
+    font-size: 19px;
+    font-weight: 600;
+}
 .adSection{
     background-image: url(../imgs/Vector-line-1.png);
     background-position: center;
@@ -865,30 +886,30 @@ input[type="checkbox"]{
     align-items: center;
     column-gap: 20px;
 }
-.Registration_Modal .form-control{
+.Registration_Modal .form-control, .submitDtsCard .form-control{
     color: #f43662;
     padding: 10px;
     border: none;
     background: white !important;
 }
-.Registration_Modal .form-control::placeholder{
+.Registration_Modal .form-control::placeholder, .submitDtsCard .form-control::placeholder{
     color: #f43662;
 }
-.Registration_Modal .form-control:focus{
+.Registration_Modal .form-control:focus, .submitDtsCard .form-control:focus{
     border: none;
     box-shadow: none;
 }
 .Registration_Modal .radios {
     margin-top: 20px;
 }
-.Registration_Modal .radios p{
+.Registration_Modal .radios p, .submitDtsCard .radios p{
     margin-bottom: 5px;
     color: white;
 }
-.Registration_Modal .radios input[type="radio"]{
+.Registration_Modal .radios input[type="radio"], .submitDtsCard .radios input[type="radio"]{
     display: none;
 }
-.Registration_Modal .radios label{
+.Registration_Modal .radios label, .submitDtsCard .radios label{
     padding: 10px 20px;
     background-color: transparent;
     border: 1px solid white;
@@ -896,6 +917,10 @@ input[type="checkbox"]{
     border-radius: 5px;
 }
 .Registration_Modal .radios input[type="radio"]:checked + label{
+    background-color: white;
+    color: #f43662;
+}
+.submitDtsCard .radios input[type="radio"]:checked + label{
     background-color: white;
     color: #f43662;
 }
@@ -914,7 +939,7 @@ input[type="checkbox"]{
 .Registration_Modal .date_of_birth .fields .select-wrapper{
     width: 25%;
 }
-.Registration_Modal .select-wrapper::after{
+.Registration_Modal .select-wrapper::after, .submitDtsCard .select-wrapper::after{
     color: #f43662;
 }
 .Registration_Modal .education{
@@ -959,6 +984,17 @@ input[type="checkbox"]{
     background: black;
     border-radius: 100vw;
 }
+.termText ::-webkit-scrollbar{
+    width: 5px;
+}
+.termText ::-webkit-scrollbar-track{
+    background-color: white;
+    border-radius: 100vw;
+}
+.termText ::-webkit-scrollbar-thumb{
+    background: black;
+    border-radius: 100vw;
+}
 .Registration_Modal .input-group-text{
     border: none;
     color: #f43662;
@@ -971,10 +1007,36 @@ input[type="checkbox"]{
     background-color: #FEF5F7;
     border-radius: 20px;
 }
+.contineBtn, .phonVerifyBtn{
+    padding: 7px 20px;
+    background-color: black;
+    border-radius: 10px;
+    color: white;
+    border: none;
+}
+.submitDtsCard .select-wrapper::after{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 20px;
+    border-left: 2px solid #f43662;
+    height: 100%;
+}
 
-
-
-
+.submitDtsCard .termscheck p{
+    color: white;
+    font-size: 17px;
+}
+.submitDtsCard .termscheck .bdCode{
+    padding: 10px;
+    background: white;
+    border-radius: 10px 0px 0 10px;
+    color: #f43662;
+    border-right: 1px solid #f43662;
+}
+.submitDtsCard .termscheck .verifyPhoneNumber{
+    border-radius: 0 10px 10px 0;
+}
 
 
 /* .form-check label{
@@ -1980,65 +2042,405 @@ a{
     right: 0px;
 }
 .pricePlanCards{
-    background: white;
+    background: transparent;
     padding: 20px 30px;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     width: 23%;
+    transition: all 0.3s ease;
+}
+.pricePlanCards:hover{
+    background-color: #f43662;
+    margin-top: -55px;
+    transition: all 0.3s ease;
 }
 .planTitle{
     font-weight: 700;
     margin-bottom: 5px;
+    color: #f43662;
+}
+.pricePlanCards:hover .planTitle{
+    color: white;
 }
 .planSubTitle{
     font-weight: 500;
-    color: #3c3c3c;
+    color: black;
     margin-bottom: 15px;
+}
+.pricePlanCards:hover .planSubTitle{
+    color: white;
 }
 .planAmount{
     font-weight: 800;
     margin-bottom: 0px;
     font-size: 32px;
     margin-bottom: 20px;
+    color: #f43662;
 }
 .planAmount span{
     font-size: 16px;
     font-weight: 500;
+    color: black;
+}
+.pricePlanCards:hover .planAmount{
+    color:white;
+}
+.pricePlanCards:hover .planAmount span{
+    color:white;
 }
 .planAmountText{
     color: #919191;
     font-weight: 500;
 }
 .planServices{
-    color: #919191;
+    color: black;
     margin-right: 5px;
     display: flex;
     margin-bottom: 8px;
+}
+.pricePlanCards:hover .planServices{
+    color:white;
+}
+.planServices i{
+    background-color: #f43662;
+}
+.pricePlanCards:hover .planServices i{
+    background-color: #F995AC;
 }
 .plansBtn{
     display: block;
     width: 100%;
     text-align: center;
-    color: black;
+    color: white;
     padding: 10px;
     border-radius: 30px;
     margin-top: 20px;
+    background-color: #F995AC;
+}
+.pricePlanCards:hover .plansBtn{
+    background-color: white;
+    color: #f43662;
 }
 .planBadge{
-    background-color: #ffffff;
+    background-color: #f43662;
     font-size: 13px;
     border-radius: 20px;
     width: fit-content;
     padding: 5px 15px;
-    color: #f43662;
+    color: white;
     font-weight: 800;
+}
+.pricePlanCards:hover .planBadge{
+    background-color: white;
+    color: #f43662;
 }
 .planBadgeNull{
     height: 25px;
 }
+.detailsHeight{
+    height: 75vh;
+}
+.submitDtsCard{
+    padding: 20px 50px;
+    border-radius: 10px;
+    background-color: #f43662;
+    display: none;
+    min-width: 30vw;
+}
+.submitDtsCard:first-child {
+    display: block;
+}
+.detailsbg{
+    background: #f436625e;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+}
+/* Card transition animations */
+.submitDtsCard {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transform: translateX(0);
+}
 
+.submitDtsCard.hide-card {
+    display: none !important;
+    opacity: 0;
+    transform: translateX(-100%);
+}
+
+.submitDtsCard.show-card {
+    display: block !important;
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.submitDtsCard.show-card {
+    animation: slideIn 0.3s forwards;
+}
+
+.submitDtsCard .termText{
+    width: 40vw;
+    height: 45vh;
+    overflow: hidden;
+    overflow-y: auto;
+}
+.submitDtsCard .termText h3{
+    font-size: 22px;
+    color: white;
+}
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+.checkedTermsInputIcon {
+    display: none;
+}
+
+/* Show the icon and hide the checkbox when the checkbox is checked */
+.checkedTermsInput:checked + .checkedTermsInputIcon {
+    display: inline-block; /* Show the icon */
+}
+
+/* Hide the checkbox when it is checked */
+.checkedTermsInput:checked {
+    display: none; /* Hide the checkbox */
+}
+.bg-about{
+    background: linear-gradient(180deg, rgba(252,202,213,1) 0%, rgba(255,255,255,1) 50%);
+}
+.aboutbg{
+    background: linear-gradient(180deg, rgb(251 182 197) 0%, rgb(255 255 255 / 40%) 35%, rgb(251 182 197 / 24%) 100%);
+}
+.aboutbg .mainHeading{
+    color: #f43662;
+}
+.aboutbg .subHeading{
+    color: #f43662;
+}
+.aboutTexts{
+    margin-top: 100px !important;
+}
+.aboutTexts h1{
+    font-size: 60px;
+    color: black;
+    font-weight: 900;
+    margin-bottom:10px;
+}
+.aboutTexts h3{
+    color: #f43662;
+    font-size: 50px;
+    margin-bottom: 30px;
+}
+.aboutTexts p{
+    font-size: 16px;
+    color: #5e5e5e;
+    margin-bottom: 30px;
+}
+.aboutTexts p a{
+    color: #f43662;
+    text-decoration: none;
+}
+.aboutTexts .paRight{
+    padding-right: 50px;
+}
+.sideImagebg{
+    background-image: url(../imgs/image.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%;
+    transform: scaleX(-1);
+    padding: 30px;
+    border-radius: 20px;
+}
+.imageInnerBorder{
+    height: 100%;
+    border: 1px solid white;
+    border-radius: 20px;
+}
+.aboutTexts .paddingLefts{
+    padding-left: 100px;
+}
+.aboutImages .aboutImg3{
+    width: 90%;
+    transform: scaleX(-1);
+    border-radius: 0% 40%;
+    border-left: 10px solid white;
+    position: relative;
+    z-index: 1;
+}
+.aboutImages .aboutImg4{
+    position: absolute;
+    right: 30px;
+    bottom: -20px;
+    z-index: 0;
+    width: 30%;
+}
+.top-Header-bottom-border{
+    margin: 0;
+    opacity: 1;
+    border-top: 0px;
+    height: 3px;
+    background: linear-gradient(90deg, rgba(252,202,213,0) 0%, rgba(244,54,98,1) 50%, rgba(255,255,255,0) 100%);
+    position: absolute;
+    top: 0;
+    z-index: 0;
+    left: 0;
+    width: 100%;
+}
+.faqTexts{
+    padding: 50px 100px 100px;
+    background: white;
+    margin: 0;
+}
+.faqTexts i{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #f43662;
+    padding: 2px;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.faqTexts h3{
+    color: black;
+    font-size: 18px;
+    margin: 15px 0;
+}
+.faqTexts p{
+    color: black;
+    font-size: 16px;
+}
+.furtherFaq{
+    margin-top: 50px;
+    background-color: #FDD7E0;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 25px;
+    align-items: center;
+}
+.furtherFaq h4{
+    color: #f43662;
+    font-size: 20px;
+}
+.furtherFaq p{
+    color: #f43662;
+    font-size: 15px;
+}
+.furtherFaq button{
+    padding: 5px 15px;
+    background-color: #f43662;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    border: none;
+}
+.searchWrapper{
+    background: white;
+    margin: 10px 20px;
+    padding: 5px;
+    border-radius: 10px;
+    padding: 7px 15px;
+}
+.searchWrapper input{
+    border: none;
+    color: #f43662;
+    margin-left: 10px;
+}
+.searchWrapper input::placeholder{
+    color: #f43662;
+}
+.searchWrapper i{
+    color: #f43662;
+}
+.contactFormsDts{
+    padding: 100px 50px 100px 0;
+}
+.googleMap{
+    padding: 130px 0 100px 50px;
+    display: flex;
+    justify-content: end;
+}
+.googleMap iframe{
+    border: 10px solid #f43662;
+}
+.contactFormsDts .title{
+    color: black;
+    font-size: 60px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.contactFormsDts .title span{
+    color: #f43662;
+}
+.contactFormsDts .subTitle{
+    font-size: 18px;
+    color: black;
+    margin-bottom: 20px;
+}
+.contactFormsDts .form-control{
+    background-color: transparent;
+    border: 1px solid #f43662;
+    margin-bottom: 20px;
+    border-radius: 0px;
+    padding: 10px;
+}
+.contactFormsDts .form-control:focus{
+    border-color: #f43662;
+    box-shadow: none;
+}
+.contactFormsDts .form-control::placeholder{
+    color: #f43662;
+}
+.contactSbBtn{
+    background: #f43662;
+    color: white;
+    font-size: 17px;
+    border-radius: 0;
+    text-align: center;
+    margin: 0;
+    font-weight: 600;
+    padding: 10px;
+}
+.contactSbBtn:hover{
+    background: #f43662;
+    color: white;
+}
+.row{
+    margin: 0px;
+}
+.contactEnquery{
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    column-gap: 20px;
+}
+.contactEnquery .enquiry i{
+    font-size: 25px;
+}
+.contactEnquery .enquiry h4{
+    font-size: 15px;
+    margin-bottom: 0px;
+}
+.contactEnquery .enquiry p{
+    font-size: 13px;
+    color: #f43662;
+}
 
 
 

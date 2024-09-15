@@ -6,63 +6,68 @@
 
 @section('content')
 
-    <div class="section">
-        <div class="contact-bg">
+    <div class="bg-about">
+        <div class="section position-relative">
+            <hr class="top-Header-bottom-border">
             <div>
-                <div class="">
-                    <h1 class="text-center contactTitle">Contact our team</h1>
-                    <p class="text-center contactSubTitle">Got any question about our platform ? We're here to help.</p>
-                </div>
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-6 contactFormsDts">
+                        <h1 class="title">Get in <span>Touch</span></h1>
+                        <p class="subTitle">Enim tempor eget pharetra facilisis sed maecenas adipiscing. Eu leo molestie vel,
+                            ornare non id blandit netus.</p>
                         <form>
                             @csrf
                             <div class="row">
-                                <div class="col-md-6">
-                                    <label class="form-label">First Name</label>
-                                    <input class="form-control" name="first_name" type="text" placeholder="First Name">
+                                <div class="col-md-12 p-0">
+                                    <input class="form-control" name="name" type="text" placeholder="Name *">
                                 </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Last Name</label>
-                                    <input class="form-control" name="last_name" type="text" placeholder="Last Name">
+                                <div class="col-md-12 p-0">
+                                    <input class="form-control" name="email" type="email" placeholder="Email *">
                                 </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Email</label>
-                                    <input class="form-control" name="email" type="email" placeholder="Email">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Phone Number</label>
+                                <div class="col-md-12 p-0">
                                     <input class="form-control" name="number" type="number" placeholder="Phone Number">
                                 </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Subject</label>
-                                    <input class="form-control" name="subject" type="text" placeholder="Subject">
+                                <div class="col-md-12 p-0">
+                                    <textarea class="form-control" name="message" placeholder="Type Here *"></textarea>
                                 </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Location</label>
-                                    <input class="form-control" name="location" type="text" placeholder="Location">
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label">Message</label>
-                                    <textarea class="form-control" name="message" placeholder="Write your massage...."></textarea>
-                                </div>
-                                <button type="submit" class="btn w-100">Submit</button>
+                                <button type="submit" class="btn w-100 contactSbBtn">SEND</button>
                             </div>
                         </form>
+                        <div class="contactEnquery">
+                            <div class="d-flex w-50 align-items-center column-gap-3 enquiry">
+                                <i class="fa-solid fa-phone-volume"></i>
+                                <div>
+                                    <h4>PHONE</h4>
+                                    <p>+880 1947-782635<p>
+                                </div>
+                            </div>
+                            <div class="d-flex w-50 align-items-center column-gap-3 enquiry">
+                                <i class="fa-solid fa-tty"></i>
+                                <div>
+                                    <h4>TELEPHONE</h4>
+                                    <p>+880 1947-782635<p>
+                                </div>
+                            </div>
+                            <div class="d-flex w-50 align-items-center column-gap-3 enquiry">
+                                <i class="fa-solid fa-envelope-open-text"></i>
+                                <div>
+                                    <h4>Email</h4>
+                                    <p>info@linkmyheart.com<p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-4 contactInfo">
-                        <h5 class="mt-4">Call us</h5>
-                        <p>Speack to our friendly team via live chat</p>
-                        <a href=""> <i class="fa-solid fa-phone"></i> +123 456 7890 </a>
-                        <h5 class="mt-4">Visit us</h5>
-                        <p>Speack to our friendly team via live chat</p>
-                        <a href=""> <i class="fa-solid fa-location-dot"></i> Dhaka,Bangladesh </a>
+                    <div class="col-md-6">
+                        <div class="googleMap">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10322.246951493451!2d90.36430175307102!3d23.83760180856062!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c14a3366b005%3A0x901b07016468944c!2sMirpur%20DOHS%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1726427284531!5m2!1sen!2sbd" width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
                     </div>
                 </div>
+
             </div>
+
         </div>
     </div>
-
 
 @endsection
 

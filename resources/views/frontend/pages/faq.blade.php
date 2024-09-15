@@ -6,64 +6,84 @@
 
 @section('content')
 
-    <div class="section">
-        <div class="faq-bg">
-            <div>
-                <div>
-                    <h1 class="text-center faqTitle">Frequently asked <br> <span>questions</span></h1>
-                    <p class="text-center faqSubTitle">Do you need some help with something or do<br> you have questions about some features?</p>
-                </div>
-                <div>
-                    <div class="accordion" id="accordionExample">
-                        <div class="accordion-item">
-                          <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                              Accordion Item #1
-                            </button>
-                          </h2>
-                          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                              It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+<div class="bg-about">
+    <div class="section position-relative">
+        <hr class="top-Header-bottom-border">
+        <div>
+            <div class="aboutbg py-5">
+                <div class="d-flex justify-content-center align-items-center">
+                    <div>
+                        <h1 class="mainHeading text-center mb-3">FAQs <br> Ask us anything</h1>
+                        <p class="subHeading text-center mb-4">Have any questions? We're here to assist you.</p>
+                        <form>
+                            <div class="searchWrapper">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="text" class="search-box" placeholder="Search" name="search">
                             </div>
-                          </div>
-                        </div>
-                        <div class="accordion-item">
-                          <h2 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                              Accordion Item #2
-                            </button>
-                          </h2>
-                          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                              It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="accordion-item">
-                          <h2 class="accordion-header" id="headingThree">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                              Accordion Item #3
-                            </button>
-                          </h2>
-                          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                              It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="faqBottomDiv">
-                    <h4 class="text-center faqbotTitle">Have any other questions ?</h4>
-                    <p class="text-center faqbotSubTitle"> Don't hasitate to send an email about your enquiry! </p>
-                    <div class="d-flex justify-content-center align-items-center column-gap-4 faqBotInnerDiv">
-                        <p class="faqEmail" id="email"> info@linkmyheart.com </p>
-                        <button type="button" class="copy" id="copy"> <i class="fa-solid fa-copy"></i> copy </button>
+                        </form>
                     </div>
                 </div>
             </div>
+            <div class="row faqTexts">
+                <div class="col-md-4">
+                    <i class="fa-regular fa-envelope"></i>
+                    <h3>How do I change my account email?</h3>
+                    <p>You can log in to your account and change it from
+                        your Profile > Edit Profile. Then go to the general tab
+                        to change your email.</p>
+                </div>
+                <div class="col-md-4">
+                    <i class="fa-regular fa-envelope"></i>
+                    <h3>What should I do if my payment fails?</h3>
+                    <p>If your payment fails, you can use the (COD) payment
+                        option, if available on that order. If your payment is
+                        debited from your account after a payment failure, it
+                        will be credited back within 7-10 days.</p>
+                </div>
+                <div class="col-md-4">
+                    <i class="fa-regular fa-envelope"></i>
+                    <h3>What is your cancellation policy?</h3>
+                    <p>You can now cancel an order when it is in packed/
+                        shipped status. Any amount paid will be credited into
+                        the same payment mode using which the payment
+                        was made</p>
+                </div>
+                <div class="col-md-4 mt-4">
+                    <i class="fa-regular fa-envelope"></i>
+                    <h3>How do I check order delivery status ?</h3>
+                    <p>Please tap on “My Orders” section under main menu
+                        of App/Website/M-site to check your order status.</p>
+                </div>
+                <div class="col-md-4 mt-4">
+                    <i class="fa-regular fa-envelope"></i>
+                    <h3>What is Instant Refunds?</h3>
+                    <p>Upon successful pickup of the return product at your
+                        doorstep, Myntra will instantly initiate the refund to
+                        your source account or chosen method of refund.
+                        Instant Refunds is not available in a few select pin
+                        codes and for all self ship returns.</p>
+                </div>
+                <div class="col-md-4 mt-4">
+                    <i class="fa-regular fa-envelope"></i>
+                    <h3>How do I apply a coupon on my order?</h3>
+                    <p>ou can apply a coupon on cart page before order
+                        placement. The complete list of your unused and valid
+                        coupons will be available under “My Coupons” tab of
+                        App/Website/M-site.</p>
+                </div>
+                <div class="col-md-12 furtherFaq">
+                    <div>
+                        <h4>Still have questions?</h4>
+                        <p>Can’t find the answer you’re looking for? Please chat to our friendly team.</p>
+                    </div>
+                    <button href="{{ route('contact') }}">Get in touch</button>
+                </div>
+            </div>
+
         </div>
+
     </div>
+</div>
 
 
 @endsection

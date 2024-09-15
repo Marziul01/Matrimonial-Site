@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Mail\ResetPasswordMail;
 use App\Models\Category;
+use App\Models\Country;
+use App\Models\District;
 use App\Models\Profile;
 use App\Models\SiteSetting;
+use App\Models\Upazila;
 use App\Models\User;
 use App\Models\UserInfo;
 use App\Models\UserPlan;
@@ -85,7 +88,7 @@ class UserAuthController extends Controller
         $plan->end_date = null;
         $plan->save();
 
-        return response()->json(['success' => true, 'redirect' => route('user.dashboard')]);
+        return response()->json(['success' => true, 'redirect' => route('submitDetails')]);
     }
 
     public static function logout(){
@@ -93,8 +96,7 @@ class UserAuthController extends Controller
         return redirect(route('home'));
     }
 
-    public function signin(Request $request)
-{
+    public function signin(Request $request){
     if (Auth::check()) {
         // Redirect to the user dashboard if logged in
         return response()->json([
@@ -132,6 +134,10 @@ class UserAuthController extends Controller
             }
         }
 
+        if(is_null($profile)){
+            return redirect(route('submitDetails'));
+        }
+
         // Redirect the user based on session URL or default to the dashboard
         if (session()->has('url.intended')) {
             return response()->json([
@@ -165,69 +171,79 @@ class UserAuthController extends Controller
         ]);
     }
 
-    public static function register(){
+    public static function details(){
 
-        if (auth()->check()) {
-            return redirect()->route('user.dashboard');
-        }
-
-        return view('frontend.auth.register', [
+        return view('frontend.auth.details', [
+            'countries' => Country::all(),
+            'districts' => District::all(),
+            'upazilas' => Upazila::all(),
         ]);
     }
+
 
     public function googleLogin(){
         return Socialite::driver('google')->redirect();
     }
 
-    public function googleHandler(){
-        try{
-
+    public function googleHandler()
+    {
+        try {
+            // Retrieve Google user data
             $user = Socialite::driver('google')->user();
             $findUser = User::where('email', $user->email)->first();
 
-            if(!$findUser){
-                $newuser = new User();
+            if (!$findUser) {
+                // User not found, create new user
+                $newUser = new User();
+                $newUser->password = bcrypt(Str::random(8));
+                $newUser->role = 0;  // Assuming role 0 for general users
+                $newUser->name = $user->name;
+                $newUser->email = $user->email;
+                $newUser->save();
 
-                $newuser->password = bcrypt(Str::random(8));
-                $newuser->role = 0;
-                $newuser->name = $user->name;
-                $newuser->email = $user->email;
-                $newuser->save();
+                // Log in the new user
+                Auth::login($newUser);
+                $userID = $newUser->id;
 
-                Auth::login($newuser);
-                $userID = $newuser->id;
-
+                // Create associated UserInfo
                 $userInfo = new UserInfo();
                 $userInfo->user_id = $userID;
                 $userInfo->looking_for = 'google';
                 $userInfo->gender = 'google';
                 $userInfo->relation = 'google';
-
                 $userInfo->save();
 
+                // Assign default plan
                 $plan = new UserPlan();
                 $plan->user_id = $userID;
-                $plan->plan_id = 1;
+                $plan->plan_id = 1;  // Assuming plan_id 1 is a default plan
                 $plan->start_date = now();
                 $plan->end_date = null;
                 $plan->save();
 
-                return redirect(route('user.dashboard'));
+                return redirect(route('submitDetails'));
+            }
+
+            if (is_null($findUser->profile)) {
+                return redirect(route('submitDetails'));
             }
 
             if ($findUser->profile && $findUser->profile->status == 2) {
+
+                Auth::logout();
                 return redirect(route('login'))->with('error', 'Your account is deactivated.');
             }
 
             Auth::login($findUser);
             return redirect(route('user.dashboard'));
 
-        }catch (Exception $e) {
-            // Log the error and provide feedback
-            Log::error('Google login error: '.$e->getMessage());
+        } catch (Exception $e) {
+
+            Log::error('Google login error: ' . $e->getMessage());
             return redirect(route('login'))->with('error', 'Failed to log in using Google.');
         }
     }
+
 
 
 }

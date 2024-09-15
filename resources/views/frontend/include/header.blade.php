@@ -1,4 +1,4 @@
-@if (!Auth::check())
+{{-- @if (!Auth::check()) --}}
 <header class="section headerContainer">
     <div class=" headerMain d-flex justify-content-center align-items-center w-100 notSignupHead">
         <div class="w-30">
@@ -11,7 +11,7 @@
         </div>
         <div class="w-50 d-flex justify-content-center align-items-center">
             <a href="{{ route('home') }}" class="menu_item {{ Route::currentRouteName() == 'home' ? 'active' : '' }}"> Home </a>
-            <a href="" class="menu_item"> About Us </a>
+            <a href="{{ route('about') }}" class="menu_item {{ Route::currentRouteName() == 'about' ? 'active' : '' }}"> About Us </a>
             <a href="{{ route('price') }}" class="menu_item {{ Route::currentRouteName() == 'price' ? 'active' : '' }}"> Pricing  </a>
             <a href="{{ route('faq') }}" class="menu_item {{ Route::currentRouteName() == 'faq' ? 'active' : '' }}"> FAQ </a>
             <a href="{{ route('contact') }}" class="menu_item {{ Route::currentRouteName() == 'contact' ? 'active' : '' }}"> Contact Us </a>
@@ -37,7 +37,7 @@
         </div>
     </div>
 </header>
-@else
+{{-- @else
 <header class="section border-bottom-1" style="border: 1px solid rgb(0 0 0 / 18%)">
     <div class=" headerMain d-flex justify-content-between align-items-center w-100">
         <div class="w-30">
@@ -79,7 +79,7 @@
         </div>
     </div>
 </header>
-@endif
+@endif --}}
 
 
 @include('frontend.include.mobilenav')
