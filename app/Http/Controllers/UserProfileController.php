@@ -22,6 +22,10 @@ use Carbon\Carbon;
 use PhpParser\Node\Expr\FuncCall;
 use Illuminate\Validation\Rule;
 use App\Models\UserPlan;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ProfileSubmittedMail;
+use App\Mail\NewMatchFoundMail;
+use Illuminate\Support\Facades\DB;
 
 class UserProfileController extends Controller
 {
@@ -66,11 +70,8 @@ class UserProfileController extends Controller
             $planWarning = 1;
         }
 
-        if($profile !== null && $userMatchDetails == null){
-            $fillMatchDetails = 'Yes';
-        }else{
-            $fillMatchDetails = 'No';
-
+        if($profile == null || $userMatchDetails == null){
+            return redirect(route('submitDetails'));
         }
 
         if($userMatchDetails !== null){
@@ -107,51 +108,58 @@ class UserProfileController extends Controller
             'UserPlanDetails' => $userPlan,
             'plans' => $plans,
             'planWarning' => $planWarning,
-            'fillMatchDetails' => $fillMatchDetails,
+            // 'fillMatchDetails' => $fillMatchDetails,
         ]);
     }
 
 
     public static function submitProfile(Request $request){
 
-        $validator = Validator::make($request->all(), [
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+        $data = $request->all();
+        $rules = [
             'gender' => 'required|string|max:50',
-            'religion' => 'required|string|max:100',
-            'date_of_birth' => 'required|date',
-            'birth_place' => 'required|string|max:255',
+            'marital_status' => 'required|string|max:50',
+            'account_for' => 'required',
+            'profession' => 'required',
+            'monthly_income' => 'required',
+            'district' => 'required',
+            'upazila' => 'required',
+            'living_with_family' => 'required',
+            'body_type' => 'required',
+            'complexion' => 'required',
+            'family_status' => 'required',
+            'terms' => 'required',
+            'in_bangladesh_since' => 'required',
             'nationality' => 'required|string|max:100',
-            'present_address' => 'required|string|max:255',
-            'email' => 'required|email|unique:profiles,email',
-            'contact_number' => 'required|string|max:20',
-            'maritial_status' => 'required|string|max:50',
+            'phone' => 'required|string|max:20',
+            'bad_habit' => 'nullable|string|max:255',
             'blood_group' => 'required|string|max:10',
-            'hobby' => 'nullable|string|max:255',
-            'height' => 'nullable|string|max:10',
-            'weight' => 'nullable|string|max:10',
+            'height' => 'required|string|max:10',
+            'weight' => 'required|string|max:10',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'desc' => 'required|string|max:1000',
-            'education_level' => 'required|string|max:255',
-            'institute_name' => 'required|string|max:255',
-            'working_with' => 'required|string|max:100',
-            'employer_name' => [
-                Rule::requiredIf($request->working_with !== 'Not Working')
-            ],
-            'designation' => [
-                Rule::requiredIf($request->working_with !== 'Not Working')
-            ],
-            'duration' => [
-                Rule::requiredIf($request->working_with !== 'Not Working')
-            ],
-            'monthly_income' => [
-                Rule::requiredIf($request->working_with !== 'Not Working')
-            ],
-            'father_status' => 'required|string|max:50',
-            'mother_status' => 'required|string|max:50',
-            'number_of_sibling' => 'required|integer|min:0',
-            'family_type' => 'required|string|max:50',
-        ]);
+        ];
+
+        // Conditionally add rules based on nationality
+        if ($request->nationality !== 'Bangladesh') {
+            $rules['birth_place_text'] = 'required';
+        } else {
+            $rules['birth_place'] = 'required';
+        }
+
+        // Conditionally add rules based on the user's looking_for field
+        if (Auth::user()->userInfo->looking_for == 'google') {
+            $rules = array_merge($rules, [
+                'looking_for' => 'required',
+                'month' => 'required',
+                'day' => 'required',
+                'year' => 'required',
+                'religion' => 'required',
+                'education' => 'required',
+            ]);
+        }
+
+        $validator = Validator::make($data, $rules);
 
         if ($validator->fails()) {
             return response()->json([
@@ -162,11 +170,25 @@ class UserProfileController extends Controller
 
         $userProfile = Profile::saveInfo($request);
 
-        if(Auth::user()->userInfo->looking_for == 'google'){
-            $userInfo = Userinfo::find($userProfile->user_id);
-            $userInfo->looking_for = $request->looking_for;
-            $userInfo->gender = $request->gender;
-            $userInfo->save();
+        Mail::to(Auth::user()->email)->send(new ProfileSubmittedMail(Auth::user()));
+
+        $age = Auth::user()->profile->age; // Calculate the age of the submitted profile
+
+        $matchingProfiles = DB::table('match_profile')
+            ->where('looking_for', Auth::user()->profile->i_am) // Match looking_for with submitted profile's i_am (Groom/Bride)
+            ->where('religion', Auth::user()->profile->religion)
+            ->where('marital_status', Auth::user()->profile->marital_status)
+            ->where('from_age', '<=', $age)
+            ->where('to_age', '>=', $age)
+            ->get();
+
+        // Send email to each matching profile
+        foreach ($matchingProfiles as $match) {
+            $matchedUser = User::find($match->user_id); // Assuming match_profile has user_id
+
+            if ($matchedUser) {
+                Mail::to($matchedUser->email)->send(new NewMatchFoundMail($matchedUser, Auth::user()));
+            }
         }
 
         return response()->json(['success' => true,]);
@@ -361,9 +383,16 @@ class UserProfileController extends Controller
         $match->religion = $request->religion;
         $match->marital_status = $request->marital_status;
         $match->location = $request->location;
+        $match->family_status = $request->family_status;
+        $match->height_form = $request->height_form;
+        $match->height_to = $request->height_to;
+        $match->education = $request->education;
         $match->save();
 
-        return response()->json(['success' => true,]);
+        return response()->json([
+            'success' => true,
+            'redirect' => route('user.dashboard'),
+        ]);
 
     }
 

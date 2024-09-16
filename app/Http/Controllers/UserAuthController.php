@@ -185,8 +185,7 @@ class UserAuthController extends Controller
         return Socialite::driver('google')->redirect();
     }
 
-    public function googleHandler()
-    {
+    public function googleHandler(){
         try {
             // Retrieve Google user data
             $user = Socialite::driver('google')->user();
@@ -224,12 +223,7 @@ class UserAuthController extends Controller
                 return redirect(route('submitDetails'));
             }
 
-            if (is_null($findUser->profile)) {
-                return redirect(route('submitDetails'));
-            }
-
             if ($findUser->profile && $findUser->profile->status == 2) {
-
                 Auth::logout();
                 return redirect(route('login'))->with('error', 'Your account is deactivated.');
             }
@@ -242,6 +236,14 @@ class UserAuthController extends Controller
             Log::error('Google login error: ' . $e->getMessage());
             return redirect(route('login'))->with('error', 'Failed to log in using Google.');
         }
+    }
+
+    public function getUpazilas($districtId){
+        // Fetch upazilas based on district ID
+        $upazilas = Upazila::where('district_id', $districtId)->get();
+
+        // Return the result as a JSON response
+        return response()->json($upazilas);
     }
 
 

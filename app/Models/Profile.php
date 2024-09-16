@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class Profile extends Model
 {
@@ -13,38 +14,82 @@ class Profile extends Model
     public static function saveInfo($request) {
 
         $user = Auth::user();
-        $profile = $user->profile;  // Retrieve the user's profile
+        $fullName = $user->name;
+        $nameParts = explode(' ', $fullName);
+        $firstName = $nameParts[0];
+        $lastName = count($nameParts) > 1 ? $nameParts[count($nameParts) - 1] : '';
+        $district = District::where('id', $request->district)->first();
+        $upazila = Upazila::where('id', $request->upazila)->first();
+
+        $profile = $user->profile;
 
         if (is_null($profile)) {
-            // If the profile does not exist, create a new one
             $profile = new Profile();
-            $profile->user_id = $user->id;  // Set the user_id to associate with the current user
+            $profile->user_id = $user->id;
         }
 
         $profile->user_id = Auth::user()->id;
-        $profile->first_name = $request->first_name;
-        $profile->last_name = $request->last_name;
+        $profile->first_name = $firstName;
+        $profile->last_name = $lastName;
         $profile->gender = $request->gender;
-        $profile->religion = $request->religion;
-        $profile->date_of_birth = $request->date_of_birth;
-        $profile->birth_place = $request->birth_place;
+
+        if($user->userInfo->looking_for == 'google' && $request->looking_for =='Groom' ){
+            $profile->i_am = 'Bride';
+        }elseif($user->userInfo->looking_for == 'google' && $request->looking_for =='Bride'){
+            $profile->i_am = 'Groom';
+        }elseif($user->userInfo->looking_for == 'Bride'){
+            $profile->i_am = 'Groom';
+        }elseif($user->userInfo->looking_for == 'Groom'){
+            $profile->i_am = 'Bride';
+        }
+
+        if ($user->userInfo->looking_for == 'google' || !is_null($user->profile)) {
+
+            $profile->religion = $request->religion;
+            $profile->date_of_birth = Carbon::create($request->year, $request->month, $request->day);
+            $profile->education_level = $request->education;
+
+            $age = now()->year - $request->year;
+        } else {
+
+            $profile->religion = $user->userInfo->religion;
+            $profile->date_of_birth = $user->userInfo->date_of_birth;
+            $profile->education_level = $user->userInfo->education;
+
+            $age = Carbon::parse($user->userInfo->date_of_birth)->age;
+        }
+
+        if($request->nationality == 'Bangladesh'){
+            $profile->birth_place = $request->birth_place;
+        }else{
+            $profile->birth_place = $request->birth_place_text;
+        }
         $profile->nationality = $request->nationality;
-        $profile->present_address = $request->present_address;
-        $profile->email = $request->email;
-        $profile->contact_number = $request->contact_number;
-        $profile->marital_status = $request->maritial_status;
+        $profile->present_address = $district->name . ','. $upazila->name;
+        $profile->email = $user->email;
+        $profile->contact_number = $request->phone;
+        $profile->marital_status = $request->marital_status;
         $profile->blood_group = $request->blood_group;
-        $profile->hobby = $request->hobby;
+        $profile->bad_habits = $request->bad_habit;
         $profile->height = $request->height;
         $profile->weight = $request->weight;
         $profile->desc = $request->desc;
-        $profile->education_level = $request->education_level;
+        $profile->profession = $request->profession;
+        $profile->location = $district->name;
+        $profile->living_with_family = $request->living_with_family;
+        $profile->body_type = $request->body_type;
+        $profile->complexion = $request->complexion;
+        $profile->family_status = $request->family_status;
+        $profile->in_bangladesh_since = $request->in_bangladesh_since;
+        $profile->monthly_income = $request->monthly_income;
+        $profile->age = $age;
+
+
         $profile->institute_name = $request->institute_name;
         $profile->working_with = $request->working_with;
         $profile->employer_name = $request->employer_name;
         $profile->designation = $request->designation;
         $profile->duration = $request->duration;
-        $profile->monthly_income = $request->monthly_income;
         $profile->father_status = $request->father_status;
         $profile->mother_status = $request->mother_status;
         $profile->number_of_sibling = $request->number_of_sibling;
@@ -66,7 +111,7 @@ class Profile extends Model
         $profile->save();
 
         $user->name = $profile->first_name . ' ' . $profile->last_name;  // Concatenate first and last name with a space
-        $user->email = $profile->email;
+        $user->number = $profile->contact_number;
         if ($request->file('image')) {
             if ($user->avatar) {
                 // Check if the existing avatar file exists and delete it
@@ -82,6 +127,14 @@ class Profile extends Model
         }
 
         $user->save();
+
+        $userinfo = UserInfo::where('user_id', $user->id)->first();
+        $userinfo->account_for = $request->account_for;
+        if ($user->userInfo->looking_for == 'google') {
+            $userinfo->looking_for = $request->looking_for;
+        }
+        $userinfo->save();
+
     }
 
     public static function saveImage($request) {

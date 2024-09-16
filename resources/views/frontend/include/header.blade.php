@@ -9,30 +9,31 @@
                 </a>
             </div>
         </div>
-        <div class="w-50 d-flex justify-content-center align-items-center">
+        <div class="w-50 d-flex justify-content-center align-items-center Pc-Menus">
             <a href="{{ route('home') }}" class="menu_item {{ Route::currentRouteName() == 'home' ? 'active' : '' }}"> Home </a>
             <a href="{{ route('about') }}" class="menu_item {{ Route::currentRouteName() == 'about' ? 'active' : '' }}"> About Us </a>
             <a href="{{ route('price') }}" class="menu_item {{ Route::currentRouteName() == 'price' ? 'active' : '' }}"> Pricing  </a>
             <a href="{{ route('faq') }}" class="menu_item {{ Route::currentRouteName() == 'faq' ? 'active' : '' }}"> FAQ </a>
             <a href="{{ route('contact') }}" class="menu_item {{ Route::currentRouteName() == 'contact' ? 'active' : '' }}"> Contact Us </a>
         </div>
-        <div class="w-30 d-flex justify-content-end align-items-center column-gap-2">
+        <div class="w-30 d-flex justify-content-end align-items-center column-gap-2 Pc-Menus">
             <a href="{{ route('login') }}" class="btn loginBtn">Sign In</a>
             <a class="btn registerbtn" data-bs-toggle="modal" data-bs-target="#registerModal">Join Now</a>
         </div>
         <div class="w-50 d-md-none pr-1">
-            <div class="menu d-flex justify-content-end align-items-center column-gap-4">
-                <a href="{{ route('login') }}" class="btn loginBtn" >Login</a>
-                <a class="btn loginBtn" data-bs-toggle="modal" data-bs-target="#registerModal">SignUp</a>
+            <div class="menu d-flex justify-content-end align-items-center column-gap-2">
+                <a href="{{ route('login') }}" class="btn loginBtn">Sign In</a>
+                <a class="btn registerbtn" data-bs-toggle="modal" data-bs-target="#registerModal">Join Now</a>
                 <a class="mobileNavtoggle" id="homeMenuNavToogle"> <i class="fa-solid fa-bars"></i> </a>
             </div>
         </div>
         <div class="homeMObileMenu d-md-none" id="homeMobileNav">
             <div class="menu d-flex flex-column justify-content-center align-items-start row-gap-2">
-                <a href="{{ route('home') }}" class="menu_item"> Home </a>
-                <a href="{{ route('price') }}" class="menu_item"> Price </a>
-                <a href="{{ route('faq') }}" class="menu_item"> Faq </a>
-                <a href="{{ route('contact') }}" class="menu_item border-0"> Contact </a>
+                <a href="{{ route('home') }}" class="menu_item {{ Route::currentRouteName() == 'home' ? 'active' : '' }}"> Home </a>
+                <a href="{{ route('about') }}" class="menu_item {{ Route::currentRouteName() == 'about' ? 'active' : '' }}"> About Us </a>
+                <a href="{{ route('price') }}" class="menu_item {{ Route::currentRouteName() == 'price' ? 'active' : '' }}"> Pricing  </a>
+                <a href="{{ route('faq') }}" class="menu_item {{ Route::currentRouteName() == 'faq' ? 'active' : '' }}"> FAQ </a>
+                <a href="{{ route('contact') }}" class="menu_item {{ Route::currentRouteName() == 'contact' ? 'active' : '' }}"> Contact Us </a>
             </div>
         </div>
     </div>

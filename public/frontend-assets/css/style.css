@@ -1405,6 +1405,9 @@ input[type="checkbox"]{
 .imageDrop #image-display figure {
     width: 100%;
     height: 100%;
+    border: 1px solid white;
+    padding: 5px;
+    border-radius: 10px;
   }
   .imageDrop #image-display1 figure {
     width: 100%;
@@ -1437,7 +1440,7 @@ input[type="checkbox"]{
     color: #ff3030;
   }
 .imageDrop{
-    height: 130px;
+    height: 200px;
     width: fit-content;
     display: flex;
     flex-direction: column;
@@ -2467,7 +2470,10 @@ a{
     flex-wrap: wrap;
     width: 100%;
 }
-
+.submitDtsCard .fields{
+    display: flex;
+    column-gap: 10px;
+}
 
 
 
@@ -2476,11 +2482,11 @@ a{
 
 @media (max-width: 767px){
     .headerMain .logo .logopic{
-        width: 90%;
-        height: 30px;
+        width: 70%;
+        height: 100%;
     }
     .headerMain .logo .icon{
-        width: 17%;
+        width: 16%;
     }
     .headerMain .w-30{
         width: 100% !important;
@@ -2581,16 +2587,17 @@ a{
         position: absolute;
         width: 100%;
         left: 0;
-        top: -250px;
+        top: 75px;
         padding: 20px;
         background-color: white;
-        z-index: 5;
+        z-index: -1;
         border-radius: 0 0 10px 10px;
         box-shadow: 0 5px 5px #F43662;
         border-top: 1px solid #929292;
+        height: 0px;
         font-size: 16px;
         opacity: 0;
-        transition: all 0.4s ease-in;
+        transition: all 0.2s ease-in;
       }
       .notSignupHead .homeMObileMenu .menu_item{
         width: 100%;
@@ -2598,9 +2605,12 @@ a{
         border-bottom: 1px solid #929292;
       }
       .notSignupHead .show{
+        height: fit-content;
+        z-index: 5;
         opacity: 1;
         top: 75px;
-        transition: all 0.4s ease-out;
+        transition: all 0.2s ease-out;
+        background: #ffcad5;
       }
       .profileGrid {
         grid-template-columns: 1fr; /* 1 item per row on mobile */
@@ -2650,5 +2660,51 @@ a{
     }
     .contact-bg .contactInfo {
         padding: 30px;
+    }
+    .Pc-Menus{
+        display: none !important;
+    }
+    .loginBtn {
+        font-size: 14px;
+        color: #f43662;
+        border-radius: 5px;
+        padding: 0;
+    }
+    .registerbtn {
+        font-size: 12px;
+        color: white;
+        background-color: #f43662;
+        border-radius: 5px;
+        padding: 10px;
+    }
+    .menu_item.active {
+        color: white;
+        font-weight: bold;
+        background: #fc3661;
+        border-radius: 10px;
+        padding-left: 20px !important;
+
+    }
+    .menu_item {
+        padding-left: 20px !important;
+        border: none !important;
+    }
+    .main{
+        overflow: hidden;
+    }
+    .foterWidgets{
+        flex-direction: column;
+        row-gap: 40px;
+        padding-left: 20px;
+    }
+    .foterWidgets .innerDiv {
+        width: 100%;
+    }
+    .foterWidgets2{
+        flex-direction: column;
+        row-gap: 30px;
+    }
+    .foterWidgets2 .footerMenu{
+        font-size: 12px !important;
     }
 }

@@ -32,6 +32,7 @@ Route::get('/faq',[FaqController::class,'index'])->name('faq');
 Route::get('/contact',[ContactController::class,'index'])->name('contact');
 Route::get('/googleLogin', [UserAuthController::class, 'googleLogin'])->name('googleLogin');
 Route::get('/auth/google/callback', [UserAuthController::class, 'googleHandler'])->name('googleHandler');
+Route::get('/get-upazilas/{districtId}', [UserAuthController::class, 'getUpazilas']);
 
 Route::group(['prefix' => 'account'],function(){
     Route::group(['middleware' => 'guest'],function(){
@@ -55,6 +56,7 @@ Route::group(['prefix' => 'account'],function(){
         Route::get('/profiles/{slug}', [UserProfileController::class, 'profiles'])->name('profiles');
         Route::get('/submit/profile/details', [UserAuthController::class, 'details'])->name('submitDetails');
         Route::post('/user/profile/match', [UserProfileController::class,'submitMatchProfile'])->name('match.details.submit');
+
 
     });
 });

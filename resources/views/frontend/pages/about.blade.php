@@ -22,19 +22,9 @@
                     <div class="col-md-6 paRight">
                         <h1>WELCOME TO</h1>
                         <h3>WEDDING MATRIMONY</h3>
-                        <p>Best wedding matrimony it is a long established fact that a reader will be
-                            distracted by the readable content of a page when looking at it’s
-                            layout.Best wedding matrimony it is a long established fact that a reader
-                            will be distracted by the readable content of a page when looking at it’s
-                            layout.Best wedding matrimony it is a long established fact that a reader
-                            will be distracted by the readable content of a page when looking at it’s
-                            layout.Best wedding matrimony it is a long established fact that a reader
-                            will be distracted by the readable content of a page when looking at it’s
-                            layout.Best wedding matrimony it is a long established fact that a reader
-                            will be distracted by the readable content of a page when looking at it’s
-                            layout.Best wedding matrimony it is a long established fact that a reader
-                            will be distracted by the readable content of a page when looking at it’s
-                            layout.</p>
+                        <p>At Link My Heart, we believe that every heart deserves a perfect match. As a dedicated matrimonial platform, we are committed to helping individuals find meaningful connections that lead to lifelong relationships. Our mission is to bring together like-minded souls based on shared values, interests, and aspirations, offering a safe and trusted space for those seeking companionship.
+                            <br>
+                            Founded on the principles of honesty, integrity, and respect, Link My Heart provides an easy-to-use interface for users to connect with potential life partners. We understand that marriage is one of the most important decisions in life, which is why we go the extra mile to ensure that your search for love is secure, reliable, and guided by your personal preferences.</p>
 
                         <p><a href="" class="clickHere">Click here to </a> Start you matrimony service now.</p>
                     </div>
@@ -53,21 +43,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 paddingLefts">
-                        <p>Lorem ipsum dolor sit amet consectetur. Ut fringilla ullamcorper mauris
-                            mauris integer ac nunc. Risus viverra et amet vitae. Augue vestibulum
-                            ornare quam pellentesque diam eget parturient. Suscipit dui leo lobortis
-                            duis in. At semper faucibus sed lorem. Vel ultrices adipiscing aliquam
-                            aliquet metus pretium senectus. Vitae tempus facilisis sapien nam.
-
-                            Cras ac elit sed aliquet eget orci est diam. Nunc pretium in ac id nisi. Quis
-                            aenean eros euismod suscipit integer aliquet mi magna. Ultrices non
-                            tincidunt in semper arcu tellus lorem risus amet. Risus non at elementum
-                            ornare ullamcorper adipiscing viverra pellentesque.
-
-                            Pharetra neque lectus sit elementum. Porttitor donec dui gravida placerat
-                            orci fringilla ut pellentesque posuere. Quam consectetur et malesuada
-                            amet aenean sit sed mattis. Integer vitae scelerisque aliquam sit risus sit
-                            quis at. Faucibus elit tristique ut et pellentesque nullam. Eget sed viverra.</p>
+                        <p> A trusted matrimonial platform dedicated to helping individuals find true love and meaningful relationships. We understand that marriage is not just about finding a partner, but about discovering someone who shares your values, dreams, and goals. That's why we've created a platform where love and commitment are built on strong foundations. <br> Our journey began with a simple mission: to connect hearts and create lasting bonds. At Link My Heart, we believe that every person deserves the chance to find their ideal partner. Our platform is designed with care to bring together individuals who are serious about finding a life companion, offering advanced matchmaking tools that prioritize compatibility.</p>
 
                         <p class="mb-0"><a href="" class="clickHere">Click here to </a> Start you matrimony service now.</p>
 

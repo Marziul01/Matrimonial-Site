@@ -13,7 +13,7 @@
     <div class="section homebg">
         <div class="d-flex align-items-center h-100 w-50">
             <div class="home-section my-3 w-100">
-                <h2 class="text-white homeMain-heading">Find yourRight <br> <span style="color: #f43662">Match here</span></h2>
+                <h2 class="text-white homeMain-heading">Find Your Right <br> <span style="color: #f43662">Match Here</span></h2>
                 <form class="w-50 d-flex flex-column home-Selects mt-5">
                     <div class="select-wrapper">
                         <select>
@@ -206,7 +206,7 @@
                 <img class="pointerImage" src="{{ asset('frontend-assets/imgs/image-22.png') }}">
             </div>
             <div>
-                <p class="text-center trustedOne"># 1 WEEDING WEBSITE</p>
+                <p class="text-center trustedOne">WEEDING WEBSITE</p>
                 <h1 class="text-center trustedTitle">Why Choose us</h1>
                 <p class="text-center trustedSubTitle">Most Trusted and premium Matrimony Service in the World</p>
             </div>
