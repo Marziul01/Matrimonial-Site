@@ -2187,6 +2187,7 @@ a{
     height: 45vh;
     overflow: hidden;
     overflow-y: auto;
+    padding-right: 20px;
 }
 .submitDtsCard .termText h3{
     font-size: 22px;
@@ -2441,6 +2442,35 @@ a{
     font-size: 13px;
     color: #f43662;
 }
+/* Custom scrollbar for the div */
+.termText::-webkit-scrollbar {
+    width: 5px; /* Width of the scrollbar */
+}
+.termText::-webkit-scrollbar-thumb {
+    background: black; /* Color of the scroll thumb */
+    border-radius: 100vw; /* Rounded corners */
+}
+.termText::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Background of the scrollbar track */
+    border-radius: 100vw;
+}
+.matchesTitle{
+    font-size: 70px;
+    color: white;
+    font-weight: 400;
+}
+.matchesTitle span{
+    font-weight: 700;
+}
+.matchcard{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+
+
+
 
 
 

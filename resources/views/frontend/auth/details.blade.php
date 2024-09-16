@@ -417,7 +417,246 @@
                                 </div>
 
                                 <div class="d-flex justify-content-center">
-                                    <button type="button" class="phonVerifyBtn mt-3" id="cardBtn_1" > Verify</button>
+                                    <button type="button" class="contineBtn phonVerifyBtn mt-3" id="cardBtn_1" > Verify</button>
+                                </div>
+                            </div>
+                            <div class="submitDtsCard" id="card_8">
+
+                                <div class="w-100 termscheck mt-3">
+                                    <div class="d-flex align-items-center justify-content-center column-gap-2 w-100">
+                                        <p class="text-center">Enter Your Verification Code</p>
+                                        <div class="d-flex align-items-center justify-content-start">
+                                            <input class="form-control" type="number" name="code" id="phoneCode" placeholder="Enter Verification Code">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit" class="contineBtn phonVerifyBtn mt-3" id="cardBtn_1" > Verify</button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <form id="profileMatchDetailsSubmit" class="d-none">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h2 class="matchesTitle">To Help you Find
+                                        Good Matches <br>
+                                        <span>Tell us About
+                                            your Preferences</span>
+                                    </h2>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="submitDtsCard" id="card_1">
+                                        <div class="row">
+                                            <div class="col-md-6 radios">
+                                                <p class="">Preferred Match Marital Status</p>
+                                                <div class="d-flex align-items-center justify-content-center column-gap-2">
+                                                    <div class="w-30 select-wrapper " style="">
+                                                        <select name="marital_status" class="form-control">
+                                                            <option value="">Please Select</option>
+                                                            <option value="Single">Single</option>
+                                                            <option value="Divorced">Divorced</option>
+                                                            <option value="Widowed">Widowed</option>
+                                                            <option value="Awaiting Divorce">Awaiting Divorce</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 radios">
+                                                <p class="">Preferred Match Education</p>
+                                                <div class="d-flex align-items-center justify-content-center column-gap-2">
+                                                    <div class="w-30 select-wrapper " style="">
+                                                        <select name="education" class="form-control">
+                                                            <option value="">Please Select</option>
+                                                            <option value="Secondary Education">Secondary Education</option>
+                                                            <option value="Higher Secondary">Higher Secondary</option>
+                                                            <option value="Diploma in Engineering">Diploma in Engineering</option>
+                                                            <option value="Fazil">Fazil</option>
+                                                            <option value="Bachelor's">Bachelor's</option>
+                                                            <option value="Master's">Master's</option>
+                                                            <option value="Doctorate">Doctorate</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 radios">
+                                                <p class="">Preferred Match Religion</p>
+                                                <div class="d-flex align-items-center justify-content-center column-gap-2">
+                                                    <div class="w-30 select-wrapper " style="">
+                                                        <select name="religion" class="form-control">
+                                                            <option value="">Please Select</option>
+                                                            <option value="">Religion</option>
+                                                            <option value="Islam">Islam</option>
+                                                            <option value="Hindu">Hindu</option>
+                                                            <option value="Buddhism">Buddhism</option>
+                                                            <option value="Christianity">Christianity</option>
+                                                            <option value="Atheist">Atheist</option>
+                                                            <option value="Others">Others</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 radios">
+                                                <p class="">Preferred Match District</p>
+                                                <div class="d-flex align-items-center justify-content-center column-gap-2">
+                                                    <div class="w-30 select-wrapper " style="">
+                                                        <select name="district" class="form-control">
+                                                            <option value="">Please Select</option>
+                                                            @foreach ($districts  as  $district)
+                                                                <option value="{{ $district->id }}">{{ $district->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 radios">
+                                                <p class="">Preferred Match Age</p>
+                                                <div class="d-flex align-items-center justify-content-center column-gap-2">
+                                                    <div class="w-50">
+                                                        <p class="">From</p>
+                                                        <div class="w-30 select-wrapper " style="">
+
+                                                            <select name="age_from" class="form-control">
+
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                                <option value="32">32</option>
+                                                                <option value="33">33</option>
+                                                                <option value="34">34</option>
+                                                                <option value="35">35</option>
+                                                                <option value="36">36</option>
+                                                                <option value="37">37</option>
+                                                                <option value="38">38</option>
+                                                                <option value="39">39</option>
+                                                                <option value="40">40</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="w-50">
+                                                        <p class="">To</p>
+                                                        <div class="w-30 select-wrapper " style="">
+
+                                                            <select name="age_to" class="form-control">
+
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                                <option value="32">32</option>
+                                                                <option value="33">33</option>
+                                                                <option value="34">34</option>
+                                                                <option value="35">35</option>
+                                                                <option value="36">36</option>
+                                                                <option value="37">37</option>
+                                                                <option value="38">38</option>
+                                                                <option value="39">39</option>
+                                                                <option value="40">40</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 radios">
+                                                <p class="">Preferred Match Height</p>
+                                                <div class="d-flex align-items-center justify-content-center column-gap-2">
+                                                    <div class="w-50">
+                                                        <p class="">From</p>
+                                                        <div class="w-30 select-wrapper " style="">
+                                                            <select name="height_form" class="form-control">
+
+                                                                <option value="5'">5'</option>
+                                                                <option value="5.1'">5.1'</option>
+                                                                <option value="5.2'">5.2'</option>
+                                                                <option value="5.3'">5.3'</option>
+                                                                <option value="5.4'">5.4'</option>
+                                                                <option value="5.5'">5.5'</option>
+                                                                <option value="5.6'">5.6'</option>
+                                                                <option value="5.7'">5.7'</option>
+                                                                <option value="5.8'">5.8'</option>
+                                                                <option value="5.9'">5.9'</option>
+                                                                <option value="5.10'">5.10'</option>
+                                                                <option value="5.11'">5.11'</option>
+                                                                <option value="6'">6'</option>
+                                                                <option value="6.1'">6.1'</option>
+                                                                <option value="6.2'">6.2'</option>
+                                                                <option value="6.3'">6.3'</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="w-50">
+                                                        <p class="">To</p>
+                                                        <div class="w-30 select-wrapper " style="">
+
+                                                            <select name="height_to" class="form-control">
+                                                                <option value="5'">5'</option>
+                                                                <option value="5.1'">5.1'</option>
+                                                                <option value="5.2'">5.2'</option>
+                                                                <option value="5.3'">5.3'</option>
+                                                                <option value="5.4'">5.4'</option>
+                                                                <option value="5.5'">5.5'</option>
+                                                                <option value="5.6'">5.6'</option>
+                                                                <option value="5.7'">5.7'</option>
+                                                                <option value="5.8'">5.8'</option>
+                                                                <option value="5.9'">5.9'</option>
+                                                                <option value="5.10'">5.10'</option>
+                                                                <option value="5.11'">5.11'</option>
+                                                                <option value="6'">6'</option>
+                                                                <option value="6.1'">6.1'</option>
+                                                                <option value="6.2'">6.2'</option>
+                                                                <option value="6.3'">6.3'</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="w-100 radios">
+                                                <p class="text-center">Family Status</p>
+                                                <div class="d-flex align-items-center justify-content-center column-gap-2">
+                                                    <div class="">
+                                                        <input class="form-check-input" type="radio" value="Rich" name="family_status" id="Rich">
+                                                        <label class="form-check-label" for="Rich">Rich </label>
+                                                    </div>
+                                                    <div class="">
+                                                        <input class="form-check-input" type="radio" value="Upper Middle Class" name="family_status" id="Upper_Middle">
+                                                        <label class="form-check-label" for="Upper_Middle">Upper Middle Class </label>
+                                                    </div>
+                                                    <div class="">
+                                                        <input class="form-check-input" type="radio" value="Middle Class" name="family_status" id="Middle">
+                                                        <label class="form-check-label" for="Middle">Middle Class </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-center">
+                                            <button type="button" class="contineBtn mt-3" id="cardBtn_1" > Save & Continue</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -497,5 +736,10 @@
         }
     });
 </script>
+
+<script>
+
+</script>
+
 
 @endsection
