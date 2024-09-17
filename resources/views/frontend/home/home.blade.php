@@ -11,10 +11,10 @@
 @section('content')
 
     <div class="section homebg">
-        <div class="d-flex align-items-center h-100 w-50">
+        <div class="d-flex align-items-center h-100 w-50 mobileWidth">
             <div class="home-section my-3 w-100">
                 <h2 class="text-white homeMain-heading">Find Your Right <br> <span style="color: #f43662">Match Here</span></h2>
-                <form class="w-50 d-flex flex-column home-Selects mt-5">
+                <form class="w-50 d-flex flex-column home-Selects mt-5 mobileWidth">
                     <div class="select-wrapper">
                         <select>
                             <option>I'm Looking For</option>
@@ -43,7 +43,7 @@
         </div>
     </div>
 
-    <div class="section d-flex w-100 py-4 h-100">
+    <div class="section d-flex w-100 py-4 h-100  sectionreverse">
         <div class="w-60 dashbedBorders">
             <div class="step-one">
                 <div>

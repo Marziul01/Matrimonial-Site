@@ -648,7 +648,7 @@
 
                                 </div>
                                 <div class="d-flex justify-content-center">
-                                    <button type="submit" class="contineBtn mt-3" id="cardBtn_1" > Save & Continue</button>
+                                    <button type="submit" class="phonVerifyBtn mt-3" id="cardBtn_1" > Save & Continue</button>
                                 </div>
                             </div>
 
@@ -875,7 +875,7 @@
                                             </div>
 
                                             <div class="d-flex justify-content-center">
-                                                <button type="submit" class="contineBtn mt-3" id="cardBtn_1" > Save & Continue</button>
+                                                <button type="submit" class="phonVerifyBtn mt-3" id="cardBtn_1" > Save & Continue</button>
                                             </div>
                                         </div>
                                     </div>
@@ -1193,6 +1193,7 @@
                     // Optional: Show loader or disable button here
                 },
                 success: function (response) {
+
                     toastr.success('Your Preferred Match Details Submitted Successfully!', '', {
                         "positionClass": "toast-top-right",
                         "timeOut": "2000",

@@ -134,10 +134,6 @@ class UserAuthController extends Controller
             }
         }
 
-        if(is_null($profile)){
-            return redirect(route('submitDetails'));
-        }
-
         // Redirect the user based on session URL or default to the dashboard
         if (session()->has('url.intended')) {
             return response()->json([
@@ -172,6 +168,10 @@ class UserAuthController extends Controller
     }
 
     public static function details(){
+
+        if(isset(Auth::user()->profile) && isset(Auth::user()->match) ){
+            return redirect(route('user.dashboard'));
+        }
 
         return view('frontend.auth.details', [
             'countries' => Country::all(),

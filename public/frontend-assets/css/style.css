@@ -2495,7 +2495,13 @@ a{
         width: 55% !important;
     }
     .homeMain-heading{
-        font-size: 40px;
+        font-size: 60px;
+    }
+    .homeMain-heading span{
+        font-size: 60px;
+    }
+    .homebg{
+        padding: 50px 20px;
     }
     .popupModal{
         padding-top: 60%;
@@ -2706,5 +2712,27 @@ a{
     }
     .foterWidgets2 .footerMenu{
         font-size: 12px !important;
+    }
+    .mobileWidth{
+        width: 100% !important;
+   }
+   .sectionreverse{
+        flex-direction: column-reverse;
+   }
+   .dashbedBorders{
+        width: 100%;
+        border-right: none;
+        border-top: 10px solid #f43662;
+        padding-top: 65px;
+        padding-right: 0px;
+   }
+   .stepsTexts{
+        width: 100%;
+        justify-content: center;
+        padding-left: 0px;
+   }
+   .stepsTexts h2 {
+        font-size: 60px;
+        text-align: center;
     }
 }

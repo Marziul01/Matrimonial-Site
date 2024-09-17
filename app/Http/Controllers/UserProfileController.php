@@ -70,7 +70,7 @@ class UserProfileController extends Controller
             $planWarning = 1;
         }
 
-        if($profile == null || $userMatchDetails == null){
+        if(is_null($profile) || is_null($userMatchDetails)){
             return redirect(route('submitDetails'));
         }
 
