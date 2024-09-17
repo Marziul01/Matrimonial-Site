@@ -43,15 +43,15 @@
         <div class="modal-body">
             <form id="sign-up">
                 @csrf
-                <div class="names">
-                    <div class="w-50">
+                <div class="">
+                    <div class="">
                         <input type="text" name="first_name" placeholder="First Name" class="form-control">
                     </div>
-                    <div class="w-50">
+                    <div class="mt-2">
                         <input type="text" name="last_name" placeholder="Last Name" class="form-control">
                     </div>
                 </div>
-                <div class="w-100 radios">
+                {{-- <div class="w-100 radios">
                     <p class="">Gender</p>
                     <div class="d-flex align-items-center column-gap-2">
                         <div class="">
@@ -234,10 +234,10 @@
                         <option value="Doctorate">Doctorate</option>
                     </select>
                     </div>
-                </div>
-                <div class="w-100 emailDiv" style="display: none;" id="emailDivs">
+                </div> --}}
+                <div class="w-100 emailDiv mt-2">
                     <input class="form-control" type="email" name="email" placeholder="Your Email">
-                    <div class="mt-3">
+                    <div class="mt-2">
                         <div class="input-group">
                             <input type="password" class="form-control" id="password" name="password" placeholder="Enter your Password" />
                             <div class="input-group-appends">
@@ -246,13 +246,13 @@
                                 </span>
                             </div>
                         </div>
-                        <button class="btn submitBtn mt-4" type="submit" style="float: left">Sign Up</button>
-                        <button class="btn submitBtn mt-4 cancelBtn" type="button" style="float: right">Cancel</button>
+                        <button class="btn submitBtn mt-2" type="submit" style="float: left">Sign Up</button>
+                        {{-- <button class="btn submitBtn mt-4 cancelBtn" type="button" style="float: right">Cancel</button> --}}
                     </div>
                 </div>
-                <div class="signupOptions" id="signupOptions">
-                    <button type="button" id="with_email" class="btn openEmailSignup"> Sign Up with Email </button>
-                    <a type="button" href="{{ URL::to('googleLogin') }}" class="googleSignin"> <img src="{{ asset('frontend-assets/imgs/Google_Icons-09-512.webp') }}">  Sign Up with Google </a>
+                <div class="signupOptions mt-2" id="signupOptions">
+                    {{-- <button type="button" id="with_email" class="btn openEmailSignup"> Sign Up with Email </button> --}}
+                    <a type="button" href="{{ URL::to('googleLogin') }}" class="googleSignin mt-2"> <img src="{{ asset('frontend-assets/imgs/Google_Icons-09-512.webp') }}">  Sign Up with Google </a>
                 </div>
             </form>
         </div>
@@ -335,63 +335,75 @@
 </script>
 
 <script>
-    $(document).ready(function () {
-        $('#sign-up').on('submit', function (e) {
-            e.preventDefault();
+   $(document).ready(function () {
+    $('#sign-up').on('submit', function (e) {
+        e.preventDefault();
 
-            // Prepare form data
-            let formData = $(this).serialize();
+        // Prepare form data
+        let formData = $(this).serialize();
 
-            $.ajax({
-                url: '{{ route("userRegister") }}', // Using the named route
-                type: 'POST',
-                data: formData,
-                dataType: 'json', // Expect JSON response
-                success: function (response) {
-                    if (response.success) {
-                        // Show success notification with a green background
-                        toastr.success('Registration Successful!', '', {
+        $.ajax({
+            url: '{{ route("userRegister") }}', // Using the named route
+            type: 'POST',
+            data: formData,
+            dataType: 'json', // Expect JSON response
+            success: function (response) {
+                if (response.success) {
+                    // Show success notification with a green background
+                    toastr.success('Registration Successful!', '', {
+                        "positionClass": "toast-top-right",
+                        "timeOut": "2000", // Auto-close after 2 seconds
+                        "progressBar": true,
+                    });
+
+                    // Redirect to the dashboard after a short delay
+                    setTimeout(function () {
+                        window.location.href = response.redirect;
+                    }, 2000); // Redirect after 2 seconds
+                } else {
+                    // Check if user is already logged in
+                    if (typeof response.errors === 'string' && response.errors === 'You are already logged in.') {
+                        toastr.error(response.errors, '', {
                             "positionClass": "toast-top-right",
                             "timeOut": "2000", // Auto-close after 2 seconds
                             "progressBar": true,
-                            "backgroundClass": 'bg-success', // Green background
-                        });
-
-                        // Redirect to the dashboard after a short delay
-                        setTimeout(function () {
-                            window.location.href = response.redirect;
-                        }, 2000); // Redirect after 2 seconds
-                    } else {
-                        // Handle the case where success is false and show errors
-                        let errors = response.errors;
-                        let errorMessage = '';
-
-                        // Loop through errors and concatenate the messages
-                        $.each(errors, function (key, value) {
-                            errorMessage += value[0] + '<br>'; // value is an array, so take the first element
-                        });
-
-                        // Show error notification with a red background
-                        toastr.error(errorMessage, '', {
-                            "positionClass": "toast-top-right",
                             "backgroundClass": 'bg-danger', // Red background
                         });
-                    }
-                },
-                error: function (xhr) {
-                    toastr.error('An unexpected error occurred. Please try again.', '', {
-                        "positionClass": "toast-top-right",
-                        "backgroundClass": 'bg-danger', // Red background
-                    });
-                }
-            });
-        });
 
-        // Close the popup when the close button is clicked
-        $('.close-popup').on('click', function () {
-            $('#popup').fadeOut();
+                        // Redirect to the dashboard
+                        setTimeout(function () {
+                            window.location.href = response.redirect;
+                        }, 2000);
+                    } else {
+                        // Handle validation errors
+                        let errors = response.errors;
+
+                        // Loop through errors and show each one separately
+                        $.each(errors, function (key, value) {
+                            toastr.error(value[0], '', {
+                                "positionClass": "toast-top-right",
+                                "backgroundClass": 'bg-danger', // Red background
+                                "timeOut": "3000", // Display each error for 3 seconds
+                            });
+                        });
+                    }
+                }
+            },
+            error: function (xhr) {
+                toastr.error('An unexpected error occurred. Please try again.', '', {
+                    "positionClass": "toast-top-right",
+                    "backgroundClass": 'bg-danger', // Red background
+                });
+            }
         });
     });
+
+    // Close the popup when the close button is clicked
+    $('.close-popup').on('click', function () {
+        $('#popup').fadeOut();
+    });
+});
+
 </script>
 
 <script>

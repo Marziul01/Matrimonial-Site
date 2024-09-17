@@ -39,7 +39,7 @@
                                     <input type="checkbox" class="form-check-input" id="remember" />
                                     <label class="form-check-label" for="remember" style="color: white">Remember</label>
                                 </div>
-                                <a href="#" class="d-block text-center mt-3 text-white">Forgot password?</a>
+                                <a href="{{ route('forgetPass') }}" class="d-block text-center mt-3 text-white">Forgot password?</a>
                             </div>
                             <div class="form-group mt-4">
                                 <button type="submit" class="btn btn-common btn-block mt-4 signConfBtn">Sign in</button>

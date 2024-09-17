@@ -33,13 +33,18 @@ Route::get('/contact',[ContactController::class,'index'])->name('contact');
 Route::get('/googleLogin', [UserAuthController::class, 'googleLogin'])->name('googleLogin');
 Route::get('/auth/google/callback', [UserAuthController::class, 'googleHandler'])->name('googleHandler');
 Route::get('/get-upazilas/{districtId}', [UserAuthController::class, 'getUpazilas']);
+Route::post('/user/register', [UserAuthController::class ,'userRegister'])->name('userRegister');
 
 Route::group(['prefix' => 'account'],function(){
     Route::group(['middleware' => 'guest'],function(){
-        Route::post('/user/register', [UserAuthController::class ,'userRegister'])->name('userRegister');
+
         Route::post('/user/login', [UserAuthController::class,'signin'])->name('user.login');
         Route::get('/signin',[UserAuthController::class,'login'])->name('login');
         Route::get('/signup',[UserAuthController::class,'register'])->name('register');
+        Route::get('/forget/password',[UserAuthController::class,'forgetPass'])->name('forgetPass');
+        Route::post('/password/verify-email', [UserAuthController::class, 'verifyEmail'])->name('password.verifyEmail');
+        Route::post('/password/verify-code', [UserAuthController::class, 'verifyCode'])->name('password.verifyCode');
+        Route::post('/password/reset', [UserAuthController::class, 'resetPassword'])->name('password.reset');
 
     });
 

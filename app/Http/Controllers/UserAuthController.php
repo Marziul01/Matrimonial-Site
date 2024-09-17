@@ -29,24 +29,28 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Carbon;
+use App\Mail\PasswordResetCodeMail;
 
 
 class UserAuthController extends Controller
 {
     private static $auth;
 
-    public static function userRegister(Request $request) {
+    public static function userRegister(Request $request)
+    {
+        // Check if user is already logged in
+        if (Auth::check()) {
+            return response()->json([
+                'success' => false,
+                'errors' => ['general' => ['You are already logged in.']],
+                'redirect' => route('user.dashboard'),
+            ], 422); // Use 422 status code for validation issues
+        }
 
+        // Validation
         $validator = Validator::make($request->all(), [
             'first_name' => 'required|string|max:255',
             'last_name'  => 'required|string|max:255',
-            'gender'     => 'required|in:female,male',
-            'looking_for' => 'required|in:bride,groom',
-            'month'      => 'required',
-            'day'        => 'required',
-            'year'       => 'required',
-            'religion'   => 'required',
-            'education'  => 'required',
             'email'      => 'required|email|unique:users,email', // Unique email
             'password'   => 'required|min:8',
         ]);
@@ -58,21 +62,20 @@ class UserAuthController extends Controller
             ]);
         }
 
-        self::$auth = new User();
-        self::$auth->password = bcrypt($request->password);
-        self::$auth->role = 0;
-        self::$auth->email = $request->email;
-        self::$auth->name = $request->first_name. '' . $request->last_name;
-        self::$auth->save();
+        // Save user and related data
+        $user = new User();
+        $user->password = bcrypt($request->password);
+        $user->role = 0;
+        $user->email = $request->email;
+        $user->name = $request->first_name . ' ' . $request->last_name;
+        $user->save();
 
-        Auth::login(self::$auth);
-        $user = self::$auth->id;
+        Auth::login($user);
 
         $userInfo = new UserInfo();
-        $userInfo->user_id = $user;
+        $userInfo->user_id = $user->id;
         $userInfo->looking_for = $request->looking_for;
         $userInfo->gender = $request->gender;
-        $userInfo->relation = null;
         $userInfo->first_name = $request->first_name;
         $userInfo->last_name = $request->last_name;
         $userInfo->religion = $request->religion;
@@ -82,14 +85,15 @@ class UserAuthController extends Controller
         $userInfo->save();
 
         $plan = new UserPlan();
-        $plan->user_id = $user;
+        $plan->user_id = $user->id;
         $plan->plan_id = 1;
         $plan->start_date = now();
         $plan->end_date = null;
         $plan->save();
 
-        return response()->json(['success' => true, 'redirect' => route('submitDetails')]);
+        return response()->json(['success' => true, 'redirect' => route('user.dashboard')]);
     }
+
 
     public static function logout(){
         Auth::logout();
@@ -132,14 +136,6 @@ class UserAuthController extends Controller
                     'message' => 'Your profile has been blocked.'
                 ], 401);
             }
-        }
-
-        // Redirect the user based on session URL or default to the dashboard
-        if (session()->has('url.intended')) {
-            return response()->json([
-                'success' => true,
-                'redirect' => session()->get('url.intended')
-            ]);
         }
 
         return response()->json([
@@ -245,6 +241,94 @@ class UserAuthController extends Controller
         // Return the result as a JSON response
         return response()->json($upazilas);
     }
+
+
+    public static function forgetPass() {
+        return view('frontend.auth.forgetPassword',[
+
+        ]);
+    }
+
+    public function verifyEmail(Request $request)
+{
+    $request->validate(['email' => 'required|email']);
+
+    $user = User::where('email', $request->email)->first();
+    if (!$user) {
+        return response()->json(['success' => false, 'message' => 'Email not found.']);
+    }
+
+    // Generate 6-digit verification code
+    $code = rand(100000, 999999);
+
+    // Store the code in session (or use a database to store temporary codes)
+    Session::put('password_reset_code', $code);
+    Session::put('password_reset_email', $user->email);
+
+    try {
+        // Send the code via email
+        Mail::to($user->email)->send(new PasswordResetCodeMail($code));
+    } catch (\Exception $e) {
+        Log::error('Failed to send password reset email: ' . $e->getMessage());
+        return response()->json(['success' => false, 'message' => 'Failed to send email. Please try again later.']);
+    }
+
+    return response()->json(['success' => true, 'message' => 'Verification code sent to your email.']);
+}
+
+    // Step 2: Verify the code
+    public function verifyCode(Request $request)
+{
+    $request->validate(['code' => 'required']);
+
+    $storedCode = Session::get('password_reset_code');
+    $storedEmail = Session::get('password_reset_email');
+
+    if ($request->code == $storedCode) {
+        // Return success along with stored email and code
+        return response()->json([
+            'success' => true,
+            'email' => $storedEmail,
+            'code' => $storedCode
+        ]);
+    } else {
+        return response()->json(['success' => false, 'message' => 'Invalid code.']);
+    }
+}
+
+    // Step 3: Reset password
+    public function resetPassword(Request $request)
+{
+    $request->validate([
+        'prevemail' => 'required|email',
+        'prevcode' => 'required|integer',
+        'password' => 'required|string|min:8|confirmed',
+    ]);
+
+    $storedCode = $request->session()->get('password_reset_code');
+    $storedEmail = $request->session()->get('password_reset_email');
+
+    if ($storedCode != $request->prevcode || $storedEmail != $request->prevemail) {
+        return response()->json(['success' => false, 'message' => 'Invalid code or email.']);
+    }
+
+    $user = User::where('email', $storedEmail)->first();
+    if (!$user) {
+        return response()->json(['success' => false, 'message' => 'User not found.']);
+    }
+
+    $user->password = bcrypt($request->password);
+    $user->save();
+
+    $request->session()->forget(['password_reset_code', 'password_reset_email']);
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Password successfully updated.',
+        'redirect' => route('login')
+    ]);
+}
+
 
 
 

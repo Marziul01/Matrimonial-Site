@@ -1,4 +1,4 @@
-{{-- @if (!Auth::check()) --}}
+@if ( Route::currentRouteName() !== 'user.dashboard' )
 <header class="section headerContainer">
     <div class=" headerMain d-flex justify-content-center align-items-center w-100 notSignupHead">
         <div class="w-30">
@@ -38,7 +38,7 @@
         </div>
     </div>
 </header>
-{{-- @else
+@else
 <header class="section border-bottom-1" style="border: 1px solid rgb(0 0 0 / 18%)">
     <div class=" headerMain d-flex justify-content-between align-items-center w-100">
         <div class="w-30">
@@ -80,7 +80,7 @@
         </div>
     </div>
 </header>
-@endif --}}
+@endif
 
 
 @include('frontend.include.mobilenav')

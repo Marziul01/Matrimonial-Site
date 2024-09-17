@@ -26,6 +26,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ProfileSubmittedMail;
 use App\Mail\NewMatchFoundMail;
 use Illuminate\Support\Facades\DB;
+use App\Models\District;
+use App\Models\Upazila;
 
 class UserProfileController extends Controller
 {
@@ -70,9 +72,9 @@ class UserProfileController extends Controller
             $planWarning = 1;
         }
 
-        if(is_null($profile) || is_null($userMatchDetails)){
-            return redirect(route('submitDetails'));
-        }
+        // if(is_null($profile) || is_null($userMatchDetails)){
+        //     return redirect(route('submitDetails'));
+        // }
 
         if($userMatchDetails !== null){
             // User's match preferences
@@ -108,6 +110,9 @@ class UserProfileController extends Controller
             'UserPlanDetails' => $userPlan,
             'plans' => $plans,
             'planWarning' => $planWarning,
+            'countries' => Country::all(),
+            'districts' => District::all(),
+            'upazilas' => Upazila::all(),
             // 'fillMatchDetails' => $fillMatchDetails,
         ]);
     }

@@ -851,7 +851,7 @@ input[type="checkbox"]{
 }
 .Registration_Modal .modal-content{
     background-color: #f43662;
-    height: 75vh;
+    /* height: 75vh; */
     padding: 20px;
 }
 .Registration_Modal .modal-body{
