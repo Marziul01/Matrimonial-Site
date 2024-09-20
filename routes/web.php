@@ -9,10 +9,13 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\MatchesController;
+use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\UserPlanController;
 use Chatify\Http\Controllers\MessagesController;
 use App\Http\Controllers\PlansController;
+use App\Http\Controllers\UserDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +36,7 @@ Route::get('/contact',[ContactController::class,'index'])->name('contact');
 Route::get('/googleLogin', [UserAuthController::class, 'googleLogin'])->name('googleLogin');
 Route::get('/auth/google/callback', [UserAuthController::class, 'googleHandler'])->name('googleHandler');
 Route::get('/get-upazilas/{districtId}', [UserAuthController::class, 'getUpazilas']);
-Route::post('/user/register', [UserAuthController::class ,'userRegister'])->name('userRegister');
+Route::post('/user/register', [UserAuthController::class ,'signUp'])->name('userRegister');
 
 Route::group(['prefix' => 'account'],function(){
     Route::group(['middleware' => 'guest'],function(){
@@ -45,12 +48,13 @@ Route::group(['prefix' => 'account'],function(){
         Route::post('/password/verify-email', [UserAuthController::class, 'verifyEmail'])->name('password.verifyEmail');
         Route::post('/password/verify-code', [UserAuthController::class, 'verifyCode'])->name('password.verifyCode');
         Route::post('/password/reset', [UserAuthController::class, 'resetPassword'])->name('password.reset');
+        Route::post('/verify-code', [UserAuthController::class, 'verifyEmailCode'])->name('verifaction_code');
 
     });
 
     Route::group(['middleware' => 'auth'],function(){
         Route::get('/user/logout',[UserAuthController::class,'logout'])->name('user.logout');
-        Route::get('/user/dashboard',[UserProfileController::class,'dashboard'])->name('user.dashboard');
+        Route::get('/user/dashboard',[UserDashboardController::class,'dashboard'])->name('user.dashboard');
         Route::get('/user/profile',[UserProfileController::class,'viewProfile'])->name('user.profile');
         Route::post('/user/profile/submit', [UserProfileController::class,'submitProfile'])->name('profile.store');
         Route::post('/user/partner/profile/submit', [UserProfileController::class,'submitPartnerProfile'])->name('partner.profile.store');
@@ -61,7 +65,8 @@ Route::group(['prefix' => 'account'],function(){
         Route::get('/profiles/{slug}', [UserProfileController::class, 'profiles'])->name('profiles');
         Route::get('/submit/profile/details', [UserAuthController::class, 'details'])->name('submitDetails');
         Route::post('/user/profile/match', [UserProfileController::class,'submitMatchProfile'])->name('match.details.submit');
-
+        Route::get('/user/matches',[MatchesController::class,'matches'])->name('user.matches');
+        Route::get('/user/notifications',[NotificationsController::class,'notifications'])->name('user.notifications');
 
     });
 });

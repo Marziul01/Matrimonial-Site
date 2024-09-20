@@ -10,7 +10,112 @@
 
 @section('content')
 
-<div class="section d-flex align-items-center position-fixed dashboardMain">
+
+    <div class="section">
+        <div class="dashDetailsDiv">
+            <div class="imageBox">
+                <div class="image">
+                    @if (isset(Auth::user()->profile->image))
+                        <img src="{{ asset(Auth::user()->profile->image) }}" class="img" alt="">
+                    @else
+                        <i class="fa-regular fa-user icon"></i>
+                    @endif
+                    <p class="UserName"> {{ Auth::user()->name }} </p>
+                    <p class="userEmail">{{ Auth::user()->email }}</p>
+                </div>
+                <div class="memplanDiv">
+                    <div>
+                        <p class="memPlan"> <a href="">{{ Auth::user()->plans->plan_id == 1 ? 'Buy Membership' : Auth::user()->plans->plan->name }} </a> </p>
+                        <p class="memplanname">{{ Auth::user()->plans->plan_id == 1 ? Auth::user()->plans->plan->name : 'Validity till '.' '. \Carbon\Carbon::parse(Auth::user()->plans->end_date)->format('j F') }}</p>
+                    </div>
+                    <i class="fa-solid fa-crown"></i>
+                </div>
+            </div>
+            <div class="detailsBox">
+                <div class="statsBox">
+                    <div class="statsBoxDiv">
+                        <h5>My Statistics</h5>
+                        <div class="stats">
+                            <a href="" class="statsInfos"> <h2>01</h2> <p>Pending Invitations</p> </a>
+                            <a href="" class="statsInfos"> <h2>01</h2> <p>Pending Invitations</p> </a>
+                            <a href="" class="statsInfos"> <h2>01</h2> <p>Pending Invitations</p> </a>
+                            <a href="" class="statsInfos"> <h2>01</h2> <p>Pending Invitations</p> </a>
+                            <a href="" class="statsInfos"> <h2>01</h2> <p>Pending Invitations</p> </a>
+                            <a href="" class="statsInfos"> <h2>01</h2> <p>Pending Invitations</p> </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="findBox">
+                    <div class="bgSectionColor adSection m-0">
+                        <div class="w-50">
+                            <h1 class="title">Let’s not Wait <br> To Meet</h1>
+                            <a class="btn joinBtn" href="">Join Now</a>
+                        </div>
+                        <img class="img" src="{{ asset('frontend-assets/imgs/Home-Couple-Optimized-1.png') }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- {{ is_null($profileComplete) ? 'blur' : '' }} --}}
+        <div class="recentVisitor matchScrooler">
+            <h1>Recent Visitors</h1>
+            <div class="Testimonialwrapper" id="Testimonialwrapper1">
+                <i id="testimonialleft" class="fa-solid fa-circle-chevron-left"></i>
+                <ul class="Testimonialcarousel" id="Testimonialcarousel1">
+                    @foreach ($profiles as  $profile)
+                        <li class="Testimonialcard p-2 h-100">
+                            <div class="TestimonialcardInner h-100">
+                                <div class="testimonial-item w-100">
+                                    <div class="img">
+                                        <img src="{{ asset($profile->image) }}" class="d-block" alt="Testimonial Image">
+                                        <h2>{{ $profile->first_name . ' ' . $profile->last_name }}</h2>
+                                    </div>
+                                    <div class="w-100 text-left mainTestiText">
+                                        <p class="mb-0">{{ $profile->age . 'yr ,' . $profile->height . 'ft ,' . $profile->location }}</p>
+                                        <a href="">View Profile</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
+                <i id="testimonialright" class="fa-solid fa-circle-chevron-right"></i>
+            </div>
+
+        </div>
+
+        <div class="recentVisitor matchScrooler">
+            <h1>My Matches</h1>
+            <div class="Testimonialwrapper" id="Testimonialwrapper2">
+                <i id="testimonialleft2" class="fa-solid fa-circle-chevron-left"></i>
+                <ul class="Testimonialcarousel" id="Testimonialcarousel2">
+                    @foreach ($profiles as  $profile)
+                        <li class="Testimonialcard p-2 h-100">
+                            <div class="TestimonialcardInner h-100">
+                                <div class="testimonial-item w-100">
+                                    <div class="img">
+                                        <img src="{{ asset($profile->image) }}" class="d-block" alt="Testimonial Image">
+                                        <h2>{{ $profile->first_name . ' ' . $profile->last_name }}</h2>
+                                    </div>
+                                    <div class="w-100 text-left mainTestiText">
+                                        <p class="mb-0">{{ $profile->age . 'yr ,' . $profile->height . 'ft ,' . $profile->location }}</p>
+                                        <a href="">View Profile</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
+                <i id="testimonialright2" class="fa-solid fa-circle-chevron-right"></i>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+{{-- <div class="section d-flex align-items-center position-fixed dashboardMain">
     <div class="card w-100 border-0">
         <div class="card-body w-100  pb-0 pt-0">
             <div class="d-flex align-items-start column-gap-3">
@@ -1090,7 +1195,7 @@
                                                 <div>
                                                     <a href="javascript:void(0);" class="price1Btn" id="choose-plan-pro-plus" data-plan-id="3"> Choose Plan </a>
                                                 </div>
-                                            </div> --}}
+                                            </div>
                                         </div>
                                       </div>
                                       <div class="tab-pane fade  show active" id="v-pills-profilePlan" role="tabpanel" aria-labelledby="v-pills-profilePlan-tab">
@@ -1100,7 +1205,7 @@
                                                     <h2 class="priceTitle">Free</h2>
                                                     <p class="priceSubTitle"> Basic Chat Functionality </p>
                                                     <h1 class="priceAmount">BDT 0</h1>
-                                                    {{-- <p class="priceAmountText">Per month renew</p> --}}
+                                                    <p class="priceAmountText">Per month renew</p>
                                                 </div>
                                                 <div class="py-3">
                                                     <p class="planServices"><i class="fa-solid fa-circle-check"></i> 30 days history</p>
@@ -1696,8 +1801,7 @@
             </div>
         </div>
     </div>
-</div>
-
+</div> --}}
 
 @endsection
 
@@ -2678,4 +2782,181 @@ document.getElementById('prevToLookingFor').addEventListener('click', function()
         // Add your continue button logic here
     });
 </script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const carousel1 = document.getElementById("Testimonialcarousel1");
+    const leftBtn1 = document.getElementById("testimonialleft");
+    const rightBtn1 = document.getElementById("testimonialright");
+    const cards1 = carousel1.querySelectorAll(".Testimonialcard");
+    const cardWidth1 = cards1[0].offsetWidth;
+    const totalCards1 = cards1.length;
+
+    let isDragging1 = false,
+        startX1,
+        startScrollLeft1;
+
+    // Set carousel width to fit exactly 4 visible cards
+    carousel1.style.width = `${cardWidth1 * 4}px`;
+
+    // Disable the left button initially because we start from the first card
+    leftBtn1.classList.add("disabled");
+
+    const dragStart1 = (e) => {
+        isDragging1 = true;
+        carousel1.classList.add("dragging");
+        startX1 = e.pageX;
+        startScrollLeft1 = carousel1.scrollLeft;
+    };
+
+    const dragging1 = (e) => {
+        if (!isDragging1) return;
+        const newScrollLeft1 = startScrollLeft1 - (e.pageX - startX1);
+        carousel1.scrollLeft = newScrollLeft1;
+    };
+
+    const dragStop1 = () => {
+        isDragging1 = false;
+        carousel1.classList.remove("dragging");
+        checkButtons1();  // Check buttons after drag stops
+    };
+
+    const checkButtons1 = () => {
+        const scrollLeft1 = carousel1.scrollLeft;
+
+        if (scrollLeft1 <= 0) {
+            leftBtn1.classList.add("disabled");
+        } else {
+            leftBtn1.classList.remove("disabled");
+        }
+
+        if (scrollLeft1 >= (totalCards1 - 4) * cardWidth1) {
+            rightBtn1.classList.add("disabled");
+        } else {
+            rightBtn1.classList.remove("disabled");
+        }
+    };
+
+    leftBtn1.addEventListener("click", () => {
+        if (carousel1.scrollLeft > 0) {
+            carousel1.scrollBy({
+                left: -cardWidth1,
+                behavior: 'smooth'
+            });
+            setTimeout(checkButtons1, 800);
+        }
+    });
+
+    rightBtn1.addEventListener("click", () => {
+        if (carousel1.scrollLeft < (totalCards1 - 4) * cardWidth1) {
+            carousel1.scrollBy({
+                left: cardWidth1,
+                behavior: 'smooth'
+            });
+            setTimeout(checkButtons1, 800);
+        }
+    });
+
+    carousel1.addEventListener("mousedown", dragStart1);
+    carousel1.addEventListener("mousemove", dragging1);
+    document.addEventListener("mouseup", dragStop1);
+
+    checkButtons1();
+});
+
+
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const carousel2 = document.getElementById("Testimonialcarousel2");
+    const leftBtn2 = document.getElementById("testimonialleft2");
+    const rightBtn2 = document.getElementById("testimonialright2");
+    const cards2 = carousel2.querySelectorAll(".Testimonialcard");
+    const cardWidth2 = cards2[0].offsetWidth;
+    const totalCards2 = cards2.length;
+
+    let isDragging2 = false,
+        startX2,
+        startScrollLeft2;
+
+    carousel2.style.width = `${cardWidth2 * 4}px`;
+
+    leftBtn2.classList.add("disabled");
+
+    const dragStart2 = (e) => {
+        isDragging2 = true;
+        carousel2.classList.add("dragging");
+        startX2 = e.pageX;
+        startScrollLeft2 = carousel2.scrollLeft;
+    };
+
+    const dragging2 = (e) => {
+        if (!isDragging2) return;
+        const newScrollLeft2 = startScrollLeft2 - (e.pageX - startX2);
+        carousel2.scrollLeft = newScrollLeft2;
+    };
+
+    const dragStop2 = () => {
+        isDragging2 = false;
+        carousel2.classList.remove("dragging");
+        checkButtons2();
+    };
+
+    const checkButtons2 = () => {
+        const scrollLeft2 = carousel2.scrollLeft;
+
+        if (scrollLeft2 <= 0) {
+            leftBtn2.classList.add("disabled");
+        } else {
+            leftBtn2.classList.remove("disabled");
+        }
+
+        if (scrollLeft2 >= (totalCards2 - 4) * cardWidth2) {
+            rightBtn2.classList.add("disabled");
+        } else {
+            rightBtn2.classList.remove("disabled");
+        }
+    };
+
+    leftBtn2.addEventListener("click", () => {
+        if (carousel2.scrollLeft > 0) {
+            carousel2.scrollBy({
+                left: -cardWidth2,
+                behavior: 'smooth'
+            });
+            setTimeout(checkButtons2, 800);
+        }
+    });
+
+    rightBtn2.addEventListener("click", () => {
+        if (carousel2.scrollLeft < (totalCards2 - 4) * cardWidth2) {
+            carousel2.scrollBy({
+                left: cardWidth2,
+                behavior: 'smooth'
+            });
+            setTimeout(checkButtons2, 800);
+        }
+    });
+
+    carousel2.addEventListener("mousedown", dragStart2);
+    carousel2.addEventListener("mousemove", dragging2);
+    document.addEventListener("mouseup", dragStop2);
+
+    checkButtons2();
+});
+
+
+</script>
+
 @endsection

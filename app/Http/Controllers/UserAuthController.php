@@ -30,69 +30,100 @@ use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Carbon;
 use App\Mail\PasswordResetCodeMail;
+use App\Mail\VerificationMail;
 
 
 class UserAuthController extends Controller
 {
     private static $auth;
 
-    public static function userRegister(Request $request)
-    {
-        // Check if user is already logged in
+    public function signUp(Request $request) {
         if (Auth::check()) {
             return response()->json([
                 'success' => false,
-                'errors' => ['general' => ['You are already logged in.']],
-                'redirect' => route('user.dashboard'),
-            ], 422); // Use 422 status code for validation issues
+                'message' => 'You are already logged in.',
+            ], 422);
         }
 
         // Validation
         $validator = Validator::make($request->all(), [
             'first_name' => 'required|string|max:255',
             'last_name'  => 'required|string|max:255',
-            'email'      => 'required|email|unique:users,email', // Unique email
+            'email'      => 'required|email|unique:users,email',
             'password'   => 'required|min:8',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'errors' => $validator->errors()
+                'errors' => $validator->errors() // Return validation errors
+            ], 422);
+        }
+
+        // Save form data temporarily in the session
+        session([
+            'user_data' => $request->except('password'),
+            'password' => Hash::make($request->password),
+        ]);
+
+        $verificationCode = Str::random(6);
+        session(['verification_code' => $verificationCode]);
+
+        // Send verification email
+        Mail::to($request->email)->send(new VerificationMail($verificationCode));
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Verification code sent to your email.'
+        ]);
+    }
+
+
+    public function verifyEmailCode(Request $request)
+    {
+        $verificationCode = session('verification_code');
+
+        if ($request->code == $verificationCode) {
+
+            $userData = session('user_data');
+            $password = session('password');
+
+            // Create new user
+            $user = new User;
+            $user->role = 0;
+            $user->name = $userData['first_name'] . ' ' . $userData['last_name'];
+            $user->email = $userData['email'];
+            $user->password = $password;
+            $user->save();
+
+            // Assign default user plan
+            $plan = new UserPlan();
+            $plan->user_id = $user->id;
+            $plan->plan_id = 1;
+            $plan->start_date = now();
+            $plan->end_date = null;
+            $plan->save();
+
+            // Log the user in
+            Auth::login($user);
+
+            // Clear session data
+            session()->forget(['user_data', 'password', 'verification_code']);
+
+            // Send success response with redirect URL
+            return response()->json([
+                'success' => true,
+                'redirect' => route('user.dashboard')
             ]);
         }
 
-        // Save user and related data
-        $user = new User();
-        $user->password = bcrypt($request->password);
-        $user->role = 0;
-        $user->email = $request->email;
-        $user->name = $request->first_name . ' ' . $request->last_name;
-        $user->save();
-
-        Auth::login($user);
-
-        $userInfo = new UserInfo();
-        $userInfo->user_id = $user->id;
-        $userInfo->looking_for = $request->looking_for;
-        $userInfo->gender = $request->gender;
-        $userInfo->first_name = $request->first_name;
-        $userInfo->last_name = $request->last_name;
-        $userInfo->religion = $request->religion;
-        $userInfo->email = $request->email;
-        $userInfo->education_level = $request->education;
-        $userInfo->date_of_birth = Carbon::create($request->year, $request->month, $request->day);
-        $userInfo->save();
-
-        $plan = new UserPlan();
-        $plan->user_id = $user->id;
-        $plan->plan_id = 1;
-        $plan->start_date = now();
-        $plan->end_date = null;
-        $plan->save();
-
-        return response()->json(['success' => true, 'redirect' => route('user.dashboard')]);
+        // Send error response for invalid verification code
+        return response()->json([
+            'success' => false,
+            'message' => 'Invalid verification code'
+        ]);
     }
+
 
 
     public static function logout(){

@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-
+@php $showLoggedOutHeader = true; @endphp
     <div class="section homebg">
         <div class="d-flex align-items-center h-100 w-50 mobileWidth">
             <div class="home-section my-3 w-100">
@@ -394,7 +394,7 @@
         // Start autoplay on load
         autoPlay();
     });
-    </script>
+</script>
 
 
 

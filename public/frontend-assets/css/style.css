@@ -2474,7 +2474,266 @@ a{
     display: flex;
     column-gap: 10px;
 }
+.userImageProfileTog{
+    background-color: transparent;
+    color: #f43662;
+    border: 1px solid white;
+    border-radius: 50% !important;
+    padding: 1px;
+    width: 45px;
+    height: 45px;
+    overflow: hidden;
+}
+.userImageProfileTog:hover{
+    background-color: #f43662;
+    color: white;
+    border: 1px solid white;
+}
+.userImageProfileTog.show{
+    background-color: #f43662;
+    color: white;
+    border: 1px solid white;
+}
+.headerSearch{
+    display: flex;
+    position: relative;
+    align-items: center;
+    flex: 1;
+}
+.headerSearch .form-control{
+    padding: 10px;
+    border-radius: 50px;
+    border: none;
+}
+.headerSearch .form-control:focus{
+    border: none;
+    box-shadow: none;
 
+}
+.headerSearch i{
+    position: absolute;
+    right: 20px;
+    color: #f43662;
+}
+.userImageProfileDrop{
+    margin-top: 19px !important;
+    border-radius: 0px;
+    font-size: 15px;
+    width: 225px;
+    padding: 0 0px;
+}
+.userImageProfileDrop .dropdown-item{
+    padding: 15px;
+    color: #f43662;
+    border-bottom: 1px solid #f43662;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.dashDetailsDiv{
+    display: flex;
+    width: 100%;
+}
+.dashDetailsDiv .imageBox{
+    width: 25%;
+    background: white;
+    box-shadow: 0px 4px 10px grey;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.dashDetailsDiv .imageBox .image{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f43662;
+}
+.dashDetailsDiv .imageBox .img{
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+.dashDetailsDiv .imageBox .icon{
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    border: 2px solid #f43662;
+    padding: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    color: #f43662;
+    margin-bottom: 20px;
+}
+.dashDetailsDiv .imageBox .UserName{
+    color: #F43662;
+    font-weight: 600;
+    font-size: 30px;
+}
+.memplanDiv{
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.memPlan a{
+    font-size: 28px;
+    font-weight: 600;
+    color: #f43662;
+    text-decoration: none;
+}
+.memplanname{
+    font-weight: 600;
+}
+.fa-crown {
+    color: #f43662;
+    font-size: 25px;
+}
+.detailsBox{
+    width: 75%;
+    padding: 0 0 0 30px;
+}
+.statsBox{
+    width: 75%;
+    padding: 30px 0;
+}
+.statsBoxDiv{
+    background: #f43662;
+    padding: 30px;
+    border-radius: 10px;
+}
+.statsBoxDiv h5{
+    color: white;
+    margin-bottom: 20px;
+}
+.stats{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    background: white;
+}
+.statsInfos{
+    width: 33%;
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #f43662;
+    flex-grow: 1;
+    font-size: 12px;
+    color: #f43662;
+}
+.statsInfos h2{
+    color: black;
+    margin-bottom: 0;
+}
+.findBox .adSection{
+    padding: 30px 60px 10px;
+    justify-content: space-between;
+}
+.findBox .adSection .title {
+    font-size: 40px;
+    margin-bottom: 0px;
+}
+.findBox .adSection .joinBtn {
+    margin-top: 20px;
+}
+.findBox .adSection .img{
+    width: 20%;
+}
+.recentVisitor{
+    margin: 100px 0;
+}
+.recentVisitor h1{
+    color: #f43662;
+}
+.matchScrooler .Testimonialcarousel .Testimonialcard .img{
+    transform: translate(0) rotate(0deg);
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+    background: #FEF8F7;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+}
+.matchScrooler .Testimonialcarousel .Testimonialcard .img img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    transform: rotate(0deg);
+    position: relative;
+    border: 2px solid #f43662;
+}
+.matchScrooler .Testimonialcarousel .Testimonialcard .img h2{
+    color: #f43662;
+    font-size: 22px;
+    margin-top: 20px;
+}
+.matchScrooler .testimonial-item{
+    padding: 0;
+    max-width: 100%;
+    border-radius: 0px;
+    border: 1px solid #f43662;
+}
+.matchScrooler .mainTestiText{
+    margin-top: 0;
+    background-color: #f43662;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 20px;
+}
+.matchScrooler .mainTestiText p{
+    text-align: center;
+    color: white;
+}
+.matchScrooler .mainTestiText a{
+    background: white;
+    padding: 5px 40px;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 10px;
+    color: #f43662;
+}
+.matchScrooler .Testimonialcarousel .TestimonialcardInner{
+    width: 100%;
+    margin-top: 0;
+}
+.matchScrooler .Testimonialcarousel .Testimonialcard::before{
+    display: none;
+}
+.matchScrooler .Testimonialcarousel .Testimonialcard::after{
+    display: none;
+}
+.matchScrooler .Testimonialwrapper .Testimonialcarousel{
+    grid-auto-columns: calc((100% / 4));
+    width: 100% !important;
+    max-width: 100% !important;
+}
+.matchScrooler .Testimonialwrapper{
+    max-width: 100% !important;
+}
+.matchScrooler .Testimonialwrapper i:first-child{
+    left: unset;
+    right: 62px;
+    bottom: -52px;
+}
+.matchScrooler .Testimonialwrapper i{
+    top: unset;
+}
+.matchScrooler .Testimonialwrapper .disable{
+    color: #f4366238 !important;
+}
 
 
 

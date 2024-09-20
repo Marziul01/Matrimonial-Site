@@ -6,6 +6,7 @@
 
 
 @section('content')
+@php $showLoggedOutHeader = true; @endphp
     <div class="">
         <div class="d-flex w-100 h-100 LoginPage">
             <div class="leftImage">

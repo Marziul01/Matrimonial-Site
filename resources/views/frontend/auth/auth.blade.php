@@ -6,6 +6,7 @@
 
 
 @section('content')
+@php $showLoggedOutHeader = true; @endphp
     <div class="">
         <div class="d-flex w-100 h-100 LoginPage">
             <div class="leftImage">
@@ -39,14 +40,14 @@
                                     <input type="checkbox" class="form-check-input" id="remember" />
                                     <label class="form-check-label" for="remember" style="color: white">Remember</label>
                                 </div>
-                                <a href="{{ route('forgetPass') }}" class="d-block text-center mt-3 text-white">Forgot password?</a>
+                                <a href="{{ route('forgetPass') }}" class="d-block text-center text-white mt-2">Forgot password?</a>
                             </div>
                             <div class="form-group mt-4">
                                 <button type="submit" class="btn btn-common btn-block mt-4 signConfBtn">Sign in</button>
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <a type="button" href="{{ URL::to('googleLogin') }}" class="googleSignin"> <img src="{{ asset('frontend-assets/imgs/Google_Icons-09-512.webp') }}">  Sign in with Google </a>
-                            </div>
+                            </div> --}}
                         </form>
 
 

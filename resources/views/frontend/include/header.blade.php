@@ -1,4 +1,3 @@
-@if ( Route::currentRouteName() !== 'user.dashboard' )
 <header class="section headerContainer">
     <div class=" headerMain d-flex justify-content-center align-items-center w-100 notSignupHead">
         <div class="w-30">
@@ -38,49 +37,7 @@
         </div>
     </div>
 </header>
-@else
-<header class="section border-bottom-1" style="border: 1px solid rgb(0 0 0 / 18%)">
-    <div class=" headerMain d-flex justify-content-between align-items-center w-100">
-        <div class="w-30">
-            <div class="logo d-flex align-items-center column-gap-2">
-                <a id="menuToggle" class="d-md-none mobileNavtoggle"><i class="fa-solid fa-bars"></i></a>
-                <a href="{{ route('user.dashboard') }}" class="d-flex align-items-center column-gap-2">
-                    <img class="icon" src="{{ asset('frontend-assets/imgs/favicon2.png') }}" width="10%">
-                    <img class="logopic" src="{{ asset('frontend-assets/imgs/logo.png') }}" width="50%" height="50px">
-                </a>
-            </div>
-        </div>
-        <div class="w-70 d-none d-md-block">
-            <div class="menu d-flex justify-content-end align-items-center column-gap-2">
-                <div class="dropdown" style="display: flex; align-items-center">
-                    <button class="profileImg" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                      <span>Welcome {{ isset(Auth::user()->profile->first_name ) ? Auth::user()->profile->first_name : '' }} ,</span>  <img src="@if(isset(Auth::user()->profile->first_name )) {{ asset(Auth::user()->profile->image) }} @else  {{ asset('frontend-assets') }}/imgs/man.png @endif ">
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="dropdownMenuButton1">
-                        <li>
-                            <button type="button" class="dropdown-item" id="externalButton">View Profile</button>
-                        </li>
-                    </ul>
-                    <a href="{{ route(config('chatify.routes.prefix')) }}" class="messageCount"><i class="fa-regular fa-message messageCountIcon"></i> <span class="messageCounter"> {{ DB::table('ch_messages')->where('to_id', Auth::user()->id)->where('seen', 0)->count() }} </span> </a>
-                </div>
-            </div>
-        </div>
-        <div class="w-50 d-md-none pr-1">
-            <div class="dropdown d-flex justify-content-end align-item-center">
-                <button class="profileImg" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="@if(isset(Auth::user()->profile->first_name )) {{ asset(Auth::user()->profile->image) }} @else  {{ asset('frontend-assets') }}/imgs/man.png @endif ">
-                  </button>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="dropdownMenuButton1">
-                      <li>
-                          <button type="button" class="dropdown-item" id="opensMessagesTab">View Profile</button>
-                      </li>
-                  </ul>
-                  <a href="{{ route(config('chatify.routes.prefix')) }}" class="messageCount"><i class="fa-regular fa-message messageCountIcon"></i> <span class="messageCounter"> {{ DB::table('ch_messages')->where('to_id', Auth::user()->id)->where('seen', 0)->count() }} </span> </a>
-            </div>
-        </div>
-    </div>
-</header>
-@endif
+
 
 
 @include('frontend.include.mobilenav')

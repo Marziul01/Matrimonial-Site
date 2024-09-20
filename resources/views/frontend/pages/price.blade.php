@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-
+@php $showLoggedOutHeader = true; @endphp
     <div class="bg-price">
         <div class="section membershipbg">
             <div class="py-5">
