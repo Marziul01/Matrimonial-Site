@@ -16,6 +16,8 @@ use App\Http\Controllers\UserPlanController;
 use Chatify\Http\Controllers\MessagesController;
 use App\Http\Controllers\PlansController;
 use App\Http\Controllers\UserDashboardController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +39,20 @@ Route::get('/googleLogin', [UserAuthController::class, 'googleLogin'])->name('go
 Route::get('/auth/google/callback', [UserAuthController::class, 'googleHandler'])->name('googleHandler');
 Route::get('/get-upazilas/{districtId}', [UserAuthController::class, 'getUpazilas']);
 Route::post('/user/register', [UserAuthController::class ,'signUp'])->name('userRegister');
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])
+    ->name('password.request');
+
+// Send the password reset link
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])
+    ->name('password.email');
+
+// Show the reset password form
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])
+    ->name('password.reset');
+
+// Handle the password reset
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])
+    ->name('password.update');
 
 Route::group(['prefix' => 'account'],function(){
     Route::group(['middleware' => 'guest'],function(){
@@ -47,7 +63,7 @@ Route::group(['prefix' => 'account'],function(){
         Route::get('/forget/password',[UserAuthController::class,'forgetPass'])->name('forgetPass');
         Route::post('/password/verify-email', [UserAuthController::class, 'verifyEmail'])->name('password.verifyEmail');
         Route::post('/password/verify-code', [UserAuthController::class, 'verifyCode'])->name('password.verifyCode');
-        Route::post('/password/reset', [UserAuthController::class, 'resetPassword'])->name('password.reset');
+        Route::post('/password/reset', [UserAuthController::class, 'resetPassword'])->name('password.recovery');
         Route::post('/verify-code', [UserAuthController::class, 'verifyEmailCode'])->name('verifaction_code');
 
     });
@@ -89,6 +105,8 @@ Route::group(['prefix' => 'admin'],function(){
         Route::post('/add/CreditPlan',[PlansController::class,'addCreditPlan'])->name('addCreditPlan');
         Route::post('/edit/CreditPlan/{id}',[PlansController::class,'editCreditPlan'])->name('editCreditPlan');
         Route::get('/delete/Plan/{id}',[PlansController::class,'deletePlan'])->name('deletePlan');
+        Route::post('/admin/search-users', [UserController::class, 'searchUsers'])->name('admin.searchUsers');
+        Route::get('/admin/send-password-reset/{user}', [UserController::class, 'sendPasswordReset'])->name('admin.sendPasswordReset');
     });
 
 });

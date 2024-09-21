@@ -96,3 +96,8 @@
     padding: 3px 7px;
     border-radius: 5px;
 }
+.allUserCards{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+    gap: 10px;
+}
