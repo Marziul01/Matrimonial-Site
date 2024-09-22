@@ -146,7 +146,7 @@
 
                 // Loop through messages and append them to the chat body
                 data.messages.forEach(function (msg) {
-                    supportMsg.innerHTML += `<p><strong>You:</strong> ${msg.message}</p>`;
+                    supportMsg.innerHTML += `<p><strong>You :</strong> ${msg.message}</p>`;
                 });
             }
         })
