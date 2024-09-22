@@ -293,7 +293,7 @@
         this.querySelector("#eyereg").classList.toggle("fa-eye");
     });
 </script>
-<script src="{{ mix('js/app.js') }}"></script>
+@vite('resources/js/app.js')
 
 @yield('customJs')
 
