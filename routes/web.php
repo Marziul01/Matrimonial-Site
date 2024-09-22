@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\LiveSupport;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\AdminLoginController;
 use App\Http\Controllers\admin\DashboardController;
@@ -18,6 +19,9 @@ use App\Http\Controllers\PlansController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use Illuminate\Http\Request;
+use App\Http\Controllers\LiveSupportController;
+use App\Http\Controllers\AdminLiveSupportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,20 +43,13 @@ Route::get('/googleLogin', [UserAuthController::class, 'googleLogin'])->name('go
 Route::get('/auth/google/callback', [UserAuthController::class, 'googleHandler'])->name('googleHandler');
 Route::get('/get-upazilas/{districtId}', [UserAuthController::class, 'getUpazilas']);
 Route::post('/user/register', [UserAuthController::class ,'signUp'])->name('userRegister');
-Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])
-    ->name('password.request');
-
-// Send the password reset link
-Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])
-    ->name('password.email');
-
-// Show the reset password form
-Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])
-    ->name('password.reset');
-
-// Handle the password reset
-Route::post('password/reset', [ResetPasswordController::class, 'reset'])
-    ->name('password.update');
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+Route::post('live_support-message', [LiveSupportController::class, 'storeMessage']);
+Route::get('live_support-messages', [LiveSupportController::class, 'getMessages']);
+Route::get('/live_support-messages', [LiveSupportController::class, 'getUserMessages']);
 
 Route::group(['prefix' => 'account'],function(){
     Route::group(['middleware' => 'guest'],function(){
@@ -107,6 +104,12 @@ Route::group(['prefix' => 'admin'],function(){
         Route::get('/delete/Plan/{id}',[PlansController::class,'deletePlan'])->name('deletePlan');
         Route::post('/admin/search-users', [UserController::class, 'searchUsers'])->name('admin.searchUsers');
         Route::get('/admin/send-password-reset/{user}', [UserController::class, 'sendPasswordReset'])->name('admin.sendPasswordReset');
+        Route::get('/admin/live_support', [AdminLiveSupportController::class, 'showMessages'])->name('admin.live_support');
+        Route::get('/admin/live_support/chat/{userId}', [AdminLiveSupportController::class, 'getMessagesByUser'])->name('admin.live_support.chat');
+        Route::post('/admin/live_support-message', [AdminLiveSupportController::class, 'adminReplyMessage'])->name('adminReplyMessage');
+
+
+
     });
 
 });

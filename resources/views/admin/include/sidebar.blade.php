@@ -35,6 +35,12 @@
             <span>Credit Plans</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.live_support') }}">
+            <i class="fa-solid fa-user"></i>
+            <span>Support Center</span>
+        </a>
+    </li>
 
     {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"

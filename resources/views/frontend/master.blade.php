@@ -8,6 +8,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('frontend-assets') }}/imgs/favicon2.png" type="image/x-icon">
     <!-- Template CSS -->
@@ -292,6 +293,7 @@
         this.querySelector("#eyereg").classList.toggle("fa-eye");
     });
 </script>
+<script src="{{ mix('js/app.js') }}"></script>
 
 @yield('customJs')
 

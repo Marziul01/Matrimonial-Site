@@ -24,7 +24,7 @@
     <link href="{{ asset('admin-assets') }}/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="{{ asset('admin-assets') }}/dropzone/css/dropzone.min.css" rel="stylesheet">
 
-
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
     <link href="{{ asset('admin-assets') }}/css/style.css" rel="stylesheet">
 
 </head>
@@ -115,6 +115,7 @@
 <script src="{{ asset('admin-assets') }}/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="{{ asset('admin-assets') }}/js/demo/datatables-demo.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ mix('js/app.js') }}"></script>
 
 @yield('customjs')
 </body>

@@ -326,7 +326,7 @@ p{
     font-size: 2.25rem;
     transform: translateY(-50%);
     color: #f43662;
-    z-index: 9999;
+    z-index: 998;
     background: white;
 }
 
@@ -2734,8 +2734,112 @@ a{
 .matchScrooler .Testimonialwrapper .disable{
     color: #f4366238 !important;
 }
+.live-support-icon{
+    position: fixed;
+    bottom: 50px;
+    right: 30px;
+    z-index: 999;
+    background-color: white;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #f43662;
+    padding: 5px;
+    border: 1px solid #f43662;
+}
+.live-support-icon i{
+    color: #f43662;
+    font-size: 35px;
+}
+.live-support {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+.live-support-box {
+    position: absolute;
+    bottom: 85px;
+    right: 15px;
+    width: 320px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
 
+.live-support-box.active {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+}
 
+.chat-header {
+    background-color: #f43662;
+    color: white;
+    padding: 10px;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-header .close-chat {
+    cursor: pointer;
+}
+
+.chat-body {
+    padding: 15px;
+    height: 150px;
+    overflow-y: auto;
+    background-image: url(../imgs/live-body.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-bottom: 1px solid #ddd;
+}
+.chat-body p{
+    background: #f43662;
+    padding: 3px 10px;
+    width: fit-content;
+    color: white;
+    border-radius: 10px 0px;
+    margin-bottom: 10px;
+}
+.chat-footer {
+    padding: 10px;
+    display: flex;
+}
+
+.chat-footer input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.chat-footer button {
+    background-color: #f43662;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.chat-footer button:hover {
+    background-color: #f43662;
+}
 
 
 
