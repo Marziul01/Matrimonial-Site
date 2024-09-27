@@ -20,6 +20,7 @@ class MessageController extends Controller
             'number' => 'required|numeric',
             'date_of_birth' => 'required|date',
             'marital_status' => 'required|string|in:single,Divorced,Widowed,Awaiting Divorce',
+            'department' => 'required',
         ];
 
         // Run the validator
@@ -50,6 +51,7 @@ class MessageController extends Controller
 
         // If validation passes, save the data to the database
         $supportMessage = new LiveSupportMessage();
+        $supportMessage->department = $request->input('department');
         $supportMessage->name = $request->input('name');
         $supportMessage->email = $request->input('email');
         $supportMessage->message = $request->input('message');

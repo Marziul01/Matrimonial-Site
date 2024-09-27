@@ -2749,6 +2749,7 @@ a{
     box-shadow: 0 0 10px #f43662;
     padding: 5px;
     border: 1px solid #f43662;
+    cursor: pointer;
 }
 .live-support-icon i{
     color: #f43662;
@@ -2801,6 +2802,19 @@ a{
     overflow-y: auto;
     background-size: cover;
     background-repeat: no-repeat;
+}
+.chat-body::-webkit-scrollbar {
+    width: 10px;
+}
+
+.chat-body::-webkit-scrollbar-track {
+    background-color: white;
+    border-radius: 100vw; /* Creates a circular scrollbar track */
+}
+
+.chat-body::-webkit-scrollbar-thumb {
+    background-color: #f43662; /* Added '-color' for clarity */
+    border-radius: 100vw; /* Keeps the thumb rounded */
 }
 .chat-body p{
     width: fit-content;
@@ -2875,6 +2889,48 @@ a{
 .defp i{
     font-size: 40px;
 }
+.live-support-icon-box{
+    background: white;
+    padding: 15px;
+    border-radius: 5px;
+    bottom: 90px;
+    position: relative;
+    right: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 15px;
+    width: 290px;
+    cursor: pointer;
+    box-shadow: 0 0 5px #f43662;
+}
+.live-support-icon-box i{
+    font-size: 50px;
+    color: #f43662;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.live-support-icon-box h4{
+    font-size: 21px;
+}
+.live-support-icon-box p{
+    font-size: 15px;
+    color: grey;
+}
+.live-support-icon-box.animate__animated.animate__fadeIn {
+    --animate-duration: 3s;
+  }
+.closethebox{
+    position: absolute;
+    bottom: 205px;
+    right: 20px;
+    color: #f43662;
+    font-size: 13px;
+    cursor: pointer;
+}
+
 @media (max-width: 767px){
     .headerMain .logo .logopic{
         width: 70%;

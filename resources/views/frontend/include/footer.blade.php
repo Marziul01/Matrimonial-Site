@@ -55,6 +55,15 @@
 </div>
 
 <div class="live-support">
+    <i class="fa-solid fa-circle-xmark closethebox"></i>
+    <div class="live-support-icon-box animate__animated animate__fadeIn">
+        <i class="fa-solid fa-comments"></i>
+        <div>
+            <h4>Live Chat Online</h4>
+            <p>Click here and start Chatting with us !</p>
+        </div>
+
+    </div>
     <div class="live-support-icon">
         <i class="fa-solid fa-comment-dots"></i>
     </div>
@@ -68,28 +77,22 @@
 
             <!-- First form (supportMsg) -->
             <div id="supportMsg">
-                <input class="form-control" type="text" id="name" name="name" placeholder="Your Name" />
+                <input class="form-control" type="text" id="name" name="name" placeholder="Your Account Name" />
                 <small class="error" id="nameError" style="color:red;display:none;">Please fill in your name</small>
 
-                <input class="form-control" type="email" id="email" name="email" placeholder="Your Email" />
-                <small class="error" id="emailError" style="color:red;display:none;">Please provide a valid email</small>
-
-                <textarea class="form-control mesage" id="userMessage" name="message" placeholder="Type your message..."></textarea>
-                <small class="error" id="messageError" style="color:red;display:none;">Please type your message</small>
-
-                <button type="button" id="sendMessageBtn" class="msgbtnsub">Send Message <i class="fa-solid fa-paper-plane"></i></button>
-            </div>
-
-            <!-- Second form (supportMsg2) -->
-            <div id="supportMsg2" style="display: none;">
-                <input class="form-control" type="number" id="profileNumber" name="number" placeholder="Your Profile Number" />
-                <small class="error" id="numberError" style="color:red;display:none;">Please provide your profile number</small>
-
-                <input class="form-control" type="date" id="dob" name="date_of_birth" placeholder="Your Profile Date Of Birth" />
+                <input class="form-control" type="date" id="dob" name="date_of_birth" placeholder="Your Account Date Of Birth" />
                 <small class="error" id="dobError" style="color:red;display:none;">Please select your date of birth</small>
 
+                <input class="form-control" type="email" id="email" name="email" placeholder="Your Update Email" />
+                <small class="error" id="emailError" style="color:red;display:none;">Please provide a valid email</small>
+
+                <input class="form-control" type="number" id="profileNumber" name="number" placeholder="Your Account Number" />
+                <small class="error" id="numberError" style="color:red;display:none;">Please provide your profile number</small>
+
+
+
                 <select class="form-control" name="marital_status" id="maritalStatus">
-                    <option value="">Select Your Profile Marital Status </option>
+                    <option value="">Select Your Account Marital Status </option>
                     <option value="single">Single</option>
                     <option value="Divorced">Divorced</option>
                     <option value="Widowed">Widowed</option>
@@ -97,7 +100,16 @@
                 </select>
                 <small class="error" id="statusError" style="color:red;display:none;">Please select your marital status</small>
 
-                <button type="button" id="submitFormBtn" class="msgbtnsub w-100">Submit</button>
+                <select class="form-control" name="department" id="department">
+                    <option value="">Select Department </option>
+                    <option value="Password Recovery">Password Recovery</option>
+
+                </select>
+
+                <textarea class="form-control mesage" id="userMessage" name="message" placeholder="Type your message..."></textarea>
+                <small class="error" id="messageError" style="color:red;display:none;">Please type your message</small>
+
+                <button type="submit" id="sendMessageBtn" class="msgbtnsub w-100">Send <i class="fa-solid fa-paper-plane"></i></button>
             </div>
 
             <div id="successMessage" class=""></div>
@@ -109,18 +121,46 @@
 
 
 <script>
+    // When the 'live-support-icon' is clicked, toggle the chat box
     document.querySelector('.live-support-icon').addEventListener('click', function() {
         var chatBox = document.querySelector('.live-support-box');
+        var iconBox = document.querySelector('.live-support-icon-box');
+        var iconcloseicons = document.querySelector('.closethebox');
+
         chatBox.classList.toggle('active');
+        iconBox.style.display = 'none'; // Hide the live-support-icon-box
+        iconcloseicons.style.display = 'none';
     });
 
+    // When the 'live-support-icon-box' is clicked, open the chat box and hide the 'live-support-icon-box'
+    document.querySelector('.live-support-icon-box').addEventListener('click', function() {
+        var chatBox = document.querySelector('.live-support-box');
+        var iconBox = document.querySelector('.live-support-icon-box');
+        var iconcloseicons = document.querySelector('.closethebox');
+
+        chatBox.classList.toggle('active'); // Open the chat box
+        iconBox.style.display = 'none'; // Hide the live-support-icon-box
+        iconcloseicons.style.display = 'none';
+    });
+
+    // Close the chat box when the close chat icon is clicked
     document.querySelector('.close-chat').addEventListener('click', function() {
         var chatBox = document.querySelector('.live-support-box');
         chatBox.classList.remove('active');
     });
 
+    // When the 'closethebox' icon inside 'live-support-icon-box' is clicked, hide the 'live-support-icon-box'
+    document.querySelector('.closethebox').addEventListener('click', function(event) {
+        event.stopPropagation(); // Prevent triggering the 'live-support-icon-box' click event
+        var iconBox = document.querySelector('.live-support-icon-box');
+
+        iconBox.style.display = 'none'; // Hide the 'live-support-icon-box'
+        document.querySelector('.closethebox').style.display = 'none'; // Hide the close icon
+    });
 </script>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     $(document).ready(function() {
     // Hide supportMsg2 by default
@@ -150,21 +190,6 @@
         } else {
             $('#messageError').hide();
         }
-
-        return isValid;
-    }
-
-    // Event handler for the "Send Message" button
-    $('#sendMessageBtn').click(function() {
-        if (validateSupportMsg()) {
-            $('#supportMsg').hide();
-            $('#supportMsg2').show();
-        }
-    });
-
-    // Function to validate the second form (supportMsg2)
-    function validateSupportMsg2() {
-        var isValid = true;
 
         if ($('#profileNumber').val() === '') {
             $('#numberError').show();
@@ -199,8 +224,7 @@
     }
 
     // Event handler for the "Submit" button
-    $('#submitFormBtn').click(function() {
-    if (validateSupportMsg2()) {
+    $('#sendMessageBtn').click(function() {
         // Prepare form data for submission
         var formData = {
             name: $('#name').val(),
@@ -208,7 +232,8 @@
             message: $('#userMessage').val(),
             number: $('#profileNumber').val(),
             date_of_birth: $('#dob').val(),
-            marital_status: $('#maritalStatus').val()
+            marital_status: $('#maritalStatus').val(),
+            department: $('#department').val(),
         };
 
         // Perform AJAX form submission
@@ -249,7 +274,6 @@
                 }
             }
         });
-    }
 });
 
 
