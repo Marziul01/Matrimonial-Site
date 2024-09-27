@@ -36,7 +36,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.live_support') }}">
+        <a class="nav-link" href="{{ route('admin.chat.adminindex') }}">
             <i class="fa-solid fa-user"></i>
             <span>Support Center</span>
         </a>

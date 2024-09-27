@@ -2797,18 +2797,14 @@ a{
 
 .chat-body {
     padding: 15px;
-    height: 150px;
+    height: 400px;
     overflow-y: auto;
-    background-image: url(../imgs/live-body.png);
     background-size: cover;
     background-repeat: no-repeat;
-    border-bottom: 1px solid #ddd;
 }
 .chat-body p{
-    background: #f43662;
-    padding: 3px 10px;
     width: fit-content;
-    color: white;
+    color: black;
     border-radius: 10px 0px;
     margin-bottom: 10px;
 }
@@ -2816,7 +2812,26 @@ a{
     padding: 10px;
     display: flex;
 }
-
+.chat-body .form-control{
+    border: none;
+    background: transparent;
+    width: 100%;
+    height: 45px;
+    padding: 10px;
+    color: black;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #f436628e;
+}
+.chat-body .form-control.mesage{
+    height: 80px;
+}
+.chat-body .form-control::placeholder{
+    color: black;
+}
+.chat-body .form-control:focus{
+    border: 1px solid #f43662;
+}
 .chat-footer input {
     flex: 1;
     padding: 8px;
@@ -2840,9 +2855,26 @@ a{
 .chat-footer button:hover {
     background-color: #f43662;
 }
-
-
-
+.chat-body .msgbtnsub{
+    padding: 6px 20px;
+    background: #f43662;
+    border: none;
+    border-radius: 10px;
+    color: white;
+}
+.defp{
+    color: rgb(244 54 98);
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.defp i{
+    font-size: 40px;
+}
 @media (max-width: 767px){
     .headerMain .logo .logopic{
         width: 70%;

@@ -22,6 +22,10 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\LiveSupportController;
 use App\Http\Controllers\AdminLiveSupportController;
+use App\Http\Controllers\ChatsController;
+use App\Http\Controllers\PusherController;
+use App\Http\Controllers\ChatController;
+use App\Http\Controllers\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,9 +51,9 @@ Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestF
 Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
-Route::post('live_support-message', [LiveSupportController::class, 'storeMessage']);
-Route::get('live_support-messages', [LiveSupportController::class, 'getMessages']);
-Route::get('/live_support-messages', [LiveSupportController::class, 'getUserMessages']);
+Route::post('/user-chat-support', [MessageController::class, 'userchatsupport'])->name('user-chat-support');
+
+
 
 Route::group(['prefix' => 'account'],function(){
     Route::group(['middleware' => 'guest'],function(){
@@ -105,10 +109,8 @@ Route::group(['prefix' => 'admin'],function(){
         Route::post('/admin/search-users', [UserController::class, 'searchUsers'])->name('admin.searchUsers');
         Route::get('/admin/send-password-reset/{user}', [UserController::class, 'sendPasswordReset'])->name('admin.sendPasswordReset');
         Route::get('/admin/live_support', [AdminLiveSupportController::class, 'showMessages'])->name('admin.live_support');
-        Route::get('/admin/live_support/chat/{userId}', [AdminLiveSupportController::class, 'getMessagesByUser'])->name('admin.live_support.chat');
-        Route::post('/admin/live_support-message', [AdminLiveSupportController::class, 'adminReplyMessage'])->name('adminReplyMessage');
-
-
+        Route::get('/admin/live_support/chat/', [AdminLiveSupportController::class, 'getMessagesByUser'])->name('admin.chat.adminindex');
+        Route::post('/admin/live_support-message', [AdminLiveSupportController::class, 'adminReplyMessage'])->name('admin-reply-mail');
 
     });
 

@@ -101,3 +101,45 @@
     grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
     gap: 10px;
 }
+.messagebox{
+    height: 80vh;
+    overflow: hidden;
+}
+.messagebox .nav-link{
+    border: 1px solid;
+    margin-bottom: 5px;
+}
+.messagebox .nav-link .name{
+    text-align: left;
+    font-size: 15px;
+    font-weight: 600;
+    color: black;
+    margin-bottom: 0px;
+}
+.messagebox .nav-link .email{
+    text-align: left;
+    font-size: 11px;
+    margin-bottom: 5px;
+    color: black;
+}
+.messagebox .nav-link .mesage{
+    text-align: left;
+    color: black;
+    font-size: 15px;
+    margin-bottom: 0px;
+}
+.messagebox .nav-link.active .mesage, .messagebox .nav-link.active .email, .messagebox .nav-link.active .name{
+    color: white;
+}
+.nav{
+    height: 65vh !important;
+    overflow-y: auto;
+    flex-wrap: nowrap;
+}
+.tab-content
+{
+    padding-left: 20px;
+    border-left: 1px solid rgba(128, 128, 128, 0.329);
+    height: 100%;
+    overflow-y: auto;
+}

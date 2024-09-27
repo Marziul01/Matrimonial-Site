@@ -60,16 +60,50 @@
     </div>
     <div class="live-support-box">
         <div class="chat-header">
-            Live Chat Support
-            <span class="close-chat">x</span>
+            Live Support Center
+            <span class="close-chat"><i class="fa-solid fa-sort-down"></i></span>
         </div>
         <div class="chat-body">
-            <div id="supportMsg"></div>
+            <p id="defp">Welcome to our Support Center! Please fill in the form below before starting the chat</p>
+
+            <!-- First form (supportMsg) -->
+            <div id="supportMsg">
+                <input class="form-control" type="text" id="name" name="name" placeholder="Your Name" />
+                <small class="error" id="nameError" style="color:red;display:none;">Please fill in your name</small>
+
+                <input class="form-control" type="email" id="email" name="email" placeholder="Your Email" />
+                <small class="error" id="emailError" style="color:red;display:none;">Please provide a valid email</small>
+
+                <textarea class="form-control mesage" id="userMessage" name="message" placeholder="Type your message..."></textarea>
+                <small class="error" id="messageError" style="color:red;display:none;">Please type your message</small>
+
+                <button type="button" id="sendMessageBtn" class="msgbtnsub">Send Message <i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+
+            <!-- Second form (supportMsg2) -->
+            <div id="supportMsg2" style="display: none;">
+                <input class="form-control" type="number" id="profileNumber" name="number" placeholder="Your Profile Number" />
+                <small class="error" id="numberError" style="color:red;display:none;">Please provide your profile number</small>
+
+                <input class="form-control" type="date" id="dob" name="date_of_birth" placeholder="Your Profile Date Of Birth" />
+                <small class="error" id="dobError" style="color:red;display:none;">Please select your date of birth</small>
+
+                <select class="form-control" name="marital_status" id="maritalStatus">
+                    <option value="">Select Your Profile Marital Status </option>
+                    <option value="single">Single</option>
+                    <option value="Divorced">Divorced</option>
+                    <option value="Widowed">Widowed</option>
+                    <option value="Awaiting Divorce">Awaiting Divorce</option>
+                </select>
+                <small class="error" id="statusError" style="color:red;display:none;">Please select your marital status</small>
+
+                <button type="button" id="submitFormBtn" class="msgbtnsub w-100">Submit</button>
+            </div>
+
+            <div id="successMessage" class=""></div>
         </div>
-        <div class="chat-footer">
-            <input type="text" id="userMessage" placeholder="Type your message..." />
-            <button id="sendMessage">Send <i class="fa-solid fa-paper-plane"></i></button>
-        </div>
+
+
     </div>
 </div>
 
@@ -86,73 +120,141 @@
     });
 
 </script>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    document.querySelector('#sendMessage').addEventListener('click', function() {
-    let message = document.querySelector('#userMessage').value;
-    let userId = '{{ session('live_support_user_id', uniqid('user_', true)) }}';  // Pass dynamically based on user context
+    $(document).ready(function() {
+    // Hide supportMsg2 by default
+    $('#supportMsg2').hide();
 
-    if (message.trim() === '') return;
+    // Function to validate the first form (supportMsg)
+    function validateSupportMsg() {
+        var isValid = true;
 
-    // Send the message via AJAX to the server
-    fetch('/live_support-message', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: JSON.stringify({ message: message, user_id: userId })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Append the message to the chat box
-            let supportMsg = document.querySelector('#supportMsg');
-            supportMsg.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
+        if ($('#name').val() === '') {
+            $('#nameError').show();
+            isValid = false;
+        } else {
+            $('#nameError').hide();
+        }
 
-            // Clear input field
-            document.querySelector('#userMessage').value = '';
+        if ($('#email').val() === '') {
+            $('#emailError').show();
+            isValid = false;
+        } else {
+            $('#emailError').hide();
+        }
+
+        if ($('#userMessage').val() === '') {
+            $('#messageError').show();
+            isValid = false;
+        } else {
+            $('#messageError').hide();
+        }
+
+        return isValid;
+    }
+
+    // Event handler for the "Send Message" button
+    $('#sendMessageBtn').click(function() {
+        if (validateSupportMsg()) {
+            $('#supportMsg').hide();
+            $('#supportMsg2').show();
         }
     });
 
-    // Listen for Admin responses
-    window.Echo.channel('live-support.' + userId)
-        .listen('LiveSupport', (data) => {
-            let supportMsg = document.querySelector('#supportMsg');
-            if (data.sender === 'admin') {
-                supportMsg.innerHTML += `<p><strong>Admin:</strong> ${data.message}</p>`;
+    // Function to validate the second form (supportMsg2)
+    function validateSupportMsg2() {
+        var isValid = true;
+
+        if ($('#profileNumber').val() === '') {
+            $('#numberError').show();
+            isValid = false;
+        } else {
+            $('#numberError').hide();
+        }
+
+        if ($('#dob').val() === '') {
+            $('#dobError').show();
+            isValid = false;
+        } else {
+            $('#dobError').hide();
+        }
+
+        if ($('#maritalStatus').val() === '') {
+            $('#statusError').show();
+            isValid = false;
+        } else {
+            $('#statusError').hide();
+        }
+
+        return isValid;
+    }
+
+    // Function to display validation errors using Toastr
+    function showErrors(errors) {
+        // Loop through errors and show them
+        $.each(errors, function(key, value) {
+            toastr.error(value[0]); // Display the first error for each field
+        });
+    }
+
+    // Event handler for the "Submit" button
+    $('#submitFormBtn').click(function() {
+    if (validateSupportMsg2()) {
+        // Prepare form data for submission
+        var formData = {
+            name: $('#name').val(),
+            email: $('#email').val(),
+            message: $('#userMessage').val(),
+            number: $('#profileNumber').val(),
+            date_of_birth: $('#dob').val(),
+            marital_status: $('#maritalStatus').val()
+        };
+
+        // Perform AJAX form submission
+        $.ajax({
+            url: '/user-chat-support', // Replace with your server URL
+            type: 'POST',
+            data: formData,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Include CSRF token
+            },
+            success: function(response) {
+                // If the form is successfully submitted, hide forms and show success message
+                if (response.success) {
+                    $('#supportMsg, #supportMsg2, #defp').hide();
+                    $('#successMessage').html("<div class='defp'><i class='fa-solid fa-circle-check'></i> Hello, " + formData.name + ". <br> Your message has been sent to our Support Center. We will get back to you via your provided email. Thank you! </div>").show();
+
+                    toastr.success("Your message has been sent successfully!");
+                }
+            },
+            error: function(xhr) {
+                if (xhr.status === 422) {
+                    // Handle validation errors
+                    const errors = xhr.responseJSON.errors;
+                    if (errors) {
+                        for (const key in errors) {
+                            if (errors.hasOwnProperty(key)) {
+                                // Show each error message using Toastr
+                                toastr.error(errors[key][0]); // Show the first error message for each field
+                            }
+                        }
+                    }
+                } else if (xhr.status === 404) {
+                    // Handle "no profile found" error
+                    toastr.error(xhr.responseJSON.message || "No profile found with the provided information.");
+                } else {
+                    // Handle other errors
+                    toastr.error("An error occurred while submitting the form.");
+                }
             }
         });
+    }
 });
 
 
-</script>
+});
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Fetch the previous messages for the user
-        fetch('/live_support-messages', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // CSRF protection
-            },
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Check if messages are returned
-            if (data.messages && data.messages.length > 0) {
-                let supportMsg = document.querySelector('#supportMsg');
 
-                // Loop through messages and append them to the chat body
-                data.messages.forEach(function (msg) {
-                    supportMsg.innerHTML += `<p><strong>You :</strong> ${msg.message}</p>`;
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching messages:', error);
-        });
-    });
 </script>
 
