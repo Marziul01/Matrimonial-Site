@@ -80,8 +80,8 @@
                 <input class="form-control" type="text" id="name" name="name" placeholder="Name" />
                 <small class="error" id="nameError" style="color:red;display:none;">Please fill in your name</small>
 
-                <input class="form-control dob_all" type="text" id="dob" name="date_of_birth" placeholder="Date Of Birth" />
-                <small class="error" id="dobError" style="color:red;display:none;">Please select your date of birth</small>
+                {{-- <input class="form-control dob_all" type="text" id="dob" name="date_of_birth" placeholder="Date Of Birth" />
+                <small class="error" id="dobError" style="color:red;display:none;">Please select your date of birth</small> --}}
 
                 <input class="form-control" type="email" id="email" name="email" placeholder="Email" />
                 <small class="error" id="emailError" style="color:red;display:none;">Please provide a valid email</small>
@@ -91,14 +91,14 @@
 
 
 
-                <select class="form-control" name="marital_status" id="maritalStatus">
+                {{-- <select class="form-control" name="marital_status" id="maritalStatus">
                     <option value=""> Marital Status </option>
                     <option value="single">Single</option>
                     <option value="Divorced">Divorced</option>
                     <option value="Widowed">Widowed</option>
                     <option value="Awaiting Divorce">Awaiting Divorce</option>
                 </select>
-                <small class="error" id="statusError" style="color:red;display:none;">Please select your marital status</small>
+                <small class="error" id="statusError" style="color:red;display:none;">Please select your marital status</small> --}}
 
                 <textarea class="form-control mesage" id="userMessage" name="message" placeholder="Type your message..."></textarea>
                 <small class="error" id="messageError" style="color:red;display:none;">Please type your message</small>
@@ -171,12 +171,12 @@
             $('#nameError').hide();
         }
 
-        if ($('#email').val() === '') {
-            $('#emailError').show();
-            isValid = false;
-        } else {
-            $('#emailError').hide();
-        }
+        // if ($('#email').val() === '') {
+        //     $('#emailError').show();
+        //     isValid = false;
+        // } else {
+        //     $('#emailError').hide();
+        // }
 
         if ($('#userMessage').val() === '') {
             $('#messageError').show();
@@ -192,19 +192,19 @@
             $('#numberError').hide();
         }
 
-        if ($('#dob').val() === '') {
-            $('#dobError').show();
-            isValid = false;
-        } else {
-            $('#dobError').hide();
-        }
+        // if ($('#dob').val() === '') {
+        //     $('#dobError').show();
+        //     isValid = false;
+        // } else {
+        //     $('#dobError').hide();
+        // }
 
-        if ($('#maritalStatus').val() === '') {
-            $('#statusError').show();
-            isValid = false;
-        } else {
-            $('#statusError').hide();
-        }
+        // if ($('#maritalStatus').val() === '') {
+        //     $('#statusError').show();
+        //     isValid = false;
+        // } else {
+        //     $('#statusError').hide();
+        // }
 
         return isValid;
     }
