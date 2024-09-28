@@ -171,12 +171,12 @@
             $('#nameError').hide();
         }
 
-        // if ($('#email').val() === '') {
-        //     $('#emailError').show();
-        //     isValid = false;
-        // } else {
-        //     $('#emailError').hide();
-        // }
+        if ($('#email').val() === '') {
+            $('#emailError').show();
+            isValid = false;
+        } else {
+            $('#emailError').hide();
+        }
 
         if ($('#userMessage').val() === '') {
             $('#messageError').show();

@@ -15,7 +15,7 @@ class MessageController extends Controller
         // Define validation rules
         $rules = [
             'name' => 'required|string|max:255',
-            'email' => 'nullable|email|max:255',
+            'email' => 'required|email|max:255',
             'message' => 'required|string',
             'number' => 'required|numeric',
             // 'date_of_birth' => 'required|date',
