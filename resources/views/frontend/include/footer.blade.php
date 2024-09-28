@@ -69,8 +69,8 @@
     </div>
     <div class="live-support-box">
         <div class="chat-header">
-            Live Support Center
-            <span class="close-chat"><i class="fa-solid fa-sort-down"></i></span>
+            <strong>Live Support Center</strong>
+            <span class="close-chat"><i class="fa-solid fa-xmark"></i></span>
         </div>
         <div class="chat-body">
             <p id="defp">Welcome to our Support Center! Please fill in the form below before starting the chat</p>
@@ -91,23 +91,17 @@
 
 
 
-                <select class="form-control" name="marital_status" id="maritalStatus">
+                {{-- <select class="form-control" name="marital_status" id="maritalStatus">
                     <option value="">Select Your Account Marital Status </option>
                     <option value="single">Single</option>
                     <option value="Divorced">Divorced</option>
                     <option value="Widowed">Widowed</option>
                     <option value="Awaiting Divorce">Awaiting Divorce</option>
                 </select>
-                <small class="error" id="statusError" style="color:red;display:none;">Please select your marital status</small>
+                <small class="error" id="statusError" style="color:red;display:none;">Please select your marital status</small> --}}
 
-                <select class="form-control" name="department" id="department">
-                    <option value="">Select Department </option>
-                    <option value="Password Recovery">Password Recovery</option>
-
-                </select>
-
-                <textarea class="form-control mesage" id="userMessage" name="message" placeholder="Type your message..."></textarea>
-                <small class="error" id="messageError" style="color:red;display:none;">Please type your message</small>
+                {{-- <textarea class="form-control mesage" id="userMessage" name="message" placeholder="Type your message..."></textarea>
+                <small class="error" id="messageError" style="color:red;display:none;">Please type your message</small> --}}
 
                 <button type="submit" id="sendMessageBtn" class="msgbtnsub w-100">Send <i class="fa-solid fa-paper-plane"></i></button>
             </div>
@@ -184,12 +178,12 @@
             $('#emailError').hide();
         }
 
-        if ($('#userMessage').val() === '') {
-            $('#messageError').show();
-            isValid = false;
-        } else {
-            $('#messageError').hide();
-        }
+        // if ($('#userMessage').val() === '') {
+        //     $('#messageError').show();
+        //     isValid = false;
+        // } else {
+        //     $('#messageError').hide();
+        // }
 
         if ($('#profileNumber').val() === '') {
             $('#numberError').show();
@@ -205,12 +199,12 @@
             $('#dobError').hide();
         }
 
-        if ($('#maritalStatus').val() === '') {
-            $('#statusError').show();
-            isValid = false;
-        } else {
-            $('#statusError').hide();
-        }
+        // if ($('#maritalStatus').val() === '') {
+        //     $('#statusError').show();
+        //     isValid = false;
+        // } else {
+        //     $('#statusError').hide();
+        // }
 
         return isValid;
     }
@@ -229,11 +223,11 @@
         var formData = {
             name: $('#name').val(),
             email: $('#email').val(),
-            message: $('#userMessage').val(),
+            // message: $('#userMessage').val(),
             number: $('#profileNumber').val(),
             date_of_birth: $('#dob').val(),
-            marital_status: $('#maritalStatus').val(),
-            department: $('#department').val(),
+            // marital_status: $('#maritalStatus').val(),
+            // department: $('#department').val(),
         };
 
         // Perform AJAX form submission
