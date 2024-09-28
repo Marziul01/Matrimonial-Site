@@ -2930,7 +2930,40 @@ a{
     font-size: 13px;
     cursor: pointer;
 }
-
+.pasasRecevory{
+    background: #f43662;
+    width: 50%;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.pasasRecevory .form-group{
+    padding: 10px;
+    border: 1px solid #f43662;
+    border-radius: 20px;
+    width: 100%;
+}
+.pasasRecevory .form-group label{
+    color: white;
+}
+.pasasRecevory .form-group .form-control{
+    width: 100%;
+}
+.pasasRecevory .form-group .form-control:focus{
+    border-color: #f43662;
+    box-shadow: none;
+}
+.pasasRecevory .submiti{
+    padding: 10px 25px;
+    color: #f43662;
+    background: white;
+    border: none;
+    margin-top: 20px;
+}
 
 @media (max-width: 767px){
     .headerMain .logo .logopic{

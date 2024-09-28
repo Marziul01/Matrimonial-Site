@@ -178,12 +178,12 @@
             $('#emailError').hide();
         }
 
-        if ($('#userMessage').val() === '') {
-            $('#messageError').show();
-            isValid = false;
-        } else {
-            $('#messageError').hide();
-        }
+        // if ($('#userMessage').val() === '') {
+        //     $('#messageError').show();
+        //     isValid = false;
+        // } else {
+        //     $('#messageError').hide();
+        // }
 
         if ($('#profileNumber').val() === '') {
             $('#numberError').show();
@@ -225,8 +225,8 @@
             email: $('#email').val(),
             message: $('#userMessage').val(),
             number: $('#profileNumber').val(),
-            date_of_birth: $('#dob').val(),
-            marital_status: $('#maritalStatus').val(),
+            // date_of_birth: $('#dob').val(),
+            // marital_status: $('#maritalStatus').val(),
         };
 
         // Perform AJAX form submission

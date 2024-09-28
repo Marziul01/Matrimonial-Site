@@ -197,6 +197,7 @@
                                 ? `<a class="btn btn-sm btn-danger" href="${blockUrl}" onclick="return confirm('Are you sure you want to block this profile?');">Block</a>`
                                 : `<a class="btn btn-sm btn-success" href="${unblockUrl}" onclick="return confirm('Are you sure you want to unblock this profile?');">Unblock</a>`
                             }
+                            <a class="btn btn-sm btn-info" href="{{ route('admin.sendPasswordReset', $user->id) }}" onclick="return confirm('Are you sure you want to send a password recovery email to this user?');"> Send Password Recovery </a>
                         </div>
                     </div>
                 `;

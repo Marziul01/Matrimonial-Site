@@ -16,7 +16,7 @@ class AdminLiveSupportController extends Controller
 
     public function getMessagesByUser()
     {
-        $messages = LiveSupportMessage::where('seen', 0)->get();
+        $messages = LiveSupportMessage::where('seen', 0)->orderBy('created_at', 'desc')->get();
 
         return view('admin.live_support.messages', compact('messages'));
 

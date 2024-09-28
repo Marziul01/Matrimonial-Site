@@ -28,7 +28,11 @@
                                 @if (isset($messages))
                                     @foreach($messages as $users)
                                     <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile_{{ $users->id }}" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
-                                        <h4 class="name">{{ $users->name }}</h4><p class="email">{{ $users->email }}</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h4 class="name">{{ $users->name }}</h4>
+                                            <p class="mb-0 text-sm text-bold">{{ $users->created_at->diffForHumans() }}</p>
+                                        </div>
+                                        <p class="email">{{ $users->email }}</p>
                                         <p class="mesage">{{ \Illuminate\Support\Str::words($users->message, 5, '...') }}</p>
                                     </button>
                                     @endforeach
