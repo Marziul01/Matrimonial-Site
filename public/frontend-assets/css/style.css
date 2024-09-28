@@ -2931,6 +2931,7 @@ a{
     cursor: pointer;
 }
 
+
 @media (max-width: 767px){
     .headerMain .logo .logopic{
         width: 70%;

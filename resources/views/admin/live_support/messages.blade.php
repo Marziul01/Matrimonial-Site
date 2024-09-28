@@ -46,9 +46,9 @@
                                                 <p>Email: {{ $users->email }}</p>
                                                 <p>Number : {{ $users->number }}</p>
                                                 <p>Date Of Birth : {{ $users->date_of_birth }}</p>
-                                                {{-- <p class="mb-0">Marital Status: {{ $users->marital_status }}</p> --}}
+                                                <p class="mb-0">Marital Status: {{ $users->marital_status }}</p>
                                             </div>
-                                            {{-- <p class="mt-3">{{ $users->message }}</p> --}}
+                                            <p class="mt-3">{{ $users->message }}</p>
                                         </div>
 
                                         <form action="{{ route('admin-reply-mail') }}" method="post" class="d-flex mb-3">
