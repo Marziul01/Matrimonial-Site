@@ -27,10 +27,32 @@ use App\Mail\ProfileSubmittedMail;
 use App\Mail\NewMatchFoundMail;
 use Illuminate\Support\Facades\DB;
 use App\Models\District;
+use App\Models\ImageGallery;
 use App\Models\Upazila;
 
 class UserProfileController extends Controller
 {
+
+    public static function viewProfile(){
+        return view('frontend.dashboard.profile',[
+            'user' => Auth::user(),
+            'countries' => Country::all(),
+            'districts' => District::all(),
+            'upazilas' => Upazila::all(),
+            'profileDetails' => Profile::where('user_id', Auth::user()->id)->first(),
+            'userImages' => ImageGallery::where('user_id', Auth::user()->id)->get(),
+        ]);
+    }
+    public static function Profileimage(){
+        return view('frontend.profile.images',[
+            'user' => Auth::check(),
+        ]);
+    }
+    public static function settingsProfile(){
+        return view('frontend.profile.settings',[
+            'user' => Auth::check(),
+        ]);
+    }
 
     public static function submitProfile(Request $request){
 
@@ -40,23 +62,19 @@ class UserProfileController extends Controller
             'marital_status' => 'required|string|max:50',
             'account_for' => 'required',
             'profession' => 'required',
-            'monthly_income' => 'required',
-            'district' => 'required',
-            'upazila' => 'required',
             'living_with_family' => 'required',
             'body_type' => 'required',
             'complexion' => 'required',
             'family_status' => 'required',
-            'terms' => 'required',
-            'in_bangladesh_since' => 'required',
             'nationality' => 'required|string|max:100',
-            'phone' => 'required|string|max:20',
-            'bad_habit' => 'nullable|string|max:255',
             'blood_group' => 'required|string|max:10',
             'height' => 'required|string|max:10',
             'weight' => 'required|string|max:10',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'desc' => 'required|string|max:1000',
+            'smoking' => 'required',
+            'drinking' => 'required',
+            'education' => 'required',
+            'education_institute' => 'required',
+            'education_year' => 'required',
         ];
 
         // Conditionally add rules based on nationality
@@ -66,16 +84,12 @@ class UserProfileController extends Controller
             $rules['birth_place'] = 'required';
         }
 
-        // Conditionally add rules based on the user's looking_for field
-        if (Auth::user()->userInfo->looking_for == 'google') {
-            $rules = array_merge($rules, [
-                'looking_for' => 'required',
-                'month' => 'required',
-                'day' => 'required',
-                'year' => 'required',
-                'religion' => 'required',
-                'education' => 'required',
-            ]);
+        if ($request->profession == 'Not Working') {
+            $rules['position'] = 'nullable';
+            $rules['monthly_income'] = 'nullable';
+        } else {
+            $rules['position'] = 'required';
+            $rules['monthly_income'] = 'required';
         }
 
         $validator = Validator::make($data, $rules);
@@ -89,29 +103,125 @@ class UserProfileController extends Controller
 
         $userProfile = Profile::saveInfo($request);
 
-        Mail::to(Auth::user()->email)->send(new ProfileSubmittedMail(Auth::user()));
+        // Mail::to(Auth::user()->email)->send(new ProfileSubmittedMail(Auth::user()));
 
-        $age = Auth::user()->profile->age; // Calculate the age of the submitted profile
+        // $age = Auth::user()->profile->age; // Calculate the age of the submitted profile
 
-        $matchingProfiles = DB::table('match_profile')
-            ->where('looking_for', Auth::user()->profile->i_am) // Match looking_for with submitted profile's i_am (Groom/Bride)
-            ->where('religion', Auth::user()->profile->religion)
-            ->where('marital_status', Auth::user()->profile->marital_status)
-            ->where('from_age', '<=', $age)
-            ->where('to_age', '>=', $age)
-            ->get();
+        // $matchingProfiles = DB::table('match_profile')
+        //     ->where('looking_for', Auth::user()->profile->i_am) // Match looking_for with submitted profile's i_am (Groom/Bride)
+        //     ->where('religion', Auth::user()->profile->religion)
+        //     ->where('marital_status', Auth::user()->profile->marital_status)
+        //     ->where('from_age', '<=', $age)
+        //     ->where('to_age', '>=', $age)
+        //     ->get();
 
-        // Send email to each matching profile
-        foreach ($matchingProfiles as $match) {
-            $matchedUser = User::find($match->user_id); // Assuming match_profile has user_id
+        // // Send email to each matching profile
+        // foreach ($matchingProfiles as $match) {
+        //     $matchedUser = User::find($match->user_id); // Assuming match_profile has user_id
 
-            if ($matchedUser) {
-                Mail::to($matchedUser->email)->send(new NewMatchFoundMail($matchedUser, Auth::user()));
-            }
-        }
+        //     if ($matchedUser) {
+        //         Mail::to($matchedUser->email)->send(new NewMatchFoundMail($matchedUser, Auth::user()));
+        //     }
+        // }
 
         return response()->json(['success' => true,]);
     }
+
+    public static function submitProfiletwo(Request $request){
+        $data = $request->all();
+        $rules = [
+            'name' => 'required|string|max:50',
+            'bio' => 'required|string|max:150',
+            'year' => 'required',
+            'day' => 'required',
+            'month' => 'required',
+            'location' => 'required',
+            'religion' => 'required',
+        ];
+
+        $validator = Validator::make($data, $rules);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $user = Auth::user();
+        $profile = $user->profile;
+        $profile->name = $request->name;
+        $profile->religion = $request->religion;
+        $profile->date_of_birth = Carbon::create($request->year, $request->month, $request->day);
+        $age = now()->year - $request->year;
+        $profile->location = $request->location;
+        $profile->bio = $request->bio;
+        $profile->age = $age;
+        $profile->save();
+
+        $user->name = $profile->name ;
+        $user->save();
+        return response()->json(['success' => true,]);
+    }
+
+    public static function submitProfilethree(Request $request){
+        $data = $request->all();
+        $rules = [
+            'desc' => 'required|string|max:255',
+        ];
+
+        $validator = Validator::make($data, $rules);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $user = Auth::user();
+        $profile = $user->profile;
+        $profile->desc = $request->desc;
+
+        $profile->save();
+
+        return response()->json(['success' => true,]);
+    }
+
+    public static function submitProfileImg(Request $request){
+        $profile = Auth::user()->profile;
+        if ($request->file('image')) {
+            if ($profile->image) {
+                // Check if the existing image file exists and delete it
+                $imagePath = public_path($profile->image);
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
+            }
+            // Save the new image and update the profile's image field
+            $profile->image = self::saveImage($request);
+        }
+        $profile->save();
+
+        $user = Auth::user();
+        if ($request->file('image')) {
+            if ($user->avatar) {
+                // Check if the existing avatar file exists and delete it
+                $avatarPath = public_path('storage/users-avatar/' . $user->avatar);
+                if (file_exists($avatarPath)) {
+                    unlink($avatarPath);
+                }
+            }
+            $avatarUrl = $profile->image;
+            $avatarimageName = basename($avatarUrl);
+
+            $user->avatar = $avatarimageName;
+        }
+        $user->save();
+        return response()->json(['success' => true,]);
+    }
+
+
 
     public static function submitPartnerProfile(Request $request){
 
@@ -313,6 +423,128 @@ class UserProfileController extends Controller
             'redirect' => route('user.dashboard'),
         ]);
 
+    }
+
+    public function uploadImages(Request $request)
+{
+    // Validate each uploaded image
+    $request->validate([
+        'images.*' => 'image|max:2048', // Max 2MB per image
+    ]);
+
+    // Get the authenticated user's ID
+    $userId = auth()->id();
+
+    // Count existing images
+    $existingImagesCount = ImageGallery::where('user_id', $userId)->count();
+
+    // Determine how many more images can be uploaded
+    $maxImages = 5;
+    $canUpload = $maxImages - $existingImagesCount;
+
+    // If the user is trying to upload too many images
+    if ($canUpload <= 0) {
+        return response()->json(['success' => false, 'message' => 'You can only have a maximum of 5 images.'], 400);
+    }
+
+    // Adjust the number of images the user can upload
+    $imagesToUpload = min($canUpload, count($request->file('images')));
+
+    // Get the authenticated user's name
+    $username = auth()->user()->name;
+
+    // Iterate through each uploaded image
+    foreach ($request->file('images') as $image) {
+        if ($imagesToUpload <= 0) break; // Stop if we reached the limit
+
+        // Generate a unique filename using the username and timestamp
+        $filename = $username . '_' . time() . '_' . $image->getClientOriginalName();
+
+        $dir1 = "frontend-assets/imgs/profiles/";
+        $image->move(public_path($dir1), $filename);
+
+        // Save the image record to the database
+        ImageGallery::create([
+            'user_id' => $userId,
+            'image' => $filename,
+        ]);
+
+        $imagesToUpload--; // Decrement the count
+    }
+
+    return response()->json(['success' => true, 'message' => 'Images uploaded successfully!']);
+}
+
+
+    public function deleteImage($id)
+{
+    // Find the image by ID
+    $image = ImageGallery::findOrFail($id);
+
+    // Check if the image belongs to the authenticated user
+    if ($image->user_id == auth()->id()) {
+        // Delete the image file from the public directory
+        unlink(public_path('frontend-assets/imgs/profiles/' . $image->image));
+
+        // Delete the image record from the database
+        $image->delete();
+
+        return response()->json(['success' => true]);
+    }
+
+    return response()->json(['success' => false], 403);
+}
+
+
+
+
+
+
+    public static function saveImage($request) {
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+
+            // Check if the file is valid
+            if (!$image->isValid()) {
+                throw new \Exception("The file upload failed: " . $image->getErrorMessage());
+            }
+
+            $imageNewName = $request->first_name . rand() . '.' . $image->extension();
+
+            // Define directories
+            $dir1 = "frontend-assets/imgs/profiles/";
+            $dir2 = "storage/users-avatar/";
+
+            // Ensure the directories exist
+            if (!file_exists(public_path($dir1))) {
+                mkdir(public_path($dir1), 0777, true);
+            }
+
+            if (!file_exists(public_path($dir2))) {
+                mkdir(public_path($dir2), 0777, true);
+            }
+
+            // Move image to the first directory
+            $image->move(public_path($dir1), $imageNewName);
+
+            // Copy image to the second directory
+            $sourcePath = public_path($dir1 . $imageNewName);
+            $destinationPath = public_path($dir2 . $imageNewName);
+
+            // Ensure the source file exists before copying
+            if (!file_exists($sourcePath)) {
+                throw new \Exception("The source image does not exist.");
+            }
+
+            // Copy the file
+            if (!copy($sourcePath, $destinationPath)) {
+                throw new \Exception("Failed to copy the image to the second directory.");
+            }
+
+            // Return the URL of the image in the first directory
+            return $dir1 . $imageNewName;
+        }
+        throw new \Exception("No file was uploaded.");
     }
 
 }

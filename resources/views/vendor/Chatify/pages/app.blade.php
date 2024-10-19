@@ -1,12 +1,17 @@
+@extends('frontend.master')
+
+@section('title')
+| Messages
+@endsection
+
+@section('content')
 @include('Chatify::layouts.headLinks')
 <div class="messenger">
     {{-- ----------------------Users/Groups lists side---------------------- --}}
     <div class="messenger-listView {{ !!$id ? 'conversation-active' : '' }}">
         {{-- Header and search bar --}}
         <div class="m-header">
-            <a href="{{ route('user.dashboard') }}"> <img src="{{ asset('frontend-assets/assets/images/logo/logo.png') }}" style="padding: 15px 10px 0 20px; width: 50%"> </a>
             <nav>
-
                 <a href="#"><i class="fas fa-inbox"></i> <span class="messenger-headTitle">MESSAGES</span> </a>
                 {{-- header buttons --}}
                 <nav class="m-header-right">
@@ -112,3 +117,8 @@
 
 @include('Chatify::layouts.modals')
 @include('Chatify::layouts.footerLinks')
+
+@endsection
+
+@section('customJs')
+@endsection

@@ -11,8 +11,8 @@
         <div class="w-50 d-flex justify-content-center align-items-center Pc-Menus">
             <a href="{{ route('user.dashboard') }}" class="menu_item {{ Route::currentRouteName() == 'user.dashboard' ? 'active' : '' }}"> Dashboard </a>
             <a href="{{ route('user.matches') }}" class="menu_item {{ Route::currentRouteName() == 'user.matches' ? 'active' : '' }}"> My Matches </a>
-            <a href="" class="menu_item"> Messages </a>
-            <a href="" class="menu_item"> Buy Credit </a>
+            <a href="{{ url('/message') }}" class="menu_item {{ Request::is('message') ? 'active' : '' }}"> Messages </a>
+            <a href="{{ route('user.buy.credit') }}" class="menu_item {{ Route::currentRouteName() == 'user.buy.credit' ? 'active' : '' }}"> Buy Credit </a>
             <a href="{{ route('user.notifications') }}" class="menu_item {{ Route::currentRouteName() == 'user.notifications' ? 'active' : '' }}"> Notifications </a>
         </div>
         <div class="w-30 d-flex justify-content-end align-items-center column-gap-2 Pc-Menus">
@@ -31,11 +31,11 @@
 
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end userImageProfileDrop">
-                      <li><button class="dropdown-item" type="button">My Profile <i class="fa-solid fa-chevron-down"></i></button></li>
-                      <li><button class="dropdown-item" type="button">My Photos <i class="fa-solid fa-chevron-down"></i></button></li>
-                      <li><button class="dropdown-item" type="button">Partner Preferences <i class="fa-solid fa-chevron-down"></i></button></li>
-                      <li><button class="dropdown-item" type="button">Settings <i class="fa-solid fa-chevron-down"></i></button></li>
-                      <li><button class="dropdown-item" type="button">More <i class="fa-solid fa-chevron-down"></i></button></li>
+                      <li><a href="{{ route('user.profile') }}" class="dropdown-item" type="button">My Profile </a></li>
+                      <li><a class="dropdown-item" type="button">My Photos </a></li>
+                      <li><a class="dropdown-item" type="button">Partner Preferences </a></li>
+                      <li><a class="dropdown-item" type="button">Settings </a></li>
+                      <li><a href="{{ route('user.logout') }}" class="dropdown-item" type="button">Logout </a></li>
                     </ul>
                   </div>
             </div>

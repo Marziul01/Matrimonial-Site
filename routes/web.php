@@ -74,6 +74,9 @@ Route::group(['prefix' => 'account'],function(){
         Route::get('/user/dashboard',[UserDashboardController::class,'dashboard'])->name('user.dashboard');
         Route::get('/user/profile',[UserProfileController::class,'viewProfile'])->name('user.profile');
         Route::post('/user/profile/submit', [UserProfileController::class,'submitProfile'])->name('profile.store');
+        Route::post('/user/profile/submit/2', [UserProfileController::class,'submitProfiletwo'])->name('profile.storetwo');
+        Route::post('/user/profile/submit/3', [UserProfileController::class,'submitProfilethree'])->name('profile.storethree');
+        Route::post('/user/profile/submit/img', [UserProfileController::class,'submitProfileImg'])->name('profile.storeImg');
         Route::post('/user/partner/profile/submit', [UserProfileController::class,'submitPartnerProfile'])->name('partner.profile.store');
         Route::post('/user/change/password', [UserProfileController::class,'updatePassword'])->name('user.pass.change');
         Route::post('/user/profile/update', [UserProfileController::class,'updateProfile'])->name('profile.update');
@@ -84,6 +87,11 @@ Route::group(['prefix' => 'account'],function(){
         Route::post('/user/profile/match', [UserProfileController::class,'submitMatchProfile'])->name('match.details.submit');
         Route::get('/user/matches',[MatchesController::class,'matches'])->name('user.matches');
         Route::get('/user/notifications',[NotificationsController::class,'notifications'])->name('user.notifications');
+        Route::get('/user/profile/images',[UserProfileController::class,'Profileimage'])->name('user.profile.images');
+        Route::get('/user/profile/settings',[UserProfileController::class,'settingsProfile'])->name('user.profile.settings');
+        Route::get('/user/buy/plan', [UserPlanController::class,'buyCredit'])->name('user.buy.credit');
+        Route::post('/upload-images', [UserProfileController::class, 'uploadImages'])->name('profile.storeImggallery');
+        Route::delete('/delete-image/{id}', [UserProfileController::class, 'deleteImage'])->name('deleteImageGallery');
 
     });
 });
@@ -111,6 +119,7 @@ Route::group(['prefix' => 'admin'],function(){
         Route::get('/admin/live_support', [AdminLiveSupportController::class, 'showMessages'])->name('admin.live_support');
         Route::get('/admin/live_support/chat/', [AdminLiveSupportController::class, 'getMessagesByUser'])->name('admin.chat.adminindex');
         Route::post('/admin/live_support-message', [AdminLiveSupportController::class, 'adminReplyMessage'])->name('admin-reply-mail');
+
 
     });
 

@@ -104,6 +104,10 @@ class UserAuthController extends Controller
             $plan->end_date = null;
             $plan->save();
 
+            $profile = new Profile();
+            $profile->user_id = $user->id;
+            $profile->save();
+
             // Log the user in
             Auth::login($user);
 

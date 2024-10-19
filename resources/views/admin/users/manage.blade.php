@@ -35,7 +35,7 @@
                 <div class="allUserCards" id="defaultUserCards">
                     @if ($users->isNotEmpty())
                             @foreach ($users as $user)
-                    <div class="card">
+                    {{-- <div class="card">
                         <div class="card-header">
                             <img src="{{ asset($user->profile->image) }}" width="100%">
 
@@ -60,7 +60,7 @@
                                 <a class="btn btn-sm btn-info" href="{{ route('admin.sendPasswordReset', $user->id) }}" onclick="return confirm('Are you sure you want to send a password recovery email to this user?');"> Send Password Recovery </a>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     @endforeach
 
                     @else

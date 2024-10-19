@@ -11,6 +11,12 @@ use function PHPUnit\Framework\isNull;
 class UserPlanController extends Controller
 {
 
+    public static function buyCredit(){
+        return view('frontend.profile.plans',[
+            'plans' => Plans::where('status', 1)->where('id', '!=', 1)->get(),
+        ]);
+    }
+
     public function subscribePlan(Request $request)
     {
         $planId = $request->input('plan_id');

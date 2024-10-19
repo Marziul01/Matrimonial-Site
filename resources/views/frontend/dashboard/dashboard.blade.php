@@ -36,18 +36,23 @@
                     <div class="statsBoxDiv">
                         <h5>My Statistics</h5>
                         <div class="stats">
+                            <a href="" class="statsInfos"> <h2>0</h2> <p>Pending Invitations</p> </a>
+                            <a href="" class="statsInfos"> <h2>0</h2> <p>Accepted Invitations</p> </a>
+                            <a href="" class="statsInfos {{ Auth::user()->plans->plan_id == 1 ? 'blur' : '' }}"> <h2>01</h2> <p>Pending Invitations</p> </a>
+                            @if (Auth::user()->plans->plan_id == 1)
+                            <a href="" class="statsInfos"><i class="fa-solid fa-crown"></i> <p class="dashbutn3free">Premium Activity</p> </a>
+                            @else
                             <a href="" class="statsInfos"> <h2>01</h2> <p>Pending Invitations</p> </a>
-                            <a href="" class="statsInfos"> <h2>01</h2> <p>Pending Invitations</p> </a>
-                            <a href="" class="statsInfos"> <h2>01</h2> <p>Pending Invitations</p> </a>
-                            <a href="" class="statsInfos"> <h2>01</h2> <p>Pending Invitations</p> </a>
-                            <a href="" class="statsInfos"> <h2>01</h2> <p>Pending Invitations</p> </a>
-                            <a href="" class="statsInfos"> <h2>01</h2> <p>Pending Invitations</p> </a>
+                            @endif
+
+                            <a href="" class="statsInfos {{ Auth::user()->plans->plan_id == 1 ? 'blur' : '' }}"> <h2>01</h2> <p>Pending Invitations</p> </a>
+                            <a href="" class="statsInfos {{ Auth::user()->plans->plan_id == 1 ? 'blur' : '' }}"> <h2>01</h2> <p>Pending Invitations</p> </a>
                         </div>
                     </div>
                 </div>
-                <div class="findBox">
+                <div class="findBox w-75">
                     <div class="bgSectionColor adSection m-0">
-                        <div class="w-50">
+                        <div class="w-75">
                             <h1 class="title">Let’s not Wait <br> To Meet</h1>
                             <a class="btn joinBtn" href="">Join Now</a>
                         </div>
@@ -62,8 +67,8 @@
             <div class="Testimonialwrapper" id="Testimonialwrapper1">
                 <i id="testimonialleft" class="fa-solid fa-circle-chevron-left"></i>
                 <ul class="Testimonialcarousel" id="Testimonialcarousel1">
-                    @foreach ($profiles as  $profile)
-                        <li class="Testimonialcard p-2 h-100">
+                    @foreach ($profiles->take(8) as  $profile)
+                        <li class="Testimonialcard p-2 h-100 {{ Auth::user()->plans->plan_id == 1 ? 'blur' : '' }}">
                             <div class="TestimonialcardInner h-100">
                                 <div class="testimonial-item w-100">
                                     <div class="img">
@@ -71,7 +76,11 @@
                                         <h2>{{ $profile->first_name . ' ' . $profile->last_name }}</h2>
                                     </div>
                                     <div class="w-100 text-left mainTestiText">
-                                        <p class="mb-0">{{ $profile->age . 'yr ,' . $profile->height . 'ft ,' . $profile->location }}</p>
+                                        <div>
+                                            <p class="mb-0">Age : {{ $profile->age . 'yr' }}</p>
+                                            <p class="mb-0">Height: {{ $profile->height . 'ft' }}</p>
+                                            <p class="mb-0">Address: {{ $profile->location }}</p>
+                                        </div>
                                         <a href="">View Profile</a>
                                     </div>
                                 </div>
@@ -89,7 +98,7 @@
             <div class="Testimonialwrapper" id="Testimonialwrapper2">
                 <i id="testimonialleft2" class="fa-solid fa-circle-chevron-left"></i>
                 <ul class="Testimonialcarousel" id="Testimonialcarousel2">
-                    @foreach ($profiles as  $profile)
+                    @foreach ($profiles->take(8) as  $profile)
                         <li class="Testimonialcard p-2 h-100">
                             <div class="TestimonialcardInner h-100">
                                 <div class="testimonial-item w-100">
@@ -98,7 +107,11 @@
                                         <h2>{{ $profile->first_name . ' ' . $profile->last_name }}</h2>
                                     </div>
                                     <div class="w-100 text-left mainTestiText">
-                                        <p class="mb-0">{{ $profile->age . 'yr ,' . $profile->height . 'ft ,' . $profile->location }}</p>
+                                        <div>
+                                            <p class="mb-0">Age : {{ $profile->age . 'yr' }}</p>
+                                            <p class="mb-0">Height: {{ $profile->height . 'ft' }}</p>
+                                            <p class="mb-0">Address: {{ $profile->location }}</p>
+                                        </div>
                                         <a href="">View Profile</a>
                                     </div>
                                 </div>

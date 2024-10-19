@@ -1191,7 +1191,7 @@ input[type="checkbox"]{
     flex: 1;
 }
 .blur{
-    filter: blur(5px);
+    filter: blur(8px);
 }
 .profileCard img{
     height: 220px;
@@ -1441,13 +1441,18 @@ input[type="checkbox"]{
   }
 .imageDrop{
     height: 200px;
-    width: fit-content;
+    width: 200px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 10px;
     position: relative;
+    overflow: hidden;
+}
+.newImagePre{
+    overflow: hidden;
+    border-radius: 10px;
 }
 .profileDesc{
     width: 100%;
@@ -2535,7 +2540,7 @@ a{
     width: 100%;
 }
 .dashDetailsDiv .imageBox{
-    width: 25%;
+    width: 20%;
     background: white;
     box-shadow: 0px 4px 10px grey;
     padding: 20px;
@@ -2553,15 +2558,15 @@ a{
     border-bottom: 1px solid #f43662;
 }
 .dashDetailsDiv .imageBox .img{
-    height: 250px;
-    width: 250px;
+    height: 200px;
+    width: 200px;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 20px;
 }
 .dashDetailsDiv .imageBox .icon{
-    height: 250px;
-    width: 250px;
+    height: 200px;
+    width: 200px;
     border-radius: 50%;
     border: 2px solid #f43662;
     padding: 2px;
@@ -2576,6 +2581,10 @@ a{
     color: #F43662;
     font-weight: 600;
     font-size: 30px;
+    text-align: center;
+}
+.dashDetailsDiv .imageBox .userEmail{
+    font-size: 12px;
 }
 .memplanDiv{
     padding: 20px 0;
@@ -2585,7 +2594,7 @@ a{
     width: 100%;
 }
 .memPlan a{
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 600;
     color: #f43662;
     text-decoration: none;
@@ -2603,7 +2612,7 @@ a{
 }
 .statsBox{
     width: 75%;
-    padding: 30px 0;
+    padding: 20px 0;
 }
 .statsBoxDiv{
     background: #f43662;
@@ -2628,13 +2637,17 @@ a{
     flex-grow: 1;
     font-size: 12px;
     color: #f43662;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 .statsInfos h2{
     color: black;
     margin-bottom: 0;
 }
 .findBox .adSection{
-    padding: 30px 60px 10px;
+    padding: 30px 60px 30px;
     justify-content: space-between;
 }
 .findBox .adSection .title {
@@ -2656,7 +2669,7 @@ a{
 .matchScrooler .Testimonialcarousel .Testimonialcard .img{
     transform: translate(0) rotate(0deg);
     width: 100%;
-    height: 250px;
+    height: 220px;
     overflow: hidden;
     position: relative;
     background: #FEF8F7;
@@ -2676,7 +2689,8 @@ a{
 .matchScrooler .Testimonialcarousel .Testimonialcard .img h2{
     color: #f43662;
     font-size: 22px;
-    margin-top: 20px;
+    margin-top: 10px;
+    margin-bottom: 0;
 }
 .matchScrooler .testimonial-item{
     padding: 0;
@@ -2798,7 +2812,7 @@ a{
 
 .chat-body {
     padding: 15px;
-    height: 400px;
+    height: 405px;
     overflow-y: auto;
     background-size: cover;
     background-repeat: no-repeat;
@@ -2963,6 +2977,220 @@ a{
     background: white;
     border: none;
     margin-top: 20px;
+}
+.dashbutn3free{
+    color: #f43662;
+    font-weight: 700;
+}
+.profileDetailsDiv{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: stretch;
+    padding: 50px 0;
+}
+.profileDetailsDiv .menus{
+    width: 20%;
+    background-color: #FEEBEF;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+}
+.profileDetailsDiv .menus .pro-menu{
+    width: 100%;
+    padding: 5px 15px;
+    color: #f43662;
+    font-size: 17px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+.profileDetailsDiv .menus .pro-menu:hover{
+    color:white;
+    background: #f43662;
+}
+.profileDetailsDiv .menus .pro-menu.active{
+    color:white;
+    background: #f43662;
+}
+.profileDetailsDiv .detailsBox{
+    width: 80%;
+}
+.profileDetailsDiv .detailsBox .statsBox{
+    padding-top: 0px;
+}
+.profileDetailsDiv .statsBoxDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.profileDetailsDiv .statsBoxDiv .image{
+    width: 30%;
+}
+.profileDetailsDiv .statsBoxDiv .image img{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border: 10px;
+}
+.profileDetailsDiv .statsBoxDiv .profilestats{
+    width: 100%;
+    display: flex;flex-direction: column;
+    padding: 0 30px;
+    row-gap: 20px;
+}
+.profileDetailsDiv .profile-title{
+    color: #f43662;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 10px 0 ;
+}
+.profile-allImages img{
+    width: 70px;
+    height: 70px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+.profile-lookingfor .lookingp{
+    background-color: #EFF5FF;
+    padding: 3px 10px;
+    border-radius: 10px;
+    color: black;
+}
+.profile-personal p{
+    font-weight: 600;
+    font-size: 22px;
+}
+.profile-personal span{
+    font-weight: 600;
+    margin-top: 15px;
+}
+.edit-infos{
+    color: #f43662;
+    font-size: 18px;
+}
+.edit-infos.active{
+    background-color: #f43662;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 10px;
+}
+.profilecancelbtnn2{
+    background-color: #f43662;
+    color: white;
+    border-radius: 10px;
+    padding: 5px 15px;
+    margin-right: 75px;
+    border: none;
+}
+.profilecancelbtnn{
+    background-color: #f4366238;
+    color: black;
+    padding: 5px 15px;
+    border-radius: 10px;
+    border: none;
+}
+.profile-personal hr{
+    height: 3px;
+    background-color: #f43662;
+    border-color: #f43662;
+    opacity: 1;
+}
+.modal.profileedit.show .modal-dialog{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.edit-icon{
+    font-size: 20px;
+    padding: 10px;
+}
+.edit-icon.active{
+    color: #f43662;
+    background-color: white;
+    padding: 10px;
+    border-radius: 50%;
+}
+.profileedit .modal-content{
+    background-color: #f43662;
+    border-radius: 10px;
+    color: white;
+}
+.profileedit .closeprofilepop{
+    right: 0;
+    top: 0;
+    background-color:  white;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    color:#f43662;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.profileedit .profileinfosub{
+    background-color: white;
+    color: #f43662;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+}
+.profileedit .form-control{
+    background-color: transparent;
+    color: white;
+    border-radius: 10px;
+}
+.profileedit .form-control::placeholder{
+    color: white !important;
+}
+.profileedit select option {
+    background-color: #fff; /* Option background color */
+    color: #f43662; /* Option text color */
+}
+.profileedit select option:hover {
+    background-color: #f43662 !important; /* Background color when hovering */
+    color: white; /* Text color when hovering */
+}
+.messenger-messagingView{
+    height: calc(100vh - 86px) !important;
+}
+.UploadnewImageLabel{
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background: #f5f5f54a;
+    padding: 10px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    color: white;
+}
+.UploadnewImageLabel2{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #f5f5f54a;
+    padding: 10px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    color: white;
+    border: none;
+}
+.dpimgsave{
+    color: #f43662;
+    background: white;
+    position: absolute;
+    border: 0;
+    bottom: 5px;
+    left: 33%;
+    padding: 5px 15px;
+    border-radius: 10px;
+}
+.savedImagePreicon{
+    font-size: 70px;
+    color: white;
+    border: 2px solid;
+    padding: 50px;
 }
 
 @media (max-width: 767px){
@@ -3220,4 +3448,21 @@ a{
         font-size: 60px;
         text-align: center;
     }
+    .messenger{
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        height: calc(100vh - 98px) !important;
+    }
+    .messenger-listView{
+        position: absolute !important;
+    }
+    .messenger-messagingView {
+        position: absolute !important;
+    }
+    .messenger-infoView {
+        position: absolute !important;
+    }
 }
+
+
