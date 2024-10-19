@@ -16,8 +16,13 @@
             <a href="{{ route('contact') }}" class="menu_item {{ Route::currentRouteName() == 'contact' ? 'active' : '' }}"> Contact Us </a>
         </div>
         <div class="w-30 d-flex justify-content-end align-items-center column-gap-2 Pc-Menus">
+            @if (!Auth::check())
             <a href="{{ route('login') }}" class="btn loginBtn">Sign In</a>
             <a class="btn registerbtn" data-bs-toggle="modal" data-bs-target="#registerModal">Join Now</a>
+            @else
+            <a class="btn registerbtn" href="{{ route('user.dashboard') }}">Dashboard</a>
+            @endif
+
         </div>
         <div class="w-50 d-md-none pr-1">
             <div class="menu d-flex justify-content-end align-items-center column-gap-2">
