@@ -32,9 +32,8 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end userImageProfileDrop">
                       <li><a href="{{ route('user.profile') }}" class="dropdown-item" type="button">My Profile </a></li>
-                      <li><a class="dropdown-item" type="button">My Photos </a></li>
-                      <li><a class="dropdown-item" type="button">Partner Preferences </a></li>
-                      <li><a class="dropdown-item" type="button">Settings </a></li>
+                      <li><a href="{{ route('user.profile.partner') }}" class="dropdown-item" type="button">Partner Preferences </a></li>
+                      <li><a href="{{ route('user.profile.settings') }}" class="dropdown-item" type="button">Settings </a></li>
                       <li><a href="{{ route('user.logout') }}" class="dropdown-item" type="button">Logout </a></li>
                     </ul>
                   </div>

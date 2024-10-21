@@ -67,34 +67,40 @@
           <div class="tab-pane fade  show active p-1 plans" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
             <div class="p-4 d-flex justify-content-evenly align-items-strech w-100 mobilePriceTabCard">
                 @if ($plans->isNotEmpty())
-                @foreach ($plans->where('plan_type', 'Monthly') as $plan )
-                <div class="pricePlanCards" @if(isset($plan->badge)) style="background:#f43662; margin-top: -55px;" @endif >
-                    <div class="border-bottom-1 pb-3">
-                        <div class="mb-2 d-flex justify-content-end">
-                            <p class="{{ isset($plan->badge) ? 'planBadge' : 'planBadgeNull' }} " @if(isset($plan->badge)) style="background:white; color: #f43662;" @endif>{{ $plan->badge  }}</p>
+                    @foreach ($plans->where('plan_type', 'Monthly') as $plan)
+                        <div class="pricePlanCards" @if(isset($plan->badge)) style="background:#f43662; margin-top: -55px;" @endif >
+                            <div class="border-bottom-1 pb-3">
+                                <div class="mb-2 d-flex justify-content-end">
+                                    <p class="{{ isset($plan->badge) ? 'planBadge' : 'planBadgeNull' }} " @if(isset($plan->badge)) style="background:white; color: #f43662;" @endif>{{ $plan->badge  }}</p>
+                                </div>
+                                <h1 class="planAmount" @if(isset($plan->badge)) style=" color: white;" @endif>৳ {{ $plan->price }}
+                                    <span @if(isset($plan->badge)) style=" color: white;" @endif>/ {{ $plan->time }}</span>
+                                </h1>
+                                <div class="d-flex align-items-center justify-content-between column-gap-4">
+                                    <h2 class="planTitle" @if(isset($plan->badge)) style=" color: white;" @endif>{{ $plan->name }}</h2>
+                                </div>
+                                <p class="planSubTitle" @if(isset($plan->badge)) style=" color: white;" @endif> {{ $plan->subtitle }} </p>
+                            </div>
+                            @php
+                                $services = explode(',', $plan->services);
+                            @endphp
+                            <div class="py-3">
+                                @foreach($services as $service)
+                                    <p class="planServices" @if(isset($plan->badge)) style=" color: white;" @endif>
+                                        <i class="fa-solid fa-check" @if(isset($plan->badge)) style=" background: #F995AC;" @endif></i>
+                                        {{ $service }}
+                                    </p>
+                                @endforeach
+                            </div>
+                            <div>
+                                @if (Auth::user()->plans->plan_id !== $plan->id)
+                                <button class="btn price1Btn plansBtn" data-plan-id="{{ $plan->id }}" @if(isset($plan->badge)) style="background:white; color: #f43662;" @endif>Choose Plan</button>
+                                @else
+                                <button class="btn plansBtn" @if(isset($plan->badge)) style="background:white; color: #f43662;" @endif>Current Plan</button>
+                                @endif
+                            </div>
                         </div>
-                        <h1 class="planAmount" @if(isset($plan->badge)) style=" color: white;" @endif>৳ {{ $plan->price }}
-                            <span @if(isset($plan->badge)) style=" color: white;" @endif>/ {{ $plan->time }}</span>
-                        </h1>
-                        <div class="d-flex align-items-center justify-content-between column-gap-4">
-                            <h2 class="planTitle" @if(isset($plan->badge)) style=" color: white;" @endif>{{ $plan->name }}</h2>
-
-                        </div>
-                        <p class="planSubTitle" @if(isset($plan->badge)) style=" color: white;" @endif> {{ $plan->subtitle }} </p>
-                    </div>
-                    @php
-                        $services = explode(',', $plan->services);
-                    @endphp
-                    <div class="py-3">
-                        @foreach($services as $service)
-                            <p class="planServices" @if(isset($plan->badge)) style=" color: white;" @endif><i class="fa-solid fa-check" @if(isset($plan->badge)) style=" background: #F995AC;" @endif></i> {{ $service }}</p>
-                        @endforeach
-                    </div>
-                    <div>
-                        <a href="{{ route('login') }}" class="btn plansBtn" @if(isset($plan->badge)) style="background:white; color: #f43662;" @endif> Choose Plan </a>
-                    </div>
-                </div>
-                @endforeach
+                    @endforeach
                 @endif
             </div>
           </div>
@@ -102,9 +108,80 @@
       </div>
 </div>
 
+
+<div class="modal fade" id="confirmPlanModal" tabindex="-1" aria-labelledby="confirmPlanLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmPlanLabel">Confirm Plan Purchase</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to purchase or upgrade to this plan?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary confirmPurchaseBtn">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 @endsection
 
 
 @section('customJs')
+
+<script>
+    $(document).ready(function () {
+        var planId = null; // Variable to store the plan ID
+
+        // When "Choose Plan" button is clicked
+        $('.price1Btn').click(function (e) {
+            e.preventDefault();
+            planId = $(this).data('plan-id'); // Get the plan ID
+
+            // Show the Bootstrap modal for confirmation
+            $('#confirmPlanModal').modal('show');
+        });
+
+        // When "Confirm" button in the modal is clicked
+        $('.confirmPurchaseBtn').click(function () {
+            if (planId) {
+                // Close the modal
+                $('#confirmPlanModal').modal('hide');
+
+                // Send the AJAX request
+                $.ajax({
+                    url: '{{ route('subscribe-plan') }}',
+                    type: 'POST',
+                    data: {
+                        plan_id: planId,
+                        _token: '{{ csrf_token() }}' // Include CSRF token
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            toastr.success('Plan upgraded successfully!');
+
+                            // Redirect to dashboard after 2 seconds
+                            setTimeout(function () {
+                                window.location.href = '{{ route('user.dashboard') }}';
+                            }, 2000);
+                        } else {
+                            toastr.error('Failed to upgrade plan!');
+                        }
+                    },
+                    error: function () {
+                        toastr.error('An error occurred while processing your request.');
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+
 
 @endsection

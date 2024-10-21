@@ -3068,6 +3068,7 @@ a{
 .edit-infos{
     color: #f43662;
     font-size: 18px;
+    cursor: pointer;
 }
 .edit-infos.active{
     background-color: #f43662;
@@ -3104,6 +3105,7 @@ a{
 .edit-icon{
     font-size: 20px;
     padding: 10px;
+    cursor: pointer;
 }
 .edit-icon.active{
     color: #f43662;
@@ -3164,6 +3166,7 @@ a{
     border-radius: 10px;
     backdrop-filter: blur(5px);
     color: white;
+    cursor: pointer;
 }
 .UploadnewImageLabel2{
     position: absolute;
@@ -3175,6 +3178,7 @@ a{
     backdrop-filter: blur(5px);
     color: white;
     border: none;
+    cursor: pointer;
 }
 .dpimgsave{
     color: #f43662;
@@ -3192,6 +3196,56 @@ a{
     border: 2px solid;
     padding: 50px;
 }
+.profile-allImages .image-wrapper{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    position: relative;
+}
+.profile-allImages .image-wrapper button{
+    display: block;
+    width: fit-content;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.profile-allImages .image-label i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+    width: 70px;
+    background: #f4366294;
+    border-radius: 10px;
+    color: white;
+    font-size: 21px;
+    cursor: pointer;
+}
+.matchradiosdiv .matchradios{
+    padding: 3px 10px;
+    border: 1px solid white;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 17px;
+    padding: 5px 30px;
+}
+.matchradiosdiv input[type="radio"]:checked + .matchradios{
+    background: white;
+    border-color: hotpink;
+    color: #f43662;
+}
+.profilecancelbtnn3{
+    background-color: white;
+    color: #f43662;
+    border: none;
+    padding: 7px 20px;
+    border-radius: 10px;
+}
+
+
+
+
 
 @media (max-width: 767px){
     .headerMain .logo .logopic{

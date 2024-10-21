@@ -9,9 +9,10 @@
     <div class="section">
         <div class="profileDetailsDiv">
             <div class="menus">
-                <a class="pro-menu {{ Route::currentRouteName() == 'user.profile' ? 'active' : '' }}" href=""><i class="fa-regular fa-user"></i> Profile</a>
-                <a class="pro-menu {{ Route::currentRouteName() == 'user.profile.images' ? 'active' : '' }}" href=""><i class="fa-regular fa-images"></i> Photo Album</a>
-                <a class="pro-menu {{ Route::currentRouteName() == 'user.profile.seetings' ? 'active' : '' }}" href=""><i class="fa-solid fa-gears"></i> Settings</a>
+                <a class="pro-menu {{ Route::currentRouteName() == 'user.profile' ? 'active' : '' }}" href="{{ route('user.profile') }}"><i class="fa-regular fa-user"></i> Profile</a>
+                <a class="pro-menu {{ Route::currentRouteName() == 'user.profile.partner' ? 'active' : '' }}" href="{{ route('user.profile.partner') }}"><i class="fa-solid fa-people-arrows"></i> Partner Preference</a>
+                <a class="pro-menu {{ Route::currentRouteName() == 'user.profile.contact' ? 'active' : '' }}" href="{{ route('user.profile.contact') }}"><i class="fa-solid fa-address-book"></i> Contact Informations</a>
+                <a class="pro-menu {{ Route::currentRouteName() == 'user.profile.settings' ? 'active' : '' }}" href="{{ route('user.profile.settings') }}"><i class="fa-solid fa-gears"></i> Settings</a>
                 <div>
                     <a href=""></a>
                 </div>
@@ -89,26 +90,25 @@
                                 @foreach($userImages as $image)
                                     <div class="image-wrapper" id="image-{{ $image->id }}">
                                         <img src="{{ asset('frontend-assets/imgs/profiles/'.$image->image) }}" alt="">
-
-                                        <button type="button" class="btn btn-danger btn-sm remove-image" style="display: none;" data-id="{{ $image->id }}">Remove</button>
+                                        <button type="button" class="btn btn-danger btn-sm remove-image" style="display: none;" data-id="{{ $image->id }}"><i class="fa-solid fa-trash"></i></button>
                                     </div>
                                 @endforeach
                             @endif
                         </div>
                         @if (!is_null($userImages))
-                        <label class="image-label" for="imageInput" style="display: none;">Upload</label>
+                        <label class="image-label" for="imageInput" style="display: none;"><i class="fa-solid fa-arrow-up-from-bracket"></i></label>
                         <input type="file" id="imageInput" class="image-input" multiple accept="image/*" style="display: none;">
                         @endif
                     </div>
 
 
                     <div id="upload-section" style="display: none;">
-                        <button id="save-images" class="btn btn-primary mt-2">Save</button>
+                        <button id="save-images" class="profilecancelbtnn2 mt-2 float-end">Save</button>
                     </div>
                 </div>
 
                 <div class="p-3 profile-lookingfor">
-                    <p class="profile-title">I'm looking for <i class="fa-solid fa-pen mx-3"></i></p>
+                    <p class="profile-title">I'm looking for <a href="{{ route('user.profile.partner') }}" class="edit-infos"><i class="fa-solid fa-pen mx-3"></i></a></p>
                     <div class="d-flex column-gap-2 align-items-center flex-wrap">
                         <p class="lookingp">Bride</p>
                         <p class="lookingp">from 21 to 30</p>
@@ -118,20 +118,10 @@
                 </div>
 
                 <div class="p-3 profile-lookingfor">
-                    <p class="profile-title">Interests <i class="fa-solid fa-pen mx-3"></i></p>
+                    <p class="profile-title">Contact Information <a href="{{  route('user.profile.contact') }}" class="edit-infos" ><i class="fa-solid fa-pen mx-3"></i></a> <i class="fa-regular fa-eye"></i> </p>
                     <div class="d-flex column-gap-2 align-items-center flex-wrap row-gap-2">
-                        <p class="lookingp">Journeys</p>
-                        <p class="lookingp">Snowboarding</p>
-                        <p class="lookingp">Design</p>
-                        <p class="lookingp">Video games</p>
-                        <p class="lookingp">Journeys</p>
-                        <p class="lookingp">Snowboarding</p>
-                        <p class="lookingp">Design</p>
-                        <p class="lookingp">Video games</p>
-                        <p class="lookingp">Journeys</p>
-                        <p class="lookingp">Snowboarding</p>
-                        <p class="lookingp">Design</p>
-                        <p class="lookingp">Video games</p>
+                        <p class="lookingp"> Email: {{ $user->email }} </p>
+                        <p class="lookingp"> Phone: +880 {{ $user->number ?? 'Add a Contact Number' }} </p>
                     </div>
                 </div>
 
@@ -950,7 +940,6 @@
         const uploadSection = document.getElementById("upload-section");
         const imageWrappers = document.querySelectorAll(".image-wrapper");
         const uploadLabel = document.querySelector('.image-label');
-        const imageInput = document.querySelector('.image-input');
         const imageGallery = document.getElementById("image-gallery");
         let imagePreviews = [];
         let filesArray = [];
@@ -964,12 +953,10 @@
                 uploadSection.style.display = "none";
                 hideRemoveButtons(); // Hide remove buttons
                 uploadLabel.style.display = 'none'; // Hide the upload label
-                imageInput.style.display = 'none'; // Hide the input
             } else {
                 uploadSection.style.display = "block";
                 showRemoveButtons(); // Show remove buttons
                 uploadLabel.style.display = 'block'; // Show the upload label
-                imageInput.style.display = 'block'; // Show the input
             }
         });
 
@@ -1012,7 +999,7 @@
                     // Add remove button for new images
                     let removeBtn = document.createElement('button');
                     removeBtn.classList.add('btn', 'btn-danger', 'btn-sm');
-                    removeBtn.textContent = 'Remove';
+                    removeBtn.innerHTML = `<i class="fa-solid fa-trash"></i>`;
                     removeBtn.addEventListener('click', function () {
                         wrapper.remove();
                         // Remove the file from the files array

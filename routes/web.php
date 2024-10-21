@@ -87,7 +87,8 @@ Route::group(['prefix' => 'account'],function(){
         Route::post('/user/profile/match', [UserProfileController::class,'submitMatchProfile'])->name('match.details.submit');
         Route::get('/user/matches',[MatchesController::class,'matches'])->name('user.matches');
         Route::get('/user/notifications',[NotificationsController::class,'notifications'])->name('user.notifications');
-        Route::get('/user/profile/images',[UserProfileController::class,'Profileimage'])->name('user.profile.images');
+        Route::get('/user/profile/partner',[UserProfileController::class,'Profileimage'])->name('user.profile.partner');
+        Route::get('/user/profile/contact',[UserProfileController::class,'ProfileContact'])->name('user.profile.contact');
         Route::get('/user/profile/settings',[UserProfileController::class,'settingsProfile'])->name('user.profile.settings');
         Route::get('/user/buy/plan', [UserPlanController::class,'buyCredit'])->name('user.buy.credit');
         Route::post('/upload-images', [UserProfileController::class, 'uploadImages'])->name('profile.storeImggallery');

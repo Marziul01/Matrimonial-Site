@@ -281,3 +281,14 @@
         this.showPicker(); // Open the date picker immediately
     });
 </script>
+
+<script>
+    // Function to hide the elements after 15 seconds
+    setTimeout(function() {
+        // Hide the X mark icon
+        document.querySelector('.closethebox').style.display = 'none';
+
+        // Hide the live chat box
+        document.querySelector('.live-support-icon-box').style.display = 'none';
+    }, 15000); // 15000 milliseconds = 15 seconds
+</script>

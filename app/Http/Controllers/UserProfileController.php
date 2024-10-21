@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\District;
 use App\Models\ImageGallery;
 use App\Models\Upazila;
+use Hamcrest\Matchers;
 
 class UserProfileController extends Controller
 {
@@ -45,14 +46,24 @@ class UserProfileController extends Controller
     }
     public static function Profileimage(){
         return view('frontend.profile.images',[
-            'user' => Auth::check(),
+            'user' => Auth::user(),
+            'profileDetails' => Profile::where('user_id', Auth::user()->id)->first(),
+            'districts' => District::all(),
+        ]);
+    }
+    public static function ProfileContact(){
+        return view('frontend.profile.contact',[
+            'user' => Auth::user(),
+            'profileDetails' => Profile::where('user_id', Auth::user()->id)->first(),
         ]);
     }
     public static function settingsProfile(){
         return view('frontend.profile.settings',[
-            'user' => Auth::check(),
+            'user' => Auth::user(),
+            'profileDetails' => Profile::where('user_id', Auth::user()->id)->first(),
         ]);
     }
+
 
     public static function submitProfile(Request $request){
 
@@ -389,111 +400,121 @@ class UserProfileController extends Controller
     public static function submitMatchProfile(Request $request){
 
         $validator = Validator::make($request->all(), [
-            'from_age' => 'required |integer|min:18',
-            'to_age' => 'required',
-            'location' => 'nullable',
-            'religion' => 'required',
-            'marital_status' => 'required',
+            'looking_for' => 'required|in:Groom,Bride',
+            'from_age' => 'required|integer|min:18|max:45',
+            'to_age' => 'required|integer|min:18|max:45|gte:from_age', // Ensure to_age is greater than or equal to from_age
+            'marital_status' => 'required|string|in:Single,Divorced,Widowed,Awaiting Divorce',
+            'religion' => 'required|string',
+            'location' => 'nullable|string',
+            'education' => 'nullable|string',
+            'height_from' => 'nullable|string',
+            'height_to' => 'nullable|string|gte:height_from', // Ensure height_to is greater than or equal to height_from
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'errors' => $validator->errors()
+                'message' => 'Validation failed',
+                'errors' => $validator->errors(),
             ], 422);
         }
 
-        $user = Auth::user();
-        $match = new MatchProfile();
-        $match->user_id = $user->id;
-        $match->looking_for = $user->userInfo->looking_for;
+        // Assuming you have a 'match_profiles' model linked with the user.
+        $matchProfile = Auth::user()->match;
+        if($matchProfile){
+            $match = $matchProfile;
+        }else{
+            $match = new MatchProfile();
+            $match->user_id = Auth::user()->id;
+        }
+
+        $match->looking_for = $request->looking_for;
         $match->from_age = $request->from_age;
         $match->to_age = $request->to_age;
-        $match->religion = $request->religion;
         $match->marital_status = $request->marital_status;
+        $match->religion = $request->religion;
         $match->location = $request->location;
-        $match->family_status = $request->family_status;
-        $match->height_form = $request->height_form;
-        $match->height_to = $request->height_to;
         $match->education = $request->education;
+        $match->height_from = $request->height_from;
+        $match->height_to = $request->height_to;
         $match->save();
 
         return response()->json([
             'success' => true,
-            'redirect' => route('user.dashboard'),
+            'message' => 'Profile preferences updated successfully!',
         ]);
 
     }
 
     public function uploadImages(Request $request)
-{
-    // Validate each uploaded image
-    $request->validate([
-        'images.*' => 'image|max:2048', // Max 2MB per image
-    ]);
-
-    // Get the authenticated user's ID
-    $userId = auth()->id();
-
-    // Count existing images
-    $existingImagesCount = ImageGallery::where('user_id', $userId)->count();
-
-    // Determine how many more images can be uploaded
-    $maxImages = 5;
-    $canUpload = $maxImages - $existingImagesCount;
-
-    // If the user is trying to upload too many images
-    if ($canUpload <= 0) {
-        return response()->json(['success' => false, 'message' => 'You can only have a maximum of 5 images.'], 400);
-    }
-
-    // Adjust the number of images the user can upload
-    $imagesToUpload = min($canUpload, count($request->file('images')));
-
-    // Get the authenticated user's name
-    $username = auth()->user()->name;
-
-    // Iterate through each uploaded image
-    foreach ($request->file('images') as $image) {
-        if ($imagesToUpload <= 0) break; // Stop if we reached the limit
-
-        // Generate a unique filename using the username and timestamp
-        $filename = $username . '_' . time() . '_' . $image->getClientOriginalName();
-
-        $dir1 = "frontend-assets/imgs/profiles/";
-        $image->move(public_path($dir1), $filename);
-
-        // Save the image record to the database
-        ImageGallery::create([
-            'user_id' => $userId,
-            'image' => $filename,
+    {
+        // Validate each uploaded image
+        $request->validate([
+            'images.*' => 'image|max:2048', // Max 2MB per image
         ]);
 
-        $imagesToUpload--; // Decrement the count
-    }
+        // Get the authenticated user's ID
+        $userId = auth()->id();
 
-    return response()->json(['success' => true, 'message' => 'Images uploaded successfully!']);
-}
+        // Count existing images
+        $existingImagesCount = ImageGallery::where('user_id', $userId)->count();
+
+        // Determine how many more images can be uploaded
+        $maxImages = 5;
+        $canUpload = $maxImages - $existingImagesCount;
+
+        // If the user is trying to upload too many images
+        if ($canUpload <= 0) {
+            return response()->json(['success' => false, 'message' => 'You can only have a maximum of 5 images.'], 400);
+        }
+
+        // Adjust the number of images the user can upload
+        $imagesToUpload = min($canUpload, count($request->file('images')));
+
+        // Get the authenticated user's name
+        $username = auth()->user()->name;
+
+        // Iterate through each uploaded image
+        foreach ($request->file('images') as $image) {
+            if ($imagesToUpload <= 0) break; // Stop if we reached the limit
+
+            // Generate a unique filename using the username and timestamp
+            $filename = $username . '_' . time() . '_' . $image->getClientOriginalName();
+
+            $dir1 = "frontend-assets/imgs/profiles/";
+            $image->move(public_path($dir1), $filename);
+
+            // Save the image record to the database
+            ImageGallery::create([
+                'user_id' => $userId,
+                'image' => $filename,
+            ]);
+
+            $imagesToUpload--; // Decrement the count
+        }
+
+        return response()->json(['success' => true, 'message' => 'Images uploaded successfully!']);
+    }
 
 
     public function deleteImage($id)
-{
-    // Find the image by ID
-    $image = ImageGallery::findOrFail($id);
+    {
+        // Find the image by ID
+        $image = ImageGallery::findOrFail($id);
 
-    // Check if the image belongs to the authenticated user
-    if ($image->user_id == auth()->id()) {
-        // Delete the image file from the public directory
-        unlink(public_path('frontend-assets/imgs/profiles/' . $image->image));
+        // Check if the image belongs to the authenticated user
+        if ($image->user_id == auth()->id()) {
+            // Delete the image file from the public directory
+            unlink(public_path('frontend-assets/imgs/profiles/' . $image->image));
 
-        // Delete the image record from the database
-        $image->delete();
+            // Delete the image record from the database
+            $image->delete();
 
-        return response()->json(['success' => true]);
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false], 403);
     }
-
-    return response()->json(['success' => false], 403);
-}
 
 
 
