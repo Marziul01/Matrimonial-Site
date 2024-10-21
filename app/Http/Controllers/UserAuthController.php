@@ -66,7 +66,7 @@ class UserAuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $verificationCode = Str::random(6);
+        $verificationCode = random_int(100000, 999999);
         session(['verification_code' => $verificationCode]);
 
         // Send verification email
