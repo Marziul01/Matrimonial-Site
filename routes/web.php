@@ -93,7 +93,9 @@ Route::group(['prefix' => 'account'],function(){
         Route::get('/user/buy/plan', [UserPlanController::class,'buyCredit'])->name('user.buy.credit');
         Route::post('/upload-images', [UserProfileController::class, 'uploadImages'])->name('profile.storeImggallery');
         Route::delete('/delete-image/{id}', [UserProfileController::class, 'deleteImage'])->name('deleteImageGallery');
-
+        Route::post('/profile/update-contact', [UserProfileController::class, 'updateContactInfo'])->name('profile.update.contact');
+        Route::post('/profile/toggleGalleryVisibility', [UserProfileController::class, 'toggleGalleryVisibility'])->name('profile.toggleGalleryVisibility');
+        Route::post('/profile/toggleContactVisibility', [UserProfileController::class, 'toggleContactVisibility'])->name('profile.toggleContactVisibility');
     });
 });
 

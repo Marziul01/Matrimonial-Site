@@ -516,10 +516,70 @@ class UserProfileController extends Controller
         return response()->json(['success' => false], 403);
     }
 
+    public function updateContactInfo(Request $request)
+    {
+        // Validate the phone number
+        $validator = Validator::make($request->all(), [
+            'number' => 'required|numeric|digits_between:10,15', // You can adjust the rules as needed
+        ]);
 
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
 
+        // Get the currently authenticated user
+        $user = Auth::user();
 
+        // Update the user's phone number
+        $user->number = $request->number;
+        $user->save();
 
+        // Return a success message
+        return response()->json([
+            'success' => true,
+            'message' => 'Contact information updated successfully!',
+        ]);
+    }
+
+    public function toggleGalleryVisibility(Request $request)
+    {
+        // Validate input
+        $validator = Validator::make($request->all(), [
+            'show_images' => 'required|in:0,1'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => 'Invalid input']);
+        }
+
+        // Update the user's show_images column
+        $user = Auth::user()->profile;
+        $user->show_images = $request->show_images;
+        $user->save();
+
+        return response()->json(['success' => true, 'message' => 'Gallery visibility updated successfully']);
+    }
+
+    public function toggleContactVisibility(Request $request)
+    {
+        // Validate input
+        $validator = Validator::make($request->all(), [
+            'show_contact_info' => 'required|in:0,1'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => 'Invalid input']);
+        }
+
+        // Update the user's show_contact_info column
+        $user = Auth::user()->profile;
+        $user->show_contact = $request->show_contact;
+        $user->save();
+
+        return response()->json(['success' => true, 'message' => 'Contact information visibility updated successfully']);
+    }
 
     public static function saveImage($request) {
         if ($request->hasFile('image')) {

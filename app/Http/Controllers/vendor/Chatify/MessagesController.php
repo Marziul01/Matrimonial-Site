@@ -48,7 +48,7 @@ class MessagesController extends Controller
         $now = now();
 
         if ($currentPlan->end_date == null || $now->greaterThan($currentPlan->end_date)) {
-            return back();
+            return redirect()->route('user.buy.credit');
         }
 
         $messenger_color = Auth::user()->messenger_color;

@@ -57,7 +57,11 @@
                         @endforeach
                     </div>
                     <div>
-                        <a href="{{ route('login') }}" class="btn plansBtn" @if(isset($plan->badge)) style="background:white; color: #f43662;" @endif> Choose Plan </a>
+                        @if (Auth::user()->plans->plan_id !== $plan->id)
+                        <button class="btn price1Btn plansBtn" data-plan-id="{{ $plan->id }}" @if(isset($plan->badge)) style="background:white; color: #f43662;" @endif>Choose Plan</button>
+                        @else
+                        <button class="btn plansBtn" @if(isset($plan->badge)) style="background:white; color: #f43662;" @endif>Current Plan</button>
+                        @endif
                     </div>
                 </div>
                 @endforeach

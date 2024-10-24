@@ -82,7 +82,7 @@
                 <div class="p-3 profile-allImages">
                     <p class="profile-title">My photos
                         <i class="fa-solid fa-pen mx-3 edit-gallery edit-infos"></i>
-                        <i class="fa-regular fa-eye"></i>
+                        <i class="fa-regular @if(Auth::user()->profile->show_images==1) fa-eye @else fa-eye-slash  @endif mx-3 toggle-visibility coursor-pointer" id="toggleGallery" data-visible="{{ Auth::user()->profile->show_images ?? null }}"></i>
                     </p>
                     <div class="d-flex column-gap-2 align-items-center w-100 flex-wrap">
                         <div class="d-flex column-gap-2 align-items-center flex-wrap" id="image-gallery">
@@ -110,15 +110,30 @@
                 <div class="p-3 profile-lookingfor">
                     <p class="profile-title">I'm looking for <a href="{{ route('user.profile.partner') }}" class="edit-infos"><i class="fa-solid fa-pen mx-3"></i></a></p>
                     <div class="d-flex column-gap-2 align-items-center flex-wrap">
-                        <p class="lookingp">Bride</p>
-                        <p class="lookingp">from 21 to 30</p>
-                        <p class="lookingp">Dhaka</p>
-                        <p class="lookingp">Muslim</p>
+                        @if(!is_null(Auth::user()->match))
+                        <p class="lookingp">{{ Auth::user()->match->looking_for }}</p>
+                        <p class="lookingp">Age : {{ Auth::user()->match->from_age }} yr - {{ Auth::user()->match->to_age }}yr</p>
+                        <p class="lookingp">{{ Auth::user()->match->religion  }}</p>
+                        <p class="lookingp">{{ Auth::user()->match->marital_status }}</p>
+                        @if (Auth::user()->match->location)
+                        <p class="lookingp">{{ Auth::user()->match->location }}</p>
+                        @endif
+                        @if (Auth::user()->match->education)
+                        <p class="lookingp">{{ Auth::user()->match->education }}</p>
+                        @endif
+                        @if (Auth::user()->match->education)
+                        <p class="lookingp">Height : {{ Auth::user()->match->height_from }} Inch - {{ Auth::user()->match->height_to }} Inch</p>
+                        @endif
+                        @else
+                        <p class="lookingp"> Please Update Your Match Preference</p>
+                        @endif
                     </div>
                 </div>
 
                 <div class="p-3 profile-lookingfor">
-                    <p class="profile-title">Contact Information <a href="{{  route('user.profile.contact') }}" class="edit-infos" ><i class="fa-solid fa-pen mx-3"></i></a> <i class="fa-regular fa-eye"></i> </p>
+                    <p class="profile-title">Contact Information <a href="{{  route('user.profile.contact') }}" class="edit-infos" ><i class="fa-solid fa-pen mx-3"></i></a>
+                        <i class="fa-regular @if(Auth::user()->profile->show_contact == 1) fa-eye @else fa-eye-slash  @endif mx-3 toggle-contact-visibility coursor-pointer" id="toggleContactInfo" data-visible="{{ Auth::user()->profile->show_contact }}"></i>
+                    </p>
                     <div class="d-flex column-gap-2 align-items-center flex-wrap row-gap-2">
                         <p class="lookingp"> Email: {{ $user->email }} </p>
                         <p class="lookingp"> Phone: +880 {{ $user->number ?? 'Add a Contact Number' }} </p>
@@ -239,18 +254,18 @@
                                     <label for="">Educational Level</label>
                                     <select name="education" id="" class="form-control" disabled>
                                         <option value="" >Select Education Level</option>
-                                        <option value="Secondary Education" {{ $profileDetails->education == 'Secondary Education' ? 'selected' : '' }}>Secondary Education</option>
-                                        <option value="Higher Secondary" {{ $profileDetails->education == 'Higher Secondary' ? 'selected' : '' }}>Higher Secondary</option>
-                                        <option value="Diploma in Engineering" {{ $profileDetails->education == 'Diploma in Engineering' ? 'selected' : '' }}>Diploma in Engineering</option>
-                                        <option value="Fazil" {{ $profileDetails->education == 'Fazil' ? 'selected' : '' }}>Fazil</option>
-                                        <option value="Bachelor's" {{ $profileDetails->education == "Bachelor's" ? 'selected' : '' }}>Bachelor's</option>
-                                        <option value="Master's" {{ $profileDetails->education == "Master's" ? 'selected' : '' }}>Master's</option>
-                                        <option value="Doctorate" {{ $profileDetails->education == "Doctorate" ? 'selected' : '' }}>Doctorate</option>
+                                        <option value="Secondary Education" {{ $profileDetails->education_level == 'Secondary Education' ? 'selected' : '' }}>Secondary Education</option>
+                                        <option value="Higher Secondary" {{ $profileDetails->education_level == 'Higher Secondary' ? 'selected' : '' }}>Higher Secondary</option>
+                                        <option value="Diploma in Engineering" {{ $profileDetails->education_level == 'Diploma in Engineering' ? 'selected' : '' }}>Diploma in Engineering</option>
+                                        <option value="Fazil" {{ $profileDetails->education_level == 'Fazil' ? 'selected' : '' }}>Fazil</option>
+                                        <option value="Bachelor's" {{ $profileDetails->education_level == "Bachelor's" ? 'selected' : '' }}>Bachelor's</option>
+                                        <option value="Master's" {{ $profileDetails->education_level == "Master's" ? 'selected' : '' }}>Master's</option>
+                                        <option value="Doctorate" {{ $profileDetails->education_level == "Doctorate" ? 'selected' : '' }}>Doctorate</option>
                                     </select>
                                 </div>
                                 <div class="w-30 p-0">
                                     <label for="">Education Institute</label>
-                                    <input type="text" class="form-control" name="education_institute" value="{{ $profileDetails->education_institute }}" readonly>
+                                    <input type="text" class="form-control" name="education_institute" value="{{ $profileDetails->institute_name }}" readonly>
                                 </div>
                                 <div class="w-30 p-0">
                                     <label for="">Year</label>
@@ -272,7 +287,7 @@
                                 </div>
                                 <div class="w-30 p-0">
                                     <label for="">Position</label>
-                                    <input type="text" class="form-control" name="position" value="{{ $profileDetails->position }}" readonly>
+                                    <input type="text" class="form-control" name="position" value="{{ $profileDetails->designation }}" readonly>
                                 </div>
                                 <div class="w-30 p-0">
                                     <label for="">Your Income (Monthly)</label>
@@ -348,8 +363,8 @@
                                 <div class="w-30 p-0">
                                     <label for="">Living With Family ?</label>
                                     <select name="living_with_family" class="form-control" disabled>
-                                        <option value="Yes" {{ $profileDetails->family_status == "Yes" ? 'selected' : '' }}>Yes</option>
-                                        <option value="No" {{ $profileDetails->family_status == "No" ? 'selected' : '' }}>No</option>
+                                        <option value="Yes" {{ $profileDetails->living_with_family == "Yes" ? 'selected' : '' }}>Yes</option>
+                                        <option value="No" {{ $profileDetails->living_with_family == "No" ? 'selected' : '' }}>No</option>
                                     </select>
                                 </div>
                                 <div class="w-30 p-0">
@@ -558,8 +573,43 @@
             </div>
           </div>
         </div>
-      </div>
+    </div>
 
+    <div class="modal fade" id="confirmVisibilityModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirm Action</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <span id="modalText">Are you sure you want to hide your image gallery?</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirmToggleBtn">Yes, Proceed</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="confirmContactInfoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirm Action</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <span id="modalContactText">Are you sure you want to hide your contact information?</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirmContactToggleBtn">Yes, Proceed</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection
 
@@ -573,6 +623,7 @@
 
         const inputs = document.querySelectorAll('input, select');
         const isEditable = this.classList.contains('active'); // Check if it's in editable mode
+
 
         // Toggle readonly and disabled attributes
         inputs.forEach(function (input) {
@@ -592,11 +643,17 @@
             this.classList.remove('active'); // Remove active class from the change button
             document.getElementById('cancel-edit').style.display = 'none'; // Hide Cancel button
             document.getElementById('save-info').style.display = 'none'; // Hide Save button
+            document.querySelectorAll('.form-control').forEach(function(input) {
+                input.classList.remove('editing'); // Toggle a class on form controls
+            });
         } else {
             // Enable editable mode
             this.classList.add('active'); // Add active class to the change button
             document.getElementById('cancel-edit').style.display = 'inline-block'; // Show Cancel button
             document.getElementById('save-info').style.display = 'inline-block'; // Show Save button
+            document.querySelectorAll('.form-control').forEach(function(input) {
+                input.classList.toggle('editing'); // Toggle a class on form controls
+            });
         }
     });
 
@@ -614,6 +671,9 @@
         document.getElementById('cancel-edit').style.display = 'none'; // Hide Cancel button
         document.getElementById('save-info').style.display = 'none'; // Hide Save button
 
+        document.querySelectorAll('.form-control').forEach(function(input) {
+                input.classList.remove('editing'); // Toggle a class on form controls
+            });
         // Optionally reset the form (this clears the input values, remove if unnecessary)
         document.getElementById('personal-info-save').reset();
     });
@@ -941,6 +1001,7 @@
         const imageWrappers = document.querySelectorAll(".image-wrapper");
         const uploadLabel = document.querySelector('.image-label');
         const imageGallery = document.getElementById("image-gallery");
+        const imageInput = document.getElementById("imageInput");
         let imagePreviews = [];
         let filesArray = [];
 
@@ -978,47 +1039,46 @@
 
         // 1. Handle the image upload logic
         imageInput.addEventListener("change", function() {
-            // Clear previous previews
-            imagePreviews.forEach(preview => preview.remove());
-            imagePreviews = [];
-            filesArray = []; // Reset the files array
-
             Array.from(imageInput.files).forEach((file) => {
-                let reader = new FileReader();
-                reader.onload = function (e) {
-                    let img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.alt = file.name;
-                    img.classList.add("preview-image");
+                // Avoid adding duplicates by checking if the file already exists in filesArray
+                if (!filesArray.some(f => f.name === file.name)) {
+                    let reader = new FileReader();
+                    reader.onload = function (e) {
+                        let img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.alt = file.name;
+                        img.classList.add("preview-image");
 
-                    // Create wrapper for the image and remove button
-                    let wrapper = document.createElement('div');
-                    wrapper.classList.add('image-wrapper');
-                    wrapper.appendChild(img);
+                        // Create wrapper for the image and remove button
+                        let wrapper = document.createElement('div');
+                        wrapper.classList.add('image-wrapper');
+                        wrapper.appendChild(img);
 
-                    // Add remove button for new images
-                    let removeBtn = document.createElement('button');
-                    removeBtn.classList.add('btn', 'btn-danger', 'btn-sm');
-                    removeBtn.innerHTML = `<i class="fa-solid fa-trash"></i>`;
-                    removeBtn.addEventListener('click', function () {
-                        wrapper.remove();
-                        // Remove the file from the files array
-                        filesArray = filesArray.filter(f => f !== file);
-                        updateImageInput();
-                    });
+                        // Add remove button for new images
+                        let removeBtn = document.createElement('button');
+                        removeBtn.classList.add('btn', 'btn-danger', 'btn-sm');
+                        removeBtn.innerHTML = `<i class="fa-solid fa-trash"></i>`;
+                        removeBtn.addEventListener('click', function () {
+                            wrapper.remove();
+                            // Remove the file from the files array
+                            filesArray = filesArray.filter(f => f !== file);
+                            updateImageInput();
+                        });
 
-                    wrapper.appendChild(removeBtn);
-                    imageGallery.appendChild(wrapper);
-                    imagePreviews.push(wrapper);
+                        wrapper.appendChild(removeBtn);
+                        imageGallery.appendChild(wrapper);
+                        imagePreviews.push(wrapper);
 
-                    // Add the file to the files array
-                    filesArray.push(file);
+                        // Add the file to the files array
+                        filesArray.push(file);
+                        updateImageInput(); // Update the input files
+                    }
+                    reader.readAsDataURL(file);
                 }
-                reader.readAsDataURL(file);
             });
         });
 
-        // Function to update the input value (this is just to reset the input)
+        // Function to update the input value with all files in filesArray
         function updateImageInput() {
             const dataTransfer = new DataTransfer();
             filesArray.forEach(file => dataTransfer.items.add(file));
@@ -1081,23 +1141,158 @@
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 }
             }).then(response => response.json())
-              .then(data => {
-                  if (data.success) {
-                      toastr.success(data.message);
-                      location.reload(); // Reload the page to show the new images
-                  } else {
-                      toastr.error(data.message || "Error uploading images.");
-                  }
-              }).catch(error => {
-                  console.error('Error:', error);
-                  toastr.error("An error occurred while uploading images.");
-              });
+            .then(data => {
+                if (data.success) {
+                    toastr.success(data.message);
+                    location.reload(); // Reload the page to show the new images
+                } else {
+                    toastr.error(data.message || "Error uploading images.");
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+                toastr.error("An error occurred while uploading images.");
+            });
         });
 
     });
+
 </script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toggleGalleryIcon = document.getElementById('toggleGallery');
+        let showImages = toggleGalleryIcon.getAttribute('data-visible'); // Get the current visibility state
 
+        // Set initial icon based on current visibility state
+        if (showImages === "1") {
+            toggleGalleryIcon.classList.add('fa-eye');
+        } else {
+            toggleGalleryIcon.classList.add('fa-eye-slash');
+        }
 
+        // Handle icon click to show confirmation modal
+        toggleGalleryIcon.addEventListener("click", function () {
+            showImages = this.getAttribute('data-visible'); // Update visibility state on each click
+            const modal = new bootstrap.Modal(document.getElementById('confirmVisibilityModal'));
 
+            if (showImages === "1") {
+                document.getElementById('modalText').textContent = "Are you sure you want to hide your image gallery?";
+            } else {
+                document.getElementById('modalText').textContent = "Are you sure you want to show your image gallery?";
+            }
+            modal.show(); // Show the modal
+        });
+
+        // Handle confirmation button click
+        document.getElementById('confirmToggleBtn').addEventListener("click", function () {
+            // Determine new visibility state based on current one
+            const newVisibility = showImages === "1" ? 0 : 1;
+            const url = '{{ route("profile.toggleGalleryVisibility") }}';
+
+            // AJAX request to update 'show_images' column
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ show_images: newVisibility }) // Send updated value (0 or 1)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        toastr.success(newVisibility === 0 ? "Your image gallery is now hidden." : "Your image gallery is now visible.");
+                        toggleGalleryIcon.setAttribute('data-visible', newVisibility.toString()); // Update visibility state
+
+                        // Toggle between eye and eye-slash icons
+                        if (newVisibility === 0) {
+                            toggleGalleryIcon.classList.remove('fa-eye');
+                            toggleGalleryIcon.classList.add('fa-eye-slash');
+                        } else {
+                            toggleGalleryIcon.classList.remove('fa-eye-slash');
+                            toggleGalleryIcon.classList.add('fa-eye');
+                        }
+
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('confirmVisibilityModal'));
+                        modal.hide(); // Hide the modal
+                    } else {
+                        toastr.error("Error updating gallery visibility.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    toastr.error("An error occurred.");
+                });
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toggleContactIcon = document.getElementById('toggleContactInfo');
+        let showContactInfo = toggleContactIcon.getAttribute('data-visible'); // Get the current visibility state for contact info
+
+        // Set initial icon based on current visibility state
+        if (showContactInfo === "1") {
+            toggleContactIcon.classList.add('fa-eye');
+        } else {
+            toggleContactIcon.classList.add('fa-eye-slash');
+        }
+
+        // Handle icon click to show confirmation modal for contact info
+        toggleContactIcon.addEventListener("click", function () {
+            showContactInfo = this.getAttribute('data-visible'); // Update visibility state on each click
+            const contactModal = new bootstrap.Modal(document.getElementById('confirmContactInfoModal'));
+
+            if (showContactInfo === "1") {
+                document.getElementById('modalContactText').textContent = "Are you sure you want to hide your contact information?";
+            } else {
+                document.getElementById('modalContactText').textContent = "Are you sure you want to show your contact information?";
+            }
+            contactModal.show(); // Show the modal
+        });
+
+        // Handle confirmation button click for contact info
+        document.getElementById('confirmContactToggleBtn').addEventListener("click", function () {
+            // Determine new visibility state based on current one
+            const newContactVisibility = showContactInfo === "1" ? 0 : 1;
+            const url = '{{ route("profile.toggleContactVisibility") }}';
+
+            // AJAX request to update 'show_contact_info' column
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ show_contact_info: newContactVisibility }) // Send updated value (0 or 1)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        toastr.success(newContactVisibility === 0 ? "Your contact information is now hidden." : "Your contact information is now visible.");
+                        toggleContactIcon.setAttribute('data-visible', newContactVisibility.toString()); // Update visibility state
+
+                        // Toggle between eye and eye-slash icons for contact info
+                        if (newContactVisibility === 0) {
+                            toggleContactIcon.classList.remove('fa-eye');
+                            toggleContactIcon.classList.add('fa-eye-slash');
+                        } else {
+                            toggleContactIcon.classList.remove('fa-eye-slash');
+                            toggleContactIcon.classList.add('fa-eye');
+                        }
+
+                        const contactModal = bootstrap.Modal.getInstance(document.getElementById('confirmContactInfoModal'));
+                        contactModal.hide(); // Hide the modal
+                    } else {
+                        toastr.error("Error updating contact information visibility.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    toastr.error("An error occurred.");
+                });
+        });
+    });
+</script>
 @endsection

@@ -62,7 +62,7 @@ class UserController extends Controller
                 })
                 ->when($phoneQuery, function ($query) use ($phoneQuery) {
                     return $query->orWhereHas('profile', function ($q) use ($phoneQuery) {
-                        $q->where('phone_number', 'like', '%' . $phoneQuery . '%');
+                        $q->where('number', 'like', '%' . $phoneQuery . '%');
                     });
                 })
                 ->with('profile') // Make sure to include the profile relationship

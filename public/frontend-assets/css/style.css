@@ -3242,7 +3242,32 @@ a{
     padding: 7px 20px;
     border-radius: 10px;
 }
-
+.form-control.editing,
+.form-control.editing:focus,
+.form-control.editing:active {
+    border-color: #f43662 !important;
+}
+.profilenotcomplete{
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #f43662;
+    background: rgba(255, 255, 255, 0.247);
+    backdrop-filter: blur(5px);
+}
+.profilenotcomplete a{
+    font-weight: 900;
+    color: #f43662 !important;
+    text-decoration: none;
+    padding: 10px 25px;
+    background-color: white;
+    color: white;
+    box-shadow: 0 0 10px #f43662;
+    border-radius: 20px;
+}
 
 
 

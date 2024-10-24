@@ -66,14 +66,14 @@
             <h1>Recent Visitors</h1>
             <div class="Testimonialwrapper" id="Testimonialwrapper1">
                 <i id="testimonialleft" class="fa-solid fa-circle-chevron-left"></i>
-                <ul class="Testimonialcarousel" id="Testimonialcarousel1">
+                <ul class="Testimonialcarousel position-relative" id="Testimonialcarousel1">
                     @foreach ($profiles->take(8) as  $profile)
                         <li class="Testimonialcard p-2 h-100 {{ Auth::user()->plans->plan_id == 1 ? 'blur' : '' }}">
                             <div class="TestimonialcardInner h-100">
                                 <div class="testimonial-item w-100">
                                     <div class="img">
-                                        <img src="{{ asset($profile->image) }}" class="d-block" alt="Testimonial Image">
-                                        <h2>{{ $profile->first_name . ' ' . $profile->last_name }}</h2>
+                                        <img src="{{ asset($profile->image) }}" class="d-block">
+                                        <h2>{{ $profile->name }}</h2>
                                     </div>
                                     <div class="w-100 text-left mainTestiText">
                                         <div>
@@ -87,24 +87,32 @@
                             </div>
                         </li>
                     @endforeach
+                    @if (is_null(Auth::user()->profile->name))
+                    <div class="profilenotcomplete">
+                        <a href="{{ route('user.profile') }}" class="">Please Update Your Profile and Contact Informations !</a>
+                    </div>
+                    @elseif(is_null(Auth::user()->number))
+                    <div class="profilenotcomplete">
+                        <a href="{{ route('user.profile.contact') }}" >Please Update Contact Informations !</a>
+                    </div>
+                    @endif
                 </ul>
                 <i id="testimonialright" class="fa-solid fa-circle-chevron-right"></i>
             </div>
-
         </div>
 
         <div class="recentVisitor matchScrooler">
             <h1>My Matches</h1>
             <div class="Testimonialwrapper" id="Testimonialwrapper2">
                 <i id="testimonialleft2" class="fa-solid fa-circle-chevron-left"></i>
-                <ul class="Testimonialcarousel" id="Testimonialcarousel2">
+                <ul class="Testimonialcarousel position-relative" id="Testimonialcarousel2">
                     @foreach ($profiles->take(8) as  $profile)
                         <li class="Testimonialcard p-2 h-100">
                             <div class="TestimonialcardInner h-100">
                                 <div class="testimonial-item w-100">
                                     <div class="img">
-                                        <img src="{{ asset($profile->image) }}" class="d-block" alt="Testimonial Image">
-                                        <h2>{{ $profile->first_name . ' ' . $profile->last_name }}</h2>
+                                        <img src="{{ asset($profile->image) }}" class="d-block">
+                                        <h2>{{ $profile->name }}</h2>
                                     </div>
                                     <div class="w-100 text-left mainTestiText">
                                         <div>
@@ -118,6 +126,15 @@
                             </div>
                         </li>
                     @endforeach
+                    @if (is_null(Auth::user()->profile->name))
+                    <div class="profilenotcomplete">
+                        <a href="{{ route('user.profile') }}" class="">Please Update Your Profile and Contact Informations !</a>
+                    </div>
+                    @elseif(is_null(Auth::user()->number))
+                    <div class="profilenotcomplete">
+                        <a href="{{ route('user.profile.contact') }}" >Please Update Contact Informations !</a>
+                    </div>
+                    @endif
                 </ul>
                 <i id="testimonialright2" class="fa-solid fa-circle-chevron-right"></i>
             </div>

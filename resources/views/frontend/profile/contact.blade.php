@@ -33,7 +33,7 @@
                                 <div class="row mb-3">
                                     <div class="col-12 mb-3">
                                         <label class="text-white mb-2">Email</label>
-                                        <input type="email" name="email" class="form-control"  id="" value="{{ Auth::user()->email }}">
+                                        <input type="email" name="email" class="form-control bg-transparent text-white"  id="" value="{{ Auth::user()->email }}" disabled>
                                     </div>
                                     <div class="col-12 ">
                                         <label class="text-white mb-2">Phone Number</label>
@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <div id="upload-section">
-                                        <button id="save-images" class="profilecancelbtnn3 mt-2 float-end">Save</button>
+                                        <button type="submit" id="save-images" class="profilecancelbtnn3 mt-2 float-end">Save</button>
                                     </div>
                                 </div>
 
@@ -57,5 +57,35 @@
 
 @section('customJs')
 
+<script>
+    $(document).ready(function() {
+        $('#save-profile-dp').on('submit', function(e) {
+            e.preventDefault(); // Prevent form from submitting normally
+            let formData = new FormData(this);
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('profile.update.contact') }}', // Your route here
+                data: formData,
+                contentType: false,
+                processData: false,
+                beforeSend: function() {
+                    toastr.info('Saving...', 'Please wait');
+                },
+                success: function(response) {
+                    if (response.success) {
+                        toastr.success(response.message, 'Success');
+                    }
+                },
+                error: function(xhr) {
+                    let errors = xhr.responseJSON.errors;
+                    $.each(errors, function(key, value) {
+                        toastr.error(value[0], 'Error');
+                    });
+                }
+            });
+        });
+    });
+</script>
 
 @endsection

@@ -184,12 +184,12 @@
                 searchedUserCard.innerHTML = `
                     <div class="card w-33">
                         <div class="card-header">
-                            <img src="{{ asset('${data.user.profile.image}') }}" width="14%">
+                            <img src="${data.user.profile.image ? '{{ asset("' + data.user.profile.image + '") }}' : '{{ asset('default_image_path.jpg') }}'}" width="14%">
                         </div>
                         <div class="card-body">
-                            <p>Name: <strong>${data.user.profile.first_name} ${data.user.profile.last_name}</strong></p>
-                            <p>Date Of Birth: <strong>${data.user.profile.date_of_birth}</strong></p>
-                            <p>Marital Status: <strong>${data.user.profile.marital_status}</strong></p>
+                            <p>Name: <strong>${data.user.profile.name ? data.user.profile.name : "Didn't update profile yet!"}</strong></p>
+                            <p>Date Of Birth: <strong>${data.user.profile.date_of_birth ? data.user.profile.date_of_birth : "Didn't update profile yet!"}</strong></p>
+                            <p>Marital Status: <strong>${data.user.profile.marital_status ? data.user.profile.marital_status : "Didn't update profile yet!"}</strong></p>
                         </div>
                         <div class="card-footer">
                             <a class="btn btn-sm btn-primary" href="${profileUrl}">View Profile</a>
@@ -201,6 +201,7 @@
                         </div>
                     </div>
                 `;
+
             } else {
                 // Show Toastr error if no user found
                 toastr.error('No user found with the provided details.', 'Error', {
