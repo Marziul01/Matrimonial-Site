@@ -143,3 +143,72 @@
     height: 100%;
     overflow-y: auto;
 }
+.homebgadmin {
+    background-image: url(../../frontend-assets/imgs/hero_bg.png);
+    background-position: top center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+}
+.homebgadmin .login-form{
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.homebgadmin .login-form h1{
+    font-size: 80px;
+    font-weight: 800;
+    text-align: center;
+}
+.homebgadmin .login-form h6{
+    text-align: center;
+    font-size: 20px;
+
+}
+.homebgadmin .login-form .form-group{
+    width: 500px;
+}
+.homebgadmin .login-form form.user .form-control-user {
+    font-size: 20px;
+    border-radius: 10px;
+    padding: 1.5rem 1rem;
+    background: transparent;
+    color: white;
+    border: 1px solid white;
+    height: 55px;
+}
+.homebgadmin .login-form .form-control::placeholder , .homebgadmin .login-form label{
+    color: white;
+}
+.homebgadmin .login-form .form-control:active, .homebgadmin .login-form .form-control:focus , .homebgadmin .login-form .form-control:focus-visible, .btn-primary:focus{
+    border: white;
+    box-shadow: none;
+}
+.homebgadmin .login-form button, .homebgadmin .login-form button:active, .homebgadmin .login-form button:focus-visible, .btn-primary:not(:disabled):not(.disabled):active{
+    border-radius: 10px;
+    background-color: #F43662;
+    border: none;
+}
+
+
+
+
+
+
+@media (max-width: 767px){
+    .homebgadmin .login-form .form-group {
+        width: 100%;
+    }
+    .homebgadmin .login-form h1{
+        font-size: 60px;
+    }
+}

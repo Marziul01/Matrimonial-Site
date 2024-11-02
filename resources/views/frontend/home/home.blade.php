@@ -1,11 +1,7 @@
 @extends('frontend.master')
 
 @section('title')
-
-@endsection
-
-@section('modals')
-
+ | Home
 @endsection
 
 @section('content')
@@ -14,31 +10,31 @@
         <div class="d-flex align-items-center h-100 w-50 mobileWidth">
             <div class="home-section my-3 w-100">
                 <h2 class="text-white homeMain-heading">Find Your Right <br> <span style="color: #f43662">Match Here</span></h2>
-                <form class="w-50 d-flex flex-column home-Selects mt-5 mobileWidth">
+                <form id="searchForm" class="w-50 d-flex flex-column home-Selects mt-5 mobileWidth">
+                    @csrf
                     <div class="select-wrapper">
-                        <select>
-                            <option>I'm Looking For</option>
-                            <option>Bride</option>
-                            <option>Groom</option>
+                        <select name="looking_for">
+                            <option value="">I'm Looking For</option>
+                            <option value="Bride">Bride</option>
+                            <option value="Groom">Groom</option>
                         </select>
                     </div>
                     <div class="select-wrapper">
-                        <select>
-                            <option>Marital Status</option>
+                        <select name="marital_status">
+                            <option value="">Marital Status</option>
                             <option value="single">Single</option>
                             <option value="divorced">Divorced</option>
                         </select>
                     </div>
                     <div class="select-wrapper">
-                        <select>
-                            <option>Select an address</option>
-                            <option value="single">Dhaka</option>
-                            <option value="divorced">Chittagong</option>
+                        <select name="address">
+                            <option value="">Select an address</option>
+                            <option value="Dhaka">Dhaka</option>
+                            <option value="Chittagong">Chittagong</option>
                         </select>
                     </div>
-                    <button>Search</button>
+                    <button type="submit">Search</button>
                 </form>
-
             </div>
         </div>
     </div>
@@ -196,7 +192,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-center">
-            <a href="#" class="moreTestimonials"> more customer revews </a>
+            <a href="{{route('reviews')}}" class="moreTestimonials"> more customer reviews </a>
         </div>
     </div>
 
@@ -259,7 +255,7 @@
                     be distracted by the readable content of a page when looking at it’s
                     layout.
                 </p>
-                <p class="click"><a>Click here to</a> Start you matrimony service now.</p>
+                <p class="click"><a href="" data-bs-toggle="modal" data-bs-target="#registerModal" >Click here to</a> Start you matrimony service now.</p>
                 <hr>
                 <p class="desc">There are many variations of passages of Lorem ipsum available, but
                     the mojority have suffered alteraction in some from, by injected
@@ -270,14 +266,14 @@
                         <i class="fa-solid fa-phone"></i>
                         <div>
                             <h4>Enquiry</h4>
-                            <p>+880 1947-782635<p>
+                            <p>{{ $siteSetting->phone }}<p>
                         </div>
                     </div>
                     <div class="d-flex w-50 align-items-start column-gap-3 enquiry">
                         <i class="fa-regular fa-envelope"></i>
                         <div>
                             <h4>Get Support</h4>
-                            <p>info@linkmyheart.com<p>
+                            <p>{{ $siteSetting->email }}<p>
                         </div>
                     </div>
                 </div>
@@ -292,6 +288,28 @@
                 <a class="btn joinBtn" data-bs-toggle="modal" data-bs-target="#registerModal">Join Now</a>
             </div>
             <img class="img" src="{{ asset('frontend-assets/imgs/Home-Couple-Optimized-1.png') }}">
+        </div>
+    </div>
+
+    <div id="loadingScreen" class="matriloadingscreen" style="display: none;">
+        <div class="matriloadingscreendiv">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h5 class="modal-title" id="profileModalLabel">Profile Results</h5>
+                    <p class="text-center text-white"> Sign up now to profile details ! </p>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-circle-xmark"></i></button>
+                    <div id="profileGrid" class="row row-cols-1 row-cols-md-4 g-4">
+                        <!-- Profiles will be loaded here -->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -396,9 +414,93 @@
     });
 </script>
 
+<script>
+    $(document).ready(function() {
+        // Handle form submission
+        $('#searchForm').on('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
 
+            // Clear any previous errors
+            $('.error-message').remove();
 
+            // Show the loading screen
+            $('#loadingScreen').show();
 
+            // Perform AJAX request
+            $.ajax({
+                url: '{{ route("fetch.profiles") }}',
+                type: 'POST',
+                data: $(this).serialize(),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                beforeSend: function() {
+                    // Show the loading screen or spinner here
+                    $('#loadingScreen').show();
+                },
+                success: function(response) {
+                    // Hide the loading screen or spinner here
+                    $('#loadingScreen').hide();
 
+                    // Clear the previous profiles
+                    $('#profileGrid').empty();
+
+                    // Display profiles in modal
+                    response.profiles.forEach(function(profile) {
+                        const profileHtml = `
+                            <div class="col-6 col-md-4 mb-4">
+                                <div class="card">
+                                    <img src="${profile.image}" class="card-img-top" alt="Profile Image">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${profile.name}</h5>
+                                        <p class="card-text">Marital Status: ${response.marital_status}</p>
+                                        <p class="card-text mb-3">Address: ${response.address}</p>
+                                        <a class="" onclick="viewProfile()"> View Profile </a>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        $('#profileGrid').append(profileHtml);
+                    });
+
+                    // Show the modal
+                    $('#profileModal').modal('show');
+                },
+                error: function(xhr) {
+                    $('#loadingScreen').hide(); // Hide loading on error
+
+                    if (xhr.status === 422) {
+                        // Loop through validation errors and display them under each field
+                        let errors = xhr.responseJSON.errors;
+                        
+                        if (errors.looking_for) {
+                            $('<div class="error-message text-danger">' + errors.looking_for[0] + '</div>')
+                                .insertAfter('select[name="looking_for"]');
+                        }
+                        if (errors.marital_status) {
+                            $('<div class="error-message text-danger">' + errors.marital_status[0] + '</div>')
+                                .insertAfter('select[name="marital_status"]');
+                        }
+                        if (errors.address) {
+                            $('<div class="error-message text-danger">' + errors.address[0] + '</div>')
+                                .insertAfter('select[name="address"]');
+                        }
+                    }
+                }
+            });
+        });
+    });
+
+</script>
+
+<script>
+    function viewProfile() {
+        // Hide the current profile modal
+        $('#profileModal').modal('hide');
+
+        // Show the register modal
+        $('#registerModal').modal('show');
+    }
+</script>
 
 @endsection

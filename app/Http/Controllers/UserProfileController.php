@@ -42,7 +42,7 @@ class UserProfileController extends Controller
             'upazilas' => Upazila::all(),
             'profileDetails' => Profile::where('user_id', Auth::user()->id)->first(),
             'userImages' => ImageGallery::where('user_id', Auth::user()->id)->get(),
-        ]);
+        ]); 
     }
     public static function Profileimage(){
         return view('frontend.profile.images',[
@@ -439,6 +439,15 @@ class UserProfileController extends Controller
         $match->height_to = $request->height_to;
         $match->save();
 
+        $profile = Auth::user()->profile;
+        if($request->looking_for == 'Bride'){
+            $profile->i_am = 'Groom';
+        }else{
+            $profile->i_am = 'Bride';
+        }
+
+        $profile->save();
+
         return response()->json([
             'success' => true,
             'message' => 'Profile preferences updated successfully!',
@@ -520,11 +529,17 @@ class UserProfileController extends Controller
     {
         // Validate the phone number
         $validator = Validator::make($request->all(), [
-            'number' => 'required|numeric|digits_between:10,15', // You can adjust the rules as needed
+            'number' => [
+                'required',
+                'numeric',
+                'digits_between:10,15',
+                Rule::unique('users', 'number')->ignore(Auth::id()), // Ignore the current user's number
+            ],
         ]);
-
+        
         if ($validator->fails()) {
             return response()->json([
+                'success' => false,
                 'errors' => $validator->errors(),
             ], 422);
         }
@@ -536,6 +551,10 @@ class UserProfileController extends Controller
         $user->number = $request->number;
         $user->save();
 
+        $profile = $user->profile;
+        $profile->email = $user->email;
+        $profile->contact_number = $user->number;
+        $profile->save();
         // Return a success message
         return response()->json([
             'success' => true,

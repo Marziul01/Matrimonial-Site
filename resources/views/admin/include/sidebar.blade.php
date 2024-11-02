@@ -42,16 +42,45 @@
         </a>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.manager') }}">
+            <i class="fa-solid fa-user"></i>
+            <span>Admins Managment</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+            aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Page Settings</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('testimonialsedit') }}">Testimonials</a>
+                <a class="collapse-item" href="{{ route('admin.about.manage') }}">About Page</a>
+                <a class="collapse-item" href="{{ route('admin.faq.manage') }}">Faq Page</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.siteSetting') }}">
+            <i class="fa-solid fa-user"></i>
+            <span>Site Settings</span>
+        </a>
+    </li>
+
     {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
-            <span>Users</span>
+            <span>Admins Managment</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="buttons.html">Buttons</a>
-                <a class="collapse-item" href="cards.html">Cards</a>
+                <a class="collapse-item" href="{{ route('admin.manager') }}">Add New Admin</a>
+                <a class="collapse-item" href="{{ route('admin.access.manage') }}">Admin Access</a>
             </div>
         </div>
     </li> --}}

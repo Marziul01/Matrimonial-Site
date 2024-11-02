@@ -67,6 +67,10 @@ class User extends Authenticatable
         return $this->hasOne(PartnerProfile::class, 'user_id');
     }
 
+    public function access(){
+        return $this->hasOne(AdminAccess::class, 'user_id');
+    }
+
 }
 
 

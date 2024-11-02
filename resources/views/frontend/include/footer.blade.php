@@ -2,41 +2,48 @@
     <div class="foterWidgets">
         <div class="innerDiv">
             <h3 class="title">GET IN TOUCH</h3>
-            <p class="infos">Address: Mirpur DOHS, Mirpur Dhaka 1216</p>
-            <p class="infos">Phone: +880 1947-782635</p>
-            <p class="infos">Email: info@linkmyheart.com</p>
+            <p class="infos">Address: {{ $siteSetting->address }}</p>
+            <p class="infos">Phone: {{ $siteSetting->phone }}</p>
+            <p class="infos">Email: {{ $siteSetting->email }}</p>
+            @if ( $siteSetting->play_store )
             <div class="d-flex justify-content-start align-content-center column-gap-2 footerapps">
                 <img src="{{ asset('frontend-assets/imgs/apps.png') }}" width="70%" class="mt-4">
-            </div>
+            </div> 
+            @endif
+            
         </div>
         <div class="innerDiv">
             <h3 class="title">RESOURCES</h3>
             <div class="d-flex flex-column row-gap-2">
-                <a class="footerMenu">About us</a>
-                <a class="footerMenu">Contact Us</a>
-                <a class="footerMenu">FAQ</a>
-                <a class="footerMenu">Guide</a>
-                <a class="footerMenu">Careers</a>
+                <a class="footerMenu" href="{{ route('about') }}" >About us</a>
+                <a class="footerMenu" href="{{route('contact')}}">Contact Us</a>
+                <a class="footerMenu" href="{{route('reviews')}}" >More Customer Reviews</a>
+                <a class="footerMenu" href="{{route('faq')}}" >FAQ</a>
             </div>
         </div>
         <div class="innerDiv">
-            <h3 class="title">SUPPORT</h3>
+            <h3 class="title">Useful Links</h3>
             <div class="d-flex flex-column row-gap-2">
-                <a class="footerMenu">About us</a>
-                <a class="footerMenu">Contact Us</a>
-                <a class="footerMenu">FAQ</a>
-                <a class="footerMenu">Guide</a>
-                <a class="footerMenu">Careers</a>
+                <a class="footerMenu" href="{{route('login')}}" >Login</a>
+                <a class="footerMenu" href="{{route('user.dashboard')}}" >Dashboard</a>
+                <a class="footerMenu" href="{{route('user.matches')}}">My Matches</a>
             </div>
         </div>
         <div class="innerDiv">
             <h3 class="title">SOCIAL MEDIA</h3>
             <div class="footerSocial">
-                <i class="fa-brands fa-facebook-f"></i>
-                <i class="fa-brands fa-x-twitter"></i>
-                <i class="fa-brands fa-github"></i>
-                <i class="fa-solid fa-paper-plane"></i>
-                <i class="fa-brands fa-instagram"></i>
+                @if ($siteSetting->facebook)
+                <a href="{{ $siteSetting->facebook }}" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                @endif
+                @if ($siteSetting->twitter)
+                <a href="{{ $siteSetting->twitter }}" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                @endif
+                @if ($siteSetting->instagram)
+                <a href="{{ $siteSetting->instagram }}" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                @endif
+                @if ($siteSetting->youtube)
+                <a href="{{ $siteSetting->youtube }}" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                @endif
             </div>
         </div>
     </div>
@@ -45,9 +52,6 @@
     <div class="d-flex column-gap-4 align-items-center">
         <a class="footerMenu">Privacy Policy</a>
         <a class="footerMenu">Terms of Use</a>
-        <a class="footerMenu">Sales and Refunds</a>
-        <a class="footerMenu">Legal</a>
-        <a class="footerMenu">Site Map</a>
     </div>
     <div>
         <p class="copywrteText"><i class="fa-solid fa-copyright"></i> 2024-2025 Link My Heart </p>
@@ -157,120 +161,120 @@
 
 <script>
     $(document).ready(function() {
-    // Hide supportMsg2 by default
-    $('#supportMsg2').hide();
+        // Hide supportMsg2 by default
+        $('#supportMsg2').hide();
 
-    // Function to validate the first form (supportMsg)
-    function validateSupportMsg() {
-        var isValid = true;
+        // Function to validate the first form (supportMsg)
+        function validateSupportMsg() {
+            var isValid = true;
 
-        if ($('#name').val() === '') {
-            $('#nameError').show();
-            isValid = false;
-        } else {
-            $('#nameError').hide();
+            if ($('#name').val() === '') {
+                $('#nameError').show();
+                isValid = false;
+            } else {
+                $('#nameError').hide();
+            }
+
+            if ($('#email').val() === '') {
+                $('#emailError').show();
+                isValid = false;
+            } else {
+                $('#emailError').hide();
+            }
+
+            // if ($('#userMessage').val() === '') {
+            //     $('#messageError').show();
+            //     isValid = false;
+            // } else {
+            //     $('#messageError').hide();
+            // }
+
+            if ($('#profileNumber').val() === '') {
+                $('#numberError').show();
+                isValid = false;
+            } else {
+                $('#numberError').hide();
+            }
+
+            // if ($('#dob').val() === '') {
+            //     $('#dobError').show();
+            //     isValid = false;
+            // } else {
+            //     $('#dobError').hide();
+            // }
+
+            // if ($('#maritalStatus').val() === '') {
+            //     $('#statusError').show();
+            //     isValid = false;
+            // } else {
+            //     $('#statusError').hide();
+            // }
+
+            return isValid;
         }
 
-        if ($('#email').val() === '') {
-            $('#emailError').show();
-            isValid = false;
-        } else {
-            $('#emailError').hide();
+        // Function to display validation errors using Toastr
+        function showErrors(errors) {
+            // Loop through errors and show them
+            $.each(errors, function(key, value) {
+                toastr.error(value[0]); // Display the first error for each field
+            });
         }
 
-        // if ($('#userMessage').val() === '') {
-        //     $('#messageError').show();
-        //     isValid = false;
-        // } else {
-        //     $('#messageError').hide();
-        // }
+        // Event handler for the "Submit" button
+        $('#sendMessageBtn').click(function() {
+            // Prepare form data for submission
+            var formData = {
+                name: $('#name').val(),
+                email: $('#email').val(),
+                message: $('#userMessage').val(),
+                number: $('#profileNumber').val(),
+                // date_of_birth: $('#dob').val(),
+                // marital_status: $('#maritalStatus').val(),
+            };
 
-        if ($('#profileNumber').val() === '') {
-            $('#numberError').show();
-            isValid = false;
-        } else {
-            $('#numberError').hide();
-        }
+            // Perform AJAX form submission
+            $.ajax({
+                url: '/user-chat-support', // Replace with your server URL
+                type: 'POST',
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Include CSRF token
+                },
+                success: function(response) {
+                    // If the form is successfully submitted, hide forms and show success message
+                    if (response.success) {
+                        $('#supportMsg, #supportMsg2, #defp').hide();
+                        $('#successMessage').html("<div class='defp'><i class='fa-solid fa-circle-check'></i> Hello, " + formData.name + ". <br> Your message has been sent to our Support Center. We will get back to you via your provided email. Thank you! </div>").show();
 
-        // if ($('#dob').val() === '') {
-        //     $('#dobError').show();
-        //     isValid = false;
-        // } else {
-        //     $('#dobError').hide();
-        // }
-
-        // if ($('#maritalStatus').val() === '') {
-        //     $('#statusError').show();
-        //     isValid = false;
-        // } else {
-        //     $('#statusError').hide();
-        // }
-
-        return isValid;
-    }
-
-    // Function to display validation errors using Toastr
-    function showErrors(errors) {
-        // Loop through errors and show them
-        $.each(errors, function(key, value) {
-            toastr.error(value[0]); // Display the first error for each field
-        });
-    }
-
-    // Event handler for the "Submit" button
-    $('#sendMessageBtn').click(function() {
-        // Prepare form data for submission
-        var formData = {
-            name: $('#name').val(),
-            email: $('#email').val(),
-            message: $('#userMessage').val(),
-            number: $('#profileNumber').val(),
-            // date_of_birth: $('#dob').val(),
-            // marital_status: $('#maritalStatus').val(),
-        };
-
-        // Perform AJAX form submission
-        $.ajax({
-            url: '/user-chat-support', // Replace with your server URL
-            type: 'POST',
-            data: formData,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Include CSRF token
-            },
-            success: function(response) {
-                // If the form is successfully submitted, hide forms and show success message
-                if (response.success) {
-                    $('#supportMsg, #supportMsg2, #defp').hide();
-                    $('#successMessage').html("<div class='defp'><i class='fa-solid fa-circle-check'></i> Hello, " + formData.name + ". <br> Your message has been sent to our Support Center. We will get back to you via your provided email. Thank you! </div>").show();
-
-                    toastr.success("Your message has been sent successfully!");
-                }
-            },
-            error: function(xhr) {
-                if (xhr.status === 422) {
-                    // Handle validation errors
-                    const errors = xhr.responseJSON.errors;
-                    if (errors) {
-                        for (const key in errors) {
-                            if (errors.hasOwnProperty(key)) {
-                                // Show each error message using Toastr
-                                toastr.error(errors[key][0]); // Show the first error message for each field
+                        toastr.success("Your message has been sent successfully!");
+                    }
+                },
+                error: function(xhr) {
+                    if (xhr.status === 422) {
+                        // Handle validation errors
+                        const errors = xhr.responseJSON.errors;
+                        if (errors) {
+                            for (const key in errors) {
+                                if (errors.hasOwnProperty(key)) {
+                                    // Show each error message using Toastr
+                                    toastr.error(errors[key][0]); // Show the first error message for each field
+                                }
                             }
                         }
+                    } else if (xhr.status === 404) {
+                        // Handle "no profile found" error
+                        toastr.error(xhr.responseJSON.message || "No profile found with the provided information.");
+                    } else {
+                        // Handle other errors
+                        toastr.error("An error occurred while submitting the form.");
                     }
-                } else if (xhr.status === 404) {
-                    // Handle "no profile found" error
-                    toastr.error(xhr.responseJSON.message || "No profile found with the provided information.");
-                } else {
-                    // Handle other errors
-                    toastr.error("An error occurred while submitting the form.");
                 }
-            }
-        });
-});
+            });
+    });
 
 
-});
+    });
 
 
 </script>

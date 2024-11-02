@@ -22,10 +22,13 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\LiveSupportController;
 use App\Http\Controllers\AdminLiveSupportController;
+use App\Http\Controllers\AdminManageController;
 use App\Http\Controllers\ChatsController;
 use App\Http\Controllers\PusherController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ConnectionController;
+use App\Http\Controllers\SiteSettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +46,7 @@ Route::get('/about',[HomeController::class,'about'])->name('about');
 Route::get('/price',[PriceController::class,'index'])->name('price');
 Route::get('/faq',[FaqController::class,'index'])->name('faq');
 Route::get('/contact',[ContactController::class,'index'])->name('contact');
+Route::get('/reviews',[HomeController::class,'reviews'])->name('reviews');
 Route::get('/googleLogin', [UserAuthController::class, 'googleLogin'])->name('googleLogin');
 Route::get('/auth/google/callback', [UserAuthController::class, 'googleHandler'])->name('googleHandler');
 Route::get('/get-upazilas/{districtId}', [UserAuthController::class, 'getUpazilas']);
@@ -52,7 +56,7 @@ Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEm
 Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 Route::post('/user-chat-support', [MessageController::class, 'userchatsupport'])->name('user-chat-support');
-
+Route::post('/fetch-profiles', [HomeController::class, 'fetchProfiles'])->name('fetch.profiles');
 
 
 Route::group(['prefix' => 'account'],function(){
@@ -96,6 +100,11 @@ Route::group(['prefix' => 'account'],function(){
         Route::post('/profile/update-contact', [UserProfileController::class, 'updateContactInfo'])->name('profile.update.contact');
         Route::post('/profile/toggleGalleryVisibility', [UserProfileController::class, 'toggleGalleryVisibility'])->name('profile.toggleGalleryVisibility');
         Route::post('/profile/toggleContactVisibility', [UserProfileController::class, 'toggleContactVisibility'])->name('profile.toggleContactVisibility');
+        Route::get('/user/matches/profile/{name}/{id}/{number}', [MatchesController::class, 'matchesprofielView'])->name('user.match.profielView');
+        Route::post('/send-request', [ConnectionController::class, 'sendRequest'])->name('send.request');
+        Route::post('/requests/accept/{id}', [ConnectionController::class, 'acceptRequest'])->name('requests.accept');
+        Route::delete('/requests/cancel/{id}', [ConnectionController::class, 'cancelRequest'])->name('requests.cancel');
+
     });
 });
 
@@ -122,8 +131,20 @@ Route::group(['prefix' => 'admin'],function(){
         Route::get('/admin/live_support', [AdminLiveSupportController::class, 'showMessages'])->name('admin.live_support');
         Route::get('/admin/live_support/chat/', [AdminLiveSupportController::class, 'getMessagesByUser'])->name('admin.chat.adminindex');
         Route::post('/admin/live_support-message', [AdminLiveSupportController::class, 'adminReplyMessage'])->name('admin-reply-mail');
-
-
+        Route::get('admin/admin/manages',[AdminManageController::class,'adminManager'])->name('admin.manager');
+        Route::get('admin/access/manage',[AdminManageController::class,'adminAccessManage'])->name('admin.access.manage');
+        Route::post('admin/admin/UManage/pdate/{id}',[AdminManageController::class,'adminUManagepdate'])->name('adminUManagepdate');
+        Route::post('admin/adminManageStore',[AdminManageController::class,'adminManageStore'])->name('adminManageStore');
+        Route::post('admin/admin/Manage/Destroy/{id}',[AdminManageController::class,'adminManageDestroy'])->name('adminManageDestroy');
+        Route::get('admin/site/Settings',[SiteSettingController::class,'siteSetting'])->name('admin.siteSetting');
+        Route::post('admin/site/Setting/update',[SiteSettingController::class,'siteSettingUpdate'])->name('admin.siteSettingUpdate');
+        Route::post('admin/site/other/Setting/update',[SiteSettingController::class,'siteSettingUpdatetwo'])->name('admin.siteSettingUpdatetwo');
+        Route::get('admin/site/Settings/testimonials',[SiteSettingController::class,'testimonials'])->name('testimonialsedit');
+        Route::get('admin/site/Settings/about',[SiteSettingController::class,'about'])->name('admin.about.manage');
+        Route::get('admin/site/Settings/faq',[SiteSettingController::class,'faq'])->name('admin.faq.manage');
+        Route::post('admin/testimonial/Destroy/{id}',[SiteSettingController::class,'admintestimonialDestroy'])->name('admintestimonialDestroy');
+        Route::post('admin/testimonial/Store',[SiteSettingController::class,'admintestimonialStore'])->name('admintestimonialStore');
+        Route::post('admin/testimonial/update/{id}',[SiteSettingController::class,'admintestimonialupdate'])->name('admintestimonialupdate');
     });
 
 });

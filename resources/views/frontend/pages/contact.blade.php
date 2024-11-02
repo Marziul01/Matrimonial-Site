@@ -13,8 +13,7 @@
                 <div class="row">
                     <div class="col-md-6 contactFormsDts">
                         <h1 class="title">Get in <span>Touch</span></h1>
-                        <p class="subTitle">Enim tempor eget pharetra facilisis sed maecenas adipiscing. Eu leo molestie vel,
-                            ornare non id blandit netus.</p>
+                        <p class="subTitle">Need assistance? Reach out to our support team, and we’ll get back to you shortly!</p>
                         <form>
                             @csrf
                             <div class="row">

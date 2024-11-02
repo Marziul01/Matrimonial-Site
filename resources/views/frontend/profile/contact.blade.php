@@ -78,14 +78,19 @@
                     }
                 },
                 error: function(xhr) {
-                    let errors = xhr.responseJSON.errors;
-                    $.each(errors, function(key, value) {
-                        toastr.error(value[0], 'Error');
-                    });
+                    if (xhr.status === 422) { // Validation error
+                        let errors = xhr.responseJSON.errors;
+                        $.each(errors, function(key, value) {
+                            toastr.error(value[0], 'Validation Error');
+                        });
+                    } else {
+                        toastr.error('An unexpected error occurred. Please try again.', 'Error');
+                    }
                 }
             });
         });
     });
 </script>
+
 
 @endsection

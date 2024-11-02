@@ -242,7 +242,7 @@ body {
 .m-list-active,
 .m-list-active:hover,
 .m-list-active:focus {
-  background: var(--primary-color) !important;
+  background: #f43662 !important;
 }
 .m-list-active b {
   background: #fff !important;
@@ -516,7 +516,7 @@ body {
 .message-card.mc-sender .message {
   direction: ltr;
   color: #fff !important;
-  background: var(--primary-color) !important;
+  background: #f43662 !important;
 }
 .message-card.mc-sender .message .message-time {
   color: rgba(255, 255, 255, 0.67);
@@ -738,7 +738,7 @@ body {
   transition: border 0.1s;
 }
 .lastMessageIndicator {
-  color: var(--primary-color) !important;
+  color: #f43662 !important;
 }
 
 /*

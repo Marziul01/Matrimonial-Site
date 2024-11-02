@@ -279,10 +279,10 @@
                                     <label for="">Profession</label>
                                     <select name="profession" class="form-control" disabled>
                                         <option value="">Please Select</option>
-                                        <option value="Private Company" {{ $profileDetails->working_with == "Private Company" ? 'selected' : '' }}>Private Company</option>
-                                                        <option value="Govt. Service" {{ $profileDetails->working_with == "Govt. Service" ? 'selected' : '' }}>Govt. Service</option>
-                                                        <option value="Business" {{ $profileDetails->working_with == "Business" ? 'selected' : '' }}>Business</option>
-                                                        <option value="Not Working" {{ $profileDetails->working_with == "Not Working" ? 'selected' : '' }}>Not Working</option>
+                                        <option value="Private Company" {{ $profileDetails->profession == "Private Company" ? 'selected' : '' }}>Private Company</option>
+                                                        <option value="Govt. Service" {{ $profileDetails->profession == "Govt. Service" ? 'selected' : '' }}>Govt. Service</option>
+                                                        <option value="Business" {{ $profileDetails->profession == "Business" ? 'selected' : '' }}>Business</option>
+                                                        <option value="Not Working" {{ $profileDetails->profession == "Not Working" ? 'selected' : '' }}>Not Working</option>
                                     </select>
                                 </div>
                                 <div class="w-30 p-0">

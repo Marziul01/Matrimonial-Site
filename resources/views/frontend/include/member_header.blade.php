@@ -11,15 +11,15 @@
         <div class="w-50 d-flex justify-content-center align-items-center Pc-Menus">
             <a href="{{ route('user.dashboard') }}" class="menu_item {{ Route::currentRouteName() == 'user.dashboard' ? 'active' : '' }}"> Dashboard </a>
             <a href="{{ route('user.matches') }}" class="menu_item {{ Route::currentRouteName() == 'user.matches' ? 'active' : '' }}"> My Matches </a>
-            <a href="{{ url('/message') }}" class="menu_item {{ Request::is('message') ? 'active' : '' }}"> Messages </a>
+            <a href="{{ url('/message') }}" class="menu_item {{ Request::is('message') ? 'active' : '' }}"> Messages <span class="message-unseen-count">{{ $unseenMessageCount }}</span> </a>
             <a href="{{ route('user.buy.credit') }}" class="menu_item {{ Route::currentRouteName() == 'user.buy.credit' ? 'active' : '' }}"> Buy Credit </a>
             <a href="{{ route('user.notifications') }}" class="menu_item {{ Route::currentRouteName() == 'user.notifications' ? 'active' : '' }}"> Notifications </a>
         </div>
         <div class="w-30 d-flex justify-content-end align-items-center column-gap-2 Pc-Menus">
-            <div class="headerSearch">
+            {{-- <div class="headerSearch">
                 <input type="text" class="form-control dashboard-header-search" name="search-dashboard" placeholder="Search here">
                 <i class="fa-solid fa-magnifying-glass"></i>
-            </div>
+            </div> --}}
             <div>
                 <div class="btn-group">
                     <button type="button" class="btn btn-secondary userImageProfileTog" data-bs-toggle="dropdown" aria-expanded="false">

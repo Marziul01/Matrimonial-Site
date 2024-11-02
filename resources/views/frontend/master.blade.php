@@ -294,6 +294,37 @@
         this.querySelector("#eyereg").classList.toggle("fa-eye");
     });
 </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Configure Toastr options
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+        // Check for success message
+        @if(Session::has('success'))
+            toastr.success("{{ Session::get('success') }}");
+        @endif
+
+        // Check for error message
+        @if(Session::has('error'))
+            toastr.error("{{ Session::get('error') }}");
+        @endif
+    });
+</script>
+
+
 @vite('resources/js/app.js')
 
 @yield('customJs')

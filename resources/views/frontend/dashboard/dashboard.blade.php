@@ -36,17 +36,17 @@
                     <div class="statsBoxDiv">
                         <h5>My Statistics</h5>
                         <div class="stats">
-                            <a href="" class="statsInfos"> <h2>0</h2> <p>Pending Invitations</p> </a>
-                            <a href="" class="statsInfos"> <h2>0</h2> <p>Accepted Invitations</p> </a>
-                            <a href="" class="statsInfos {{ Auth::user()->plans->plan_id == 1 ? 'blur' : '' }}"> <h2>01</h2> <p>Pending Invitations</p> </a>
+                            <a href="{{ Auth::user()->plans->plan_id == 1 ? '#' : route('user.notifications') }}" class="statsInfos"> <h2>{{ $recevies->where('status',1)->count() ?? 0 }}</h2> <p>Received Invitations</p> </a>
+                            <a href="{{ Auth::user()->plans->plan_id == 1 ? '#' : route('user.notifications') }}" class="statsInfos"> <h2>{{ ($sents->where('status',2)->count() + $recevies->where('status',2)->count() ) ?? 0 }}</h2> <p>Accepted Invitations</p> </a>
+                            <a href="{{ Auth::user()->plans->plan_id == 1 ? '#' : route('user.notifications') }}" class="statsInfos {{ Auth::user()->plans->plan_id == 1 ? 'blur' : '' }}"> <h2>{{ $sents->where('status',1)->count() ?? 0 }}</h2> <p>Sented Pending Invitations</p> </a>
                             @if (Auth::user()->plans->plan_id == 1)
-                            <a href="" class="statsInfos"><i class="fa-solid fa-crown"></i> <p class="dashbutn3free">Premium Activity</p> </a>
+                            <a href="{{ Auth::user()->plans->plan_id == 1 ? '#' : route('user.buy.credit') }}" class="statsInfos"><i class="fa-solid fa-crown"></i> <p class="dashbutn3free">Premium Activity</p> </a>
                             @else
-                            <a href="" class="statsInfos"> <h2>01</h2> <p>Pending Invitations</p> </a>
+                            <a href="{{ Auth::user()->plans->plan_id == 1 ? '#' : route('user.buy.credit') }}" class="statsInfos"><i class="fa-solid fa-crown"></i> <p class="dashbutn3free">Upgrade Membership</p> </a>
                             @endif
 
-                            <a href="" class="statsInfos {{ Auth::user()->plans->plan_id == 1 ? 'blur' : '' }}"> <h2>01</h2> <p>Pending Invitations</p> </a>
-                            <a href="" class="statsInfos {{ Auth::user()->plans->plan_id == 1 ? 'blur' : '' }}"> <h2>01</h2> <p>Pending Invitations</p> </a>
+                            <a href="{{ url('/message') }}" class="statsInfos {{ Auth::user()->plans->plan_id == 1 ? 'blur' : '' }}"> <h2>{{ $unseenMessageCount ?? 0 }}</h2> <p>New Messages</p> </a>
+                            <a class="statsInfos {{ Auth::user()->plans->plan_id == 1 ? 'blur' : '' }}"> <h2>{{ $visitedProfilesCount ?? 0 }}</h2> <p>Recent Visitors</p> </a>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                     <div class="bgSectionColor adSection m-0">
                         <div class="w-75">
                             <h1 class="title">Let’s not Wait <br> To Meet</h1>
-                            <a class="btn joinBtn" href="">Join Now</a>
+                            <a class="btn joinBtn" href="{{ route('user.buy.credit') }}"> {{ Auth::user()->plans->plan_id == 1 ? 'Join Now' : 'Upgrade Now' }} </a>
                         </div>
                         <img class="img" src="{{ asset('frontend-assets/imgs/Home-Couple-Optimized-1.png') }}">
                     </div>
@@ -65,9 +65,12 @@
         <div class="recentVisitor matchScrooler">
             <h1>Recent Visitors</h1>
             <div class="Testimonialwrapper" id="Testimonialwrapper1">
+                @if ($visitorProfiles->isNotEmpty())
                 <i id="testimonialleft" class="fa-solid fa-circle-chevron-left"></i>
+                @endif
                 <ul class="Testimonialcarousel position-relative" id="Testimonialcarousel1">
-                    @foreach ($profiles->take(8) as  $profile)
+                    @if ($visitorProfiles->isNotEmpty())
+                    @foreach ($visitorProfiles as  $profile)
                         <li class="Testimonialcard p-2 h-100 {{ Auth::user()->plans->plan_id == 1 ? 'blur' : '' }}">
                             <div class="TestimonialcardInner h-100">
                                 <div class="testimonial-item w-100">
@@ -81,12 +84,18 @@
                                             <p class="mb-0">Height: {{ $profile->height . 'ft' }}</p>
                                             <p class="mb-0">Address: {{ $profile->location }}</p>
                                         </div>
-                                        <a href="">View Profile</a>
+                                        <a href="{{ Auth::user()->plans->plan_id == 1 ? '#' : route('user.match.profielView', ['name' => $profile->name, 'id' => $profile->user_id, 'number' => substr($profile->contact_number, -3)]) }}">
+                                            View Profile
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </li>
                     @endforeach
+                    @else
+                    <p class="mt-4"> Sorry ! No Recent Visitors Found Yet!</p>
+                    @endif
+                    
                     @if (is_null(Auth::user()->profile->name))
                     <div class="profilenotcomplete">
                         <a href="{{ route('user.profile') }}" class="">Please Update Your Profile and Contact Informations !</a>
@@ -95,18 +104,24 @@
                     <div class="profilenotcomplete">
                         <a href="{{ route('user.profile.contact') }}" >Please Update Contact Informations !</a>
                     </div>
+                   
                     @endif
                 </ul>
+                @if ($visitorProfiles->isNotEmpty())
                 <i id="testimonialright" class="fa-solid fa-circle-chevron-right"></i>
+                @endif
             </div>
         </div>
 
         <div class="recentVisitor matchScrooler">
             <h1>My Matches</h1>
             <div class="Testimonialwrapper" id="Testimonialwrapper2">
+                @if ($matchprofiles->isNotEmpty())
                 <i id="testimonialleft2" class="fa-solid fa-circle-chevron-left"></i>
+                @endif
                 <ul class="Testimonialcarousel position-relative" id="Testimonialcarousel2">
-                    @foreach ($profiles->take(8) as  $profile)
+                    @if ($matchprofiles->isNotEmpty())
+                    @foreach ($matchprofiles->take(8) as  $profile)
                         <li class="Testimonialcard p-2 h-100">
                             <div class="TestimonialcardInner h-100">
                                 <div class="testimonial-item w-100">
@@ -120,12 +135,17 @@
                                             <p class="mb-0">Height: {{ $profile->height . 'ft' }}</p>
                                             <p class="mb-0">Address: {{ $profile->location }}</p>
                                         </div>
-                                        <a href="">View Profile</a>
+                                        <a href="{{ route('user.match.profielView', ['name' => $profile->name, 'id' => $profile->user_id, 'number' => substr($profile->contact_number, -3)]) }}">
+                                            View Profile
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </li>
                     @endforeach
+                    @else
+                    <p class="mt-4"> Sorry ! No Matches Found Yet!</p>
+                    @endif
                     @if (is_null(Auth::user()->profile->name))
                     <div class="profilenotcomplete">
                         <a href="{{ route('user.profile') }}" class="">Please Update Your Profile and Contact Informations !</a>
@@ -134,9 +154,15 @@
                     <div class="profilenotcomplete">
                         <a href="{{ route('user.profile.contact') }}" >Please Update Contact Informations !</a>
                     </div>
+                    @elseif(is_null(Auth::user()->match))
+                    <div class="profilenotcomplete">
+                        <a href="{{ route('user.profile.partner') }}" >Please Update Your Match Preferences !</a>
+                    </div>
                     @endif
                 </ul>
+                @if ($matchprofiles->isNotEmpty())
                 <i id="testimonialright2" class="fa-solid fa-circle-chevron-right"></i>
+                @endif
             </div>
 
 
