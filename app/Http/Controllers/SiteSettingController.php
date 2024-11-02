@@ -104,6 +104,7 @@ class SiteSettingController extends Controller
                 ->withInput();
         }
 
+
         $home = new HomeSettings();
         $home->name = $request->name;
         $home->address = $request->address;
@@ -124,7 +125,7 @@ class SiteSettingController extends Controller
         }
 
         $home->save();
-        return back()->with('success', ' New Testimonial Saved Successfully');
+        return back()->with('success', ' Testimonial created Successfully');
     }
 
     public static function homeSettingUpdatetwo(Request $request) {
