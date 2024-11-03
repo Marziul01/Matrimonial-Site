@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\LiveSupportMessage;
 use App\Models\Order;
+use App\Models\Plans;
 use App\Models\Product;
 use App\Models\SiteSetting;
 use App\Models\User;
@@ -20,7 +22,9 @@ class DashboardController extends Controller
     public function index(){
 
         return view('admin.dashboard.dashboard',[
-
+            'users' => User::where('role', 0)->count(),
+            'plans' => Plans::where('status', 1)->count(),
+            'messages' => LiveSupportMessage::where('seen', 0)->count(),
         ]);
     }
 

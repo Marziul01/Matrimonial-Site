@@ -1,4 +1,4 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion new-color-sidebar" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
@@ -12,7 +12,7 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
-
+    
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
         <a class="nav-link" href="{{ route('admin.dashboard') }}">
@@ -22,33 +22,43 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider">
-
+    @if (Auth::user()->access->users == '1' || Auth::user()->role_name == 'Super Admin' )
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.users') }}">
             <i class="fa-solid fa-user"></i>
             <span>Users</span>
         </a>
     </li>
+    @endif
+
+    @if (Auth::user()->access->orders == '1' || Auth::user()->role_name == 'Super Admin' )
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.plans') }}">
             <i class="fa-solid fa-user"></i>
             <span>Credit Plans</span>
         </a>
     </li>
+    @endif
+
+    @if (Auth::user()->access->courses == '1' || Auth::user()->role_name == 'Super Admin' )
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.chat.adminindex') }}">
             <i class="fa-solid fa-user"></i>
             <span>Support Center</span>
         </a>
     </li>
+    @endif
 
+    @if ( Auth::user()->role_name == 'Super Admin' )
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.manager') }}">
             <i class="fa-solid fa-user"></i>
             <span>Admins Managment</span>
         </a>
     </li>
+    @endif
 
+    @if (Auth::user()->access->home_settings == '1' || Auth::user()->role_name == 'Super Admin' )
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
@@ -63,13 +73,16 @@
             </div>
         </div>
     </li>
+    @endif
 
+    @if (Auth::user()->access->site_settings == '1' || Auth::user()->role_name == 'Super Admin' )
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.siteSetting') }}">
             <i class="fa-solid fa-user"></i>
             <span>Site Settings</span>
         </a>
     </li>
+    @endif
 
     {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"

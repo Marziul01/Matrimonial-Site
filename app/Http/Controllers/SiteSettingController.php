@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AboutSetting;
+use App\Models\FaqSetting;
 use App\Models\HomePage;
 use App\Models\HomeSettings;
 use App\Models\SiteSetting;
@@ -79,13 +81,13 @@ class SiteSettingController extends Controller
 
     public static function about(){
         return view('admin.sitesettings.about',[
-            'testimonials' => HomeSettings::find(1),
+            'about' => AboutSetting::find(1),
         ]);
     }
 
     public static function faq(){
         return view('admin.sitesettings.faq',[
-            'testimonials' => HomeSettings::find(1),
+            'faqs' => FaqSetting::all(),
         ]);
     }
 
@@ -94,7 +96,7 @@ class SiteSettingController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'address' => 'required',
-            'text' => 'required',
+            'desc' => 'required',
             'image' => 'required',
         ]);
         
@@ -128,78 +130,129 @@ class SiteSettingController extends Controller
         return back()->with('success', ' Testimonial created Successfully');
     }
 
-    public static function homeSettingUpdatetwo(Request $request) {
-        $home = HomePage::find(1);
-        $home->service_one = $request->service_one;
-        $home->service_two = $request->service_two;
-        $home->service_three = $request->service_three;
-        $home->service_four = $request->service_four;
-        $home->service_five = $request->service_five;
-        $home->save();
-        return back()->with('success', 'Home Page Settings Updated Successfully');
-    }
+    public static function admintestimonialupdate(Request $request, $id) {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'address' => 'required',
+            'desc' => 'required',
+            'image' => 'nullable',
+        ]);
+        
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
-    public static function homeSettingUpdatethree(Request $request) {
-        $home = HomePage::find(1);
-        $home->aboutpretitle = $request->aboutpretitle;
-        $home->abouttitle = $request->abouttitle;
-        $home->aboutsubtitle = $request->aboutsubtitle;
-        if ($request->hasFile('aboutimageone')) {
-            if ($home->aboutimageone && file_exists(public_path($home->aboutimageone))) {
-                unlink(public_path($home->aboutimageone));
+
+        $home = HomeSettings::find($id);
+        $home->name = $request->name;
+        $home->address = $request->address;
+        $home->desc = $request->desc;
+
+        if ($request->hasFile('image')) {
+            if ($home->image && file_exists(public_path($home->image))) {
+                unlink(public_path($home->image));
             }
 
-            $image = $request->file('aboutimageone');
-            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image = $request->file('image');
+            $imageName = 'testimonial'.time() . '_' . $image->getClientOriginalName();
             $imagePath = 'admin-assets/images/' . $imageName;
 
             $image->move(public_path('admin-assets/images'), $imageName);
 
-            $home->aboutimageone = $imagePath;
+            $home->image = $imagePath;
         }
-        if ($request->hasFile('aboutimagetwo')) {
-            if ($home->aboutimagetwo && file_exists(public_path($home->aboutimagetwo))) {
-                unlink(public_path($home->aboutimagetwo));
-            }
 
-            $image = $request->file('aboutimagetwo');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $imagePath = 'admin-assets/images/' . $imageName;
-
-            $image->move(public_path('admin-assets/images'), $imageName);
-
-            $home->aboutimagetwo = $imagePath;
-        }
-        $home->aboutpoint_one = $request->aboutpoint_one;
-        $home->aboutpoint_two = $request->aboutpoint_two;
-        $home->aboutpoint_three = $request->aboutpoint_three;
         $home->save();
-        return back()->with('success', 'Home Page Settings Updated Successfully');
+        return back()->with('success', ' Testimonial created Successfully');
     }
 
-    public static function homeSettingUpdatefour(Request $request) {
-        $home = HomePage::find(1);
-        $home->abouttwopretitle = $request->abouttwopretitle;
-        $home->abouttwotitle = $request->abouttwotitle;
-        $home->abouttwosubtitle = $request->abouttwosubtitle;
-        if ($request->hasFile('abouttwoimageone')) {
-            if ($home->abouttwoimageone && file_exists(public_path($home->abouttwoimageone))) {
-                unlink(public_path($home->abouttwoimageone));
-            }
+    public static function admintestimonialDestroy(Request $request, $id) {
+        $home = HomeSettings::find($id);
 
-            $image = $request->file('abouttwoimageone');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $imagePath = 'admin-assets/images/' . $imageName;
-
-            $image->move(public_path('admin-assets/images'), $imageName);
-
-            $home->abouttwoimageone = $imagePath;
+        if (!$home) {
+            return back()->with('error', 'Testimonial not found.');
         }
-        $home->abouttwopoint_one = $request->abouttwopoint_one;
-        $home->abouttwopoint_two = $request->abouttwopoint_two;
-        $home->abouttwopoint_three = $request->abouttwopoint_three;
-        $home->save();
-        return back()->with('success', 'Home Page Settings Updated Successfully');
+    
+        // Delete the image file if it exists
+        if ($home->image && file_exists(public_path($home->image))) {
+            unlink(public_path($home->image));
+        }
+    
+        // Delete the testimonial record
+        $home->delete();
+    
+        return back()->with('success', 'Testimonial deleted successfully.');
     }
+
+    public static function aboutSettingUpdate(Request $request, $id) {
+        $home = AboutSetting::find($id);
+        $home->desc = $request->desc;
+        $home->desc2 = $request->desc2;
+        
+        $home->save();
+        return back()->with('success', 'About Page Settings Updated Successfully');
+    }
+
+
+    public static function adminfaqStore(Request $request) {
+
+        $validator = Validator::make($request->all(), [
+            'icon' => 'required',
+            'ques' => 'required',
+            'ans' => 'required',
+        ]);
+        
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $home = new FaqSetting();
+        $home->icon = $request->icon;
+        $home->ques = $request->ques;
+        $home->ans = $request->ans;
+
+        $home->save();
+        return back()->with('success', ' Faq created Successfully');
+    }
+
+    public static function adminfaqupdate(Request $request, $id) {
+        $validator = Validator::make($request->all(), [
+            'icon' => 'required',
+            'ques' => 'required',
+            'ans' => 'required',
+        ]);
+        
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+
+        $home = FaqSetting::find($id);
+        $home->icon = $request->icon;
+        $home->ques = $request->ques;
+        $home->ans = $request->ans;
+
+        $home->save();
+        return back()->with('success', ' Faq created Successfully');
+    }
+
+    public static function adminfaqDestroy(Request $request, $id) {
+        $home = FaqSetting::find($id);
+
+        if (!$home) {
+            return back()->with('error', 'Faq not found.');
+        }
+
+        $home->delete();
+    
+        return back()->with('success', 'Faq deleted successfully.');
+    }
+
 
 }

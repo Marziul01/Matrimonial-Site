@@ -184,7 +184,7 @@
                 searchedUserCard.innerHTML = `
                     <div class="card w-33">
                         <div class="card-header">
-                            <img src="${data.user.profile.image ? '{{ asset("' + data.user.profile.image + '") }}' : '{{ asset('default_image_path.jpg') }}'}" width="14%">
+                            <img src="${data.user.profile.image ? assetBaseUrl + data.user.profile.image : assetBaseUrl + 'default_image_path.jpg'}" width="14%">
                         </div>
                         <div class="card-body">
                             <p>Name: <strong>${data.user.profile.name ? data.user.profile.name : "Didn't update profile yet!"}</strong></p>

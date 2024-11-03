@@ -216,8 +216,8 @@ Admins
                                 <div class="col-6 mb-2">
                                     <label for="">Plans Section Access?</label>
                                     <select name="orders" id="" class="form-control">
-                                        <option value="1" {{ $admin->access->users == 1 ? 'selected' : '' }} >Yes</option>
-                                        <option value="2" {{ $admin->access->users == 2 ? 'selected' : '' }}>No</option>
+                                        <option value="1" {{ $admin->access->orders == 1 ? 'selected' : '' }} >Yes</option>
+                                        <option value="2" {{ $admin->access->orders == 2 ? 'selected' : '' }}>No</option>
                                     </select>
                                 </div>
                                 <div class="col-6 mb-2">

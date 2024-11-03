@@ -57,6 +57,8 @@ Route::get('password/reset/{token}', [ResetPasswordController::class, 'showReset
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 Route::post('/user-chat-support', [MessageController::class, 'userchatsupport'])->name('user-chat-support');
 Route::post('/fetch-profiles', [HomeController::class, 'fetchProfiles'])->name('fetch.profiles');
+Route::post('/contact/submit', [ContactController::class, 'submitContactForm'])->name('contact.submit');
+
 
 
 Route::group(['prefix' => 'account'],function(){
@@ -145,6 +147,10 @@ Route::group(['prefix' => 'admin'],function(){
         Route::post('admin/testimonial/Destroy/{id}',[SiteSettingController::class,'admintestimonialDestroy'])->name('admintestimonialDestroy');
         Route::post('admin/testimonial/Store',[SiteSettingController::class,'admintestimonialStore'])->name('admintestimonialStore');
         Route::post('admin/testimonial/update/{id}',[SiteSettingController::class,'admintestimonialupdate'])->name('admintestimonialupdate');
+        Route::post('admin/about/Setting/Update/{id}',[SiteSettingController::class,'aboutSettingUpdate'])->name('admin.aboutSettingUpdate');
+        Route::post('admin/faq/Destroy/{id}',[SiteSettingController::class,'adminfaqDestroy'])->name('adminfaqDestroy');
+        Route::post('admin/faq/Store',[SiteSettingController::class,'adminfaqStore'])->name('adminfaqStore');
+        Route::post('admin/faq/update/{id}',[SiteSettingController::class,'adminfaqupdate'])->name('adminfaqupdate');
     });
 
 });

@@ -118,23 +118,6 @@ class UserProfileController extends Controller
 
         // $age = Auth::user()->profile->age; // Calculate the age of the submitted profile
 
-        // $matchingProfiles = DB::table('match_profile')
-        //     ->where('looking_for', Auth::user()->profile->i_am) // Match looking_for with submitted profile's i_am (Groom/Bride)
-        //     ->where('religion', Auth::user()->profile->religion)
-        //     ->where('marital_status', Auth::user()->profile->marital_status)
-        //     ->where('from_age', '<=', $age)
-        //     ->where('to_age', '>=', $age)
-        //     ->get();
-
-        // // Send email to each matching profile
-        // foreach ($matchingProfiles as $match) {
-        //     $matchedUser = User::find($match->user_id); // Assuming match_profile has user_id
-
-        //     if ($matchedUser) {
-        //         Mail::to($matchedUser->email)->send(new NewMatchFoundMail($matchedUser, Auth::user()));
-        //     }
-        // }
-
         return response()->json(['success' => true,]);
     }
 
@@ -447,6 +430,25 @@ class UserProfileController extends Controller
         }
 
         $profile->save();
+
+        $age = Auth::user()->profile->age;
+        $matchingProfiles = DB::table('match_profile')
+            ->where('looking_for', Auth::user()->profile->i_am) // Match looking_for with submitted profile's i_am (Groom/Bride)
+            ->where('religion', Auth::user()->profile->religion)
+            ->where('marital_status', Auth::user()->profile->marital_status)
+            ->where('from_age', '<=', $age)
+            ->where('to_age', '>=', $age)
+            ->get();
+
+        // Send email to each matching profile
+        foreach ($matchingProfiles as $match) {
+            $matchedUser = User::find($match->user_id); // Assuming match_profile has user_id
+
+            if ($matchedUser) {
+                Mail::to($matchedUser->email)->send(new NewMatchFoundMail($matchedUser, Auth::user()));
+            }
+        }
+
 
         return response()->json([
             'success' => true,

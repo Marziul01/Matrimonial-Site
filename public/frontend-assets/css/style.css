@@ -2350,7 +2350,7 @@ a{
     color: #f43662;
     font-size: 15px;
 }
-.furtherFaq button{
+.furtherFaq a{
     padding: 5px 15px;
     background-color: #f43662;
     border-radius: 10px;
@@ -3565,7 +3565,14 @@ a{
     margin-top: 20px;
     font-size: 13px;
 }
-
+.Testimonialwrapper.reviews{
+    padding: 50px 0;
+}
+.Testimonialwrapper.reviews  .Testimonialcarousel{
+    grid-template-columns: repeat(3, 1fr) !important;
+    grid-auto-flow: row !important;
+    grid-auto-columns: auto !important;
+}
 
 
 

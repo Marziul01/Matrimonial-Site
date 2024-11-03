@@ -14,20 +14,20 @@
                     <div class="col-md-6 contactFormsDts">
                         <h1 class="title">Get in <span>Touch</span></h1>
                         <p class="subTitle">Need assistance? Reach out to our support team, and we’ll get back to you shortly!</p>
-                        <form>
+                        <form id="contactForm">
                             @csrf
                             <div class="row">
                                 <div class="col-md-12 p-0">
-                                    <input class="form-control" name="name" type="text" placeholder="Name *">
+                                    <input class="form-control" name="name" type="text" placeholder="Name *" required>
                                 </div>
                                 <div class="col-md-12 p-0">
-                                    <input class="form-control" name="email" type="email" placeholder="Email *">
+                                    <input class="form-control" name="email" type="email" placeholder="Email *" required>
                                 </div>
                                 <div class="col-md-12 p-0">
                                     <input class="form-control" name="number" type="number" placeholder="Phone Number">
                                 </div>
                                 <div class="col-md-12 p-0">
-                                    <textarea class="form-control" name="message" placeholder="Type Here *"></textarea>
+                                    <textarea class="form-control" name="message" placeholder="Type Here *" required></textarea>
                                 </div>
                                 <button type="submit" class="btn w-100 contactSbBtn">SEND</button>
                             </div>
@@ -37,21 +37,21 @@
                                 <i class="fa-solid fa-phone-volume"></i>
                                 <div>
                                     <h4>PHONE</h4>
-                                    <p>+880 1947-782635<p>
+                                    <p>{{ $siteSetting->phone }}<p>
                                 </div>
                             </div>
                             <div class="d-flex w-50 align-items-center column-gap-3 enquiry">
-                                <i class="fa-solid fa-tty"></i>
+                                <i class="fa-solid fa-map-location-dot"></i>
                                 <div>
-                                    <h4>TELEPHONE</h4>
-                                    <p>+880 1947-782635<p>
+                                    <h4>Address</h4>
+                                    <p>{{ $siteSetting->address }}<p>
                                 </div>
                             </div>
                             <div class="d-flex w-50 align-items-center column-gap-3 enquiry">
                                 <i class="fa-solid fa-envelope-open-text"></i>
                                 <div>
                                     <h4>Email</h4>
-                                    <p>info@linkmyheart.com<p>
+                                    <p>{{ $siteSetting->email }}<p>
                                 </div>
                             </div>
                         </div>
@@ -72,5 +72,33 @@
 
 
 @section('customJs')
+
+<script>
+    $(document).ready(function() {
+        $('#contactForm').on('submit', function(e) {
+            e.preventDefault();
+            
+            $.ajax({
+                url: "{{ route('contact.submit') }}",
+                method: "POST",
+                data: $(this).serialize(),
+                success: function(response) {
+                    toastr.success(response.success);
+                    $('#contactForm')[0].reset();
+                },
+                error: function(response) {
+                    if (response.status === 422) {
+                        let errors = response.responseJSON.errors;
+                        $.each(errors, function(key, value) {
+                            toastr.error(value[0]);
+                        });
+                    } else {
+                        toastr.error('There was an error. Please try again.');
+                    }
+                }
+            });
+        });
+    });
+</script>
 
 @endsection

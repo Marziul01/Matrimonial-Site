@@ -198,10 +198,22 @@
     background-color: #F43662;
     border: none;
 }
-
-
-
-
+.new-color-sidebar{
+    background-color: #fff5fb !important;
+    background-image: none !important;
+}
+.new-color-sidebar .nav-item .nav-link, .new-color-sidebar .nav-item .nav-link i{
+    color: #F43662 !important;
+}
+.new-color-sidebar hr.sidebar-divider{
+    border-color: #F43662;
+}
+.new-color-sidebar #sidebarToggle, .new-color-sidebar #sidebarToggle:hover{
+    background-color: #F43662;
+}
+.show-profie-ad .card-body .nav{
+    height: fit-content !important;
+}
 
 
 @media (max-width: 767px){

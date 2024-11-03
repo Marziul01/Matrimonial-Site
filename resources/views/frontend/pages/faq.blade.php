@@ -18,65 +18,27 @@
                         <form>
                             <div class="searchWrapper">
                                 <i class="fa-solid fa-magnifying-glass"></i>
-                                <input type="text" class="search-box" placeholder="Search" name="search">
+                                <input type="text" class="search-box" placeholder="Search" name="search" id="faqSearch">
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
             <div class="row faqTexts">
+                @foreach ($faqs as $faq )
                 <div class="col-md-4">
-                    <i class="fa-regular fa-envelope"></i>
-                    <h3>How do I change my account email?</h3>
-                    <p>You can log in to your account and change it from
-                        your Profile > Edit Profile. Then go to the general tab
-                        to change your email.</p>
+                    <div>{!! $faq->icon !!}</div>
+                    <h3>{{$faq->ques}}</h3>
+                    <p>{{$faq->ans}}</p>
                 </div>
-                <div class="col-md-4">
-                    <i class="fa-regular fa-envelope"></i>
-                    <h3>What should I do if my payment fails?</h3>
-                    <p>If your payment fails, you can use the (COD) payment
-                        option, if available on that order. If your payment is
-                        debited from your account after a payment failure, it
-                        will be credited back within 7-10 days.</p>
-                </div>
-                <div class="col-md-4">
-                    <i class="fa-regular fa-envelope"></i>
-                    <h3>What is your cancellation policy?</h3>
-                    <p>You can now cancel an order when it is in packed/
-                        shipped status. Any amount paid will be credited into
-                        the same payment mode using which the payment
-                        was made</p>
-                </div>
-                <div class="col-md-4 mt-4">
-                    <i class="fa-regular fa-envelope"></i>
-                    <h3>How do I check order delivery status ?</h3>
-                    <p>Please tap on “My Orders” section under main menu
-                        of App/Website/M-site to check your order status.</p>
-                </div>
-                <div class="col-md-4 mt-4">
-                    <i class="fa-regular fa-envelope"></i>
-                    <h3>What is Instant Refunds?</h3>
-                    <p>Upon successful pickup of the return product at your
-                        doorstep, Myntra will instantly initiate the refund to
-                        your source account or chosen method of refund.
-                        Instant Refunds is not available in a few select pin
-                        codes and for all self ship returns.</p>
-                </div>
-                <div class="col-md-4 mt-4">
-                    <i class="fa-regular fa-envelope"></i>
-                    <h3>How do I apply a coupon on my order?</h3>
-                    <p>ou can apply a coupon on cart page before order
-                        placement. The complete list of your unused and valid
-                        coupons will be available under “My Coupons” tab of
-                        App/Website/M-site.</p>
-                </div>
+                @endforeach
+                
                 <div class="col-md-12 furtherFaq">
                     <div>
                         <h4>Still have questions?</h4>
                         <p>Can’t find the answer you’re looking for? Please chat to our friendly team.</p>
                     </div>
-                    <button href="{{ route('contact') }}">Get in touch</button>
+                    <a href="{{ route('contact') }}">Get in touch</a>
                 </div>
             </div>
 
@@ -111,5 +73,24 @@
 });
 
 
+    </script>
+
+    <script>
+        document.getElementById('faqSearch').addEventListener('input', function () {
+    let searchValue = this.value.toLowerCase();
+    let faqItems = document.querySelectorAll('.faqTexts .col-md-4');
+
+    faqItems.forEach(function (item) {
+        // Get the question text of the current FAQ item
+        let questionText = item.querySelector('h3').innerText.toLowerCase();
+
+        // Show or hide the FAQ item based on whether it matches the search query
+        if (questionText.includes(searchValue)) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+});
     </script>
 @endsection

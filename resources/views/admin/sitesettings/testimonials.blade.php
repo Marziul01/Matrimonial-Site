@@ -88,7 +88,7 @@ Testimonials
                                 </div>
                                 <div class="form-group">
                                     <label for="">Testimonial User Address</label>
-                                    <input type="email" class="form-control" name="email" id="recipient-name" placeholder="Testimonial User Address">
+                                    <input type="text" class="form-control" name="address" id="recipient-name" placeholder="Testimonial User Address">
                                 </div>
                                 <div class="form-group">
                                     <label for="">Testimonial</label>
@@ -126,7 +126,7 @@ Testimonials
                             </div>
                             <div class="form-group">
                                 <label for="">Testimonial User Address</label>
-                                <input type="email" class="form-control" name="email" id="recipient-name" placeholder="Testimonial User Address" value="{{$testimonial->address}}">
+                                <input type="text" class="form-control" name="address" id="recipient-name" placeholder="Testimonial User Address" value="{{$testimonial->address}}">
                             </div>
                             <div class="form-group">
                                 <label for="">Testimonial</label>

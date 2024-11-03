@@ -126,23 +126,26 @@
             <div class="Testimonialwrapper">
                 <i id="testimonialleft" class="fa-solid fa-circle-chevron-left"></i>
                 <ul class="Testimonialcarousel">
+                    @foreach ($testimonials->take(4) as $testimonial )
                     <li class="Testimonialcard p-2 h-100">
                         <div class="TestimonialcardInner h-100">
                             <div class="testimonial-item w-100">
                                 <div class="img">
-                                    <img src="{{ asset('frontend-assets/imgs/Centre-Parted-Bob-Haircut-For-Square-Face.png') }}" class="d-block" alt="Testimonial Image">
+                                    <img src="{{ asset($testimonial->image) }}" class="d-block" alt="Testimonial Image">
 
                                 </div>
                                 <div class="w-100 text-left mainTestiText">
-                                    <p class="mb-0">I was initially skeptical about online matchmaking, but this platform exceeded my expectations. I met my soulmate here, and within months, we were planning our future together. A heartfelt thank you for making this possible!</p>
-                                    <p class="textDesc">mst. sadia akter</p>
-                                    <p class="lcation">dhaka</p>
+                                    <p class="mb-0">{{$testimonial->desc}}</p>
+                                    <p class="textDesc">{{$testimonial->name}}</p>
+                                    <p class="lcation">{{$testimonial->address}}</p>
                                 </div>
                             </div>
                         </div>
                         <span class="spanSquare"></span>
-                    </li>
-                    <li class="Testimonialcard p-2 h-100">
+                    </li>  
+                    @endforeach
+                    
+                    {{-- <li class="Testimonialcard p-2 h-100">
                         <div class="TestimonialcardInner h-100">
                             <div class="testimonial-item w-100">
                                 <div class=" img">
@@ -186,7 +189,7 @@
                             </div>
                         </div>
                         <span class="spanSquare"></span>
-                    </li>
+                    </li> --}}
                 </ul>
                 <i id="testimonialright" class="fa-solid fa-circle-chevron-right"></i>
             </div>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AboutSetting;
+use App\Models\HomeSettings;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,13 +15,14 @@ class HomeController extends Controller
 
         return view('frontend.home.home',[
             'profiles' => Profile::where('name', '!=', null )->get(),
+            'testimonials' => HomeSettings::get(),
         ]);
     }
 
     public static function about(){
 
         return view('frontend.pages.about',[
-
+            'about' => AboutSetting::find(1),
         ]);
     }
 
@@ -47,7 +50,7 @@ class HomeController extends Controller
     public static function reviews(){
 
         return view('frontend.pages.reviews',[
-
+            'testimonials' => HomeSettings::get(),
         ]);
     }
 }
