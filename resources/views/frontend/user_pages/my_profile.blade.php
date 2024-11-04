@@ -68,7 +68,7 @@
                     {{-- Case 3: Either user has accepted the request --}}
                     @elseif(($sentRequest && $sentRequest->status === 2) || ($receivedRequest && $receivedRequest->status === 2))
                         <a class="requestsendbtn" onclick="showConfirmationModal({{ $sentRequest->id ?? $receivedRequest->id }}, 'cancel')" >Cancel Connection</a>
-                        <a class="requestsendbtn" href="{{ url('/message' , ['id' => $profile->user_id , 'name' => $profile->name ]) }}">Chat Now</a>
+                        <a class="requestsendbtn" href="{{ url('/message' , $profile->user_id) }}">Chat Now</a>
 
                     {{-- Default: No connection or pending request --}}
                     @else

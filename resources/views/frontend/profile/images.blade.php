@@ -172,6 +172,7 @@
         e.preventDefault();
 
         let formData = new FormData(this);
+        $('#loadingScreen').show();
 
         $.ajax({
             url: "{{ route('match.details.submit') }}", // Use the route helper
@@ -183,6 +184,7 @@
                 // Optionally show a loader before sending
             },
             success: function(response) {
+                $('#loadingScreen').hide();
                 if (response.success) {
                     toastr.success(response.message); // Show success message
 
@@ -195,6 +197,7 @@
                 }
             },
             error: function(xhr) {
+                $('#loadingScreen').hide();
                 // Handle validation errors
                 if(xhr.status === 422) {
                     let errors = xhr.responseJSON.errors;

@@ -150,7 +150,7 @@
                         <p class="" id="profiledesc">{{ $profileDetails->desc ?? 'Write a short description about yourself!' }}</p>
                         <form id="save-profile-desc" class="w-100">
                             @csrf
-                            <textarea name="desc" id="profiledescinput" class="form-control" style="display: none;">{{ $profileDetails->desc ?? 'Write a short description about yourself!' }}</textarea>
+                            <textarea name="desc" id="profiledescinput" class="form-control" style="display: none;" placeholder="Write a short description about yourself!">{{ $profileDetails->desc ?? '' }}</textarea>
                             <div id="save-container" class="w-100" style="display: none;">
                                 <div class="d-flex justify-content-end align-items-center column-gap-3 mt-4" >
                                     <button type="submit" id="save-info1" class="profilecancelbtnn2 m-0">Save</button>
@@ -412,7 +412,7 @@
                 </div>
                 <div class="col-6 mb-3">
                   <label for="inputData" class="form-label">Bio</label>
-                  <input type="text" class="form-control" name="bio" id="inputData" value="{{ Auth::user()->profile->bio ?? ' Write a short bio !' }}">
+                  <input type="text" class="form-control" name="bio" id="inputData" @if(Auth::user()->profile->bio) value="{{  Auth::user()->profile->bio }}" @else placeholder="Write a short bio !" @endif >
                 </div>
                 <div class="col-12 mb-3">
                     <label for="inputData" class="form-label">Date of Birth</label>

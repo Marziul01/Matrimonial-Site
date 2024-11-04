@@ -432,7 +432,7 @@ class UserProfileController extends Controller
         $profile->save();
 
         $age = Auth::user()->profile->age;
-        $matchingProfiles = DB::table('match_profile')
+        $matchingProfiles = DB::table('match_profiles')
             ->where('looking_for', Auth::user()->profile->i_am) // Match looking_for with submitted profile's i_am (Groom/Bride)
             ->where('religion', Auth::user()->profile->religion)
             ->where('marital_status', Auth::user()->profile->marital_status)

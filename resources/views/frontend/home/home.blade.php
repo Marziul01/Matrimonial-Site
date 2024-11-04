@@ -294,13 +294,7 @@
         </div>
     </div>
 
-    <div id="loadingScreen" class="matriloadingscreen" style="display: none;">
-        <div class="matriloadingscreendiv">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-        </div>
-    </div>
+    
     <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">

@@ -87,7 +87,13 @@
     </div>
 </div>
 
-
+<div id="loadingScreen" class="matriloadingscreen" style="display: none;">
+    <div class="matriloadingscreendiv">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</div>
 
 @include('frontend.include.footer')
 
