@@ -74,7 +74,8 @@ class UserDashboardController extends Controller
             ->pluck('visitor_id');
     
         // Fetch visitor profiles
-        $visitorProfiles = Profile::whereIn('user_id', $recentVisitors)->get();
+        $visitorProfiles = Profile::whereIn('user_id', $recentVisitors)->where('status', 1)
+        ->where('contact_number', '!=', null)->get();
 
         $visitedProfilesCount = DB::table('profile_visits')
             ->where('visited_id', auth()->id())
