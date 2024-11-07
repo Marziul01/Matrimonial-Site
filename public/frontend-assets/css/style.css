@@ -3597,7 +3597,7 @@ a{
         width: 55% !important;
     }
     .homeMain-heading{
-        font-size: 60px;
+        font-size: 50px;
     }
     .homeMain-heading span{
         font-size: 60px;
@@ -3745,7 +3745,7 @@ a{
     .mobilePriceTabCard{
         flex-direction: column;
         row-gap: 20px;
-        padding: 20px 0 !important;
+        padding: 0 !important;
     }
     .bg-price{
         padding: 3rem 10px !important;
@@ -3773,17 +3773,18 @@ a{
         display: none !important;
     }
     .loginBtn {
-        font-size: 14px;
+        font-size: 12px;
         color: #f43662;
         border-radius: 5px;
         padding: 0;
+        position: relative;
     }
     .registerbtn {
         font-size: 12px;
         color: white;
         background-color: #f43662;
         border-radius: 5px;
-        padding: 10px;
+        padding: 8px 5px;
     }
     .menu_item.active {
         color: white;
@@ -3832,9 +3833,10 @@ a{
         width: 100%;
         justify-content: center;
         padding-left: 0px;
+        padding-top: 30px;
    }
    .stepsTexts h2 {
-        font-size: 60px;
+        font-size: 45px;
         text-align: center;
     }
     .messenger{
@@ -3851,6 +3853,366 @@ a{
     }
     .messenger-infoView {
         position: absolute !important;
+    }
+    .bgSectionColor .mainHeading{
+        font-size: 45px;
+    }
+    .searchBy{
+        align-items: flex-start;
+    }
+    .searchBy .searchTitle{
+        font-size: 16px;
+    }
+    .searchBy .searchOptions{
+        flex-wrap: wrap;
+        column-gap: 10px;
+        row-gap: 10px;
+        margin-left: 10px;
+    }
+    .searchBy .searchOptions  a{
+        font-size: 13px;
+        padding: 7px 15px;
+    }
+    .searchBy .searchTitle h1{
+        font-size: 18px;
+    }
+    .bgBrands{
+        background-size: 20%;
+        padding: 75px 20px 50px;
+
+    }
+    .bgBrands .subTitle{
+        font-size: 36px;
+    }
+    .imageBrands{
+        width: 50%;
+    }
+    .Testimonialwrapper .Testimonialcarousel{
+        grid-auto-columns: calc((100% / 1));
+        margin: 0;
+        padding: 0;
+    }
+    .Testimonialwrapper i:first-child {
+        left: 14px;
+    }
+    .bgBrands2{
+        background-size: 18%;
+    }
+    .pointerImage {
+        width: 380px;
+        position: absolute;
+        top: -165px;
+    }
+    .trustedOne{
+    font-size: 21px;
+    }
+    .trustedTitle{
+        font-size: 45px;
+
+    }
+    .trustedSubTitle{
+        font-size: 16px;
+    }
+    .trustOptions{
+        column-gap: 10px;
+        margin-top: -135px;
+    }
+    .trustOptionsDiv{
+        padding: 25px 10px;
+    }
+    .trustOptionsDiv{
+        padding: 0px ;
+    }
+    .trustOptionsDiv div{
+        padding: 5px;
+    }
+    .trustOptionsDiv img {
+        width: 55px;
+        margin-bottom: 5px;
+    }
+    .trustOptionsDiv h2{
+        font-size: 18px;
+    }
+    .trustOptionsDiv p{
+        font-size: 12px;
+    }
+    .trustOptionsDiv div div{
+        height: 80px !important;
+    }
+    .trustOptionsDiv .ring-1 {
+        width: 40px;
+    }
+    .trustOptionsDiv .ring-2 {
+        width: 38px;
+        position: absolute;
+        top: 30px;
+        left: -10px;
+    }
+    .siteContact {
+        padding: 65px 0;
+        flex-direction: column;
+    }
+    .siteContact .w-50 {
+        width: 100% !important;
+    }
+    .contactImg1{
+        top: -20px;
+    }
+    .contactImg4{
+        right: 20px;
+    }
+    .contactDetails {
+        padding: 50px 10px 0px;
+    }
+    .contactDetails .title{
+        font-size: 45px;
+    }
+    .contactDetails .subTitle{
+        font-size: 26px;
+    }
+    .mobile-enquier-div{
+        flex-direction: column;
+        row-gap: 20px;
+    }
+    .adSection{
+        padding: 25px 10px 25px 10px;
+        margin-top: 0px;
+    }
+    .adSection .title{
+        font-size: 30px;
+        margin-bottom: 10px;
+    }
+    .adSection .joinBtn{
+        padding: 7px 15px;
+        margin-top: 5px;
+    }
+    .adSection .img {
+        width: 35%;
+    }
+    .stepTitle{
+        font-size: 25px;
+    }
+    .stepSubTitle{
+        font-size: 17px;
+    }
+    .step-two .stepSubTitle{
+        text-align: end;
+    }
+    .step-one img , .step-two img{
+        width: 100%;
+    }
+    .aboutTexts {
+        margin-top: 20px !important;
+        flex-direction: column-reverse;
+    }
+    .aboutTexts:last-child{
+        flex-direction: column;
+    }
+    .aboutTexts .paddingLefts{
+        padding-bottom: 30px;
+        padding-left: 0;
+    }
+    .sideImagebg{
+        height: 300px;
+        padding: 20px;
+    }
+    .aboutTexts .paRight{
+        padding-right: 10px;
+    }
+    .aboutTexts h1{
+        font-size: 45px;
+    }
+    .aboutTexts h3{
+        font-size: 33px;
+    }
+    .aboutTexts .col-md-12 .paddingLefts{
+        width: 100% !important;
+        flex-direction: column;
+        margin-top: 5px !important;
+    }
+    .aboutTexts .col-md-12 .paddingLefts .w-50{
+        width: 100% !important;
+    }
+    .aboutTexts:last-child .paddingLefts{
+        padding-top: 50px;
+    }
+    .aboutImages .aboutImg4{
+        right: 12px;
+        bottom: -10px;
+    }
+    .bg-price .mainHeading{
+        font-size: 30px;
+        margin-bottom: 10px;
+    }
+    .mobile-price-head{
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+    .pricePlanCards{
+        width: 100%;
+        border-bottom: 3px solid white;
+        margin-top: 0px !important;
+    }
+    .pricePlanCards:hover{
+        margin-top: 0 !important;
+    }
+    .faqTexts {
+        padding: 50px 10px 100px;
+        row-gap: 20px;
+    }
+    .contactFormsDts {
+        padding: 40px 10px 10px 0;
+    }
+    .contactEnquery{
+        flex-direction: column;
+        margin-top: 40px;
+        row-gap: 15px;
+    }
+    .contactEnquery .w-50{
+        width: 100% !important;
+    }
+    .googleMap{
+        padding: 40px 0px 50px;
+    }
+    .googleMap iframe{
+        width: 100% !important;
+        height: 250px !important;
+    }
+    .contactFormsDts .title{
+        font-size: 45px;
+    }
+    .contactFormsDts .subTitle{
+        font-size: 15px;
+    }
+    .Registration_Modal .modal-dialog{
+        max-width: 100%;
+    }
+    .Registration_Modal .modal-dialog .row{
+        flex-direction: column;
+        row-gap: 10px;
+    }
+    .Registration_Modal .modal-dialog .row .w-50{
+        width: 100% !important;
+    }
+    .LoginPage .leftImage{
+        display: none !important;
+    }
+    .LoginPage .Loginhomebg{
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+    .signInForm{
+        padding: 30px 10px;
+    }
+    .signInForm .title{
+        font-size: 45px;
+        margin-top: 20px;
+    }
+    .signInForm .login-form{
+        padding: 10px !important;
+    }
+    .Testimonialwrapper.reviews .Testimonialcarousel{
+        grid-template-columns: repeat(1, 1fr) !important;
+    }
+    .userImageProfileTog img{
+        height: 100%;
+        object-fit: cover;
+    }
+    .userImageProfileTog.show{
+        top: 0px !important;
+        height: 45px !important;
+    }
+    .loginBtn i{
+        font-size: 35px;
+    }
+    .mobile-msg{
+        position: absolute;
+        top: -10px;
+        right: -5px;
+        border: 1px solid white;
+    }
+    .dashDetailsDiv{
+        flex-direction: column;
+    }
+    .dashDetailsDiv .imageBox{
+        width: 100%;
+        
+    }
+    .dashDetailsDiv .imageBox .image{
+        flex-direction: row;
+    }
+    .dashDetailsDiv .imageBox .img{
+        width: 120px;
+        height: 120px;
+        margin-bottom: 0;
+        margin-right: 10px;
+    }
+    .dashDetailsDiv .imageBox .UserName{
+        font-size: 25px;
+    }
+    .detailsBox{
+        width: 100%;
+        padding: 0;
+    }
+    .statsBox, .findBox {
+        width: 100% !important;
+    }
+    .findBox .adSection {
+        padding: 20px;
+    }
+    .findBox .adSection .title{
+        font-size: 25px;
+    }
+    .findBox .adSection .joinBtn {
+        margin-top: 10px;
+        font-size: 15px;
+        padding: 5px;
+    }
+    .findBox .adSection .img {
+        width: 40%;
+    }
+    .recentVisitor{
+        margin: 50px 0;
+    }
+    .matchScrooler .Testimonialwrapper .Testimonialcarousel {
+        grid-auto-columns: calc((100% / 1));
+    }
+    .Testimonialwrapper i:last-child{
+        bottom:-51px;
+    }
+    .detailsBox1{
+        width: 100%;
+        padding: 40px 0;
+    }
+    .statsBox2{
+        margin-bottom: 0px;
+    }
+    .requestsdivs{
+        padding: 10px;
+        border-radius: 10px;
+        column-gap: 10px;
+        overflow-x: auto;
+    }
+    .findBox .adSection .img{
+        width: 20%;
+    }
+    .requestsdivs img{
+        width: 50px;
+        height: 50px;
+    }
+    .requestsdivs .requestsjme{
+        width: 20%;
+    }
+    .requestsdivs .requestsjme h4{
+        font-size: 15px;
+    }   
+    .requestsdivs .w-50{
+        width: 60% !important;
+        display: flex;
+    }
+    .requestsdivs .requestbtn , .requestsdivs .requestbtn1{
+        display: block;
+        padding: 4px 8px;
     }
 }
 

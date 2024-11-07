@@ -9,7 +9,7 @@
     <div class="bg-price">
         <div class="section membershipbg">
             <div class="py-5">
-                <div class="d-flex justify-content-between align-items-end">
+                <div class="d-flex justify-content-between align-items-end mobile-price-head">
                     <div>
                         <h1 class="mainHeading">Membership Packages</h1>
                         <p class="subHeading">4 Convenient Premium Packages to Choose From!</p>

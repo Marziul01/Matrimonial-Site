@@ -264,7 +264,7 @@
                     the mojority have suffered alteraction in some from, by injected
                     humor, or randomised word which don’t look even slighty believable.
                 </p>
-                <div class="d-flex justify-content-between align-items-center w-100 column-gap-4 mt-5">
+                <div class="d-flex justify-content-between align-items-center w-100 column-gap-4 mt-5 mobile-enquier-div">
                     <div class="d-flex w-50 align-items-start column-gap-3 enquiry">
                         <i class="fa-solid fa-phone"></i>
                         <div>

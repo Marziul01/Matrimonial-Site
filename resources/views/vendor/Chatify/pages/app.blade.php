@@ -1,10 +1,10 @@
-@extends('frontend.master')
+{{-- @extends('frontend.master')
 
 @section('title')
 | Messages
 @endsection
 
-@section('content')
+@section('content') --}}
 @include('Chatify::layouts.headLinks')
 <div class="messenger">
     {{-- ----------------------Users/Groups lists side---------------------- --}}
@@ -12,6 +12,7 @@
         {{-- Header and search bar --}}
         <div class="m-header">
             <nav>
+                <a href=" {{ route('user.dashboard') }} " class="back-to-ddash" ><i class="fa-solid fa-arrow-left"></i> Go Back</a>
                 <a href="#"><i class="fas fa-inbox"></i> <span class="messenger-headTitle">MESSAGES</span> </a>
                 {{-- header buttons --}}
                 <nav class="m-header-right">
@@ -38,8 +39,8 @@
                 <div class="messenger-favorites app-scroll-hidden"></div>
                </div>
                {{-- Saved Messages --}}
-               <p class="messenger-title"><span>Your Space</span></p>
-               {!! view('Chatify::layouts.listItem', ['get' => 'saved']) !!}
+               {{-- <p class="messenger-title"><span>Your Space</span></p>
+               {!! view('Chatify::layouts.listItem', ['get' => 'saved']) !!} --}}
                {{-- Contact --}}
                <p class="messenger-title"><span>All Messages</span></p>
                <div class="listOfContacts" style="width: 100%;height: calc(100% - 272px);position: relative;"></div>
@@ -70,7 +71,8 @@
                 {{-- header buttons --}}
                 <nav class="m-header-right">
                     <a href="#" class="add-to-favorite"><i class="fas fa-star"></i></a>
-                    <a href="/"><i class="fas fa-home"></i></a>
+                    <a href="" class="show-infoSide"><i class="fa-solid fa-phone"></i></a>
+                    <a href="" class="show-infoSide"><i class="fa-solid fa-video"></i></a>
                     <a href="#" class="show-infoSide"><i class="fas fa-info-circle"></i></a>
                 </nav>
             </nav>
@@ -118,7 +120,7 @@
 @include('Chatify::layouts.modals')
 @include('Chatify::layouts.footerLinks')
 
-@endsection
+{{-- @endsection
 
 @section('customJs')
-@endsection
+@endsection --}}

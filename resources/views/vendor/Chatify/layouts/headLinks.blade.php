@@ -18,6 +18,7 @@
 
 {{-- styles --}}
 <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css'/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link href="{{ asset('css/chatify/style.css') }}" rel="stylesheet" />
 <link href="{{ asset('css/chatify/'.$dark_mode.'.mode.css') }}" rel="stylesheet" />
 <link href="{{ asset('css/app.css') }}" rel="stylesheet" />

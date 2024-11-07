@@ -36,13 +36,28 @@
                       <li><a href="{{ route('user.profile.settings') }}" class="dropdown-item" type="button">Settings </a></li>
                       <li><a href="{{ route('user.logout') }}" class="dropdown-item" type="button">Logout </a></li>
                     </ul>
-                  </div>
+                </div>
             </div>
         </div>
         <div class="w-50 d-md-none pr-1">
             <div class="menu d-flex justify-content-end align-items-center column-gap-2">
-                <a href="{{ route('login') }}" class="btn loginBtn">Sign In</a>
-                <a class="btn registerbtn" data-bs-toggle="modal" data-bs-target="#registerModal">Join Now</a>
+                <a href="{{ url('/message') }}" class="btn loginBtn"><i class="fa-brands fa-facebook-messenger"></i> <span class="message-unseen-count mobile-msg">{{ $unseenMessageCount }}</span></a>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary userImageProfileTog" data-bs-toggle="dropdown" aria-expanded="false">
+                        @if (isset(Auth::user()->profile->image))
+                            <img src="{{  asset(Auth::user()->profile->image) }}" alt="" class="w-100">
+                        @else
+                            <i class="fa-regular fa-user"></i>
+                        @endif
+
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end userImageProfileDrop">
+                      <li><a href="{{ route('user.profile') }}" class="dropdown-item" type="button">My Profile </a></li>
+                      <li><a href="{{ route('user.profile.partner') }}" class="dropdown-item" type="button">Partner Preferences </a></li>
+                      <li><a href="{{ route('user.profile.settings') }}" class="dropdown-item" type="button">Settings </a></li>
+                      <li><a href="{{ route('user.logout') }}" class="dropdown-item" type="button">Logout </a></li>
+                    </ul>
+                </div>
                 <a class="mobileNavtoggle" id="homeMenuNavToogle"> <i class="fa-solid fa-bars"></i> </a>
             </div>
         </div>
@@ -50,7 +65,7 @@
             <div class="menu d-flex flex-column justify-content-center align-items-start row-gap-2">
                 <a href="{{ route('user.dashboard') }}" class="menu_item {{ Route::currentRouteName() == 'user.dashboard' ? 'active' : '' }}"> Dashboard </a>
                 <a href="{{ route('user.matches') }}" class="menu_item {{ Route::currentRouteName() == 'user.matches' ? 'active' : '' }}"> My Matches </a>
-                <a href="" class="menu_item"> Messages  </a>
+                <a href="{{ url('/message') }}" class="menu_item"> Messages  </a>
                 <a href="{{ route('user.notifications') }}" class="menu_item {{ Route::currentRouteName() == 'user.notifications' ? 'active' : '' }}"> Notifications </a>
             </div>
         </div>

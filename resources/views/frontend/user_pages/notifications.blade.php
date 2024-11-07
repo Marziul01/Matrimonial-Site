@@ -7,7 +7,7 @@
 @section('content')
 
 <div class="section">
-   <div class="dashDetailsDiv py-5">
+   <div class="dashDetailsDiv">
        <div class="imageBox">
            <div class="image">
                @if (isset(Auth::user()->profile->image))
@@ -15,8 +15,11 @@
                @else
                    <i class="fa-regular fa-user icon"></i>
                @endif
-               <p class="UserName"> {{ Auth::user()->name }} </p>
-               <p class="userEmail">{{ Auth::user()->email }}</p>
+               <div>
+                  <p class="UserName text-center"> {{ Auth::user()->name }} </p>
+                  <p class="userEmail text-center">{{ Auth::user()->email }}</p>
+               </div>
+               
            </div>
            <div class="memplanDiv">
                <div>
