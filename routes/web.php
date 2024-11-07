@@ -58,7 +58,15 @@ Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('
 Route::post('/user-chat-support', [MessageController::class, 'userchatsupport'])->name('user-chat-support');
 Route::post('/fetch-profiles', [HomeController::class, 'fetchProfiles'])->name('fetch.profiles');
 Route::post('/contact/submit', [ContactController::class, 'submitContactForm'])->name('contact.submit');
+Route::get('/storage/attachments/{filename}', function ($filename) {
+    $path = storage_path('app/public/attachments/' . $filename);
 
+    if (!file_exists($path)) {
+        abort(404);
+    }
+
+    return response()->file($path);
+})->name('attachments.show');
 
 
 Route::group(['prefix' => 'account'],function(){
@@ -106,6 +114,7 @@ Route::group(['prefix' => 'account'],function(){
         Route::post('/send-request', [ConnectionController::class, 'sendRequest'])->name('send.request');
         Route::post('/requests/accept/{id}', [ConnectionController::class, 'acceptRequest'])->name('requests.accept');
         Route::delete('/requests/cancel/{id}', [ConnectionController::class, 'cancelRequest'])->name('requests.cancel');
+        
 
     });
 });
