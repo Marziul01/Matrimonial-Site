@@ -71,8 +71,13 @@
                 {{-- header buttons --}}
                 <nav class="m-header-right">
                     <a href="#" class="add-to-favorite"><i class="fas fa-star"></i></a>
-                    <a href="" class="show-infoSide"><i class="fa-solid fa-phone"></i></a>
-                    <a href="" class="show-infoSide"><i class="fa-solid fa-video"></i></a>
+                    <a href="" class="show-infoSide cursor-pointer" onclick="alert('Sorry! ..Can\'t make voice call yet!')">
+                        <i class="fa-solid fa-phone"></i>
+                    </a>
+                    <a href="" class="show-infoSide cursor-pointer" onclick="alert('Sorry! ..Can\'t make Video call yet!')">
+                        <i class="fa-solid fa-video"></i>
+                    </a>
+                    
                     <a href="#" class="show-infoSide"><i class="fas fa-info-circle"></i></a>
                 </nav>
             </nav>
