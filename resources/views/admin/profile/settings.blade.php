@@ -7,6 +7,7 @@
 @section('content')
     <div class="container">
         <div class="row">
+            @include('admin.auth.message')
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul class="alert-ul">

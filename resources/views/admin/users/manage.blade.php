@@ -25,7 +25,7 @@
                     <form id="searchForm" class=" d-flex align-items-center justify-content-between column-gap-2">
                         @csrf
                         <input type="text" name="email" id="emailInput" placeholder="Search by email" class="form-control" />
-                        <input type="text" name="phone" id="phoneInput" placeholder="Search by phone number" class="form-control" />
+                        <input type="number" name="phone" id="phoneInput" placeholder="Search by phone number" class="form-control" />
                         <button type="submit" class="btn btn-primary">Search</button>
                         <button type="button" id="resetButton" class="btn btn-secondary">Reset</button>
                     </form>

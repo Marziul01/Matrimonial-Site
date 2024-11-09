@@ -34,7 +34,7 @@
     @if (Auth::user()->access->orders == '1' || Auth::user()->role_name == 'Super Admin' )
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.plans') }}">
-            <i class="fa-solid fa-user"></i>
+            <i class="fa-solid fa-money-check-dollar"></i>
             <span>Credit Plans</span>
         </a>
     </li>
@@ -43,7 +43,7 @@
     @if (Auth::user()->access->courses == '1' || Auth::user()->role_name == 'Super Admin' )
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.chat.adminindex') }}">
-            <i class="fa-solid fa-user"></i>
+            <i class="fa-solid fa-headset"></i>
             <span>Support Center</span>
         </a>
     </li>
@@ -52,7 +52,7 @@
     @if ( Auth::user()->role_name == 'Super Admin' )
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.manager') }}">
-            <i class="fa-solid fa-user"></i>
+            <i class="fa-solid fa-users-gear"></i>
             <span>Admins Managment</span>
         </a>
     </li>
@@ -62,7 +62,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fa-solid fa-file-lines"></i>
             <span>Page Settings</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -78,7 +78,7 @@
     @if (Auth::user()->access->site_settings == '1' || Auth::user()->role_name == 'Super Admin' )
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.siteSetting') }}">
-            <i class="fa-solid fa-user"></i>
+            <i class="fa-solid fa-gears"></i>
             <span>Site Settings</span>
         </a>
     </li>

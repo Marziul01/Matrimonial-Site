@@ -29,6 +29,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ConnectionController;
 use App\Http\Controllers\SiteSettingController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -160,6 +161,8 @@ Route::group(['prefix' => 'admin'],function(){
         Route::post('admin/faq/Destroy/{id}',[SiteSettingController::class,'adminfaqDestroy'])->name('adminfaqDestroy');
         Route::post('admin/faq/Store',[SiteSettingController::class,'adminfaqStore'])->name('adminfaqStore');
         Route::post('admin/faq/update/{id}',[SiteSettingController::class,'adminfaqupdate'])->name('adminfaqupdate');
+        Route::get('/change/password',[ProfileController::class,'profileSettings'])->name('profileSettings');
+        Route::post('/profileUpdate',[ProfileController::class,'profileUpdate'])->name('profileUpdate');
     });
 
 });

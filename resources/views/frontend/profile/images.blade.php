@@ -24,7 +24,7 @@
             <div class="detailsBox">
                 <div class="statsBox">
                     <div class="statsBoxDiv">
-                        <div class="w-100">
+                        <div class="w-100 profiles-mathc-form-div">
                             <form id="save-profile-dp">
                                 @csrf
                                 <h3 class="text-white mb-4">

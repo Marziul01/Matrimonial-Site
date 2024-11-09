@@ -53,27 +53,35 @@ class UserController extends Controller
     }
 
     public function searchUsers(Request $request)
-        {
-            $emailQuery = $request->input('email');
-            $phoneQuery = $request->input('phone');
+    {
+        $emailQuery = $request->input('email');
+        $phoneQuery = $request->input('phone');
 
-            $user = User::when($emailQuery, function ($query) use ($emailQuery) {
-                    return $query->where('email', 'like', '%' . $emailQuery . '%');
-                })
-                ->when($phoneQuery, function ($query) use ($phoneQuery) {
-                    return $query->orWhereHas('profile', function ($q) use ($phoneQuery) {
-                        $q->where('number', 'like', '%' . $phoneQuery . '%');
-                    });
-                })
-                ->with('profile') // Make sure to include the profile relationship
-                ->first();  // Get only the first user
-
-            if ($user) {
-                return response()->json(['user' => $user], 200); // Return user data as JSON
-            } else {
-                return response()->json(['user' => null], 200);  // No user found
-            }
+        // Normalize the phone query by removing the country code prefix
+        if ($phoneQuery) {
+            // Remove any +880, 880, or leading 0
+            $normalizedPhone = preg_replace('/^(\+880|880|0)/', '', $phoneQuery);
+        } else {
+            $normalizedPhone = null;
         }
+
+        $user = User::when($emailQuery, function ($query) use ($emailQuery) {
+                return $query->where('email', 'like', '%' . $emailQuery . '%');
+            })
+            ->when($normalizedPhone, function ($query) use ($normalizedPhone) {
+                return $query->orWhereHas('profile', function ($q) use ($normalizedPhone) {
+                    $q->where('number', 'like', '%' . $normalizedPhone . '%');
+                });
+            })
+            ->with('profile') // Make sure to include the profile relationship
+            ->first();  // Get only the first user
+
+        if ($user) {
+            return response()->json(['user' => $user], 200); // Return user data as JSON
+        } else {
+            return response()->json(['user' => null], 200);  // No user found
+        }
+    }
 
         public function sendPasswordReset($id)
     {

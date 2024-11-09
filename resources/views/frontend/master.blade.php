@@ -36,7 +36,7 @@
 
 
 <main class="main">
-    @yield('content')
+    @yield('content') 
 </main>
 
 
@@ -89,8 +89,9 @@
 
 <div id="loadingScreen" class="matriloadingscreen" style="display: none;">
     <div class="matriloadingscreendiv">
-        <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
+        <div class="rhombus2">
+            <div class="circle21"></div>
+            <div class="circle22"></div>
         </div>
     </div>
 </div>
@@ -173,13 +174,14 @@
     $('#sign-up').on('submit', function(event) {
         event.preventDefault(); // Prevent the default form submission
         var formData = $(this).serialize(); // Serialize form data
-
+        $('#loadingScreen').show();
         // Send AJAX request to the server for signup
         $.ajax({
             url: '{{ route("userRegister") }}', // Route to the signup function
             type: 'POST',
             data: formData,
             success: function(response) {
+                $('#loadingScreen').hide();
                 if (response.success) {
                     // Show success message via Toastr
                     toastr.success('Email verification code has been sent to your email.');
@@ -201,6 +203,7 @@
                 }
             },
             error: function(xhr, status, error) {
+                $('#loadingScreen').hide();
                 // Handle AJAX errors, typically validation errors or server issues
                 if (xhr.responseJSON && xhr.responseJSON.errors) {
                     // Loop through validation errors and display them

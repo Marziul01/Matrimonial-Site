@@ -84,7 +84,7 @@
                     <p> {{ $profile->desc }} </p>
                     <div class="w-100">
                         <h5 class="mt-4">Personal information :</h5>
-                        <div class="d-flex w-100 mt-4 justify-content-between">
+                        <div class="d-flex w-100 mt-4 justify-content-between mobile-infos-resize">
                             <div class="d-flex flex-column w-33 justify-content-start align-items-start row-gap-5">
                                 <div class="d-flex column-gap-5 lookingp1 px-3">
                                     <p class="lookingp">Nationality :</p>
@@ -135,7 +135,7 @@
 
                     <div class="w-100 mt-3">
                         <h5 class="mt-4">Education :</h5>
-                        <div class="d-flex w-100 mt-4 justify-content-between">
+                        <div class="d-flex w-100 mt-4 justify-content-between mobile-infos-resize">
                             <div class="d-flex flex-column w-33 justify-content-start align-items-start row-gap-5">
                                 <div class="d-flex column-gap-3 lookingp1 px-3">
                                     <p class="lookingp">Highest Educational :</p>
@@ -162,7 +162,7 @@
 
                     <div class="w-100 mt-3">
                         <h5 class="mt-4">Work :</h5>
-                        <div class="d-flex w-100 mt-4 justify-content-between">
+                        <div class="d-flex w-100 mt-4 justify-content-between mobile-infos-resize">
                             <div class="d-flex flex-column w-33 justify-content-start align-items-start row-gap-5">
                                 <div class="d-flex column-gap-5 lookingp1 px-3">
                                     <p class="lookingp">Profession :</p>
@@ -195,7 +195,7 @@
             <div class="w-100 infos">
                 <div class="w-100"> 
                     <h3 class="mb-3" >Contact Details  <i class="fa-solid fa-phone-volume"></i> </h3>
-                    <div class="d-flex w-100 mt-4 justify-content-start">
+                    <div class="d-flex w-100 mt-4 justify-content-start mobile-infos-resize">
                         @if ($profile->show_contact == 1)
                             <div class="d-flex flex-column w-33 justify-content-start align-items-start row-gap-5">
                                 <div class="d-flex column-gap-5 lookingp1 px-3">
@@ -235,8 +235,8 @@
             <div class="w-100 infos">
                 <div class="w-100"> 
                     <h3 class="mb-3" >Hobbies <i class="fa-solid fa-palette"></i> </h3>
-                    <div class="d-flex w-100 mt-4 justify-content-start">
-                        <div class="d-flex flex-wrap w-100 justify-content-start align-items-center column-gap-5">
+                    <div class="d-flex w-100 mt-4 justify-content-start mobile-infos-resize">
+                        <div class="d-flex flex-wrap w-100 justify-content-start align-items-center column-gap-5 row-gap-3">
                             <p class="lookingp1"><i class="fa-solid fa-champagne-glasses"></i> Drinking : {{ $profile->drinking }}</p>
                             <p class="lookingp1"><i class="fa-solid fa-smoking"></i> Smoking : {{ $profile->smoking }}</p>
                         </div>
@@ -246,9 +246,9 @@
 
             <div class="w-100 flex-column infos ">
                 <h3 class="mb-3" >What is  @if($profile->gender == 'Male') He @else She  @endif Looking For ! <i class="fa-solid fa-hand-holding-hand"></i> </h3>
-                <div class="w-100 d-flex flex-column-reverse"> 
-                    <div class="d-flex w-100 mt-4 {{ Auth::user()->plans->plan_id == 1 ? 'blur' : '' }}">
-                        <div class="d-flex flex-column w-75  row-gap-5">
+                <div class="w-100 d-flex flex-column-reverse matches-prop-div"> 
+                    <div class="d-flex w-100 mt-4 matches-prop-infos {{ Auth::user()->plans->plan_id == 1 ? 'blur' : '' }}">
+                        <div class="d-flex flex-column w-75  row-gap-5 ">
                             <div class="d-flex w-100 flex-column column-gap-5 lookingp2 px-3">
                                 <p class="lookingp">Religion :<br> <span>{{ $profile->matchProfile->religion }}</span></p>
                                 <p class="lookingp">Marital Status :<br> <span>{{ $profile->matchProfile->marital_status }}</span></p>
@@ -264,7 +264,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="d-flex flex-column w-25 justify-content-start align-items-start row-gap-5">
+                        <div class="d-flex flex-column w-25 justify-content-start align-items-start row-gap-5 ">
                             <div class="d-flex w-100 flex-column column-gap-5 lookingp3 px-3">
                                 @php
                                     $matchCount = 0;
@@ -337,7 +337,7 @@
                             </div> 
                         </div>
                     </div>
-                    <div class="d-flex w-100 mt-4 justify-content-between mb-4">
+                    <div class="d-flex w-100 mt-4 justify-content-between mb-4 matches-prop-img">
                         <div class="d-flex w-25 flex-column justify-content-center align-items-center row-gap-1">
                             <img src="{{ asset($profile->image) }}" class="prefrenceimg" alt="">
                             <p>@if($profile->gender == 'Male') His @else Her  @endif Preference</p>

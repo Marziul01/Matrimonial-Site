@@ -21,7 +21,7 @@
                     <a href=""></a>
                 </div>
             </div>
-            <div class="detailsBox ">
+            <div class="detailsBox profiles-pass-form-div">
                 <div class="statsBox statsBoxDiv flex-column justify-content-start align-items-baseline">
                     <h2 class="p-2 mt-3 mb-0 px-4 tabForms text-white" style="font-weight: 800; margin-left: 10px">Change Password</h2>
                     <div class="row p-0 ">

@@ -63,7 +63,7 @@
                                     <p class="text-white">- {{ Auth::user()->profile->bio ?? 'Update your profile bio!'}}</p>
                                     <hr class="bg-white border-white" >
                                 </div>
-                                <div class="d-flex w-100">
+                                <div class="d-flex w-100 profiles-biopic">
                                     <div class="d-flex flex-column row-gap-2 w-25">
                                         <p class="text-white">Birthday :</p>
                                         <p class="text-white">City :</p>
@@ -85,7 +85,7 @@
                         <i class="fa-regular @if(Auth::user()->profile->show_images==1) fa-eye @else fa-eye-slash  @endif mx-3 toggle-visibility coursor-pointer" id="toggleGallery" data-visible="{{ Auth::user()->profile->show_images ?? null }}"></i>
                     </p>
                     <div class="d-flex column-gap-2 align-items-center w-100 flex-wrap">
-                        <div class="d-flex column-gap-2 align-items-center flex-wrap" id="image-gallery">
+                        <div class="d-flex column-gap-2 row-gap-2 align-items-center flex-wrap" id="image-gallery">
                             @if (!is_null($userImages))
                                 @foreach($userImages as $image)
                                     <div class="image-wrapper" id="image-{{ $image->id }}">
@@ -109,7 +109,7 @@
 
                 <div class="p-3 profile-lookingfor">
                     <p class="profile-title">I'm looking for <a href="{{ route('user.profile.partner') }}" class="edit-infos"><i class="fa-solid fa-pen mx-3"></i></a></p>
-                    <div class="d-flex column-gap-2 align-items-center flex-wrap">
+                    <div class="d-flex column-gap-2 row-gap-2 align-items-center flex-wrap">
                         @if(!is_null(Auth::user()->match))
                         <p class="lookingp">{{ Auth::user()->match->looking_for }}</p>
                         <p class="lookingp">Age : {{ Auth::user()->match->from_age }} yr - {{ Auth::user()->match->to_age }}yr</p>
@@ -152,7 +152,7 @@
                             @csrf
                             <textarea name="desc" id="profiledescinput" class="form-control" style="display: none;" placeholder="Write a short description about yourself!">{{ $profileDetails->desc ?? '' }}</textarea>
                             <div id="save-container" class="w-100" style="display: none;">
-                                <div class="d-flex justify-content-end align-items-center column-gap-3 mt-4" >
+                                <div class="d-flex justify-content-start align-items-center column-gap-3 mt-2" >
                                     <button type="submit" id="save-info1" class="profilecancelbtnn2 m-0">Save</button>
                                 </div>
                             </div>
@@ -169,7 +169,7 @@
                         <p class="profile-title">Personal information <a href="javascript:void(0);" id="edit-info" class="mx-3 edit-infos">Change <i class="fa-solid fa-pen "></i></a></p>
                         <div class="">
                             <p class="bold">Appearance</p>
-                            <div class="d-flex align-items-center column-gap-2 mt-3">
+                            <div class="d-flex align-items-center flex-wrap column-gap-2 mt-3">
                                 <div class="w-25">
                                     <label for="">Height</label>
                                     <select name="height" class="form-control" disabled>
@@ -208,7 +208,7 @@
                                 </div>
                                 <span>kg</span>
                             </div>
-                            <div class="d-flex align-items-center column-gap-3 p-0 m-0 mt-4">
+                            <div class="d-flex align-items-center flex-wrap column-gap-3 row-gap-3 p-0 m-0 mt-4">
                                 <div class="w-30 p-0">
                                     <label for="">Body Type</label>
                                     <select name="body_type" class="form-control" disabled>
@@ -249,7 +249,7 @@
 
                             <hr class="my-4">
                             <p class="bold">Education</p>
-                            <div class="d-flex align-items-center column-gap-3 p-0 m-0 mt-4">
+                            <div class="d-flex align-items-center flex-wrap column-gap-3 row-gap-3 p-0 m-0 mt-4">
                                 <div class="w-30 p-0">
                                     <label for="">Educational Level</label>
                                     <select name="education" id="" class="form-control" disabled>
@@ -274,7 +274,7 @@
                             </div>
                             <hr class="my-4">
                             <p class="bold">Work</p>
-                            <div class="d-flex align-items-center column-gap-3 p-0 m-0 mt-4">
+                            <div class="d-flex align-items-center flex-wrap column-gap-3 row-gap-3 p-0 m-0 mt-4">
                                 <div class="w-30 p-0">
                                     <label for="">Profession</label>
                                     <select name="profession" class="form-control" disabled>
@@ -406,11 +406,11 @@
                     <button type="button" class="btn-close position-absolute closeprofilepop" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <div class="col-6 mb-3">
+                <div class="col-md-6 mb-3">
                   <label for="inputData" class="form-label">Name</label>
                   <input type="text" class="form-control" name="name" id="inputData" value="{{ Auth::user()->name }}">
                 </div>
-                <div class="col-6 mb-3">
+                <div class="col-md-6 mb-3">
                   <label for="inputData" class="form-label">Bio</label>
                   <input type="text" class="form-control" name="bio" id="inputData" @if(Auth::user()->profile->bio) value="{{  Auth::user()->profile->bio }}" @else placeholder="Write a short bio !" @endif >
                 </div>

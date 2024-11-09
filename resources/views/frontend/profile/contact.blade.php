@@ -24,20 +24,24 @@
             <div class="detailsBox">
                 <div class="statsBox">
                     <div class="statsBoxDiv">
-                        <div class="w-100">
+                        <div class="w-100 ">
                             <form id="save-profile-dp">
                                 @csrf
                                 <h3 class="text-white mb-4">
                                     Update Your Contact Informations
                                 </h3>
                                 <div class="row mb-3">
-                                    <div class="col-12 mb-3">
+                                    <div class="col-12 m-0 p-0 mb-3">
                                         <label class="text-white mb-2">Email</label>
                                         <input type="email" name="email" class="form-control bg-transparent text-white"  id="" value="{{ Auth::user()->email }}" disabled>
                                     </div>
-                                    <div class="col-12 ">
+                                    <div class="col-12 m-0 p-0">
                                         <label class="text-white mb-2">Phone Number</label>
-                                        <input type="number" name="number" class="form-control" id="" value="{{ Auth::user()->number ?? 'Add Your Phone Number !' }}">
+                                        <div class="d-flex align-items-center column-gap-1">
+                                            <span style="background: white; padding: 6px 8px; border-radius: 5px;"> +880 </span>
+                                            <input type="number" name="number" class="form-control" id="" value="{{ Auth::user()->number ?? 'Add Your Phone Number !' }}">
+                                        </div>
+                                        
                                     </div>
                                 </div>
                                 <div class="mb-3">

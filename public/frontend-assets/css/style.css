@@ -819,7 +819,7 @@ input[type="checkbox"]{
     top: 13%;
     right: 10px;
     background-color: transparent;
-    z-index: 9999999999999;
+    z-index: 999;
 }
 .signInForm .input-group-text {
     display: flex;
@@ -3509,6 +3509,7 @@ a{
     height: 100%;
     left: 0;
     top: 0;
+    z-index: 999999999999999999999 !important;
 }
 .matriloadingscreendiv{
     display: flex;
@@ -3516,8 +3517,9 @@ a{
     align-items: center;
     width: 100%;
     height: 100vh;
-    /* background-color: #f43662; */
+    /* background-color: white; */
     backdrop-filter: blur(5px);
+    z-index: 999999999999999999999 !important;
 }
 .matriloadingscreendiv .spinner-border{
     color: #f43662 !important;
@@ -3573,7 +3575,67 @@ a{
     grid-auto-flow: row !important;
     grid-auto-columns: auto !important;
 }
+.rhombus2 {
+    margin: 40px 0 0 60px;
+    /*background: #fcfcfc;*/
+    margin: auto;
+    margin-top: 100px;
+    border-radius: 10px;
+    height: 75px;
+    width: 75px;
+    margin-bottom: 10px;
+    float: center;
+    animation-delay: 0.9s;
+    animation-duration: 0.8s;
+    animation-name: pump;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: cubic-bezier(.26,-0.53,.57,2.32);
+}
 
+.rhombus2:before {
+    content: "";
+    position: absolute;
+    background: #f43662;
+    height: 40px;
+    width: 40px;
+    z-index: 0;
+    margin-top: 15px;
+    margin-left: 15px;
+    transform: rotate(45deg);
+}
+
+.rhombus2 .circle21 {
+    content: "";
+    position: absolute;
+    background: #f43662;
+    height: 40px;
+    width: 40px;
+    z-index: 1;
+    border-radius: 50%;
+    /*animation-direction: alternate;*/
+}
+
+.rhombus2 .circle22 {
+    content: "";
+    position: absolute;
+    background: #f43662;
+    height: 40px;
+    width: 40px;
+    z-index: 1;
+    margin-left: 30px;
+    border-radius: 50%;
+    /*animation-direction: alternate;*/
+}
+
+@keyframes pump {
+    0%{
+        transform: scale(1);
+    }
+    100%{
+        transform: scale(1.1);
+    }
+}
 
 
 
@@ -3718,7 +3780,7 @@ a{
         opacity: 1;
         top: 75px;
         transition: all 0.2s ease-out;
-        background: #ffcad5;
+        background: white;
       }
       .profileGrid {
         grid-template-columns: 1fr; /* 1 item per row on mobile */
@@ -4214,6 +4276,135 @@ a{
         display: block;
         padding: 4px 8px;
     }
+    .profileDetailsDiv .menus{
+        display: none;
+    }
+    .profileDetailsDiv .detailsBox {
+        width: 100%;
+    }
+    .profileDetailsDiv .statsBoxDiv{
+        flex-direction: column;
+    }
+    .profileDetailsDiv .statsBoxDiv .image {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .profileDetailsDiv .statsBoxDiv .w-70{
+        width: 100% !important;
+    }
+    .profileDetailsDiv .statsBoxDiv .profilestats{
+         padding: 0px;
+         row-gap: 0px;
+    }
+    .profiles-biopic div:first-child,.profiles-biopic div:last-child{
+        width: 50% !important;
+    }
+    .imageDrop{
+        width: 100%;
+        height: 230px;
+    }
+    .profileDetailsDiv .statsBoxDiv .image img{
+        width: 100%;
+        height: 230px;
+    }
+    .profile-allImages .image-label i{
+        margin-top: 10px;
+    }
+    .profilecancelbtnn2 {
+        float: left !important;
+    }
+    .profile-lookingfor .profile-title .toggle-contact-visibility{
+        margin-right: 0px !important;
+        margin-left: 0 !important;
+    }
+    .edit-infos{
+        font-size: 14px;
+    }
+    .edit-infos.active {
+        padding: 5px 12px;
+        font-size: 12px;
+        margin-right: 0px !important;
+    }
+    .profile-personal .w-30{
+        width: 47% !important;
+    }
+    .profiles-mathc-form-div .col-5{
+        width: 47% !important;
+    }
+    .profiles-mathc-form-div .w-30{
+        width: 47% !important;
+    }
+    .profilecancelbtnn3{
+        float: left !important;
+        margin-top: 20px !important;
+    }
+    .profiles-pass-form-div .form-container{
+        padding-left: 0px !important;
+        margin-left: 0px !important;
+    }
+    .profiles-pass-form-div .profilecancelbtnn3{
+        width: 40% !important;
+    }
+    .profileview .detailsBox .w-75{
+        width: 100% !important;
+        margin-top: 20px;
+    }
+    .profileview .detailsBox .w-25{
+        width: 100% !important;
+    }
+    .mobile-infos-resize{
+        flex-wrap: wrap;
+    }
+    .mobile-infos-resize .w-33{
+        width: 100% !important;
+        row-gap: 15px !important;
+        margin-bottom: 15px;
+    }
+    .matches-prop-div{
+
+    }
+    .matches-prop-img{
+        margin-top: 0px !important;
+    }
+    .matches-prop-infos{
+        margin-top: 0px !important;
+    }
+    .profileview .detailsBox  .matches-prop-img .w-25{
+        width: 25% !important;
+    }
+    .profileview .detailsBox  .matches-prop-img .w-25 img{
+        width: 55px;
+        height: 55px;
+    }
+    .profileview .detailsBox  .matches-prop-img .w-25 p{
+        text-align: center;
+        font-size: 10px;
+    }
+    .profileview .detailsBox  .matches-prop-img .w-50 p{
+        font-size: 9px;
+    }
+    .profileview .detailsBox  .matches-prop-img .w-25 .lookingp1{
+        font-size: 10px;
+        padding: 3px 5px;
+    }
+    .profileview .detailsBox .matches-prop-infos .w-25{
+        width: 25% !important;
+    }
+    .profileview .detailsBox .matches-prop-infos .w-75{
+        width: 75% !important;
+        margin-top: 0px !important;
+    }
+    .profileview .detailsBox .matches-prop-infos .w-75 .lookingp2.px-3{
+        padding-left: 0px !important;
+    }
+    .mobile-filter .col-4{
+        width: 100% !important;
+    }
+    .statsBoxDiv.mobile-filter{
+        padding: 30px 10px !important;
+    }
+
 }
 
 

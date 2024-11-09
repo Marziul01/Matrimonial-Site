@@ -18,7 +18,7 @@
          </div>
       </div>
       <div class="collapse" id="collapseExample">
-         <div class="statsBoxDiv card card-body">
+         <div class="statsBoxDiv card card-body mobile-filter">
             <form method="GET" action="{{ route('user.matches') }}" class="row">
                <!-- Near Me -->
                <div class="matchradiosdiv col-12 mb-3">
@@ -28,7 +28,7 @@
                   </div>
                </div>
                <!-- Age -->
-               <div class="col-6 mb-3">
+               <div class="col-md-6 mb-3">
                   <label class="text-white">Age</label>
                   <div class="d-flex align-items-center column-gap-2 mt-2">
                      <div class="w-50">
@@ -51,7 +51,7 @@
                   </div>
                </div>
                <!-- Height -->
-               <div class="mb-3 col-6">
+               <div class="mb-3 col-md-6">
                   <label class="text-white">Height</label>
                   <div class="d-flex align-items-center column-gap-2 mt-2">
                       <div class="w-50">
@@ -128,7 +128,7 @@
                        <option value="No" class="text-black" {{ request('smoking_match') === 'No' ? 'selected' : '' }}>No</option>
                    </select>
                </div>
-               <div>
+               <div class="d-flex align-items-center column-gap-2">
                 <button class="profilecancelbtnn3" type="submit">Filter</button>
                 <button class="profilecancelbtnn3" type="reset" onclick="resetFilters()">Reset</button>
                </div>

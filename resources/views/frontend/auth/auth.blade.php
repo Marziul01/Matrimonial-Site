@@ -77,7 +77,7 @@
 
                 // Serialize form data
                 let formData = $(this).serialize();
-
+                $('#loadingScreen').show();
                 // Perform AJAX request
                 $.ajax({
                     url: '{{ route("user.login") }}',
@@ -85,6 +85,7 @@
                     data: formData,
                     dataType: 'json',
                     success: function (response) {
+                        $('#loadingScreen').hide();
                         if (response.success) {
                             // Show success message
                             toastr.success(response.message || 'Login Successful! Redirecting...');
@@ -99,6 +100,7 @@
                         }
                     },
                     error: function (xhr) {
+                        $('#loadingScreen').hide();
                         if (xhr.status === 422) {
                             // Handle validation errors
                             let errors = xhr.responseJSON.errors;
