@@ -7,6 +7,18 @@ FAQ
 @section('content')
 
 <div class="container-fluid">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap CSS -->
+    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+    {{-- <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> --}}
+
+    <!-- Bootstrap Icon Picker CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-iconpicker/1.10.0/css/bootstrap-iconpicker.min.css">
+
     @include('admin.auth.message')
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -21,7 +33,7 @@ FAQ
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary mb-3">All FAQs</h6>
-            <a class="btn btn-primary text-white" data-toggle="modal" data-target="#AddNew" data-whatever="@getbootstrap">Add New</a>
+            <a href=" {{ route('admin.faq.create') }} " class="btn btn-primary text-white">Add New</a>
         </div>
         <div class="card-body">
 
@@ -46,7 +58,7 @@ FAQ
                             <td>{{ $faq->ans }}</td>
                             <td>
                                 <div class="d-flex justify-content-start align-items-center" style="column-gap: 10px">
-                                    <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#EditCategoryModal_{{ $faq->id }}"><i class="bi bi-pen-fill"></i> Edit</a>
+                                    <a class="btn btn-sm btn-primary" href="{{ route('admin.faq.edit', $faq->id) }}"><i class="bi bi-pen-fill"></i> Edit</a>
                                             <form action="{{ route('adminfaqDestroy', $faq->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this faq?');">
                                                 @csrf
 
@@ -68,38 +80,6 @@ FAQ
         </div>
     </div>
 
-
-    <div class="modal fade" id="AddNew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add New Faq</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="{{ route('adminfaqStore') }}" method="post" enctype="multipart/form-data">
-                    @csrf
-                        <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="">Faq Icon  <a href="https://fontawesome.com/search" target="_blank">( Get From FontAwesome )</a>   </label>
-                                    <input type="text" class="form-control" name="icon" id="recipient-name" placeholder="Faq Icon (Get from FontAwesome )">
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Faq Question </label>
-                                    <input type="text" class="form-control" name="ques" id="recipient-name" placeholder="Faq Question ">
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Faq Answer</label>
-                                    <textarea name="ans" id="" cols="30" rows="10" class="form-control" placeholder="Faq Answer"> </textarea>
-                                </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Confirm</button>
-                        </div>
-                </form>
-            </div>
-        </div>
-        </div>
 
         {{--    Edit Category Model--}}
         @if(isset($faq))
@@ -135,6 +115,31 @@ FAQ
          </div>
         @endforeach
         @endif
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <!-- Bootstrap Icon Picker JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-iconpicker/1.10.0/js/bootstrap-iconpicker.bundle.min.js"></script>
 
+    <script>
+        $(document).ready(function() {
+            // Override Bootstrap's focus enforcement
+            $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+
+            // Initialize icon picker when modal is shown
+            $('#AddNew').on('shown.bs.modal', function () {
+                $('#iconPicker').iconpicker({
+                    searchText: "Search icon...",
+                    iconset: 'fontawesome5',
+                    hideOnSelect: true,
+                    showFooter: true,
+                });
+            });
+
+            // Destroy icon picker instance on modal hide to avoid reinitialization conflicts
+            $('#AddNew').on('hidden.bs.modal', function () {
+                $('#iconPicker').iconpicker('destroy');
+            });
+        });
+    </script>
 @endsection

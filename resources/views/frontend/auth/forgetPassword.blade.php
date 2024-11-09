@@ -83,19 +83,23 @@
     // Handle email verification form
     $('#forgot-password-form').on('submit', function(e) {
         e.preventDefault();
+        $('#loadingScreen').show();
         $.ajax({
             url: '{{ route("password.verifyEmail") }}',
             type: 'POST',
             data: $(this).serialize(),
             success: function(response) {
+                $('#loadingScreen').hide();
                 if (response.success) {
                     $('#forgot-password-form').hide();
                     $('#code-verification-form').show();
+                    toastr.success(response.message);
                 } else {
                     toastr.error(response.message);
                 }
             },
             error: function() {
+                $('#loadingScreen').hide();
                 toastr.error('An unexpected error occurred.');
             }
         });
@@ -117,6 +121,7 @@
                     // Set the email and code values in the hidden inputs
                     $('#reset-password-form input[name="prevemail"]').val(response.email);
                     $('#reset-password-form input[name="prevcode"]').val(response.code);
+                    toastr.success(response.message);
                 } else {
                     toastr.error(response.message);
                 }
@@ -131,7 +136,7 @@
     $('#reset-password-form').on('submit', function(e) {
         e.preventDefault();
         $.ajax({
-            url: '{{ route("password.reset") }}',
+            url: '{{ route("password.recovery") }}',
             type: 'POST',
             data: $(this).serialize(),
             success: function(response) {
@@ -140,6 +145,7 @@
                     setTimeout(function() {
                         window.location.href = response.redirect;
                     }, 2000); // Redirect after 2 seconds
+    
                 } else {
                     toastr.error(response.message);
                 }

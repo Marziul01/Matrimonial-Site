@@ -91,6 +91,18 @@ class SiteSettingController extends Controller
         ]);
     }
 
+    public static function createfaq(){
+        return view('admin.sitesettings.createfaq',[
+            'faqs' => FaqSetting::all(),
+        ]);
+    }
+
+    public static function editfaq($id){
+        return view('admin.sitesettings.editfaq',[
+            'faq' => FaqSetting::find($id),
+        ]);
+    }
+
     public static function admintestimonialStore(Request $request) {
 
         $validator = Validator::make($request->all(), [
@@ -216,7 +228,7 @@ class SiteSettingController extends Controller
         $home->ans = $request->ans;
 
         $home->save();
-        return back()->with('success', ' Faq created Successfully');
+        return redirect()->route('admin.faq.manage')->with('success', ' Faq created Successfully');
     }
 
     public static function adminfaqupdate(Request $request, $id) {
@@ -239,7 +251,7 @@ class SiteSettingController extends Controller
         $home->ans = $request->ans;
 
         $home->save();
-        return back()->with('success', ' Faq created Successfully');
+        return redirect()->route('admin.faq.manage')->with('success', ' Faq created Successfully');
     }
 
     public static function adminfaqDestroy(Request $request, $id) {

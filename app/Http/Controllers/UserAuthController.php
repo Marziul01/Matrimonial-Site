@@ -136,55 +136,55 @@ class UserAuthController extends Controller
     }
 
     public function signin(Request $request){
-    if (Auth::check()) {
-        // Redirect to the user dashboard if logged in
-        return response()->json([
-            'success' => true,
-            'redirect' => route('user.dashboard')
-        ]);
-    }
-
-    $validator = Validator::make($request->all(), [
-        'email' => 'required',
-        'password' => 'required',
-    ]);
-
-    if ($validator->fails()) {
-        return response()->json([
-            'success' => false,
-            'errors' => $validator->errors()
-        ], 422);
-    }
-
-    // Attempt to login using number and password
-    if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-
-        // Check if the user has a profile
-        $profile = Auth::user()->profile;  // Assuming `profile` is a hasOne/belongsTo relation
-
-        if ($profile) {
-            // Check if the profile is blocked (status == 2)
-            if ($profile->status == 2) {
-                Auth::logout();  // Log out the user if the profile is blocked
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Your profile has been blocked.'
-                ], 401);
-            }
+        if (Auth::check()) {
+            // Redirect to the user dashboard if logged in
+            return response()->json([
+                'success' => true,
+                'redirect' => route('user.dashboard')
+            ]);
         }
 
-        return response()->json([
-            'success' => true,
-            'redirect' => route('user.dashboard')
+        $validator = Validator::make($request->all(), [
+            'email' => 'required',
+            'password' => 'required',
         ]);
-    } else {
-        // Invalid credentials
-        return response()->json([
-            'success' => false,
-            'message' => 'Invalid email or password.'
-        ], 401);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        // Attempt to login using number and password
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+
+            // Check if the user has a profile
+            $profile = Auth::user()->profile;  // Assuming `profile` is a hasOne/belongsTo relation
+
+            if ($profile) {
+                // Check if the profile is blocked (status == 2)
+                if ($profile->status == 2) {
+                    Auth::logout();  // Log out the user if the profile is blocked
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Your profile has been blocked.'
+                    ], 401);
+                }
+            }
+
+            return response()->json([
+                'success' => true,
+                'redirect' => route('user.dashboard')
+            ]);
+        } else {
+            // Invalid credentials
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid email or password.'
+            ], 401);
+        }
     }
-}
 
 
 
@@ -285,31 +285,31 @@ class UserAuthController extends Controller
     }
 
     public function verifyEmail(Request $request)
-{
-    $request->validate(['email' => 'required|email']);
+    {
+        $request->validate(['email' => 'required|email']);
 
-    $user = User::where('email', $request->email)->first();
-    if (!$user) {
-        return response()->json(['success' => false, 'message' => 'Email not found.']);
+        $user = User::where('email', $request->email)->first();
+        if (!$user) {
+            return response()->json(['success' => false, 'message' => 'Email not found.']);
+        }
+
+        // Generate 6-digit verification code
+        $code = rand(100000, 999999);
+
+        // Store the code in session (or use a database to store temporary codes)
+        Session::put('password_reset_code', $code);
+        Session::put('password_reset_email', $user->email);
+
+        try {
+            // Send the code via email
+            Mail::to($user->email)->send(new PasswordResetCodeMail($code));
+        } catch (\Exception $e) {
+            Log::error('Failed to send password reset email: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => 'Failed to send email. Please try again later.']);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Verification code sent to your email.']);
     }
-
-    // Generate 6-digit verification code
-    $code = rand(100000, 999999);
-
-    // Store the code in session (or use a database to store temporary codes)
-    Session::put('password_reset_code', $code);
-    Session::put('password_reset_email', $user->email);
-
-    try {
-        // Send the code via email
-        Mail::to($user->email)->send(new PasswordResetCodeMail($code));
-    } catch (\Exception $e) {
-        Log::error('Failed to send password reset email: ' . $e->getMessage());
-        return response()->json(['success' => false, 'message' => 'Failed to send email. Please try again later.']);
-    }
-
-    return response()->json(['success' => true, 'message' => 'Verification code sent to your email.']);
-}
 
     // Step 2: Verify the code
     public function verifyCode(Request $request)
@@ -324,7 +324,8 @@ class UserAuthController extends Controller
         return response()->json([
             'success' => true,
             'email' => $storedEmail,
-            'code' => $storedCode
+            'code' => $storedCode,
+            'message' => 'Code Verified',
         ]);
     } else {
         return response()->json(['success' => false, 'message' => 'Invalid code.']);

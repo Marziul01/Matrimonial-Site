@@ -23,14 +23,14 @@
                         <h4 class="mb-0">Messages</h4>
                     </div>
                     <div class="px-4 h-100">
-                        <div class="d-flex align-items-start h-100 w-100">
+                        <div class="d-flex align-items-start h-100 w-100 admin-support-navs-width">
                             <div class="nav flex-column nav-pills me-3 w-25 h-100" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                 @if (isset($messages))
                                     @foreach($messages as $users)
                                     <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile_{{ $users->id }}" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h4 class="name">{{ $users->name }}</h4>
-                                            <p class="mb-0 text-sm text-bold">{{ $users->created_at->diffForHumans() }}</p>
+                                            <p class="mb-0 text-primary text-sm text-bold">{{ $users->created_at->diffForHumans() }}</p>
                                         </div>
                                         <p class="email">{{ $users->email }}</p>
                                         <p class="mesage">{{ \Illuminate\Support\Str::words($users->message, 5, '...') }}</p>
@@ -44,7 +44,7 @@
                                 <div class="tab-pane fade h-100" id="v-pills-profile_{{ $users->id }}" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                                     <div class="d-flex flex-column justify-content-between h-100">
                                         <div>
-                                            <div class="w-100 row p-2" style="border: 1px solid grey; border-radius: 10px; display: grid; grid-template-columns: repeat(2, 1fr);">
+                                            <div class="w-100 row p-2 messages-reply" style="border: 1px solid grey; border-radius: 10px; display: grid; grid-template-columns: repeat(2, 1fr);">
                                                 <h4>Name: {{ $users->name }}</h4>
                                                 {{-- <p>Department : {{ $users->department }}</p> --}}
                                                 <p>Email: {{ $users->email }}</p>
@@ -61,7 +61,7 @@
                                             <input type="hidden" value="{{ $users->name }}" name="name" >
                                             <input type="hidden" value="{{ $users->email }}" name="email" >
                                             <textarea name="reply" class="form-control w-90" placeholder="Reply.."></textarea>
-                                            <button type="submit" class="btn btn-success">Send</button>
+                                            <button type="submit" class="btn btn-primary">Send</button>
                                         </form>
                                     </div>
                                 </div>

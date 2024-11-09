@@ -27,7 +27,7 @@
             <div class="row faqTexts">
                 @foreach ($faqs as $faq )
                 <div class="col-md-4">
-                    <div>{!! $faq->icon !!}</div>
+                    <div><i class="{{ $faq->icon }}"></i></div>
                     <h3>{{$faq->ques}}</h3>
                     <p>{{$faq->ans}}</p>
                 </div>

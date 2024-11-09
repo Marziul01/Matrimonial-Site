@@ -27,7 +27,7 @@
                                         <textarea name="desc" id="" class="form-control" cols="30" rows="10">{{ $about->desc }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6 mt-3">
                                     <div>
                                         <h4 class="">Section One</h4>
                                         <textarea name="desc2" id="" class="form-control"  cols="30" rows="10">{{ $about->desc2 }}</textarea>

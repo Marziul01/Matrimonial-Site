@@ -154,6 +154,8 @@ Route::group(['prefix' => 'admin'],function(){
         Route::get('admin/site/Settings/testimonials',[SiteSettingController::class,'testimonials'])->name('testimonialsedit');
         Route::get('admin/site/Settings/about',[SiteSettingController::class,'about'])->name('admin.about.manage');
         Route::get('admin/site/Settings/faq',[SiteSettingController::class,'faq'])->name('admin.faq.manage');
+        Route::get('admin/site/Settings/createfaq',[SiteSettingController::class,'createfaq'])->name('admin.faq.create');
+        Route::get('admin/site/Settings/edit/faq/{id}',[SiteSettingController::class,'editfaq'])->name('admin.faq.edit');
         Route::post('admin/testimonial/Destroy/{id}',[SiteSettingController::class,'admintestimonialDestroy'])->name('admintestimonialDestroy');
         Route::post('admin/testimonial/Store',[SiteSettingController::class,'admintestimonialStore'])->name('admintestimonialStore');
         Route::post('admin/testimonial/update/{id}',[SiteSettingController::class,'admintestimonialupdate'])->name('admintestimonialupdate');

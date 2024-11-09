@@ -22,12 +22,15 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary mb-3">User Profile Details</h6>
                 <div class="search-bar mb-4">
-                    <form id="searchForm" class=" d-flex align-items-center justify-content-between column-gap-2">
+                    <form id="searchForm" class=" d-flex align-items-center justify-content-between column-gap-2 users-search-forms">
                         @csrf
-                        <input type="text" name="email" id="emailInput" placeholder="Search by email" class="form-control" />
-                        <input type="number" name="phone" id="phoneInput" placeholder="Search by phone number" class="form-control" />
-                        <button type="submit" class="btn btn-primary">Search</button>
-                        <button type="button" id="resetButton" class="btn btn-secondary">Reset</button>
+                        <input type="number" name="phone" id="phoneInput" placeholder="Enter User Phone No." class="form-control" />
+                        <input type="text" name="email" id="emailInput" placeholder="Enter User Mail Address" class="form-control" />
+                        <div class="d-flex align-items-center justify-content-between div2">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                            <button type="button" id="resetButton" class="btn btn-secondary" style="background: red">Reset</button>
+                        </div>
+                        
                     </form>
                 </div>
             </div>
@@ -183,7 +186,7 @@
                 // Update the content of searchedUserCard with the user's information
                 searchedUserCard.innerHTML = `
                     <div class="card w-33">
-                        <div class="card-header">
+                        <div class="card-header admin-searched-user-img">
                             <img src="${data.user.profile.image ? assetBaseUrl + data.user.profile.image : assetBaseUrl + 'default_image_path.jpg'}" width="14%">
                         </div>
                         <div class="card-body">
