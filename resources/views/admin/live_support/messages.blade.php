@@ -25,7 +25,7 @@
                     <div class="px-4 h-100">
                         <div class="d-flex align-items-start h-100 w-100 admin-support-navs-width">
                             <div class="nav flex-column nav-pills me-3 w-25 h-100" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                @if (!is_null($messages))
+                                @if ($messages->isNotEmpty())
                                     @foreach($messages as $users)
                                     <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile_{{ $users->id }}" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                                         <div class="d-flex justify-content-between align-items-center">
@@ -41,7 +41,7 @@
                                 @endif
                             </div>
                             <div class="tab-content h-100 w-75" id="v-pills-tabContent">
-                                @if ( !is_null($messages))
+                                @if ($messages->isNotEmpty())
                                 @foreach($messages as $users)
                                 <div class="tab-pane fade h-100" id="v-pills-profile_{{ $users->id }}" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                                     <div class="d-flex flex-column justify-content-between h-100">
